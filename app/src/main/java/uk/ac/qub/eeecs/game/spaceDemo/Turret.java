@@ -7,6 +7,7 @@ import uk.ac.qub.eeecs.gage.engine.particle.ParticleSystemManager;
 import uk.ac.qub.eeecs.gage.util.MathsHelper;
 import uk.ac.qub.eeecs.gage.util.Vector2;
 import uk.ac.qub.eeecs.gage.world.Sprite;
+import java.util.Random;
 
 /**
  * AI controlled turret.
@@ -45,7 +46,10 @@ public class Turret extends SpaceEntity {
         maxVelocity = 0.0f;
         maxAngularVelocity = 50.0f;
         maxAngularAcceleration = 50.0f;
-        mBitmap = gameScreen.getGame().getAssetManager().getBitmap("Turret");
+
+        //just selects form two turret images at random
+        Random random = new Random();
+        mBitmap = gameScreen.getGame().getAssetManager().getBitmap(random.nextBoolean() ? "Turret" : "Turret2");
 
         mRadius = DEFAULT_RADIUS;
         mMass = 10000.0f;

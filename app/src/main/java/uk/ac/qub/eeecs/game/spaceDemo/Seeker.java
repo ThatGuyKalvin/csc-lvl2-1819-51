@@ -6,6 +6,7 @@ import uk.ac.qub.eeecs.gage.engine.particle.ParticleSystemManager;
 import uk.ac.qub.eeecs.gage.util.MathsHelper;
 import uk.ac.qub.eeecs.gage.util.SteeringBehaviours;
 import uk.ac.qub.eeecs.gage.util.Vector2;
+import java.util.Random;
 
 /**
  * AI controlled spaceship that will seek towards the player.
@@ -22,7 +23,7 @@ public class Seeker extends SpaceEntity {
     // /////////////////////////////////////////////////////////////////////////
 
     /**
-     * Default size for the Seeker
+     * Default size for the Seeker this test
      */
     private static final float DEFAULT_RADIUS = 20;
 
@@ -49,6 +50,8 @@ public class Seeker extends SpaceEntity {
     private Vector2 movementEmitterOffset;
     private Vector2 movementEmitterLocation;
 
+    private static int seekerSize = seekerSizeGenerator();
+
     // /////////////////////////////////////////////////////////////////////////
     // Constructors
     // /////////////////////////////////////////////////////////////////////////
@@ -61,7 +64,7 @@ public class Seeker extends SpaceEntity {
      * @param gameScreen    Gamescreen to which AI belongs
      */
     public Seeker(float startX, float startY, SpaceshipDemoScreen gameScreen) {
-        super(startX, startY, DEFAULT_RADIUS*2.0f, DEFAULT_RADIUS*2.0f, null, gameScreen);
+        super(startX, startY, seekerSizeGenerator(), seekerSize, null, gameScreen);
 
         // Define movement variables for the seeker
         maxAcceleration = 30.0f;
@@ -72,8 +75,11 @@ public class Seeker extends SpaceEntity {
         mRadius = DEFAULT_RADIUS;
         mMass = 10.0f;
 
+        //selects a random seeker image
+        String seekerImage = randomSeekerImage();
+
         // Define the appearance of the seeker
-        mBitmap = gameScreen.getGame().getAssetManager().getBitmap("Spaceship2");
+        mBitmap = gameScreen.getGame().getAssetManager().getBitmap(seekerImage);
 
         // Create an offset for the movement emitter based on the size of the spaceship
         movementEmitterOffset = new Vector2(-DEFAULT_RADIUS, 0.0f);
@@ -81,10 +87,11 @@ public class Seeker extends SpaceEntity {
         movementEmitterLocation.add(movementEmitterOffset);
 
         // Create and add a particle effect for the movement of the ship
+        Random random = new Random();
         ParticleSystemManager particleSystemManager =
                 ((SpaceshipDemoScreen) mGameScreen).getParticleSystemManager();
         movementEmitter = new Emitter(
-                particleSystemManager, "txt/particle/ThrusterEmitter.JSON",
+                particleSystemManager, random.nextBoolean() ? "txt/particle/ThrusterEmitter.JSON" : "txt/particle/ThrusterEmitter2.JSON",
                 movementEmitterLocation);
         particleSystemManager.addEmitter(movementEmitter);
     }
@@ -92,6 +99,44 @@ public class Seeker extends SpaceEntity {
     // /////////////////////////////////////////////////////////////////////////
     // Methods
     // /////////////////////////////////////////////////////////////////////////
+
+    /**
+     * generates a random size (using the seeker size method) and returns it to the super
+     * sets the integer 'seekerSize' to the same value as to maintain the aspect ratio.
+    */
+
+    public static int seekerSizeGenerator(){
+        seekerSize = randomSeekerSize(15,45);
+        return seekerSize;
+    }
+
+    /**
+     * @param min   The minimum size that the seekers should be
+     * @param max   The maximum size that the seekers should be
+     * @return      Just returns a random integer between these values
+     */
+
+    public static int randomSeekerSize(int min, int max) {
+        Random random = new Random();
+        return random.nextInt((max - min) + 1) + min;
+    }
+
+    //uses Random() to select a random image for the seeker.
+    public String randomSeekerImage(){
+        Random random = new Random();
+        int randomSeekerNum = random.nextInt(6);
+        switch (randomSeekerNum){
+            case 1 : return "Spaceship2";
+            case 2: return "Spaceship3";
+            case 3: return "Spaceship4";
+            case 4: return "Spaceship5";
+            case 5: return "Spaceship6";
+            case 6: return "Spaceship7";
+            default: return "Spaceship2";
+        }
+    }
+
+
 
     /**
      * Update the AI Spaceship
@@ -122,8 +167,8 @@ public class Seeker extends SpaceEntity {
         // it with the seek behaviour, placing more emphasis on
         // avoiding a collision.
         if (!mAccAccumulator.isZero()) {
-            acceleration.x = 0.1f * acceleration.x + 0.9f * mAccAccumulator.x;
-            acceleration.y = 0.1f * acceleration.y + 0.9f * mAccAccumulator.y;
+            acceleration.x = 0.1f * acceleration.x + 1.5f * mAccAccumulator.x;
+            acceleration.y = 0.1f * acceleration.y + 1.5f * mAccAccumulator.y;
         }
 
         // Make sure we point in the direction of travel.

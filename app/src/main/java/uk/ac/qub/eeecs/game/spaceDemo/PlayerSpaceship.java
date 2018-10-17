@@ -80,7 +80,7 @@ public class PlayerSpaceship extends SpaceEntity {
         mMovementEmitterLocation = new Vector2(position);
         mMovementEmitterLocation.add(mMovementEmitterOffsetLeft);
         mMovementEmitterLeft = new Emitter(
-                particleSystemManager, "txt/particle/ThrusterEmitter.JSON",
+                particleSystemManager, "txt/particle/PlayerThrusterEmitter.JSON",
                 mMovementEmitterLocation);
         particleSystemManager.addEmitter(mMovementEmitterLeft);
 
@@ -88,7 +88,7 @@ public class PlayerSpaceship extends SpaceEntity {
         mMovementEmitterLocation.set(position);
         mMovementEmitterLocation.add(mMovementEmitterOffsetRight);
         mMovementEmitterRight = new Emitter(
-                particleSystemManager, "txt/particle/ThrusterEmitter.JSON",
+                particleSystemManager, "txt/particle/PlayerThrusterEmitter.JSON",
                 mMovementEmitterLocation);
         particleSystemManager.addEmitter(mMovementEmitterRight);
     }

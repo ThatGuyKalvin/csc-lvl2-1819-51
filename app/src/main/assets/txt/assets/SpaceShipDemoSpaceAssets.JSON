@@ -32,8 +32,38 @@
     },
     {
       "type": "Bitmap",
+      "name": "Spaceship3",
+      "file": "img/Spaceship3.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "Spaceship4",
+      "file": "img/Spaceship4.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "Spaceship5",
+      "file": "img/Spaceship5.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "Spaceship6",
+      "file": "img/Spaceship6.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "Spaceship7",
+      "file": "img/Spaceship7.png"
+    },
+    {
+      "type": "Bitmap",
       "name": "Turret",
       "file": "img/Turret.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "Turret2",
+      "file": "img/Turret2.png"
     },
     {
       "type": "Music",
