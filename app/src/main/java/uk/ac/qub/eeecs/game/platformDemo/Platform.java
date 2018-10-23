@@ -1,5 +1,14 @@
 package uk.ac.qub.eeecs.game.platformDemo;
 
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.LightingColorFilter;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.util.BoundingBox;
@@ -125,8 +134,19 @@ public class Platform extends GameObject {
                     // If the layer tile is visible then draw tne tile
                     if (GraphicsHelper.getClippedSourceAndScreenRect(
                             tileBound, mBitmap, layerViewport, screenViewport, drawSourceRect, drawScreenRect)) {
-                        graphics2D
-                                .drawBitmap(mBitmap, drawSourceRect, drawScreenRect, null);
+
+                        //if(true) {
+
+                        Paint p = new Paint();
+                        ColorFilter filter = new LightingColorFilter(Color.RED, 0);
+                        p.setColorFilter(filter);
+                        graphics2D.drawBitmap(mBitmap, drawSourceRect, drawScreenRect, p);
+
+                        /*}
+                        else {
+                            graphics2D
+                                    .drawBitmap(mBitmap, drawSourceRect, drawScreenRect, null);
+                        }*/
                     }
                 }
         }
