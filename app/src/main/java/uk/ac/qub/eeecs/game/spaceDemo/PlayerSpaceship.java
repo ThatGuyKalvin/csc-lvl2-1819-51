@@ -1,5 +1,6 @@
 package uk.ac.qub.eeecs.game.spaceDemo;
 
+import uk.ac.qub.eeecs.gage.engine.audio.AudioManager;
 import uk.ac.qub.eeecs.gage.util.SteeringBehaviours;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.particle.Emitter;
@@ -80,7 +81,7 @@ public class PlayerSpaceship extends SpaceEntity {
         mMovementEmitterLocation = new Vector2(position);
         mMovementEmitterLocation.add(mMovementEmitterOffsetLeft);
         mMovementEmitterLeft = new Emitter(
-                particleSystemManager, "txt/particle/ThrusterEmitter.JSON",
+                particleSystemManager, "txt/particle/PlayerThrusterEmitter.JSON",
                 mMovementEmitterLocation);
         particleSystemManager.addEmitter(mMovementEmitterLeft);
 
@@ -88,7 +89,7 @@ public class PlayerSpaceship extends SpaceEntity {
         mMovementEmitterLocation.set(position);
         mMovementEmitterLocation.add(mMovementEmitterOffsetRight);
         mMovementEmitterRight = new Emitter(
-                particleSystemManager, "txt/particle/ThrusterEmitter.JSON",
+                particleSystemManager, "txt/particle/PlayerThrusterEmitter.JSON",
                 mMovementEmitterLocation);
         particleSystemManager.addEmitter(mMovementEmitterRight);
     }
@@ -107,6 +108,9 @@ public class PlayerSpaceship extends SpaceEntity {
 
         //  Consider movement requests
         if (movementThumbstick.isTouched()) {
+
+            // Calling sound method
+            playSpaceshipSound();
             // Apply an input acceleration
             acceleration.x = movementThumbstick.getXMagnitude() * maxAcceleration;
             acceleration.y = movementThumbstick.getYMagnitude() * maxAcceleration;
@@ -138,5 +142,13 @@ public class PlayerSpaceship extends SpaceEntity {
         mMovementEmitterLeft.getEmitterSettings().maxParticleDensity = (int) (1.2f * velocity.length());
         mMovementEmitterRight.getEmitterSettings().minParticleDensity = (int) velocity.length();
         mMovementEmitterRight.getEmitterSettings().maxParticleDensity = (int) (1.2f * velocity.length());
+    }
+
+    // Sound method for when spacehip is moving
+    private void playSpaceshipSound() {
+        AudioManager audioManager = getGameScreen().getGame().getAudioManager();
+        if(!audioManager.isMusicPlaying())
+            audioManager.playMusic(
+                    getGameScreen().getGame().getAssetManager().getMusic("SpaceshipMovingSound"));
     }
 }
