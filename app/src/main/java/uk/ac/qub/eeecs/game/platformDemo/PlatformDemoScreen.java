@@ -120,12 +120,51 @@ public class PlatformDemoScreen extends GameScreen {
         float platformWidth = 70, platformHeight = 70, platformX, platformY = platformHeight;
         for (int idx = 0; idx < numPlatforms; idx++) {
             platformX = platformOffset;
-            if(random.nextFloat() > 0.33f)
-                platformY = (random.nextFloat() * (LEVEL_HEIGHT - platformHeight));
-            mPlatforms.add(new Platform( platformX, platformY, platformWidth, platformHeight,
-                    "Platform", this));
-            platformOffset += (random.nextFloat() > 0.5f ?
-                    platformWidth : platformWidth + random.nextFloat()*platformWidth);
+            switch (random.nextInt(3) + 1) {
+                case 1: {
+                    platformWidth = 70;
+                    platformHeight = 70;
+                    if (random.nextFloat() > 0.33f)
+                        platformY = (random.nextFloat() * (LEVEL_HEIGHT - platformHeight));
+                    mPlatforms.add(new Platform(platformX, platformY, platformWidth, platformHeight,
+                            "Platform", this));
+                    platformOffset += (random.nextFloat() > 0.5f ?
+                            platformWidth : platformWidth + random.nextFloat() * platformWidth);
+                }
+                break;
+                case 2: {
+                    platformWidth = 140;
+                    platformHeight = 35;
+                    if (random.nextFloat() > 0.33f)
+                        platformY = (random.nextFloat() * (LEVEL_HEIGHT - platformHeight));
+                    mPlatforms.add(new Platform(platformX, platformY, platformWidth, platformHeight,
+                            "Platform2", this));
+                    platformOffset += (random.nextFloat() > 0.5f ?
+                            platformWidth : platformWidth + random.nextFloat() * platformWidth);
+                }
+                break;
+                case 3: {
+                    platformWidth = 35;
+                    platformHeight = 70;
+                    if (random.nextFloat() > 0.33f)
+                        platformY = (random.nextFloat() * (LEVEL_HEIGHT - platformHeight));
+                    mPlatforms.add(new Platform(platformX, platformY, platformWidth, platformHeight,
+                            "Platform3", this));
+                    platformOffset += (random.nextFloat() > 0.5f ?
+                            platformWidth : platformWidth + random.nextFloat() * platformWidth);
+
+                }
+                break;
+                default: {
+                    if (random.nextFloat() > 0.33f)
+                        platformY = (random.nextFloat() * (LEVEL_HEIGHT - platformHeight));
+                    mPlatforms.add(new Platform(platformX, platformY, platformWidth, platformHeight,
+                            "Platform", this));
+                    platformOffset += (random.nextFloat() > 0.5f ?
+                            platformWidth : platformWidth + random.nextFloat() * platformWidth);
+                }
+                break;
+            }
         }
     }
 
