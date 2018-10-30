@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.game.cardDemo;
+package uk.ac.qub.eeecs.game.BoardDemoGame;
 
 import android.graphics.Color;
 
@@ -13,7 +13,7 @@ import uk.ac.qub.eeecs.gage.world.GameScreen;
  *
  * @version 1.0
  */
-public class CardDemoScreen extends GameScreen {
+public class BoardDemoScreen extends GameScreen {
 
     // /////////////////////////////////////////////////////////////////////////
     // Constructors
@@ -24,7 +24,7 @@ public class CardDemoScreen extends GameScreen {
      *
      * @param game Game to which this screen belongs
      */
-    public CardDemoScreen(Game game) {
+    public BoardDemoScreen(Game game) {
         super("CardScreen", game);
     }
 
