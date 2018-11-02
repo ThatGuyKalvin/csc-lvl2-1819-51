@@ -35,6 +35,7 @@ public class MenuScreen extends GameScreen {
     private PushButton mPlatformDemoButton;
     private PushButton mCardDemoButton;
     private PushButton mDemosButton;
+    private float mTimeToChange = 0;
 
     // /////////////////////////////////////////////////////////////////////////
     // Constructors
@@ -98,7 +99,7 @@ public class MenuScreen extends GameScreen {
         Input input = mGame.getInput();
 
         List<TouchEvent> touchEvents = input.getTouchEvents();
-        if (touchEvents.size() > 0) {
+        if (touchEvents.size() > 0 && mTimeToChange > 0.5f) {
 
             // Update each button and transition if needed
             mSpaceshipDemoButton.update(elapsedTime);
@@ -115,6 +116,8 @@ public class MenuScreen extends GameScreen {
             else if (mDemosButton.isPushTriggered())
                 mGame.getScreenManager().addScreen(new DemoMenuScreen(mGame));
         }
+
+        mTimeToChange += elapsedTime.stepTime;
     }
 
     /**

@@ -42,28 +42,28 @@ public class DemoGame extends Game {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
         // Create and add a stub game screen to the screen manager. We don't
-        // want to do this within the onCreate method as the menu screen
+        // want to do this within the onCreate method as the Splash screen
         // will layout the buttons based on the size of the view.
-        MenuScreen stubMenuScreen = new MenuScreen(this);
-        mScreenManager.addScreen(stubMenuScreen);
+        SplashScreen stubSplashScreen = new SplashScreen(this);
+        mScreenManager.addScreen(stubSplashScreen);
 
         return view;
     }
 
     @Override
     public boolean onBackPressed() {
-        // If we are already at the menu screen then exit
-        if (mScreenManager.getCurrentScreen().getName().equals("MenuScreen"))
+        // If we are already at the Splash screen then exit
+        if (mScreenManager.getCurrentScreen().getName().equals("SplashScreen"))
             return false;
 
         // Stop any playing music
         if(mAudioManager.isMusicPlaying())
             mAudioManager.stopMusic();
 
-        // Go back to the menu screen
+        // Go back to the Splash screen
         getScreenManager().removeAllScreens();
-        MenuScreen menuScreen = new MenuScreen(this);
-        getScreenManager().addScreen(menuScreen);
+        SplashScreen splashScreen = new SplashScreen(this);
+        getScreenManager().addScreen(splashScreen);
         return true;
     }
 }
