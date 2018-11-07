@@ -107,6 +107,7 @@ public class MenuScreen extends GameScreen {
             mPlatformDemoButton.update(elapsedTime);
             mDemosButton.update(elapsedTime);
 
+
             if (mSpaceshipDemoButton.isPushTriggered())
                 mGame.getScreenManager().addScreen(new SpaceshipDemoScreen(mGame));
             else if (mCardDemoButton.isPushTriggered())

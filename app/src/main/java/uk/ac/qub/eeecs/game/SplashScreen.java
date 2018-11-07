@@ -1,6 +1,8 @@
 package uk.ac.qub.eeecs.game;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Rect;
 
 import java.util.List;
 
@@ -11,6 +13,7 @@ import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
+import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.game.BoardDemoGame.BoardDemoScreen;
 import uk.ac.qub.eeecs.game.miscDemos.DemoMenuScreen;
@@ -29,6 +32,7 @@ public class SplashScreen extends GameScreen {
     // /////////////////////////////////////////////////////////////////////////
 
     private float mTimeToChange = 0;
+    private Bitmap LoadingSymbol;
     // /////////////////////////////////////////////////////////////////////////
     // Constructors
     // /////////////////////////////////////////////////////////////////////////
@@ -43,6 +47,13 @@ public class SplashScreen extends GameScreen {
 
         // Load in the bitmaps used on the main menu screen
         AssetManager assetManager = mGame.getAssetManager();
+
+        assetManager.loadAssets(
+                "txt/assets/AssetDemoScreenAssets.JSON");
+
+        assetManager.loadAndAddBitmap("Loading", "img/Loading.png");
+
+        LoadingSymbol = assetManager.getBitmap("Loading");
 
         // Define the spacing that will be used to position the buttons
         int spacingX = (int)mDefaultLayerViewport.getWidth() / 5;
@@ -67,7 +78,6 @@ public class SplashScreen extends GameScreen {
         List<TouchEvent> touchEvents = input.getTouchEvents();
         if (touchEvents.size() > 0) {
             mTimeToChange = 5f;
-
         }
 
         mTimeToChange += elapsedTime.stepTime;
@@ -89,5 +99,12 @@ public class SplashScreen extends GameScreen {
         // Clear the screen and draw the buttons
         graphics2D.clear(Color.CYAN);
 
+        int width = graphics2D.getSurfaceWidth();
+        int height = graphics2D.getSurfaceHeight();
+
+        Rect sourceRect = new Rect(0, 0 , LoadingSymbol.getWidth(), LoadingSymbol.getHeight());
+        Rect destRect = new Rect((int) (width * 0.30f), (int) (height * 0.30f), (int) (width * 0.65f), (int) (height * 0.65f));
+
+        graphics2D.drawBitmap(LoadingSymbol, sourceRect, destRect, null);
     }
 }

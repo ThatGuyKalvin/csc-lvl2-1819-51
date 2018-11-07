@@ -98,7 +98,7 @@ public class AssetDemoScreen extends GameScreen {
         assetManager.loadAndAddFont(
                 "AudiowideFont", "font/Audiowide.ttf");
 
-        // Load in two more bitmaps that are speciied within a JSON file
+        // Load in two more bitmaps that are specified within a JSON file
 
         assetManager.loadAssets(
                 "txt/assets/AssetDemoScreenAssets.JSON");
