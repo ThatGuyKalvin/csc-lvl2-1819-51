@@ -31,7 +31,7 @@ public class DemoGame extends Game {
         super.onCreate(savedInstanceState);
 
         // Go with a default 20 UPS/FPS
-        setTargetFramesPerSecond(20);
+        setTargetFramesPerSecond(30); // Story P4 - changed from 20 to 30
     }
 
     @Override

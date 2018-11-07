@@ -34,7 +34,8 @@ public class MenuScreen extends GameScreen {
     private PushButton mSpaceshipDemoButton;
     private PushButton mPlatformDemoButton;
     private PushButton mCardDemoButton;
-    private PushButton mDemosButton;
+    private PushButton mOptionsScreenButton;
+    private PushButton mPerformanceScreenButton;
     private float mTimeToChange = 0;
 
     // /////////////////////////////////////////////////////////////////////////
@@ -57,8 +58,10 @@ public class MenuScreen extends GameScreen {
         assetManager.loadAndAddBitmap("CardDemoIconSelected", "img/CardDemoIconSelected.png");
         assetManager.loadAndAddBitmap("PlatformDemoIcon", "img/PlatformDemoIcon.png");
         assetManager.loadAndAddBitmap("PlatformDemoIconSelected", "img/PlatformDemoIconSelected.png");
-        assetManager.loadAndAddBitmap("DemosIcon", "img/DemosIcon.png");
-        assetManager.loadAndAddBitmap("DemosIconSelected", "img/DemosIconSelected.png");
+        assetManager.loadAndAddBitmap("OptionsScreenButton", "img/OptionsScreenButton.png");
+        assetManager.loadAndAddBitmap("OptionsScreenButtonSelected", "img/OptionsScreenButtonSelected.png");
+        assetManager.loadAndAddBitmap("PerformanceScreenIcon", "img/PerformanceScreenIcon.png");
+        assetManager.loadAndAddBitmap("PerformanceScreenIconSelected", "img/PerformanceScreenIconSelected.png");
 
         // Define the spacing that will be used to position the buttons
         int spacingX = (int)mDefaultLayerViewport.getWidth() / 5;
@@ -77,10 +80,14 @@ public class MenuScreen extends GameScreen {
                 spacingX * 3.17f, spacingY * 1.5f, spacingX, spacingY,
                 "CardDemoIcon", "CardDemoIconSelected", this);
         mCardDemoButton.setPlaySounds(true, true);
-        mDemosButton = new PushButton(
+        mOptionsScreenButton = new PushButton(
                 spacingX * 4.50f, spacingY * 1.5f, spacingX, spacingY,
-                "DemosIcon", "DemosIconSelected", this);
-        mDemosButton.setPlaySounds(true, true);
+                "OptionsScreenButton", "OptionsScreenButtonSelected", this);
+        mOptionsScreenButton.setPlaySounds(true, true);
+        mPerformanceScreenButton = new PushButton(
+                spacingX * 4.5f, spacingY * 0.5f, spacingX, spacingY,
+                "PerformanceScreenIcon", "PerformanceScreenIconSelected", this);
+        mPerformanceScreenButton.setPlaySounds(true, true);
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -105,7 +112,9 @@ public class MenuScreen extends GameScreen {
             mSpaceshipDemoButton.update(elapsedTime);
             mCardDemoButton.update(elapsedTime);
             mPlatformDemoButton.update(elapsedTime);
-            mDemosButton.update(elapsedTime);
+            mOptionsScreenButton.update(elapsedTime);
+            mPerformanceScreenButton.update(elapsedTime);
+
 
 
             if (mSpaceshipDemoButton.isPushTriggered())
@@ -114,8 +123,10 @@ public class MenuScreen extends GameScreen {
                 mGame.getScreenManager().addScreen(new BoardDemoScreen(mGame));
             else if (mPlatformDemoButton.isPushTriggered())
                 mGame.getScreenManager().addScreen(new PlatformDemoScreen(mGame));
-            else if (mDemosButton.isPushTriggered())
-                mGame.getScreenManager().addScreen(new DemoMenuScreen(mGame));
+            else if (mOptionsScreenButton.isPushTriggered())
+                mGame.getScreenManager().addScreen(new VolumeScreen(mGame));
+            else if (mPerformanceScreenButton.isPushTriggered())
+                mGame.getScreenManager().addScreen(new PerformanceScreen("PerformanceScreen", mGame));
         }
 
         mTimeToChange += elapsedTime.stepTime;
@@ -135,7 +146,8 @@ public class MenuScreen extends GameScreen {
 
         mSpaceshipDemoButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         mPlatformDemoButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
-        mDemosButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         mCardDemoButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        mOptionsScreenButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        mPerformanceScreenButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
     }
 }
