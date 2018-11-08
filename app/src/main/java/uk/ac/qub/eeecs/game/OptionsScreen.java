@@ -32,6 +32,7 @@ public class OptionsScreen extends GameScreen {
      * Define the buttons for playing the 'games'
      */
     private PushButton mOptionsScreenButton;
+    private PushButton mReturnToMenuButtton;
     private float mTimeToChange = 0;
 
     // /////////////////////////////////////////////////////////////////////////
@@ -50,6 +51,8 @@ public class OptionsScreen extends GameScreen {
         AssetManager assetManager = mGame.getAssetManager();
         assetManager.loadAndAddBitmap("VolumeButton", "img/VolumeButton.png");
         assetManager.loadAndAddBitmap("VolumeButtonSelected", "img/VolumeButtonSelected.png");
+        assetManager.loadAndAddBitmap("BackArrow2", "img/BackArrow2.png");
+        assetManager.loadAndAddBitmap("BackArrow2", "img/BackArrow2.png");
 
         // Define the spacing that will be used to position the buttons
         int spacingX = (int)mDefaultLayerViewport.getWidth() / 5;
@@ -60,6 +63,15 @@ public class OptionsScreen extends GameScreen {
                 spacingX * 4.50f, spacingY * 1.5f, spacingX, spacingY,
                 "OptionsScreenButton", "OptionsScreenButtonSelected", this);
         mOptionsScreenButton.setPlaySounds(true, true);
+
+
+        mReturnToMenuButtton = new PushButton(
+                mDefaultLayerViewport.getWidth() * 0.95f,
+                mDefaultLayerViewport.getHeight() * 0.10f,
+                mDefaultLayerViewport.getWidth() * 0.075f,
+                mDefaultLayerViewport.getHeight() * 0.10f,
+                "BackArrow2", "BackArrow2", this);
+        mReturnToMenuButtton.setPlaySounds(true, true);
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -83,9 +95,12 @@ public class OptionsScreen extends GameScreen {
             // Update each button and transition if needed
 
             mOptionsScreenButton.update(elapsedTime);
+            mReturnToMenuButtton.update(elapsedTime);
 
             if (mOptionsScreenButton.isPushTriggered())
                 mGame.getScreenManager().addScreen(new OptionsScreen(mGame));
+            if (mReturnToMenuButtton.isPushTriggered())
+                mGame.getScreenManager().removeScreen(this);
         }
 
         mTimeToChange += elapsedTime.stepTime;
@@ -106,6 +121,7 @@ public class OptionsScreen extends GameScreen {
 
 
         mOptionsScreenButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        mReturnToMenuButtton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
 
     }
 }
