@@ -1,0 +1,14 @@
+{
+  "assets": [
+    {
+      "type": "Bitmap",
+      "name": "SplashScreenBackground",
+      "file": "img/splashScreen/splashScreenBackground.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "Loading",
+      "file": "img/splashScreen/Loading.png"
+    }
+    ]
+}
