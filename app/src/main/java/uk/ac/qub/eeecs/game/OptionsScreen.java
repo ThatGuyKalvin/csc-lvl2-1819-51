@@ -12,10 +12,6 @@ import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
-import uk.ac.qub.eeecs.game.BoardDemoGame.BoardDemoScreen;
-import uk.ac.qub.eeecs.game.miscDemos.DemoMenuScreen;
-import uk.ac.qub.eeecs.game.platformDemo.PlatformDemoScreen;
-import uk.ac.qub.eeecs.game.spaceDemo.SpaceshipDemoScreen;
 
 /**
  * An exceedingly basic menu screen with a couple of touch buttons
@@ -32,7 +28,7 @@ public class OptionsScreen extends GameScreen {
      * Define the buttons for playing the 'games'
      */
     private PushButton mOptionsScreenButton;
-    private PushButton mReturnToMenuButtton;
+    private PushButton mReturnToMenuButton;
     private float mTimeToChange = 0;
 
     // /////////////////////////////////////////////////////////////////////////
@@ -65,13 +61,13 @@ public class OptionsScreen extends GameScreen {
         mOptionsScreenButton.setPlaySounds(true, true);
 
 
-        mReturnToMenuButtton = new PushButton(
+        mReturnToMenuButton = new PushButton(
                 mDefaultLayerViewport.getWidth() * 0.95f,
                 mDefaultLayerViewport.getHeight() * 0.10f,
                 mDefaultLayerViewport.getWidth() * 0.075f,
                 mDefaultLayerViewport.getHeight() * 0.10f,
                 "BackArrow2", "BackArrow2", this);
-        mReturnToMenuButtton.setPlaySounds(true, true);
+        mReturnToMenuButton.setPlaySounds(true, true);
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -95,11 +91,11 @@ public class OptionsScreen extends GameScreen {
             // Update each button and transition if needed
 
             mOptionsScreenButton.update(elapsedTime);
-            mReturnToMenuButtton.update(elapsedTime);
+            mReturnToMenuButton.update(elapsedTime);
 
             if (mOptionsScreenButton.isPushTriggered())
                 mGame.getScreenManager().addScreen(new OptionsScreen(mGame));
-            if (mReturnToMenuButtton.isPushTriggered())
+            if (mReturnToMenuButton.isPushTriggered())
                 mGame.getScreenManager().removeScreen(this);
         }
 
@@ -121,7 +117,7 @@ public class OptionsScreen extends GameScreen {
 
 
         mOptionsScreenButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
-        mReturnToMenuButtton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        mReturnToMenuButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
 
     }
 }
