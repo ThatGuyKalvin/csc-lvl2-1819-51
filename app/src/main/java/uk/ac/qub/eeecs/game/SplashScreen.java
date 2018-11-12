@@ -12,6 +12,7 @@ import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
+import uk.ac.qub.eeecs.gage.ui.Bar;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
@@ -33,6 +34,7 @@ public class SplashScreen extends GameScreen {
 
     private float mTimeToChange = 0;
     private Bitmap LoadingSymbol;
+    private Bar SplashBar;
     // /////////////////////////////////////////////////////////////////////////
     // Constructors
     // /////////////////////////////////////////////////////////////////////////
@@ -55,15 +57,23 @@ public class SplashScreen extends GameScreen {
 
         LoadingSymbol = assetManager.getBitmap("Loading");
 
-        // Define the spacing that will be used to position the buttons
-        int spacingX = (int)mDefaultLayerViewport.getWidth() / 5;
-        int spacingY = (int)mDefaultLayerViewport.getHeight() / 3;
+        splashBar();
     }
 
     // /////////////////////////////////////////////////////////////////////////
     // Methods
     // /////////////////////////////////////////////////////////////////////////
+        public void splashBar()
+        {
+            AssetManager assetManager = mGame.getAssetManager();
+            assetManager.loadAndAddBitmap("","");
 
+            SplashBar = new Bar(30.0f, 30.0f, 30.0f, 30.0f, 
+                    getGame().getAssetManager().getBitmap(""), 
+                    Bar.Orientation.Horizontal, 100, 0, 1.0f, this);
+            
+            SplashBar.forceValue(0);
+        }
     /**
      * Update the menu screen
      *
@@ -84,6 +94,12 @@ public class SplashScreen extends GameScreen {
         if (mTimeToChange >= 5.0f) {
             mGame.getScreenManager().addScreen(new MenuScreen(mGame));
         }
+
+        SplashBar.setValue(Math.round(
+                SplashBar.getMaxValue() * (mTimeToChange / 5)));
+
+        // Update the bar's displayed value
+        SplashBar.update(elapsedTime);
 
     }
 
@@ -106,5 +122,7 @@ public class SplashScreen extends GameScreen {
         Rect destRect = new Rect((int) (width * 0.30f), (int) (height * 0.30f), (int) (width * 0.65f), (int) (height * 0.65f));
 
         graphics2D.drawBitmap(LoadingSymbol, sourceRect, destRect, null);
+
+        SplashBar.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
     }
 }
