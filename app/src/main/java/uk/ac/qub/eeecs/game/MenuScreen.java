@@ -85,7 +85,7 @@ public class MenuScreen extends GameScreen {
                 "OptionsScreenButton", "OptionsScreenButtonSelected", this);
         mOptionsScreenButton.setPlaySounds(true, true);
         mPerformanceScreenButton = new PushButton(
-                spacingX * 4.5f, spacingY * 0.5f, spacingX, spacingY,
+                spacingX * 4.5f, spacingY * 0.5f, spacingX/2, spacingY/2,
                 "PerformanceScreenIcon", "PerformanceScreenIconSelected", this);
         mPerformanceScreenButton.setPlaySounds(true, true);
     }
