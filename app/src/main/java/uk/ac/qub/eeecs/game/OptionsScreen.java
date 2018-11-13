@@ -1,6 +1,8 @@
 package uk.ac.qub.eeecs.game;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Rect;
 
 import java.util.List;
 
@@ -29,6 +31,7 @@ public class OptionsScreen extends GameScreen {
      */
     private PushButton mOptionsScreenButton;
     private PushButton mReturnToMenuButton;
+    private Bitmap Optionsbackground;
     private float mTimeToChange = 0;
 
     // /////////////////////////////////////////////////////////////////////////
@@ -49,6 +52,10 @@ public class OptionsScreen extends GameScreen {
         assetManager.loadAndAddBitmap("VolumeButtonSelected", "img/VolumeButtonSelected.png");
         assetManager.loadAndAddBitmap("BackArrow2", "img/BackArrow2.png");
         assetManager.loadAndAddBitmap("BackArrow2", "img/BackArrow2.png");
+        assetManager.loadAndAddBitmap("OptionScreenBackground", "img/OptionScreenBackground.png");
+
+
+        Optionsbackground = assetManager.getBitmap("OptionScreenBackground");
 
         // Define the spacing that will be used to position the buttons
         int spacingX = (int)mDefaultLayerViewport.getWidth() / 5;
@@ -114,10 +121,17 @@ public class OptionsScreen extends GameScreen {
 
         // Clear the screen and draw the buttons
         graphics2D.clear(Color.WHITE);
+        int width = graphics2D.getSurfaceWidth();
+        int height = graphics2D.getSurfaceHeight();
+
 
 
         mOptionsScreenButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         mReturnToMenuButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+
+        Rect sourceRectBackg = new Rect(0,0, Optionsbackground.getWidth(), Optionsbackground.getHeight());
+        Rect destRectBackg = new Rect((int) (width * 0.0f), (int) (height * 0.0f), (int) (width * 1.0f), (int) (height * 1.0f));
+        graphics2D.drawBitmap(Optionsbackground, sourceRectBackg, destRectBackg, null);
 
     }
 }
