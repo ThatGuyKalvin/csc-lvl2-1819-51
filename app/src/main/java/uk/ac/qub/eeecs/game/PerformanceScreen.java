@@ -121,8 +121,8 @@ public class PerformanceScreen extends GameScreen {
         float aspectRatio = screenHeight / screenWidth;
         mGameLayerViewport = new LayerViewport(
                 WORLD_WIDTH / 2.0f, WORLD_HEIGHT / 2.0f,
-                FOCUSED_VIEWPORT_WIDTH / 2.0f,
-                aspectRatio * FOCUSED_VIEWPORT_WIDTH / 2.0f);
+                FOCUSED_VIEWPORT_WIDTH,
+                aspectRatio * FOCUSED_VIEWPORT_WIDTH);
 
         // The game screen viewport is simply sized to take over all of the drawable
         // space on the screen.
