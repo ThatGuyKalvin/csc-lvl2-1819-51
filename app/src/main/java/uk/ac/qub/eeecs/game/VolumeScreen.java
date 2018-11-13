@@ -32,6 +32,7 @@ public class VolumeScreen extends GameScreen {
      * Define the buttons for playing the 'games'
      */
     private PushButton mVolumeScreenButton;
+    private PushButton mReturnToMenuButtton;
     private float mTimeToChange = 0;
 
 
@@ -51,6 +52,8 @@ public class VolumeScreen extends GameScreen {
         AssetManager assetManager = mGame.getAssetManager();
         assetManager.loadAndAddBitmap("VolumeButton", "img/VolumeButton.png");
         assetManager.loadAndAddBitmap("VolumeButtonSelected", "img/VolumeButtonSelected.png");
+        assetManager.loadAndAddBitmap("BackArrow", "img/BackArrow.png");
+        assetManager.loadAndAddBitmap("BackArrowSelected", "img/BackArrowSelected.png");
 
         // Define the spacing that will be used to position the buttons
         int spacingX = (int)mDefaultLayerViewport.getWidth() / 5;
@@ -61,6 +64,11 @@ public class VolumeScreen extends GameScreen {
                 spacingX * 4.50f, spacingY * 1.5f, spacingX, spacingY,
                 "VolumeButton", "VolumeButtonSelected", this);
         mVolumeScreenButton.setPlaySounds(true, true);
+
+        mReturnToMenuButtton = new PushButton(
+                spacingX * 0.75f, spacingY * 0.75f, spacingX, spacingY,
+                "BackArrow", "BackArrowSelected", this);
+        mReturnToMenuButtton.setPlaySounds(true, true);
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -83,10 +91,12 @@ public class VolumeScreen extends GameScreen {
 
             // Update each button and transition if needed
             mVolumeScreenButton.update(elapsedTime);
-
+            mReturnToMenuButtton.update(elapsedTime);
 
            if (mVolumeScreenButton.isPushTriggered())
                 mGame.getScreenManager().addScreen(new VolumeScreen(mGame));
+           else if (mReturnToMenuButtton.isPushTriggered())
+                mGame.getScreenManager().removeScreen(this);
         }
 
         mTimeToChange += elapsedTime.stepTime;
@@ -105,6 +115,6 @@ public class VolumeScreen extends GameScreen {
         graphics2D.clear(Color.WHITE);
 
         mVolumeScreenButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
-
+        mReturnToMenuButtton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
     }
 }
