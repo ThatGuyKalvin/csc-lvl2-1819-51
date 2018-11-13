@@ -62,8 +62,8 @@ public class DemoGame extends Game {
 
         // Go back to the Splash screen
         getScreenManager().removeAllScreens();
-        SplashScreen splashScreen = new SplashScreen(this);
-        getScreenManager().addScreen(splashScreen);
+        MenuScreen menuScreen = new MenuScreen(this);
+        getScreenManager().addScreen(menuScreen);
         return true;
     }
 }
