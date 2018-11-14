@@ -33,6 +33,28 @@ public class AssetManagerTest {
         boolean success = assetManager.loadAndAddBitmap(
                 "OptionScreenBackground", "img/OptionScreenBackground.png");
         assertTrue(success);
+
+    }
+
+
+    @Test
+    public void loadAndAddBitmap_ValidData_TestIsSuccessful2(){
+
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "OptionsScreenButton", "img/OptionsScreenButton.png");
+        assertTrue(success);
+
+    }
+
+    @Test
+    public void loadAndAddBitmap_ValidData_TestIsSuccessful3(){
+
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "VolumeButton", "img/VolumeButton.png");
+        assertTrue(success);
+
     }
 
 
