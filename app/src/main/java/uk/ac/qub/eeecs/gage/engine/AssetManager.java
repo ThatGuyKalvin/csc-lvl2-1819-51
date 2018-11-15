@@ -1,5 +1,6 @@
 package uk.ac.qub.eeecs.gage.engine;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 
@@ -82,6 +83,19 @@ public class AssetManager {
         // Store the game and get it's File IO
         mGame = game;
         mFileIO = mGame.getFileIO();
+
+        // Build hash maps for each asset
+        mBitmaps = new HashMap<>();
+        mMusic = new HashMap<>();
+        mSounds = new HashMap<>();
+        mFonts = new HashMap<>();
+        mAnimations = new HashMap<>();
+    }
+
+    public AssetManager(Context context) {
+        // Store the game and get it's File IO
+
+        mFileIO = new FileIO(context);
 
         // Build hash maps for each asset
         mBitmaps = new HashMap<>();
