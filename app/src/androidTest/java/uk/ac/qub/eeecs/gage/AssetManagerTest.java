@@ -57,6 +57,36 @@ public class AssetManagerTest {
 
     }
 
+    @Test
+    public void loadAndAddBitmap_ValidData_TestIsSuccessful4(){
+
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "BackButton", "img/BackArrow.png");
+        assertTrue(success);
+
+    }
+
+    @Test
+    public void loadAndAddBitmap_ValidData_TestIsSuccessful5(){
+
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "BackButtonSelected", "img/BackArrowSelected.png");
+        assertTrue(success);
+
+    }
+
+    @Test
+    public void loadAndAddBitmap_ValidData_TestIsSuccessful6(){
+
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "TexturedRectangle", "img/TexturedRectangle.png");
+        assertTrue(success);
+
+    }
+
 
 //    @Test
 //    public void loadAndAddBitmap_InvalidData_TestError(){
