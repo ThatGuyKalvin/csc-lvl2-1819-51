@@ -86,6 +86,24 @@ public class AssetManagerTest {
         assertTrue(success);
 
     }
+    @Test
+    public void loadAndAddBitmap_ValidData_TestIsSuccessful7(){
+
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "PerformanceScreenIcon", "img/PerformanceScreenIcon.png");
+        assertTrue(success);
+
+    }
+    @Test
+    public void loadAndAddBitmap_ValidData_TestIsSuccessful8(){
+
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "PerformanceScreenIconSelected", "img/PerformanceScreenIconSelected.png");
+        assertTrue(success);
+
+    }
 
 
 //    @Test
