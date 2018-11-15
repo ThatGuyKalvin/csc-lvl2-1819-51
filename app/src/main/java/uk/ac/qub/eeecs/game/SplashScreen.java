@@ -12,6 +12,7 @@ import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
+import uk.ac.qub.eeecs.gage.ui.Bar;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 
 /**
@@ -26,11 +27,12 @@ public class SplashScreen extends GameScreen {
     // /////////////////////////////////////////////////////////////////////////
 
     private float mTimeToChange = 0;
-    private Bitmap LoadingSymbol;
     private Bitmap background;
+    private Bar SplashBar;
 
 
-    // /////////////////////////////////////////////////////////////////////////
+    // //////////////////////////////
+    // /////////////////////////////////////////
     // Constructors
     // /////////////////////////////////////////////////////////////////////////
 
@@ -42,6 +44,7 @@ public class SplashScreen extends GameScreen {
     public SplashScreen(Game game) {
         super("SplashScreen", game);
 
+
         // Load in the bitmaps used on the main menu screen
         AssetManager assetManager = mGame.getAssetManager();
 
@@ -49,21 +52,27 @@ public class SplashScreen extends GameScreen {
                 "txt/assets/SplashScreenAssets.JSON");
 
         assetManager.loadAndAddBitmap("SplashScreenBackground", "img/splashScreen/splashScreenBackground.png");
-        assetManager.loadAndAddBitmap("Loading", "img/splashScreen/Loading.png");
 
-
-
-        LoadingSymbol = assetManager.getBitmap("Loading");
         background = assetManager.getBitmap("SplashScreenBackground");
 
-        // Define the spacing that will be used to position the buttons
-        int spacingX = (int)mDefaultLayerViewport.getWidth() / 5;
-        int spacingY = (int)mDefaultLayerViewport.getHeight() / 3;
+        splashBar();
     }
 
     // /////////////////////////////////////////////////////////////////////////
     // Methods
     // /////////////////////////////////////////////////////////////////////////
+
+    public void splashBar()
+    {
+        AssetManager assetManager = mGame.getAssetManager();
+        assetManager.loadAndAddBitmap("splashScreenLoadingBar","img/splashScreen/splashScreenLoadingBar.png");
+
+        SplashBar = new Bar(360.0f, 163.0f,300.0f, 40.0f,
+                getGame().getAssetManager().getBitmap("splashScreenLoadingBar"),
+                Bar.Orientation.Horizontal, 100, 0, 35.0f, this);
+
+        SplashBar.forceValue(0);
+    }
 
     /**
      * Update the menu screen
@@ -86,6 +95,12 @@ public class SplashScreen extends GameScreen {
             mGame.getScreenManager().addScreen(new MenuScreen(mGame));
         }
 
+        SplashBar.setValue(Math.round(
+                SplashBar.getMaxValue() * (mTimeToChange / 5)));
+
+        // Update the bar's displayed value
+        SplashBar.update(elapsedTime);
+
     }
 
     /**
@@ -98,20 +113,16 @@ public class SplashScreen extends GameScreen {
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
 
         // Clear the screen and draw the buttons
-        graphics2D.clear(Color.CYAN);
+        graphics2D.clear(Color.WHITE);
         int width = graphics2D.getSurfaceWidth();
         int height = graphics2D.getSurfaceHeight();
 
+        SplashBar.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
 
         //drawing the background to the screen.
         Rect sourceRectBackg = new Rect(0,0, background.getWidth(), background.getHeight());
         Rect destRectBackg = new Rect((int) (width * 0.0f), (int) (height * 0.0f), (int) (width * 1.0f), (int) (height * 1.0f));
         graphics2D.drawBitmap(background, sourceRectBackg, destRectBackg, null);
-
-        //drawing the "loading" image to the screen.
-        Rect sourceRect = new Rect(0, 0 , LoadingSymbol.getWidth(), LoadingSymbol.getHeight());
-        Rect destRect = new Rect((int) (width * 0.30f), (int) (height * 0.30f), (int) (width * 0.65f), (int) (height * 0.65f));
-        graphics2D.drawBitmap(LoadingSymbol, sourceRect, destRect, null);
 
     }
 }
