@@ -105,6 +105,26 @@ public class AssetManagerTest {
 
     }
 
+    @Test
+    public void loadAndAddBitmap_ValidData_TestIsSuccessful9(){
+
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "GreenPlus", "img/GreenPlus.png");
+        assertTrue(success);
+
+    }
+
+    @Test
+    public void loadAndAddBitmap_ValidData_TestIsSuccessful10(){
+
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "RedMinus", "img/RedMinus.png");
+        assertTrue(success);
+
+    }
+
 
 //    @Test
 //    public void loadAndAddBitmap_InvalidData_TestError(){
