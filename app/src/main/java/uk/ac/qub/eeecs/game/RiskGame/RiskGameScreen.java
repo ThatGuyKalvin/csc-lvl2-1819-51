@@ -28,12 +28,6 @@ public class RiskGameScreen extends GameScreen {
     // Constructors
     // /////////////////////////////////////////////////////////////////////////
 
-    /**
-     * Create the Card game screen
-     *
-     * @param game Game to which this screen belongs
-     */
-
     private final int MAX_AREAS = 10;
     private final int MAX_PLAYERS = 3;
     private Area[] mAreas = new Area[MAX_AREAS];
@@ -136,7 +130,7 @@ public class RiskGameScreen extends GameScreen {
 
     }
 
-    public void createAreas() {
+    private void createAreas() {
         for(int i = 0; i < MAX_AREAS; i++) {
 
             mAreas[i] = new Area();
@@ -145,7 +139,7 @@ public class RiskGameScreen extends GameScreen {
         }
     }
 
-    public void createPlayers() {
+    private void createPlayers() {
         mPlayers[0] = new Player("Microsoft", Color.BLACK);
         mPlayers[1] = new Player("Google", Color.GREEN);
         mPlayers[2] = new Player("Apple", Color.RED);
