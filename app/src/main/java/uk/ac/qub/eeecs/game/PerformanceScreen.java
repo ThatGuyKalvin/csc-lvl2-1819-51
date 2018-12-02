@@ -30,6 +30,8 @@ public class PerformanceScreen extends GameScreen {
      */
 
     private PushButton mReturnToMenuButton;
+    private PushButton mIncreaseSizeButton;
+    private PushButton mDecreaseSizeButton;
     private float mTimeToChange = 0;
 
     /** Define the size of the world within which the game objects will
@@ -85,6 +87,8 @@ public class PerformanceScreen extends GameScreen {
         AssetManager assetManager = mGame.getAssetManager();
         assetManager.loadAndAddBitmap("BackArrow", "img/BackArrow.png");
         assetManager.loadAndAddBitmap("BackArrowSelected", "img/BackArrowSelected.png");
+        assetManager.loadAndAddBitmap("GreenPlus", "img/GreenPlus.png");
+        assetManager.loadAndAddBitmap("RedMinus", "img/RedMinus.png");
         assetManager.loadAndAddBitmap("TexturedRectangle", "img/TexturedRectangle.png");
 
 
@@ -99,6 +103,18 @@ public class PerformanceScreen extends GameScreen {
                 mDefaultLayerViewport.getHeight() * 0.10f,
                 "BackArrow", "BackArrowSelected", this);
         mReturnToMenuButton.setPlaySounds(true, true);
+        mIncreaseSizeButton = new PushButton(
+                mDefaultLayerViewport.getWidth() * 0.10f,
+                mDefaultLayerViewport.getHeight() * 0.10f,
+                mDefaultLayerViewport.getWidth() * 0.075f,
+                mDefaultLayerViewport.getHeight() * 0.10f,
+                "GreenPlus","GreenPlus",  this);
+        mDecreaseSizeButton = new PushButton(
+                mDefaultLayerViewport.getWidth() * 0.20f,
+                mDefaultLayerViewport.getHeight() * 0.10f,
+                mDefaultLayerViewport.getWidth() * 0.075f,
+                mDefaultLayerViewport.getHeight() * 0.10f,
+                "RedMinus","RedMinus",  this);
 
         // Whenever a game screen is created the constructor (called through super(...)
         // will automatically generate two viewports - mDefaultLayerViewport and
@@ -152,9 +168,26 @@ public class PerformanceScreen extends GameScreen {
 
             // Update each button and transition if needed
             mReturnToMenuButton.update(elapsedTime);
-
+            mIncreaseSizeButton.update(elapsedTime);
+            mDecreaseSizeButton.update(elapsedTime);
             if (mReturnToMenuButton.isPushTriggered())
                 mGame.getScreenManager().removeScreen(this);
+            if (mIncreaseSizeButton.isPushTriggered())
+            {
+                for(GameObject platform : mGameObjects)
+                {
+                    platform.setHeight(platform.getHeight() + 1.0f);
+                    platform.setWidth(platform.getWidth() + 1.0f);
+                }
+            }
+            if (mDecreaseSizeButton.isPushTriggered())
+            {
+                for(GameObject platform : mGameObjects)
+                {
+                    platform.setHeight(platform.getHeight() - 1.0f);
+                    platform.setWidth(platform.getWidth() - 1.0f);
+                }
+            }
         }
 
         mTimeToChange += elapsedTime.stepTime;
@@ -182,5 +215,7 @@ public class PerformanceScreen extends GameScreen {
 
 
         mReturnToMenuButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        mIncreaseSizeButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        mDecreaseSizeButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
     }
 }
