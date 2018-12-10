@@ -31,6 +31,7 @@ public class VolumeScreen extends GameScreen {
      */
     private PushButton mVolumeScreenButton;
     private PushButton mReturnToMenuButtton;
+    private PushButton mReturnToPerformanceScreenButton;
     private Bitmap Optionsbackground;
     private float mTimeToChange = 0;
 
@@ -51,8 +52,10 @@ public class VolumeScreen extends GameScreen {
         AssetManager assetManager = mGame.getAssetManager();
         assetManager.loadAndAddBitmap("VolumeButton", "img/VolumeButton.png");
         assetManager.loadAndAddBitmap("VolumeButtonSelected", "img/VolumeButtonSelected.png");
-        assetManager.loadAndAddBitmap("BackArrow", "img/BackArrow.png");
-        assetManager.loadAndAddBitmap("BackArrowSelected", "img/BackArrowSelected.png");
+        assetManager.loadAndAddBitmap("BackArrowMM", "img/BackArrowMainMenu.png");
+        assetManager.loadAndAddBitmap("BackArrowSelectedMM", "img/BackArrowMainMenu.png");
+        assetManager.loadAndAddBitmap("BackArrowPS", "img/BackArrowPerformanceScreen.png");
+        assetManager.loadAndAddBitmap("BackArrowSelectedPS", "img/BackArrowPerformanceScreen.png");
         assetManager.loadAndAddBitmap("OptionScreenBackground", "img/OptionScreenBackground.png");
 
         Optionsbackground = assetManager.getBitmap("OptionScreenBackground");
@@ -68,9 +71,14 @@ public class VolumeScreen extends GameScreen {
         mVolumeScreenButton.setPlaySounds(true, true);
 
         mReturnToMenuButtton = new PushButton(
-                spacingX * 0.75f, spacingY * 0.75f, spacingX, spacingY,
-                "BackArrow", "BackArrowSelected", this);
+                spacingX * 0.75f, spacingY * 0.5f, spacingX, spacingY,
+                "BackArrowMM", "BackArrowSelectedMM", this);
         mReturnToMenuButtton.setPlaySounds(true, true);
+
+        mReturnToPerformanceScreenButton = new PushButton(
+                spacingX * 0.75f, spacingY * 1.5f, spacingX, spacingY,
+                "BackArrowPS", "BackArrowSelectedPS", this);
+        mReturnToPerformanceScreenButton.setPlaySounds(true, true);
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -94,11 +102,14 @@ public class VolumeScreen extends GameScreen {
             // Update each button and transition if needed
             mVolumeScreenButton.update(elapsedTime);
             mReturnToMenuButtton.update(elapsedTime);
+            mReturnToPerformanceScreenButton.update(elapsedTime);
 
            if (mVolumeScreenButton.isPushTriggered())
                 mGame.getScreenManager().addScreen(new VolumeScreen(mGame));
            else if (mReturnToMenuButtton.isPushTriggered())
-                mGame.getScreenManager().removeScreen(this);
+               mGame.getScreenManager().removeScreen(this);
+           else if (mReturnToPerformanceScreenButton.isPushTriggered())
+               mGame.getScreenManager().addScreen(new PerformanceScreen("PerformanceScreen", mGame));
         }
 
         mTimeToChange += elapsedTime.stepTime;
@@ -125,5 +136,6 @@ public class VolumeScreen extends GameScreen {
 
         mVolumeScreenButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         mReturnToMenuButtton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        mReturnToPerformanceScreenButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
     }
 }
