@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.Sprite;
 
+//Field class to use for individual fields within an area and manipulate them
+//Author: Peter Gilfedder
+
 public class Field extends Sprite {
 
     private String FColour;
@@ -72,7 +75,12 @@ public class Field extends Sprite {
         return FCentreY;
     }
 
-
+    public void hostileTakeOver(String Colour, String Association, int numOfTeams)
+    {
+        FColour = Colour;
+        FAssociation = Association;
+        FNumOfTeams = numOfTeams;
+    }
 
 
 
