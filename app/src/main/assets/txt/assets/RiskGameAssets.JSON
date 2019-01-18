@@ -1,0 +1,9 @@
+{
+  "assets": [
+    {
+      "type": "Bitmap",
+      "name": "RiskGameScreen2",
+      "file": "img/RiskGameScreen2.png"
+    }
+    ]
+}
