@@ -62,7 +62,7 @@ public class AssetManagerTest {
 
         AssetManager assetManager = new AssetManager(context);
         boolean success = assetManager.loadAndAddBitmap(
-                "BackButton", "img/BackArrow.png");
+                "BackButtonMM", "img/BackArrowMainMenu.png");
         assertTrue(success);
 
     }
@@ -72,7 +72,7 @@ public class AssetManagerTest {
 
         AssetManager assetManager = new AssetManager(context);
         boolean success = assetManager.loadAndAddBitmap(
-                "BackButtonSelected", "img/BackArrowSelected.png");
+                "BackButtonSelectedMM", "img/BackArrowMainMenu.png");
         assertTrue(success);
 
     }
@@ -121,6 +121,26 @@ public class AssetManagerTest {
         AssetManager assetManager = new AssetManager(context);
         boolean success = assetManager.loadAndAddBitmap(
                 "RedMinus", "img/RedMinus.png");
+        assertTrue(success);
+
+    }
+
+    @Test
+    public void loadAndAddBitmap_ValidData_TestIsSuccessful11(){
+
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "BackButtonPS", "img/BackArrowPerformanceScreen.png");
+        assertTrue(success);
+
+    }
+
+    @Test
+    public void loadAndAddBitmap_ValidData_TestIsSuccessful12(){
+
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "BackArrowSelectedPS", "img/BackArrowPerformanceScreen.png");
         assertTrue(success);
 
     }

@@ -31,6 +31,7 @@ public class OptionsScreen extends GameScreen {
      */
     private PushButton mOptionsScreenButton;
     private PushButton mReturnToMenuButton;
+    private PushButton mReturnToPerformanceScreenButton;
     private Bitmap Optionsbackground;
     private float mTimeToChange = 0;
 
@@ -50,8 +51,10 @@ public class OptionsScreen extends GameScreen {
         AssetManager assetManager = mGame.getAssetManager();
         assetManager.loadAndAddBitmap("VolumeButton", "img/VolumeButton.png");
         assetManager.loadAndAddBitmap("VolumeButtonSelected", "img/VolumeButtonSelected.png");
-        assetManager.loadAndAddBitmap("BackArrow2", "img/BackArrow2.png");
-        assetManager.loadAndAddBitmap("BackArrow2", "img/BackArrow2.png");
+        assetManager.loadAndAddBitmap("BackArrowMM", "img/BackArrowMainMenu.png");
+        assetManager.loadAndAddBitmap("BackArrowMM", "img/BackArrowMainMenu.png");
+        assetManager.loadAndAddBitmap("BackArrowPS", "img/BackArrowPerformanceScreen.png");
+        assetManager.loadAndAddBitmap("BackArrowSelectedPS", "img/BackArrowPerformanceScreen.png");
         assetManager.loadAndAddBitmap("OptionScreenBackground", "img/OptionScreenBackground.png");
 
 
@@ -69,12 +72,14 @@ public class OptionsScreen extends GameScreen {
 
 
         mReturnToMenuButton = new PushButton(
-                mDefaultLayerViewport.getWidth() * 0.95f,
-                mDefaultLayerViewport.getHeight() * 0.10f,
-                mDefaultLayerViewport.getWidth() * 0.075f,
-                mDefaultLayerViewport.getHeight() * 0.10f,
-                "BackArrow2", "BackArrow2", this);
+                spacingX * 0.75f, spacingY * 0.5f, spacingX, spacingY,
+                "BackArrowMM", "BackArrowSelectedMM", this);
         mReturnToMenuButton.setPlaySounds(true, true);
+
+        mReturnToPerformanceScreenButton = new PushButton(
+                spacingX * 0.75f, spacingY * 1.5f, spacingX, spacingY,
+                "BackArrowPS", "BackArrowSelectedPS", this);
+        mReturnToPerformanceScreenButton.setPlaySounds(true, true);
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -99,11 +104,14 @@ public class OptionsScreen extends GameScreen {
 
             mOptionsScreenButton.update(elapsedTime);
             mReturnToMenuButton.update(elapsedTime);
+            mReturnToPerformanceScreenButton.update(elapsedTime);
 
             if (mOptionsScreenButton.isPushTriggered())
                 mGame.getScreenManager().addScreen(new OptionsScreen(mGame));
-            if (mReturnToMenuButton.isPushTriggered())
+            else if (mReturnToMenuButton.isPushTriggered())
                 mGame.getScreenManager().removeScreen(this);
+            else if (mReturnToPerformanceScreenButton.isPushTriggered())
+                mGame.getScreenManager().addScreen(new PerformanceScreen("PerformanceScreen", mGame));
         }
 
         mTimeToChange += elapsedTime.stepTime;
@@ -128,6 +136,7 @@ public class OptionsScreen extends GameScreen {
 
         mOptionsScreenButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         mReturnToMenuButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        mReturnToPerformanceScreenButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
 
         Rect sourceRectBackg = new Rect(0,0, Optionsbackground.getWidth(), Optionsbackground.getHeight());
         Rect destRectBackg = new Rect((int) (width * 0.0f), (int) (height * 0.0f), (int) (width * 1.0f), (int) (height * 1.0f));
