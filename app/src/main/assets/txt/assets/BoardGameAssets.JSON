@@ -1,0 +1,14 @@
+{
+  "assets": [
+    {
+      "type": "Bitmap",
+      "name": "RiskBackground",
+      "file": "img/Risk/RiskBackground.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "Hexagon",
+      "file": "img/Risk/Hexagon.png"
+    }
+    ]
+}
