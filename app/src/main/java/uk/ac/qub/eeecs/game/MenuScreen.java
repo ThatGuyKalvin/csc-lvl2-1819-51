@@ -1,8 +1,13 @@
 package uk.ac.qub.eeecs.game;
 
-import android.graphics.Color;
+import android.graphics.Bitmap;
 
+import android.graphics.Color;
+import android.graphics.Rect;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
@@ -10,12 +15,19 @@ import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
+import uk.ac.qub.eeecs.gage.engine.particle.ParticleSystemManager;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
+import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
+import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.game.RiskGame.RiskGameScreen;
 import uk.ac.qub.eeecs.game.miscDemos.DemoMenuScreen;
 import uk.ac.qub.eeecs.game.platformDemo.PlatformDemoScreen;
+import uk.ac.qub.eeecs.game.spaceDemo.Asteroid;
+import uk.ac.qub.eeecs.game.spaceDemo.PlayerSpaceship;
+import uk.ac.qub.eeecs.game.spaceDemo.Seeker;
 import uk.ac.qub.eeecs.game.spaceDemo.SpaceshipDemoScreen;
+import uk.ac.qub.eeecs.game.spaceDemo.Turret;
 
 /**
  * An exceedingly basic menu screen with a couple of touch buttons
@@ -31,12 +43,20 @@ public class MenuScreen extends GameScreen {
     /**
      * Define the buttons for playing the 'games'
      */
+
+
+
+
     private PushButton mSpaceshipDemoButton;
     private PushButton mPlatformDemoButton;
     private PushButton mCardDemoButton;
     private PushButton mDemosButton;
     private PushButton mOptionsScreenButton;
     private PushButton mPerformanceScreenButton;
+    private Bitmap mMainMenuBackground;
+
+
+
     private float mTimeToChange = 0;
 
     // /////////////////////////////////////////////////////////////////////////
@@ -65,6 +85,14 @@ public class MenuScreen extends GameScreen {
         assetManager.loadAndAddBitmap("PerformanceScreenIconSelected", "img/PerformanceScreenIconSelected.png");
         assetManager.loadAndAddBitmap("DemosIcon", "img/DemosIcon.png");
         assetManager.loadAndAddBitmap("DemosIconSelected", "img/DemosIconSelected.png");
+
+        assetManager.loadAssets(
+                "txt/assets/RiskGameAssets.JSON");
+
+        assetManager.loadAndAddBitmap("RiskMainMenuBackground", "img/RiskMainMenuBackground.png");
+
+        mMainMenuBackground = assetManager.getBitmap("RiskMainMenuBackground");
+
 
         // Define the spacing that will be used to position the buttons
         int spacingX = (int)mDefaultLayerViewport.getWidth() / 5;
@@ -100,6 +128,7 @@ public class MenuScreen extends GameScreen {
     // /////////////////////////////////////////////////////////////////////////
     // Methods
     // /////////////////////////////////////////////////////////////////////////
+
 
     /**
      * Update the menu screen
@@ -153,6 +182,14 @@ public class MenuScreen extends GameScreen {
 
         // Clear the screen and draw the buttons
         graphics2D.clear(Color.WHITE);
+        int width = graphics2D.getSurfaceWidth();
+        int height = graphics2D.getSurfaceHeight();
+
+
+        Rect sourceRectBackg = new Rect(0,0, mMainMenuBackground.getWidth(), mMainMenuBackground.getHeight());
+        Rect destRectBackg = new Rect((int) (width * 0.0f), (int) (height * 0.0f), (int) (width * 1.0f), (int) (height * 1.0f));
+        graphics2D.drawBitmap(mMainMenuBackground, sourceRectBackg, destRectBackg, null);
+
 
         mSpaceshipDemoButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         mPlatformDemoButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
@@ -160,5 +197,7 @@ public class MenuScreen extends GameScreen {
         mDemosButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         mOptionsScreenButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         mPerformanceScreenButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+
+
     }
 }

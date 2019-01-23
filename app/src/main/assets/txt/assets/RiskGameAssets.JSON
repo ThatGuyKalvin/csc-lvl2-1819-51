@@ -3,7 +3,12 @@
     {
       "type": "Bitmap",
       "name": "RiskGameScreen2",
-      "file": "img/RiskGameScreen2.png"
+      "file": "img/RiskGameImages/RiskGameScreen2.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "RiskMainMenuBackground",
+      "file": "img/RiskGameImages/RiskMainMenuBackground.png"
     }
     ]
 }
