@@ -1,8 +1,11 @@
 package uk.ac.qub.eeecs.game.RiskGame;
 
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
+
 import java.util.List;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
@@ -27,6 +30,8 @@ public class RiskGameScreen extends GameScreen {
     // Constructors
     // /////////////////////////////////////////////////////////////////////////
 
+    private Bitmap mRiskGameScreenBackground;
+
     private final int MAX_AREAS = 10;
     private final int MAX_PLAYERS = 3;
     private Area[] mAreas = new Area[MAX_AREAS];
@@ -42,6 +47,15 @@ public class RiskGameScreen extends GameScreen {
         AssetManager assetManager = mGame.getAssetManager();
         assetManager.loadAndAddBitmap("BackArrow", "img/BackArrow.png");
         assetManager.loadAndAddBitmap("BackArrowSelected", "img/BackArrowSelected.png");
+
+        assetManager.loadAssets(
+                "txt/assets/RiskGameAssets.JSON");
+
+        assetManager.loadAndAddBitmap("RiskGameScreen2", "img/RiskGamesImages/RiskGameScreen2.png");
+
+        mRiskGameScreenBackground = assetManager.getBitmap("RiskGameScreen2");
+
+
 
         // Generate Area objects
         createAreas();
@@ -97,10 +111,15 @@ public class RiskGameScreen extends GameScreen {
      */
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
-        graphics2D.clear(Color.WHITE);
 
+        graphics2D.clear(Color.WHITE);
         int screenWidth = graphics2D.getSurfaceWidth();
         int screenHeight = graphics2D.getSurfaceHeight();
+
+        Rect sourceRectBackg = new Rect(0,0, mRiskGameScreenBackground.getWidth(), mRiskGameScreenBackground.getHeight());
+        Rect destRectBackg = new Rect((int) (screenWidth * 0.0f), (int) (screenHeight * 0.0f), (int) (screenWidth * 1.0f), (int) (screenHeight * 1.0f));
+        graphics2D.drawBitmap(mRiskGameScreenBackground, sourceRectBackg, destRectBackg, null);
+
 
         mReturnToMenuButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
 
