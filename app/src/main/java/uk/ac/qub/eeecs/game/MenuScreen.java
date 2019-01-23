@@ -12,6 +12,7 @@ import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
+import uk.ac.qub.eeecs.game.RiskGame.DiceRollScreen;
 import uk.ac.qub.eeecs.game.RiskGame.RiskGameScreen;
 import uk.ac.qub.eeecs.game.miscDemos.DemoMenuScreen;
 import uk.ac.qub.eeecs.game.platformDemo.PlatformDemoScreen;
@@ -126,7 +127,7 @@ public class MenuScreen extends GameScreen {
 
 
             if (mSpaceshipDemoButton.isPushTriggered())
-                mGame.getScreenManager().addScreen(new SpaceshipDemoScreen(mGame));
+                mGame.getScreenManager().addScreen(new DiceRollScreen(mGame));
             else if (mCardDemoButton.isPushTriggered())
                 mGame.getScreenManager().addScreen(new RiskGameScreen(mGame));
             else if (mPlatformDemoButton.isPushTriggered())
