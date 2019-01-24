@@ -39,6 +39,11 @@
       "type": "Bitmap",
       "name": "risk_settings_button_pressed",
       "file": "img/RiskGameImages/risk_settings_button_pressed.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "RiskMainMenuBackground",
+      "file": "img/RiskGameImages/RiskMainMenuBackground.png"
     }
 	
     ]

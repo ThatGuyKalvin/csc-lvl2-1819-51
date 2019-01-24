@@ -89,9 +89,9 @@ public class MenuScreen extends GameScreen {
         assetManager.loadAssets(
                 "txt/assets/RiskGameAssets.JSON");
 
-        assetManager.loadAndAddBitmap("RiskMainMenuBackground", "img/RiskMainMenuBackground.png");
+        assetManager.loadAndAddBitmap("RiskMainMenuScreen", "img/RiskGameImages/RiskMainMenuScreen.png");
 
-        mMainMenuBackground = assetManager.getBitmap("RiskMainMenuBackground");
+        mMainMenuBackground = assetManager.getBitmap("RiskMainMenuScreen");
 
 
         // Define the spacing that will be used to position the buttons
