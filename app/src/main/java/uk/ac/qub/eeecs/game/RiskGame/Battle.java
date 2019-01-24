@@ -34,4 +34,17 @@ public class Battle {
         }
         while (numOfAttArmies!= 0 || numOfDefArmies!=0);
     }
+
+    //getters for the dice class
+    //Philip Murphy
+
+    public String attackersName(){return attPlayer.getName();}
+    public String defendersName(){return defPlayer.getName();}
+
+    public int attackerColour(){return attPlayer.getColour();}
+    public int defenderColour(){return defPlayer.getColour();}
+
+
+
+
 }

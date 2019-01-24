@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-
 import java.util.List;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
@@ -17,6 +16,10 @@ import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.util.ViewportHelper;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
+import uk.ac.qub.eeecs.game.RiskGame.Battle;
+import uk.ac.qub.eeecs.game.RiskGame.RiskGameScreen;
+import uk.ac.qub.eeecs.game.RiskGame.Player;
+import uk.ac.qub.eeecs.game.RiskGame.Area;
 
 /**
  * Starter class for Card game stories
@@ -30,7 +33,6 @@ public class DiceRollScreen extends GameScreen {
     // /////////////////////////////////////////////////////////////////////////
 
     private Bitmap background;
-
     //////Dice Roll//////////
     private int numOfDice =0;
     private int numOfDiceTemp =0;
@@ -43,25 +45,30 @@ public class DiceRollScreen extends GameScreen {
     private PushButton mSelectDiceNum;
     private PushButton mSelectDiceNum2;
     private PushButton mSelectDiceNum3;
+    private PushButton mAbortHack;
+    private PushButton mRollDice;
     //end of dice items
 
     private Paint textPaint = new Paint();
     //the num_of_dice will be set by the player
     private DiceRoll diceRoll = new DiceRoll(numOfDice);
-    private DiceRoll diceRollDef = new DiceRoll(numOfDice);
+
+    //extra detail
+    private String attackersName = "";
+    private int attackersColour = -01000016;
+
+    private String defendersName = "";
+    private int defendersColour = -01000016;
 
 
-    private PushButton mReturnToMenuButton;
-    private PushButton mRollDice;
     private ScreenViewport mGameScreenViewport;
     private float mTimeToChange = 0;
 
     public DiceRollScreen(Game game) {
         super("RiskScreen", game);
         AssetManager assetManager = mGame.getAssetManager();
-        assetManager.loadAndAddBitmap("BackArrow", "img/BackArrow.png");
-        assetManager.loadAndAddBitmap("BackArrowSelected", "img/BackArrowSelected.png");
-        assetManager.loadAndAddBitmap("SpaceDemoIcon", "img/SpaceDemoIcon.png");
+        assetManager.loadAndAddBitmap("AbortHack", "img/dice/AbortHack.png");
+        assetManager.loadAndAddBitmap("AbortHackSelected", "img/dice/AbortHackSelected.png");
 
         //dice assets
         assetManager.loadAndAddBitmap("Roll1", "img/dice/Roll1.png");
@@ -74,17 +81,16 @@ public class DiceRollScreen extends GameScreen {
         assetManager.loadAndAddBitmap("ChooseDiceNumber3", "img/dice/ChooseDiceNumber3.png");
         assetManager.loadAndAddBitmap("background","img/dice/DiceRollScreenBackGround.png" );
 
-        //The backGround
+        //The background
         background = assetManager.getBitmap("background");
 
-
-        mReturnToMenuButton = new PushButton(
-                mDefaultLayerViewport.getWidth() * 0.95f,
-                mDefaultLayerViewport.getHeight() * 0.80f,
-                mDefaultLayerViewport.getWidth() * 0.075f,
-                mDefaultLayerViewport.getHeight() * 0.10f,
-                "BackArrow", "BackArrowSelected", this);
-        mReturnToMenuButton.setPlaySounds(true, true);
+        mAbortHack = new PushButton(
+                mDefaultLayerViewport.getWidth() * 0.65f,
+                mDefaultLayerViewport.getHeight() * 0.1f,
+                mDefaultLayerViewport.getWidth() * 0.15f,
+                mDefaultLayerViewport.getHeight() * 0.2f,
+                "AbortHack", "AbortHackSelected", this);
+        mAbortHack.setPlaySounds(true, true);
 
         //draws the dice hud.
         DrawDiceButtons();
@@ -95,6 +101,16 @@ public class DiceRollScreen extends GameScreen {
         mGameScreenViewport =
                 new ScreenViewport(0, 0, (int) screenWidth, (int) screenHeight);
 
+        /////////////// Battle Class Test ///////////////////////////////
+        //philip testing
+
+        Player attacker = new Player("Google", -01000016 );
+        Player defender = new Player("Apple", -01006616 );
+        Area area1 = new Area();
+        Area area2 = new Area();
+
+        Battle battle = new Battle(attacker, defender, area1, area2);
+        attackersName = battle.attackersName();
 
     }
 
@@ -122,8 +138,8 @@ public class DiceRollScreen extends GameScreen {
             mSelectDiceNum2.update(elapsedTime);
             mSelectDiceNum3.update(elapsedTime);
 
-            mReturnToMenuButton.update(elapsedTime);
-            if (mReturnToMenuButton.isPushTriggered())
+            mAbortHack.update(elapsedTime);
+            if (mAbortHack.isPushTriggered())
                 mGame.getScreenManager().removeScreen(this);
 
             //dice functions
@@ -145,7 +161,7 @@ public class DiceRollScreen extends GameScreen {
      */
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
-        graphics2D.clear(Color.WHITE);
+        graphics2D.clear(Color.BLACK);
 
 
         int screenWidth = graphics2D.getSurfaceWidth();
@@ -156,7 +172,7 @@ public class DiceRollScreen extends GameScreen {
         Rect destRect = new Rect((int) (screenWidth * 0.0f), (int) (screenHeight * 0.0f), (int) (screenWidth * 1.0f), (int) (screenHeight * 1.0f));
         graphics2D.drawBitmap(background, sourceRect, destRect, null);
 
-        mReturnToMenuButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        mAbortHack.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
 
 
         //draw the roll button, currently the attShowRoll isn't used
@@ -178,29 +194,38 @@ public class DiceRollScreen extends GameScreen {
                 break;
         }
 
-
-
-
+        //Details to be shown on the screen
         float textSize =
                 ViewportHelper.convertXDistanceFromLayerToScreen(
                         mDefaultLayerViewport.getHeight() * 0.05f,
                         mDefaultLayerViewport, mDefaultScreenViewport);
 
-        float lineHeight = screenHeight / 30.0f;
+        float lineHeight = screenHeight / 20.0f;
         textPaint.setTextSize(lineHeight);
         textPaint.setTextAlign(Paint.Align.LEFT);
+        textPaint.setColor(-01000016);
 
-        String diceString = "Dice Results: [ ";
-        for (int i = 0; i < numOfDice; i++) diceString += diceRoll.getDiceResults()[i] + " ";
+
+        String diceString = "Results: [ ";
+        for (int i = 0; i < numOfDice; i++) diceString += diceRoll.getDiceResults()[i] + ", ";
         graphics2D.drawText(diceString + "]",
-                0.0f, lineHeight + 120.0f, textPaint);
+                screenWidth * 0.45f, lineHeight + 250.0f, textPaint);
 
-        graphics2D.drawText("Total: [ " + diceRoll.getTotal() + " ]",
-                0.0f, lineHeight + 160.0f, textPaint);
+        graphics2D.drawText("Total: [ " + diceRoll.getTotal() + " ]", screenWidth * 0.45f, lineHeight + 200.0f, textPaint);
+
+        //graphics2D.drawText("Attackers Name", screenWidth * 0.05f, lineHeight + 140.0f, textPaint);
+        //graphics2D.drawText("Defend Name", screenWidth * 0.75f, lineHeight + 140.0f, textPaint);
+
+        //graphics2D.drawText("Attack Colour", 0.0f, lineHeight + 300.0f, textPaint);
+        //graphics2D.drawText("Defend Colour", 0.0f, lineHeight + 350.0f, textPaint);
+
+        //graphics2D.drawText("Teams remaining: ", 0.0f, lineHeight + 400.0f, textPaint);
+        //graphics2D.drawText("Teams remaining: ", 0.0f, lineHeight + 450.0f, textPaint);
 
 
 
     }
+
     ///////////////////////////////////////////////////
     //other methods;
     //////////////////////////////////////////////////
@@ -237,64 +262,63 @@ public class DiceRollScreen extends GameScreen {
 
         //The Roll Button
         mRollDice = new PushButton(
-                mDefaultLayerViewport.getWidth() * 0.08f,
+                mDefaultLayerViewport.getWidth() * 0.5f,
                 mDefaultLayerViewport.getHeight() * 0.5f,
                 mDefaultLayerViewport.getWidth() * 0.15f,
                 mDefaultLayerViewport.getHeight() * 0.2f,
                 "Roll1", "Roll2", this);
 
 
-        //These are the dice with no yellow outline and can be selected.
-        //The image with a dice
+//////////////////////////////////////////////////////////////////////////////////////////////////
+        //The images with a dice
         mSelectDiceNum = new PushButton(
-                mDefaultLayerViewport.getWidth() * 0.62f,
-                mDefaultLayerViewport.getHeight() * 0.08f,
-                mDefaultLayerViewport.getWidth() * 0.12f,
-                mDefaultLayerViewport.getHeight() * 0.17f,
+                mDefaultLayerViewport.getWidth() * 0.037f,
+                mDefaultLayerViewport.getHeight() * 0.115f,
+                mDefaultLayerViewport.getWidth() * 0.08f,
+                mDefaultLayerViewport.getHeight() * 0.1066f,
                 "Dice1Selected", "ChooseDiceNumber1", this);
-        mSelectDiceNum.setPlaySounds(true, true);
+
+        mNumOfDice1 = new PushButton(
+                mDefaultLayerViewport.getWidth() * 0.037f,
+                mDefaultLayerViewport.getHeight() * 0.115f,
+                mDefaultLayerViewport.getWidth() * 0.08f,
+                mDefaultLayerViewport.getHeight() * 0.1066f,
+                "ChooseDiceNumber1", "Dice1Selected", this);
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
 
         //The image with two Dice
         mSelectDiceNum2 = new PushButton(
-                mDefaultLayerViewport.getWidth() * 0.75f,
-                mDefaultLayerViewport.getHeight() * 0.1f,
-                mDefaultLayerViewport.getWidth() * 0.15f,
-                mDefaultLayerViewport.getHeight() * 0.2f,
+                mDefaultLayerViewport.getWidth() * 0.205f,
+                mDefaultLayerViewport.getHeight() * 0.115f,
+                mDefaultLayerViewport.getWidth() * 0.08f,
+                mDefaultLayerViewport.getHeight() * 0.1066f,
                 "Dice2Selected", "ChooseDiceNumber2", this);
+
+        mNumOfDice2 = new PushButton(
+                mDefaultLayerViewport.getWidth() * 0.205f,
+                mDefaultLayerViewport.getHeight() * 0.115f,
+                mDefaultLayerViewport.getWidth() * 0.08f,
+                mDefaultLayerViewport.getHeight() * 0.1066f,
+                "ChooseDiceNumber2", "Dice2Selected", this);
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
 
         //The image with 3 dice
         mSelectDiceNum3 = new PushButton(
-                mDefaultLayerViewport.getWidth() * 0.9f,
-                mDefaultLayerViewport.getHeight() * 0.1f,
-                mDefaultLayerViewport.getWidth() * 0.15f,
-                mDefaultLayerViewport.getHeight() * 0.2f,
+                mDefaultLayerViewport.getWidth() * 0.385f,
+                mDefaultLayerViewport.getHeight() * 0.118f,
+                mDefaultLayerViewport.getWidth() * 0.08f,
+                mDefaultLayerViewport.getHeight() * 0.1066f,
                 "Dice3Selected", "ChooseDiceNumber3", this);
 
-
-        //The buttons that have the yellow out line to show which one has been selected.
-        mNumOfDice1 = new PushButton(
-                mDefaultLayerViewport.getWidth() * 0.62f,
-                mDefaultLayerViewport.getHeight() * 0.08f,
-                mDefaultLayerViewport.getWidth() * 0.12f,
-                mDefaultLayerViewport.getHeight() * 0.17f,
-                "ChooseDiceNumber1", "Dice1Selected", this);
-        mNumOfDice1.setPlaySounds(true, true);
-
-        mNumOfDice2 = new PushButton(
-                mDefaultLayerViewport.getWidth() * 0.75f,
-                mDefaultLayerViewport.getHeight() * 0.1f,
-                mDefaultLayerViewport.getWidth() * 0.15f,
-                mDefaultLayerViewport.getHeight() * 0.2f,
-                "ChooseDiceNumber2", "Dice2Selected", this);
-        mNumOfDice2.setPlaySounds(true, true);
-
-
         mNumOfDice3 = new PushButton(
-                mDefaultLayerViewport.getWidth() * 0.9f,
-                mDefaultLayerViewport.getHeight() * 0.1f,
-                mDefaultLayerViewport.getWidth() * 0.15f,
-                mDefaultLayerViewport.getHeight() * 0.2f,
+                mDefaultLayerViewport.getWidth() * 0.385f,
+                mDefaultLayerViewport.getHeight() * 0.118f,
+                mDefaultLayerViewport.getWidth() * 0.08f,
+                mDefaultLayerViewport.getHeight() * 0.1066f,
                 "ChooseDiceNumber3", "Dice3Selected", this);
-        mNumOfDice3.setPlaySounds(true, true);
+
     }
+
 }
