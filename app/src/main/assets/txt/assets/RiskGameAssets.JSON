@@ -9,6 +9,37 @@
       "type": "Bitmap",
       "name": "RiskMainMenuBackground",
       "file": "img/RiskGameImages/RiskMainMenuBackground.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "risk_start_game_button",
+      "file": "img/RiskGameImages/risk_start_game_button.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "risk_start_game_button_pressed",
+      "file": "img/RiskGameImages/risk_start_game_button_pressed.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "risk_rules_button",
+      "file": "img/RiskGameImages/risk_rules_button.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "risk_rules_button_ pressed",
+      "file": "img/RiskGameImages/risk_rules_button_ pressed.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "risk_settings_button",
+      "file": "img/RiskGameImages/risk_settings_button.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "risk_settings_button_pressed",
+      "file": "img/RiskGameImages/risk_settings_button_pressed.png"
     }
+	
     ]
 }

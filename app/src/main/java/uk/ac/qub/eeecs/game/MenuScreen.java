@@ -48,10 +48,10 @@ public class MenuScreen extends GameScreen {
 
 
     private PushButton mSpaceshipDemoButton;
-    private PushButton mPlatformDemoButton;
-    private PushButton mCardDemoButton;
+    private PushButton mRulesButton;
+    private PushButton mStartGameButton;
     private PushButton mDemosButton;
-    private PushButton mOptionsScreenButton;
+    private PushButton mSettingsButton;
     private PushButton mPerformanceScreenButton;
     private Bitmap mMainMenuBackground;
 
@@ -75,12 +75,12 @@ public class MenuScreen extends GameScreen {
         AssetManager assetManager = mGame.getAssetManager();
         assetManager.loadAndAddBitmap("SpaceDemoIcon", "img/SpaceDemoIcon.png");
         assetManager.loadAndAddBitmap("SpaceDemoIconSelected", "img/SpaceDemoIconSelected.png");
-        assetManager.loadAndAddBitmap("CardDemoIcon", "img/CardDemoIcon.png");
-        assetManager.loadAndAddBitmap("CardDemoIconSelected", "img/CardDemoIconSelected.png");
-        assetManager.loadAndAddBitmap("PlatformDemoIcon", "img/PlatformDemoIcon.png");
-        assetManager.loadAndAddBitmap("PlatformDemoIconSelected", "img/PlatformDemoIconSelected.png");
-        assetManager.loadAndAddBitmap("OptionsScreenButton", "img/OptionsScreenButton.png");
-        assetManager.loadAndAddBitmap("OptionsScreenButtonSelected", "img/OptionsScreenButtonSelected.png");
+        assetManager.loadAndAddBitmap("risk_start_game_button", "img/RiskGameImages/risk_start_game_button.png");
+        assetManager.loadAndAddBitmap("risk_start_game_button_pressed", "img/RiskGameImages/risk_start_game_button_pressed.png");
+        assetManager.loadAndAddBitmap("risk_rules_button", "img/RiskGameImages/risk_rules_button.png");
+        assetManager.loadAndAddBitmap("risk_rules_button_ pressed", "img/RiskGameImages/risk_rules_button_ pressed.png");
+        assetManager.loadAndAddBitmap("risk_settings_button", "img/RiskGameImages/risk_settings_button.png");
+        assetManager.loadAndAddBitmap("risk_settings_button_pressed", "img/RiskGameImages/risk_settings_button_pressed.png");
         assetManager.loadAndAddBitmap("PerformanceScreenIcon", "img/PerformanceScreenIcon.png");
         assetManager.loadAndAddBitmap("PerformanceScreenIconSelected", "img/PerformanceScreenIconSelected.png");
         assetManager.loadAndAddBitmap("DemosIcon", "img/DemosIcon.png");
@@ -103,22 +103,22 @@ public class MenuScreen extends GameScreen {
                 spacingX * 0.50f, spacingY * 1.5f, spacingX, spacingY,
                 "SpaceDemoIcon", "SpaceDemoIconSelected",this);
         mSpaceshipDemoButton.setPlaySounds(true, true);
-        mPlatformDemoButton = new PushButton(
+        mRulesButton = new PushButton(
                 spacingX * 1.83f, spacingY * 1.5f, spacingX, spacingY,
-                "PlatformDemoIcon", "PlatformDemoIconSelected", this);
-        mPlatformDemoButton.setPlaySounds(true, true);
-        mCardDemoButton = new PushButton(
+                "risk_rules_button", "risk_rules_button_ pressed", this);
+        mRulesButton.setPlaySounds(true, true);
+        mStartGameButton = new PushButton(
                 spacingX * 3.17f, spacingY * 1.5f, spacingX, spacingY,
-                "CardDemoIcon", "CardDemoIconSelected", this);
-        mCardDemoButton.setPlaySounds(true, true);
+                "risk_start_game_button", "risk_start_game_button_pressed", this);
+        mStartGameButton.setPlaySounds(true, true);
         mDemosButton = new PushButton(
                 spacingX * 3.17f, spacingY * 0.5f, spacingX/2, spacingY/2,
                 "DemosIcon", "DemosIconSelected", this);
         mDemosButton.setPlaySounds(true, true);
-        mOptionsScreenButton = new PushButton(
+        mSettingsButton = new PushButton(
                 spacingX * 4.50f, spacingY * 1.5f, spacingX, spacingY,
-                "OptionsScreenButton", "OptionsScreenButtonSelected", this);
-        mOptionsScreenButton.setPlaySounds(true, true);
+                "risk_settings_button", "risk_settings_button_pressed", this);
+        mSettingsButton.setPlaySounds(true, true);
         mPerformanceScreenButton = new PushButton(
                 spacingX * 4.5f, spacingY * 0.5f, spacingX/2, spacingY/2,
                 "PerformanceScreenIcon", "PerformanceScreenIconSelected", this);
@@ -146,23 +146,23 @@ public class MenuScreen extends GameScreen {
 
             // Update each button and transition if needed
             mSpaceshipDemoButton.update(elapsedTime);
-            mCardDemoButton.update(elapsedTime);
+            mStartGameButton.update(elapsedTime);
             mDemosButton.update(elapsedTime);
-            mPlatformDemoButton.update(elapsedTime);
-            mOptionsScreenButton.update(elapsedTime);
+            mRulesButton.update(elapsedTime);
+            mSettingsButton.update(elapsedTime);
             mPerformanceScreenButton.update(elapsedTime);
 
 
 
             if (mSpaceshipDemoButton.isPushTriggered())
                 mGame.getScreenManager().addScreen(new SpaceshipDemoScreen(mGame));
-            else if (mCardDemoButton.isPushTriggered())
+            else if (mStartGameButton.isPushTriggered())
                 mGame.getScreenManager().addScreen(new RiskGameScreen(mGame));
-            else if (mPlatformDemoButton.isPushTriggered())
+            else if (mRulesButton.isPushTriggered())
                 mGame.getScreenManager().addScreen(new PlatformDemoScreen(mGame));
             else if (mDemosButton.isPushTriggered())
                 mGame.getScreenManager().addScreen(new DemoMenuScreen(mGame));
-            else if (mOptionsScreenButton.isPushTriggered())
+            else if (mSettingsButton.isPushTriggered())
                 mGame.getScreenManager().addScreen(new VolumeScreen(mGame));
             else if (mPerformanceScreenButton.isPushTriggered())
                 mGame.getScreenManager().addScreen(new PerformanceScreen("PerformanceScreen", mGame));
@@ -192,10 +192,10 @@ public class MenuScreen extends GameScreen {
 
 
         mSpaceshipDemoButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
-        mPlatformDemoButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
-        mCardDemoButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        mRulesButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        mStartGameButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         mDemosButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
-        mOptionsScreenButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        mSettingsButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         mPerformanceScreenButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
 
 
