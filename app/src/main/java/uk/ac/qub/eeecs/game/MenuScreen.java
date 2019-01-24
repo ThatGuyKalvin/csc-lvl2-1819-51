@@ -75,12 +75,12 @@ public class MenuScreen extends GameScreen {
         AssetManager assetManager = mGame.getAssetManager();
         assetManager.loadAndAddBitmap("SpaceDemoIcon", "img/SpaceDemoIcon.png");
         assetManager.loadAndAddBitmap("SpaceDemoIconSelected", "img/SpaceDemoIconSelected.png");
-        assetManager.loadAndAddBitmap("CardDemoIcon", "img/CardDemoIcon.png");
-        assetManager.loadAndAddBitmap("CardDemoIconSelected", "img/CardDemoIconSelected.png");
-        assetManager.loadAndAddBitmap("PlatformDemoIcon", "img/PlatformDemoIcon.png");
-        assetManager.loadAndAddBitmap("PlatformDemoIconSelected", "img/PlatformDemoIconSelected.png");
-        assetManager.loadAndAddBitmap("OptionsScreenButton", "img/OptionsScreenButton.png");
-        assetManager.loadAndAddBitmap("OptionsScreenButtonSelected", "img/OptionsScreenButtonSelected.png");
+        assetManager.loadAndAddBitmap("risk_start_game_button", "img/RiskGameImages/risk_start_game_button.png");
+        assetManager.loadAndAddBitmap("risk_start_game_button_pressed", "img/RiskGameImages/risk_start_game_button_pressed.png");
+        assetManager.loadAndAddBitmap("risk_rules_button", "img/RiskGameImages/risk_rules_button.png");
+        assetManager.loadAndAddBitmap("risk_rules_button_ pressed", "img/RiskGameImages/risk_rules_button_ pressed.png");
+        assetManager.loadAndAddBitmap("risk_settings_button", "img/RiskGameImages/risk_settings_button.png");
+        assetManager.loadAndAddBitmap("risk_settings_button_pressed", "img/RiskGameImages/risk_settings_button_pressed.png");
         assetManager.loadAndAddBitmap("PerformanceScreenIcon", "img/PerformanceScreenIcon.png");
         assetManager.loadAndAddBitmap("PerformanceScreenIconSelected", "img/PerformanceScreenIconSelected.png");
         assetManager.loadAndAddBitmap("DemosIcon", "img/DemosIcon.png");
@@ -105,11 +105,11 @@ public class MenuScreen extends GameScreen {
         mSpaceshipDemoButton.setPlaySounds(true, true);
         mPlatformDemoButton = new PushButton(
                 spacingX * 1.83f, spacingY * 1.5f, spacingX, spacingY,
-                "PlatformDemoIcon", "PlatformDemoIconSelected", this);
+                "risk_rules_button", "risk_rules_button_ pressed", this);
         mPlatformDemoButton.setPlaySounds(true, true);
         mCardDemoButton = new PushButton(
                 spacingX * 3.17f, spacingY * 1.5f, spacingX, spacingY,
-                "CardDemoIcon", "CardDemoIconSelected", this);
+                "risk_start_game_button", "risk_start_game_button_pressed", this);
         mCardDemoButton.setPlaySounds(true, true);
         mDemosButton = new PushButton(
                 spacingX * 3.17f, spacingY * 0.5f, spacingX/2, spacingY/2,
@@ -117,7 +117,7 @@ public class MenuScreen extends GameScreen {
         mDemosButton.setPlaySounds(true, true);
         mOptionsScreenButton = new PushButton(
                 spacingX * 4.50f, spacingY * 1.5f, spacingX, spacingY,
-                "OptionsScreenButton", "OptionsScreenButtonSelected", this);
+                "risk_settings_button", "risk_settings_button_pressed", this);
         mOptionsScreenButton.setPlaySounds(true, true);
         mPerformanceScreenButton = new PushButton(
                 spacingX * 4.5f, spacingY * 0.5f, spacingX/2, spacingY/2,
