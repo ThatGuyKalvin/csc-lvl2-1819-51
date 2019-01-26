@@ -4,19 +4,15 @@ import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
 
 public class Battle {
-    private Player attPlayer;
-    private Player defPlayer;
-    private Area attArea;
-    private Area defArea;
+    private Field AttField, DefField;
     private int attTotal, defTotal, numOfDiceAtt, numOfDiceDef, numOfAttArmies, numOfDefArmies;
     private DiceRoll diceRollAtt = new DiceRoll(numOfDiceAtt);
     private DiceRoll diceRollDef = new DiceRoll(numOfDiceDef);
 
-    public Battle(Player a, Player d, Area aa, Area ad){
-        attPlayer = a;
-        defPlayer = d;
-        attArea = aa;
-        defArea = ad;
+    public Battle(Field AField, Field DField){
+        AttField = AField;
+        DefField = DField;
+        Battle();
     }
 
     public void Battling(){
@@ -33,5 +29,10 @@ public class Battle {
             else{numOfDefArmies = numOfDefArmies - 1;}
         }
         while (numOfAttArmies!= 0 || numOfDefArmies!=0);
+    }
+
+    public void Battle()
+    {
+
     }
 }
