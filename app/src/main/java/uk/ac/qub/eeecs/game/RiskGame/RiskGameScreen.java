@@ -14,6 +14,8 @@ import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
+import uk.ac.qub.eeecs.gage.util.BoundingBox;
+import uk.ac.qub.eeecs.gage.util.Vector2;
 import uk.ac.qub.eeecs.gage.util.ViewportHelper;
 import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
@@ -31,6 +33,9 @@ public class RiskGameScreen extends GameScreen {
     // /////////////////////////////////////////////////////////////////////////
 
     private Bitmap mRiskGameScreenBackground;
+    private GameObject mRiskMap;
+    private Area mTouchedArea;
+    private String touchedAreaColour;
 
     private final int MAX_AREAS = 10;
     private final int MAX_PLAYERS = 3;
@@ -61,6 +66,11 @@ public class RiskGameScreen extends GameScreen {
         createAreas();
         // Generate Player objects
         createPlayers();
+
+        mRiskMap = new GameObject(
+                mDefaultLayerViewport.x, mDefaultLayerViewport.y,
+                mDefaultLayerViewport.getWidth(), mDefaultLayerViewport.getHeight(),
+                game.getAssetManager().getBitmap("RiskGameScreen2"), this);
 
         mReturnToMenuButton = new PushButton(
                 mDefaultLayerViewport.getWidth() * 0.95f,
@@ -95,6 +105,36 @@ public class RiskGameScreen extends GameScreen {
         List<TouchEvent> touchEvents = input.getTouchEvents();
         if (touchEvents.size() > 0 && mTimeToChange > 0.5f) {
 
+            for(TouchEvent touchEvent : touchEvents) {
+
+                Vector2 layerPosition = new Vector2();
+                ViewportHelper.convertScreenPosIntoLayer(
+                        mDefaultScreenViewport, touchEvent.x, touchEvent.y,
+                        mDefaultLayerViewport, layerPosition);
+
+                BoundingBox bound = mRiskMap.getBound();
+                if(bound.contains(layerPosition.x, layerPosition.y)) {
+
+                    float xLoc = (layerPosition.x - bound.getLeft())/bound.getWidth();
+                    float yLoc = (bound.getTop() - layerPosition.y)/bound.getHeight();
+
+                    Bitmap bitmap = mRiskMap.getBitmap();
+                    int colour = bitmap.getPixel(
+                            (int)(xLoc * bitmap.getWidth()),
+                            (int)(yLoc * bitmap.getHeight()));
+
+                    // The colours should be changed to work by .getColour() in the future
+                    switch (colour)
+                    {
+                        case 0xFFec1c24: mTouchedArea = mAreas[0]; break;
+                        case 0xFF0ed145: mTouchedArea = mAreas[1]; break;
+                        case 0xFFfff200: mTouchedArea = mAreas[2]; break;
+                        case 0xFFb97a56: mTouchedArea = mAreas[3]; break;
+                        case 0xFFb83dba: mTouchedArea = mAreas[4]; break;
+                    }
+                    //touchedAreaColour = (new Integer(colour)).toString();
+                }
+            }
 
             mReturnToMenuButton.update(elapsedTime);
             if (mReturnToMenuButton.isPushTriggered())
@@ -144,6 +184,11 @@ public class RiskGameScreen extends GameScreen {
                 0.0f, lineHeight + 40.0f, textPaint);
         graphics2D.drawText("Screen: [" + this.getName() + "]",
                 0.0f, lineHeight + 80.0f, textPaint);
+        graphics2D.drawText("Touched: " + mTouchedArea.getName(),
+                0.0f, lineHeight + 120.0f, textPaint);
+        // Used during testing...
+        /*graphics2D.drawText("Touched Colour: " + touchedAreaColour,
+                0.0f, lineHeight + 160.0f, textPaint);*/
 
     }
     ///////////////////////////////////////////////////
@@ -151,12 +196,22 @@ public class RiskGameScreen extends GameScreen {
     //////////////////////////////////////////////////
 
     private void createAreas() {
+
+        // Generate the areas and add colour
         for(int i = 0; i < MAX_AREAS; i++) {
 
             mAreas[i] = new Area();
             mAreas[i].setColour(i); // give each area a colour
-            mAreas[i].setName("A" + i);
         }
+
+        // Code could crash if MAX_AREAS is less than 5
+        // Setting the names of the areas
+        mAreas[0].setName("Telecommunications");
+        mAreas[1].setName("Security");
+        mAreas[2].setName("Development");
+        mAreas[3].setName("Machine Learning");
+        mAreas[4].setName("Data & Information");
+        mTouchedArea = mAreas[0];
     }
 
     private void createPlayers() {
