@@ -4,15 +4,19 @@ import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
 
 public class Battle {
-    private Field AttField, DefField;
+    private Player attPlayer;
+    private Player defPlayer;
+    private Area attArea;
+    private Area defArea;
     private int attTotal, defTotal, numOfDiceAtt, numOfDiceDef, numOfAttArmies, numOfDefArmies;
     private DiceRoll diceRollAtt = new DiceRoll(numOfDiceAtt);
     private DiceRoll diceRollDef = new DiceRoll(numOfDiceDef);
 
-    public Battle(Field AField, Field DField){
-        AttField = AField;
-        DefField = DField;
-        Battle();
+    public Battle(Player a, Player d, Area aa, Area ad){
+        attPlayer = a;
+        defPlayer = d;
+        attArea = aa;
+        defArea = ad;
     }
 
     public void Battling(){
@@ -31,8 +35,16 @@ public class Battle {
         while (numOfAttArmies!= 0 || numOfDefArmies!=0);
     }
 
-    public void Battle()
-    {
+    //getters for the dice class
+    //Philip Murphy
 
-    }
+    public String attackersName(){return attPlayer.getName();}
+    public String defendersName(){return defPlayer.getName();}
+
+    public int attackerColour(){return attPlayer.getColour();}
+    public int defenderColour(){return defPlayer.getColour();}
+
+
+
+
 }

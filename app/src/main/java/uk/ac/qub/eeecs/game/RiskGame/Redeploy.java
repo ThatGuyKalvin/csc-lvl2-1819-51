@@ -21,7 +21,15 @@ public class Redeploy {
     public int calculateTeams(){
 
         //calculate length array * ratio
+
+        
+
         // if smaller than min return min
+
+//        if(team < minTeams){
+//            return minTeams
+//        } else
+
         // else return big
 
         // calculate teams added for controlling area(collection of fields)
