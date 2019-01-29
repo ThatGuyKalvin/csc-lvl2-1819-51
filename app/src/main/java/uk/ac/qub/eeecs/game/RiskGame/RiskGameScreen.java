@@ -37,7 +37,7 @@ public class RiskGameScreen extends GameScreen {
     private Area mTouchedArea;
     private String touchedAreaColour;
 
-    private final int MAX_AREAS = 10;
+    private final int MAX_AREAS = 5;
     private final int MAX_PLAYERS = 3;
     private Area[] mAreas = new Area[MAX_AREAS];
     private Player[] mPlayers = new Player[MAX_PLAYERS];
@@ -179,7 +179,7 @@ public class RiskGameScreen extends GameScreen {
         graphics2D.drawText(playersString + "]",
                 0.0f, lineHeight, textPaint);
         String areasString = "Areas: [ ";
-        for(int i = 0; i < MAX_PLAYERS; i++) areasString += mAreas[i].getName() + " ";
+        for(int i = 0; i < MAX_AREAS; i++) areasString += "(" + mAreas[i].getName() + ") ";
         graphics2D.drawText(areasString + "]",
                 0.0f, lineHeight + 40.0f, textPaint);
         graphics2D.drawText("Screen: [" + this.getName() + "]",
