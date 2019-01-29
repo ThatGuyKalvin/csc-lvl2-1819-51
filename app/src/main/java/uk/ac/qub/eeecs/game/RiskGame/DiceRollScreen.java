@@ -16,6 +16,7 @@ import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.util.ViewportHelper;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
+import uk.ac.qub.eeecs.game.RiskGame.DiceRoll;
 import uk.ac.qub.eeecs.game.RiskGame.Battle;
 import uk.ac.qub.eeecs.game.RiskGame.RiskGameScreen;
 import uk.ac.qub.eeecs.game.RiskGame.Player;
@@ -46,6 +47,7 @@ public class DiceRollScreen extends GameScreen {
     private PushButton mSelectDiceNum2;
     private PushButton mSelectDiceNum3;
     private PushButton mAbortHack;
+    private PushButton mRollDiceButton;
     private PushButton mRollDice;
     //end of dice items
 
@@ -69,6 +71,8 @@ public class DiceRollScreen extends GameScreen {
         AssetManager assetManager = mGame.getAssetManager();
         assetManager.loadAndAddBitmap("AbortHack", "img/dice/AbortHack.png");
         assetManager.loadAndAddBitmap("AbortHackSelected", "img/dice/AbortHackSelected.png");
+        assetManager.loadAndAddBitmap("Roll1", "img/dice/Roll1.png");
+        assetManager.loadAndAddBitmap("Roll2", "img/dice/Roll2.png");
 
         //dice assets
         assetManager.loadAndAddBitmap("Roll1", "img/dice/Roll1.png");
@@ -85,12 +89,18 @@ public class DiceRollScreen extends GameScreen {
         background = assetManager.getBitmap("background");
 
         mAbortHack = new PushButton(
-                mDefaultLayerViewport.getWidth() * 0.65f,
+                mDefaultLayerViewport.getWidth() * 0.9f,
                 mDefaultLayerViewport.getHeight() * 0.1f,
                 mDefaultLayerViewport.getWidth() * 0.15f,
                 mDefaultLayerViewport.getHeight() * 0.2f,
                 "AbortHack", "AbortHackSelected", this);
         mAbortHack.setPlaySounds(true, true);
+        mRollDiceButton = new PushButton(
+                mDefaultLayerViewport.getWidth() * 0.65f,
+                mDefaultLayerViewport.getHeight() * 0.1f,
+                mDefaultLayerViewport.getWidth() * 0.15f,
+                mDefaultLayerViewport.getHeight() * 0.2f,
+                "Roll1", "Roll2", this);
 
         //draws the dice hud.
         DrawDiceButtons();
@@ -141,6 +151,9 @@ public class DiceRollScreen extends GameScreen {
             mAbortHack.update(elapsedTime);
             if (mAbortHack.isPushTriggered())
                 mGame.getScreenManager().removeScreen(this);
+            if (mRollDiceButton.isPushTriggered())
+                
+
 
             //dice functions
             buttonActions();
@@ -173,6 +186,7 @@ public class DiceRollScreen extends GameScreen {
         graphics2D.drawBitmap(background, sourceRect, destRect, null);
 
         mAbortHack.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        mRollDiceButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
 
 
         //draw the roll button, currently the attShowRoll isn't used
