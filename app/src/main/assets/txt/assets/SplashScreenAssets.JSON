@@ -3,7 +3,17 @@
     {
       "type": "Bitmap",
       "name": "SplashScreenBackground",
-      "file": "img/splashScreen/splashScreenBackground.png"
+      "file": "img/splashScreen/Background2.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "splashScreenLoadingBar",
+      "file": "img/splashScreen/splashScreenLoadingBar2.png"
+    },
+    {
+      "type": "Music",
+      "name": "SplashBackgroundMusic",
+      "file": "sound/SplashBackgroundMusic.mp3"
     }
     ]
 }
