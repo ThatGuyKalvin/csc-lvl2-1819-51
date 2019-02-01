@@ -114,13 +114,13 @@ public class DiceRollScreen extends GameScreen {
         /////////////// Battle Class Test ///////////////////////////////
         //philip testing
 
-        Player attacker = new Player("Google", -01000016 );
-        Player defender = new Player("Apple", -01006616 );
-        Area area1 = new Area();
-        Area area2 = new Area();
+        //Player attacker = new Player("Google", -01000016 );
+       // Player defender = new Player("Apple", -01006616 );
+        //Area area1 = new Area();
+        //Area area2 = new Area();
 
-        Battle battle = new Battle(attacker, defender, area1, area2);
-        attackersName = battle.attackersName();
+        //Battle battle = new Battle(attacker, defender, area1, area2);
+        //attackersName = battle.attackersName();
 
     }
 

@@ -36,6 +36,7 @@ public class RiskGameScreen extends GameScreen {
     private final int MAX_PLAYERS = 3;
     private Area[] mAreas = new Area[MAX_AREAS];
     private Player[] mPlayers = new Player[MAX_PLAYERS];
+    private Field[] mFields = GenerateFields();
     private Paint textPaint = new Paint();
 
     private PushButton mReturnToMenuButton;
@@ -163,5 +164,28 @@ public class RiskGameScreen extends GameScreen {
         mPlayers[0] = new Player("Microsoft", Color.BLACK);
         mPlayers[1] = new Player("Google", Color.GREEN);
         mPlayers[2] = new Player("Apple", Color.RED);
+    }
+
+    private Field[] GenerateFields()
+    {
+        Field[] fields = new Field[2];
+        fields[0] =new Field(50, 50, 50, 50, null, this, 1, "AI", mPlayers[0], 5);
+        fields[1] = new Field(50, 50, 50, 50, null, this, 2, "SelfDrivingCars", mPlayers[1], 5);
+        return fields;
+    }
+
+    private void Battle(Field Attacker, Field Defender) {
+        Battle tempBattle = new Battle(3,3, Attacker.getFNumOfTeams(), Defender.getFNumOfTeams());
+        int[] Results = tempBattle.Battling();
+        mFields[Attacker.getFNum()].decreaseNumOfTeams(Results[0]);
+        if(Results[2] == 0)
+        {
+            mFields[Defender.getFNum()].hostileTakeOver(mFields[Attacker.getFNum()].getFPlayer(),  mFields[Attacker.getFNum()].getFNumOfTeams()-1);
+
+        }
+        else
+            {
+                mFields[Defender.getFNum()].decreaseNumOfTeams(Results[1]);
+            }
     }
 }
