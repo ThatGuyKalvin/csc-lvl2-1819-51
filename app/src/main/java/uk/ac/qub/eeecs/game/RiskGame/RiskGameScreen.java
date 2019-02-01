@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-import java.util.ArrayList;
 import java.util.List;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
@@ -33,19 +32,15 @@ public class RiskGameScreen extends GameScreen {
     // Constructors
     // /////////////////////////////////////////////////////////////////////////
 
-    // The game map
     private Bitmap mRiskGameScreenBackground;
     private GameObject mRiskMap;
-    // Used to store the last touched area
     private Area mTouchedArea;
+    private String touchedAreaColour;
 
-    // ArrayList for Areas and Players
     private final int MAX_AREAS = 5;
     private final int MAX_PLAYERS = 3;
-    private ArrayList<Player> mPlayers = new ArrayList<>(MAX_PLAYERS);
-    private ArrayList<Area> mAreas = new ArrayList<>(MAX_AREAS);
-
-    // Paint for the debug info displayed
+    private Area[] mAreas = new Area[MAX_AREAS];
+    private Player[] mPlayers = new Player[MAX_PLAYERS];
     private Paint textPaint = new Paint();
 
     private PushButton mReturnToMenuButton;
@@ -128,14 +123,21 @@ public class RiskGameScreen extends GameScreen {
                             (int)(xLoc * bitmap.getWidth()),
                             (int)(yLoc * bitmap.getHeight()));
 
-                    // Detects pixel colour and compares to the list of areas
-                    // The background image colours match mAreas colours)
-                    for(int i = 0; i < mAreas.size(); i++) {
-                        if(colour == mAreas.get(i).getColour()) {
-                            mTouchedArea = mAreas.get(i);
-                            break;
-                        }
+                    // The colours should be changed to work by .getColour() in the future
+                    switch (colour)
+                    {
+                        //RED
+                        case 0xFFeb1c23: mTouchedArea = mAreas[0]; break;
+                        //GREEN
+                        case 0xFF0ecf42: mTouchedArea = mAreas[1]; break;
+                        //YELLOW
+                        case 0xFFffe51c: mTouchedArea = mAreas[2]; break;
+                        //BROWN
+                        case 0xFFb87756: mTouchedArea = mAreas[3]; break;
+                        //Purple
+                        case 0xFFb63eb8: mTouchedArea = mAreas[4]; break;
                     }
+                    //touchedAreaColour = (new Integer(colour)).toString();
                 }
             }
 
@@ -173,22 +175,25 @@ public class RiskGameScreen extends GameScreen {
 
         float lineHeight = screenHeight / 30.0f;
         textPaint.setTextSize(lineHeight);
-        textPaint.setColor(mPlayers.get(0).getColour());
+        textPaint.setColor(mPlayers[0].getColour());
         textPaint.setTextAlign(Paint.Align.LEFT);
 
         // Draw text displaying the name of this screen and some instructions
         String playersString = "Players: [ ";
-        for(int i = 0; i < mPlayers.size(); i++) playersString += mPlayers.get(i).getName() + " ";
+        for(int i = 0; i < MAX_PLAYERS; i++) playersString += mPlayers[i].getName() + " ";
         graphics2D.drawText(playersString + "]",
                 0.0f, lineHeight, textPaint);
         String areasString = "Areas: [ ";
-        for(int i = 0; i < mAreas.size(); i++) areasString += "(" + mAreas.get(i).getName() + ") ";
+        for(int i = 0; i < MAX_AREAS; i++) areasString += "(" + mAreas[i].getName() + ") ";
         graphics2D.drawText(areasString + "]",
                 0.0f, lineHeight + 40.0f, textPaint);
         graphics2D.drawText("Screen: [" + this.getName() + "]",
                 0.0f, lineHeight + 80.0f, textPaint);
         graphics2D.drawText("Touched: " + mTouchedArea.getName(),
                 0.0f, lineHeight + 120.0f, textPaint);
+        // Used during testing...
+        /*graphics2D.drawText("Touched Colour: " + touchedAreaColour,
+                0.0f, lineHeight + 160.0f, textPaint);*/
 
     }
     ///////////////////////////////////////////////////
@@ -198,18 +203,25 @@ public class RiskGameScreen extends GameScreen {
     private void createAreas() {
 
         // Generate the areas and add colour
-        mAreas.add(new Area("Telecommunications", 0xFFec1c24));
-        mAreas.add(new Area("Security", 0xFF0ed145));
-        mAreas.add(new Area("Development", 0xFFfff200));
-        mAreas.add(new Area("Machine Learning", 0xFFb97a56));
-        mAreas.add(new Area("Data & Information", 0xFFb83dba));
-        mTouchedArea = mAreas.get(0); // null results in crash.
+        for(int i = 0; i < MAX_AREAS; i++) {
+
+            mAreas[i] = new Area();
+            mAreas[i].setColour(i); // give each area a colour
+        }
+
+        // Code could crash if MAX_AREAS is less than 5
+        // Setting the names of the areas
+        mAreas[0].setName("Telecommunications");
+        mAreas[1].setName("Security");
+        mAreas[2].setName("Development");
+        mAreas[3].setName("Machine Learning");
+        mAreas[4].setName("Data & Information");
+        mTouchedArea = mAreas[0];
     }
 
     private void createPlayers() {
-        // Generate the players and add colour
-        mPlayers.add(new Player("Microsoft", Color.BLACK));
-        mPlayers.add(new Player("Google", Color.GREEN));
-        mPlayers.add(new Player("Apple", Color.RED));
+        mPlayers[0] = new Player("Microsoft", Color.BLACK);
+        mPlayers[1] = new Player("Google", Color.GREEN);
+        mPlayers[2] = new Player("Apple", Color.RED);
     }
 }
