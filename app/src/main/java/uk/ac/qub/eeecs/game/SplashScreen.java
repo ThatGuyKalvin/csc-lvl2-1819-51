@@ -9,6 +9,7 @@ import java.util.List;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
+import uk.ac.qub.eeecs.gage.engine.audio.AudioManager;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
@@ -29,9 +30,9 @@ public class SplashScreen extends GameScreen {
     private float mTimeToChange = 0;
     private Bitmap background;
     private Bar SplashBar;
+    //private LoadingAnimation load;
 
 
-    // //////////////////////////////
     // /////////////////////////////////////////
     // Constructors
     // /////////////////////////////////////////////////////////////////////////
@@ -43,19 +44,12 @@ public class SplashScreen extends GameScreen {
      */
     public SplashScreen(Game game) {
         super("SplashScreen", game);
-
-
-        // Load in the bitmaps used on the main menu screen
         AssetManager assetManager = mGame.getAssetManager();
-
-        assetManager.loadAssets(
-                "txt/assets/SplashScreenAssets.JSON");
-
-        assetManager.loadAndAddBitmap("SplashScreenBackground", "img/splashScreen/splashScreenBackground.png");
-
-        background = assetManager.getBitmap("SplashScreenBackground");
+        assetManager.loadAssets("txt/assets/SplashScreenAssets.JSON");
 
         splashBar();
+        playBackgroundMusic();
+        background = assetManager.getBitmap("SplashScreenBackground");
     }
 
     // /////////////////////////////////////////////////////////////////////////
@@ -64,14 +58,25 @@ public class SplashScreen extends GameScreen {
 
     public void splashBar()
     {
-        AssetManager assetManager = mGame.getAssetManager();
-        assetManager.loadAndAddBitmap("splashScreenLoadingBar","img/splashScreen/splashScreenLoadingBar.png");
+        float width = mGame.getScreenWidth();
+        float height = mGame.getScreenHeight();
 
-        SplashBar = new Bar(360.0f, 163.0f,300.0f, 40.0f,
+        SplashBar = new Bar(0.0f, 0.0f,width * 1.0f, height * 1.0f,
                 getGame().getAssetManager().getBitmap("splashScreenLoadingBar"),
-                Bar.Orientation.Horizontal, 100, 0, 35.0f, this);
+                Bar.Orientation.Horizontal, 100, 0, 20.0f, this);
 
         SplashBar.forceValue(0);
+    }
+
+    private void playBackgroundMusic() {
+        AudioManager audioManager = getGame().getAudioManager();
+        if(!audioManager.isMusicPlaying())
+            audioManager.playMusic(
+                    getGame().getAssetManager().getMusic("SplashBackgroundMusic"));
+    }
+    public void stopMusic(){
+        AudioManager audioManager = getGame().getAudioManager();
+        audioManager.stopMusic();
     }
 
     /**
@@ -85,9 +90,15 @@ public class SplashScreen extends GameScreen {
         // Process any touch events occurring since the update
         Input input = mGame.getInput();
 
+        //load.update(elapsedTime);
+        if(mTimeToChange == 3.0f){
+            playBackgroundMusic();
+        }
+
         List<TouchEvent> touchEvents = input.getTouchEvents();
         if (touchEvents.size() > 0) {
             mTimeToChange = 5f;
+            stopMusic();
         }
 
         mTimeToChange += elapsedTime.stepTime;
@@ -96,7 +107,7 @@ public class SplashScreen extends GameScreen {
         }
 
         SplashBar.setValue(Math.round(
-                SplashBar.getMaxValue() * (mTimeToChange / 5)));
+                SplashBar.getMaxValue() * (mTimeToChange / 2)));
 
         // Update the bar's displayed value
         SplashBar.update(elapsedTime);
@@ -105,24 +116,21 @@ public class SplashScreen extends GameScreen {
 
     /**
      * Draw the menu screen
-     *
      * @param elapsedTime Elapsed time information
      * @param graphics2D  Graphics instance
      */
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
-
-        // Clear the screen and draw the buttons
-        graphics2D.clear(Color.WHITE);
+        graphics2D.clear(Color.BLACK);
         int width = graphics2D.getSurfaceWidth();
         int height = graphics2D.getSurfaceHeight();
 
-        SplashBar.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
-
-        //drawing the background to the screen.
         Rect sourceRectBackg = new Rect(0,0, background.getWidth(), background.getHeight());
         Rect destRectBackg = new Rect((int) (width * 0.0f), (int) (height * 0.0f), (int) (width * 1.0f), (int) (height * 1.0f));
+
+        SplashBar.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         graphics2D.drawBitmap(background, sourceRectBackg, destRectBackg, null);
+        //load.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
 
     }
 }

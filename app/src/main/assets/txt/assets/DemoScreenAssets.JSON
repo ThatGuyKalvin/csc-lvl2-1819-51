@@ -7,11 +7,6 @@
     },
     {
       "type": "Bitmap",
-      "name": "Loading",
-      "file": "img/Loading.png"
-    },
-    {
-      "type": "Bitmap",
       "name": "InputDemoIconSelected",
       "file": "img/InputDemoIconSelected.png"
     },

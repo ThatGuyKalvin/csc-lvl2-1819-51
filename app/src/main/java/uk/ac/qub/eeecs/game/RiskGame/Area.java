@@ -7,9 +7,16 @@ public class Area {
     private int aColour;
     private String aName;
 
-    public Area() {
+    // Package private instead of public
+    Area() {
         this.aColour = Color.BLACK;
-        this.aName = "aName";
+        this.aName = "DEFAULT";
+    }
+
+    // Package private instead of public
+    Area(String name, int colour) {
+        this.aName = name;
+        this.aColour = colour;
     }
 
     public void setColour(int colour) {

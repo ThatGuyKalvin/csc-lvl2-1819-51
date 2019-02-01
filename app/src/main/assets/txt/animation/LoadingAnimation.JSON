@@ -1,0 +1,12 @@
+{
+  "spritesheet" : "img/splashScreen/LoadingAnimation.png",
+  "numRows" : 1,
+  "numColumns" : 6,
+  "animations": [
+    {
+      "name": "LoadingAnimation",
+      "totalPeriod" : 1.0,
+      "loopAnimation" : true
+    }
+  ]
+}
