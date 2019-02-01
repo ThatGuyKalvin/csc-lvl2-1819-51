@@ -42,8 +42,13 @@
     },
     {
       "type": "Bitmap",
-      "name": "RiskMainMenuBackground",
-      "file": "img/RiskGameImages/RiskMainMenuBackground.png"
+      "name": "risk_credits_button_pressed",
+      "file": "img/RiskGameImages/risk_credits_button_pressed.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "risk_credits_button",
+      "file": "img/RiskGameImages/risk_credits_button.png"
     }
 	
     ]

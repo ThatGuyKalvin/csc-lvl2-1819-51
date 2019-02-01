@@ -15,85 +15,60 @@ import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 
-/**
- * An exceedingly basic menu screen with a couple of touch buttons
- *
- * @version 1.0
- */
-public class VolumeScreen extends GameScreen {
+public class GameCreditsScreen extends GameScreen {
 
     // /////////////////////////////////////////////////////////////////////////
     // Properties
     // /////////////////////////////////////////////////////////////////////////
 
     /**
-     * Define the buttons for playing the 'games'
+     * Define the buttons for the Credits Screen
      */
-    private PushButton mVolumeScreenButton;
     private PushButton mMainMenuButton;
-    private PushButton mReturnToPerformanceScreenButton;
-    private Bitmap mOptionsBackground;
+    private Bitmap mCreditsBackground;
     private float mTimeToChange = 0;
-
 
     // /////////////////////////////////////////////////////////////////////////
     // Constructors
     // /////////////////////////////////////////////////////////////////////////
 
     /**
-     * Create a simple menu screen
-     *
      * @param game Game to which this screen belongs
      */
-    public VolumeScreen(Game game) {
-        super("VolumeScreen", game);
 
-        // Load in the bitmaps used on the main menu screen
+    public GameCreditsScreen(Game game) {
+        super("CreditsScreen", game);
+
+        // Load in the bitmaps used on the credit screen
         AssetManager assetManager = mGame.getAssetManager();
-        assetManager.loadAndAddBitmap("VolumeButton", "img/VolumeButton.png");
-        assetManager.loadAndAddBitmap("VolumeButtonSelected", "img/VolumeButtonSelected.png");
         assetManager.loadAndAddBitmap("main_menu_button", "img/RiskGameImages/main_menu_button.png");
         assetManager.loadAndAddBitmap("main_menu_button_pressed", "img/RiskGameImages/main_menu_button_pressed.png");
-        assetManager.loadAndAddBitmap("BackArrowPS", "img/BackArrowPerformanceScreen.png");
-        assetManager.loadAndAddBitmap("BackArrowSelectedPS", "img/BackArrowPerformanceScreen.png");
-       // assetManager.loadAndAddBitmap("OptionScreenBackground", "img/OptionScreenBackground.png");
 
         assetManager.loadAssets(
                 "txt/assets/OptionsScreenAssets.JSON");
 
         assetManager.loadAndAddBitmap("OptionScreenBackground", "img/RiskGameImages/RiskOptionScreen.png");
 
-        mOptionsBackground = assetManager.getBitmap("OptionScreenBackground");
-
-        //mOptionsBackground = assetManager.getBitmap("OptionScreenBackground");
+        mCreditsBackground = assetManager.getBitmap("OptionScreenBackground");
 
         // Define the spacing that will be used to position the buttons
-        int spacingX = (int)mDefaultLayerViewport.getWidth() / 5;
-        int spacingY = (int)mDefaultLayerViewport.getHeight() / 3;
+        int spacingX = (int) mDefaultLayerViewport.getWidth() / 5;
+        int spacingY = (int) mDefaultLayerViewport.getHeight() / 3;
 
         // Create the trigger buttons
-        mVolumeScreenButton = new PushButton(
-                spacingX * 4.50f, spacingY * 1.5f, spacingX, spacingY,
-                "VolumeButton", "VolumeButtonSelected", this);
-        mVolumeScreenButton.setPlaySounds(true, true);
 
         mMainMenuButton = new PushButton(
-                spacingX * 1.0f, spacingY * 1.5f, spacingX, spacingY,
+                spacingX * 0.75f, spacingY * 1.5f, spacingX, spacingY,
                 "main_menu_button", "main_menu_button_pressed", this);
         mMainMenuButton.setPlaySounds(true, true);
 
-        mReturnToPerformanceScreenButton = new PushButton(
-                spacingX * 0.75f, spacingY * 1.5f, spacingX, spacingY,
-                "BackArrowPS", "BackArrowSelectedPS", this);
-        mReturnToPerformanceScreenButton.setPlaySounds(true, true);
     }
-
     // /////////////////////////////////////////////////////////////////////////
     // Methods
     // /////////////////////////////////////////////////////////////////////////
 
     /**
-     * Update the menu screen
+     * Update the credits screen
      *
      * @param elapsedTime Elapsed time information
      */
@@ -107,23 +82,18 @@ public class VolumeScreen extends GameScreen {
         if (touchEvents.size() > 0 && mTimeToChange > 0.5f) {
 
             // Update each button and transition if needed
-            mVolumeScreenButton.update(elapsedTime);
-            mMainMenuButton.update(elapsedTime);
-            mReturnToPerformanceScreenButton.update(elapsedTime);
 
-           if (mVolumeScreenButton.isPushTriggered())
-                mGame.getScreenManager().addScreen(new VolumeScreen(mGame));
-           else if (mMainMenuButton.isPushTriggered())
-               mGame.getScreenManager().removeScreen(this);
-           else if (mReturnToPerformanceScreenButton.isPushTriggered())
-               mGame.getScreenManager().addScreen(new PerformanceScreen("PerformanceScreen", mGame));
+            mMainMenuButton.update(elapsedTime);
+
+            if (mMainMenuButton.isPushTriggered())
+                mGame.getScreenManager().removeScreen(this);
         }
 
         mTimeToChange += elapsedTime.stepTime;
     }
 
     /**
-     * Draw the menu screen
+     * Draw the credits screen
      *
      * @param elapsedTime Elapsed time information
      * @param graphics2D  Graphics instance
@@ -136,13 +106,12 @@ public class VolumeScreen extends GameScreen {
         int width = graphics2D.getSurfaceWidth();
         int height = graphics2D.getSurfaceHeight();
 
-
-        Rect sourceRectBackg = new Rect(0,0, mOptionsBackground.getWidth(), mOptionsBackground.getHeight());
-        Rect destRectBackg = new Rect((int) (width * 0.0f), (int) (height * 0.0f), (int) (width * 1.0f), (int) (height * 1.0f));
-        graphics2D.drawBitmap(mOptionsBackground, sourceRectBackg, destRectBackg, null);
-
-        mVolumeScreenButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         mMainMenuButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
-        mReturnToPerformanceScreenButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+
+        Rect sourceRectBackg = new Rect(0, 0, mCreditsBackground.getWidth(), mCreditsBackground.getHeight());
+        Rect destRectBackg = new Rect((int) (width * 0.0f), (int) (height * 0.0f), (int) (width * 1.0f), (int) (height * 1.0f));
+        graphics2D.drawBitmap(mCreditsBackground, sourceRectBackg, destRectBackg, null);
+
     }
 }
+

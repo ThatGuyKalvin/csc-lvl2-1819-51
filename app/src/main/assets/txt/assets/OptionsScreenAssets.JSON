@@ -2,6 +2,11 @@
   "assets": [
     {
       "type": "Bitmap",
+      "name": "OptionScreenBackground",
+      "file": "img/RiskGameImages/RiskOptionScreen.png"
+    },
+    {
+      "type": "Bitmap",
       "name": "InputDemoIcon",
       "file": "img/InputDemoIcon.png"
     },
@@ -62,6 +67,11 @@
     },
     {
       "type": "Bitmap",
+      "name": "OptionScreenBackground",
+      "file": "img/OptionScreenBackground.png"
+    },
+    {
+      "type": "Bitmap",
       "name": "BackArrow",
       "file": "img/BackArrow.png"
     },
@@ -89,6 +99,16 @@
       "type": "Bitmap",
       "name": "OptionsScreenButtonSelected",
       "file": "img/OptionsScreenButtonSelected.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "main_menu_button",
+      "file": "img/RiskGameImages/main_menu_button.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "main_menu_button_pressed",
+      "file": "img/RiskGameImages/main_menu_button_pressed.png"
     }
   ]
 }

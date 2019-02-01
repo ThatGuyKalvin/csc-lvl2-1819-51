@@ -53,6 +53,7 @@ public class MenuScreen extends GameScreen {
     private PushButton mStartGameButton;
     private PushButton mDemosButton;
     private PushButton mSettingsButton;
+    private PushButton mCreditsButton;
     private PushButton mPerformanceScreenButton;
     private Bitmap mMainMenuBackground;
 
@@ -82,6 +83,8 @@ public class MenuScreen extends GameScreen {
         assetManager.loadAndAddBitmap("risk_rules_button_ pressed", "img/RiskGameImages/risk_rules_button_ pressed.png");
         assetManager.loadAndAddBitmap("risk_settings_button", "img/RiskGameImages/risk_settings_button.png");
         assetManager.loadAndAddBitmap("risk_settings_button_pressed", "img/RiskGameImages/risk_settings_button_pressed.png");
+        assetManager.loadAndAddBitmap("risk_credits_button", "img/RiskGameImages/risk_credits_button.png");
+        assetManager.loadAndAddBitmap("risk_credits_button_pressed", "img/RiskGameImages/risk_credits_button_pressed.png");
         assetManager.loadAndAddBitmap("PerformanceScreenIcon", "img/PerformanceScreenIcon.png");
         assetManager.loadAndAddBitmap("PerformanceScreenIconSelected", "img/PerformanceScreenIconSelected.png");
         assetManager.loadAndAddBitmap("DemosIcon", "img/DemosIcon.png");
@@ -101,11 +104,11 @@ public class MenuScreen extends GameScreen {
 
         // Create the trigger buttons
         mSpaceshipDemoButton = new PushButton(
-                spacingX * 2.0f, spacingY * 5.2f, spacingX, spacingY,
+                spacingX * 3.5f, spacingY * 5.2f, spacingX, spacingY,
                 "SpaceDemoIcon", "SpaceDemoIconSelected",this);
         mSpaceshipDemoButton.setPlaySounds(true, true);
         mRulesButton = new PushButton(
-                spacingX * 2.0f, spacingY * 9.1f, spacingX, spacingY,
+                spacingX * 2.0f, spacingY * 8.5f, spacingX, spacingY,
                 "risk_rules_button", "risk_rules_button_ pressed", this);
         mRulesButton.setPlaySounds(true, true);
         mStartGameButton = new PushButton(
@@ -113,15 +116,19 @@ public class MenuScreen extends GameScreen {
                 "risk_start_game_button", "risk_start_game_button_pressed", this);
         mStartGameButton.setPlaySounds(true, true);
         mDemosButton = new PushButton(
-                spacingX * 2.0f, spacingY * 4.0f, spacingX/2, spacingY/2,
+                spacingX * 3.5f, spacingY * 4.0f, spacingX/2, spacingY/2,
                 "DemosIcon", "DemosIconSelected", this);
         mDemosButton.setPlaySounds(true, true);
         mSettingsButton = new PushButton(
-                spacingX * 2.0f, spacingY * 7.8f, spacingX, spacingY,
+                spacingX * 2.0f, spacingY * 6.5f, spacingX, spacingY,
                 "risk_settings_button", "risk_settings_button_pressed", this);
         mSettingsButton.setPlaySounds(true, true);
+        mCreditsButton = new PushButton(
+                spacingX * 2.0f, spacingY * 4.5f, spacingX, spacingY,
+                "risk_credits_button", "risk_credits_button_pressed", this);
+        mCreditsButton.setPlaySounds(true, true);
         mPerformanceScreenButton = new PushButton(
-                spacingX * 2.0f, spacingY * 2.0f, spacingX/2, spacingY/2,
+                spacingX * 3.5f, spacingY * 2.0f, spacingX/2, spacingY/2,
                 "PerformanceScreenIcon", "PerformanceScreenIconSelected", this);
         mPerformanceScreenButton.setPlaySounds(true, true);
     }
@@ -151,6 +158,7 @@ public class MenuScreen extends GameScreen {
             mDemosButton.update(elapsedTime);
             mRulesButton.update(elapsedTime);
             mSettingsButton.update(elapsedTime);
+            mCreditsButton.update(elapsedTime);
             mPerformanceScreenButton.update(elapsedTime);
 
 
@@ -160,11 +168,13 @@ public class MenuScreen extends GameScreen {
             else if (mStartGameButton.isPushTriggered())
                 mGame.getScreenManager().addScreen(new RiskGameScreen(mGame));
             else if (mRulesButton.isPushTriggered())
-                mGame.getScreenManager().addScreen(new PlatformDemoScreen(mGame));
+                mGame.getScreenManager().addScreen(new RiskRulesScreen(mGame));
             else if (mDemosButton.isPushTriggered())
                 mGame.getScreenManager().addScreen(new DemoMenuScreen(mGame));
             else if (mSettingsButton.isPushTriggered())
                 mGame.getScreenManager().addScreen(new VolumeScreen(mGame));
+            else if (mCreditsButton.isPushTriggered())
+                mGame.getScreenManager().addScreen(new GameCreditsScreen(mGame));
             else if (mPerformanceScreenButton.isPushTriggered())
                 mGame.getScreenManager().addScreen(new PerformanceScreen("PerformanceScreen", mGame));
         }
@@ -197,6 +207,7 @@ public class MenuScreen extends GameScreen {
         mStartGameButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         mDemosButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         mSettingsButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        mCreditsButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         mPerformanceScreenButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
 
 
