@@ -235,7 +235,7 @@ public class RiskGameScreen extends GameScreen {
     }
 
     private void Battle(Field Attacker, Field Defender) {
-        Battle tempBattle = new Battle(3,3, Attacker.getFNumOfTeams(), Defender.getFNumOfTeams());
+        Battle tempBattle = new Battle(3,3, Attacker.getFNumOfTeams() - 1, Defender.getFNumOfTeams());
         int[] Results = tempBattle.Battling();
         mFields[Attacker.getFNum()].decreaseNumOfTeams(Results[0]);
         if(Results[2] == 0)
