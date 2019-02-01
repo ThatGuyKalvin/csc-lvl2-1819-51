@@ -12,8 +12,9 @@ import uk.ac.qub.eeecs.gage.world.Sprite;
 
 public class Field extends Sprite {
 
-    private String FColour;
-    private String FAssociation;
+    private int FNum;
+    private String FName;
+    private Player FPlayer;
     private int FNumOfTeams;
     private ArrayList<Field> FConnectedFields;
     private float FCentreX;
@@ -21,13 +22,16 @@ public class Field extends Sprite {
     private Bitmap FBitmap;
 
     public Field(float startX, float startY,
-                 float width, float height, Bitmap bitmap, GameScreen gameScreen, ArrayList<Field> ConnectedFields) {
+                 float width, float height, Bitmap bitmap, GameScreen gameScreen, int Num, String Name, Player player, int NumOfTeams) {
         super(startX, startY, width, height, bitmap, gameScreen);
 
         FCentreX = startX;
         FCentreY = startY;
         FBitmap = bitmap;
-        FConnectedFields = ConnectedFields;
+        FNum = Num;
+        FName = Name;
+        FPlayer = player;
+        FNumOfTeams = NumOfTeams;
     }
 
     public void increaseNumOfTeams(int increase){
@@ -46,17 +50,8 @@ public class Field extends Sprite {
         FNumOfTeams--;
     }
 
-    public void changeAssociation(String Association, String Colour){
-        FAssociation = Association;
-        FColour = Colour;
-    }
-
-    public String getFAssociation(){
-        return FAssociation;
-    }
-
-    public String getFColour(){
-        return FColour;
+    public Player getFPlayer(){
+        return FPlayer;
     }
 
     public int getFNumOfTeams(){
@@ -75,10 +70,13 @@ public class Field extends Sprite {
         return FCentreY;
     }
 
-    public void hostileTakeOver(String Colour, String Association, int numOfTeams)
+    public String getFName(){return FName;}
+
+    public int getFNum(){return FNum;}
+
+    public void hostileTakeOver(Player Team, int numOfTeams)
     {
-        FColour = Colour;
-        FAssociation = Association;
+        FPlayer = Team;
         FNumOfTeams = numOfTeams;
     }
 
