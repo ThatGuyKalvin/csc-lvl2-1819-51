@@ -139,6 +139,7 @@ public class RiskGameScreen extends GameScreen {
                     if (tmpArea != mTouchedArea[0]) {
                         mTouchedArea[1] = getAreaClicked();
                         attackState = ATTACK_BATTLING;
+                        beginBattle(mTouchedArea[0], mTouchedArea[1]);
                     }
                 }
             }
@@ -198,7 +199,7 @@ public class RiskGameScreen extends GameScreen {
                 0.0f, lineHeight + 40.0f, textPaint);
         graphics2D.drawText("Screen: [" + this.getName() + "]",
                 0.0f, lineHeight + 80.0f, textPaint);
-        graphics2D.drawText("Touched: " + mTouchedArea[0].getName(),
+        graphics2D.drawText("Touch[0]: " + mTouchedArea[0].getName() + " Touch[1]: " + mTouchedArea[1].getName(),
                 0.0f, lineHeight + 120.0f, textPaint);
 
         switch(attackState) {
@@ -210,6 +211,11 @@ public class RiskGameScreen extends GameScreen {
         }
         graphics2D.drawText(attackStr,
                 0.0f, lineHeight + 160.0f, textPaint);
+
+        /* Work In Progress
+        graphics2D.drawText("Winner: " + winner.getName() + " Loser: " + loser.getName(),
+                0.0f, lineHeight + 200.0f, textPaint);
+        */
 
     }
     ///////////////////////////////////////////////////
@@ -224,7 +230,23 @@ public class RiskGameScreen extends GameScreen {
         mAreas.add(new Area("Development", 0xFFffe51c));
         mAreas.add(new Area("Machine Learning", 0xFFb87756));
         mAreas.add(new Area("Data & Information", 0xFFb63eb8));
-        mTouchedArea[0] = mAreas.get(0); // null results in crash.
+        // Generate the fields for the areas
+
+
+        // Field class should probably be revamped
+        mAreas.get(0).addField(new Field(this, 1, "Internet Provider", null, 5));
+        mAreas.get(0).addField(new Field(this, 1, "Phone Carrier", null, 5));
+        mAreas.get(1).addField(new Field(this, 1, "Cyber Security", null, 5));
+        mAreas.get(1).addField(new Field(this, 1, "CCTV", null, 5));
+        mAreas.get(2).addField(new Field(this, 1, "C++", null, 5));
+        mAreas.get(2).addField(new Field(this, 1, "Java", null, 5));
+        mAreas.get(3).addField(new Field(this, 1, "General Intelligence", null, 5));
+        mAreas.get(3).addField(new Field(this, 1, "AI Cars", null, 5));
+        mAreas.get(4).addField(new Field(this, 1, "Social Media", null, 5));
+        mAreas.get(4).addField(new Field(this, 1, "Research Labs", null, 5));
+
+        mTouchedArea[0] = mAreas.get(0); // null results in crash when displaying getName() text
+        mTouchedArea[1] = mAreas.get(0); // null results in crash when displaying getName() text
     }
 
     private void createPlayers() {
@@ -271,7 +293,17 @@ public class RiskGameScreen extends GameScreen {
                 }
             }
         }
+        // Be careful, returning null can cause crashes
         return null;
+    }
+
+    private void beginBattle(Area att, Area def) {
+        // Something here...
+
+        Battle battle = new Battle(3, 3,
+                att.getField(0).getFNumOfTeams()-1, def.getField(0).getFNumOfTeams()-1);
+        // Transfer ownership of lost fields should be done here...
+        // Not really doing much here, battle happens but need to display/do something...
     }
 
     private void Battle(Field Attacker, Field Defender) {
@@ -284,8 +316,8 @@ public class RiskGameScreen extends GameScreen {
 
         }
         else
-            {
-                mFields[Defender.getFNum()].decreaseNumOfTeams(Results[1]);
-            }
+        {
+            mFields[Defender.getFNum()].decreaseNumOfTeams(Results[1]);
+        }
     }
 }

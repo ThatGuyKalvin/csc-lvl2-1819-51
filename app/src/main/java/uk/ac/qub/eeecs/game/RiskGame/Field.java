@@ -21,7 +21,7 @@ public class Field extends Sprite {
     private float FCentreY;
     private Bitmap FBitmap;
 
-    public Field(float startX, float startY,
+    Field(float startX, float startY,
                  float width, float height, Bitmap bitmap, GameScreen gameScreen, int Num, String Name, Player player, int NumOfTeams) {
         super(startX, startY, width, height, bitmap, gameScreen);
 
@@ -34,6 +34,14 @@ public class Field extends Sprite {
         FNumOfTeams = NumOfTeams;
     }
 
+    Field(GameScreen gameScreen, int num, String name, Player owner, int numOfTeams) {
+        super(50, 50, 50, 50, null, gameScreen);
+        FNum = num;
+        FName = name;
+        FPlayer = owner;
+        FNumOfTeams = numOfTeams;
+    }
+
     public void increaseNumOfTeams(int increase){
         FNumOfTeams += increase;
     }
@@ -42,7 +50,7 @@ public class Field extends Sprite {
         FNumOfTeams++;
     }
 
-    public void decreaseNumOfTeams(int decrease){
+    void decreaseNumOfTeams(int decrease){
         FNumOfTeams -= decrease;
     }
 
@@ -50,11 +58,11 @@ public class Field extends Sprite {
         FNumOfTeams--;
     }
 
-    public Player getFPlayer(){
+    Player getFPlayer(){
         return FPlayer;
     }
 
-    public int getFNumOfTeams(){
+    int getFNumOfTeams(){
         return FNumOfTeams;
     }
 
@@ -62,9 +70,7 @@ public class Field extends Sprite {
         return FConnectedFields;
     }
 
-    public float GetFCentreX(){
-        return FCentreY;
-    }
+    public float GetFCentreX(){ return FCentreX; }
 
     public float getFCentreY(){
         return FCentreY;
@@ -72,9 +78,9 @@ public class Field extends Sprite {
 
     public String getFName(){return FName;}
 
-    public int getFNum(){return FNum;}
+    int getFNum(){return FNum;}
 
-    public void hostileTakeOver(Player Team, int numOfTeams)
+    void hostileTakeOver(Player Team, int numOfTeams)
     {
         FPlayer = Team;
         FNumOfTeams = numOfTeams;
