@@ -85,8 +85,4 @@ public class Field extends Sprite {
         FPlayer = Team;
         FNumOfTeams = numOfTeams;
     }
-
-
-
-
 }
