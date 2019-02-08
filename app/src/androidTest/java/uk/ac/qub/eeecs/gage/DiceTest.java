@@ -50,7 +50,6 @@ public class DiceTest {
         boolean success = assetManager.loadAndAddBitmap(
                 "Dice3Selected", "img/dice/3Selected.png");
         assertTrue(success);
-
     }
 
     @Test
@@ -104,6 +103,33 @@ public class DiceTest {
     }
 
     @Test
+    public void loadAndAddBitmap_Background_Success() {
+
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "Background", "img/dice/DiceRollScreenBackGround.png");
+        assertTrue(success);
+    }
+
+    @Test
+    public void loadAndAddBitmap_abortHack_Success() {
+
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "AbortHack", "img/dice/AbortHack.png");
+        assertTrue(success);
+    }
+
+    @Test
+    public void loadAndAddBitmap_abortHackSelected_Success() {
+
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "AbortHackSelected", "img/dice/AbortHackSelected.png");
+        assertTrue(success);
+    }
+
+    @Test
     public void MaxNumber_Success() {
 
         DiceRoll diceRoll = new DiceRoll(100);
@@ -119,7 +145,6 @@ public class DiceTest {
             assertTrue(false);
         }
     }
-
 
     //I wasn't too sure how to test randomness
     //but if each number occurs I assume it is okay.

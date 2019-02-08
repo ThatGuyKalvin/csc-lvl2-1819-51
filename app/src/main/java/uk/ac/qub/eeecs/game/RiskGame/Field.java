@@ -34,6 +34,14 @@ public class Field extends Sprite {
         FNumOfTeams = NumOfTeams;
     }
 
+    Field(GameScreen gameScreen, int num, String name, Player owner, int numOfTeams) {
+        super(50, 50, 50, 50, null, gameScreen);
+        FNum = num;
+        FName = name;
+        FPlayer = owner;
+        FNumOfTeams = numOfTeams;
+    }
+
     public void increaseNumOfTeams(int increase){
         FNumOfTeams += increase;
     }
@@ -62,9 +70,7 @@ public class Field extends Sprite {
         return FConnectedFields;
     }
 
-    public float GetFCentreX(){
-        return FCentreY;
-    }
+    public float GetFCentreX(){ return FCentreX; }
 
     public float getFCentreY(){
         return FCentreY;
@@ -79,8 +85,4 @@ public class Field extends Sprite {
         FPlayer = Team;
         FNumOfTeams = numOfTeams;
     }
-
-
-
-
 }

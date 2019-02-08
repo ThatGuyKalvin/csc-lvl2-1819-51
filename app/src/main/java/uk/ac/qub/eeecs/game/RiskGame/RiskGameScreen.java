@@ -34,17 +34,23 @@ public class RiskGameScreen extends GameScreen {
     // /////////////////////////////////////////////////////////////////////////
 
     // The game map
+    private final int ATTACK_NULL = 0;
+    private final int ATTACK_PICK = 1;
+    private final int ATTACK_PICK_AGAIN = 2;
+    private final int ATTACK_BATTLING = 3;
+    private String attackStr = "State: Not battling.";
+    private PushButton mAttackButton;
     private Bitmap mRiskGameScreenBackground;
     private GameObject mRiskMap;
     // Used to store the last touched area
-    private Area mTouchedArea;
+    private Area[] mTouchedArea = new Area[2];
+    private int attackState = ATTACK_NULL;
 
     // ArrayList for Areas and Players
     private final int MAX_AREAS = 5;
     private final int MAX_PLAYERS = 3;
     private ArrayList<Player> mPlayers = new ArrayList<>(MAX_PLAYERS);
     private ArrayList<Area> mAreas = new ArrayList<>(MAX_AREAS);
-    private Field[] mFields;
     private Paint textPaint = new Paint();
 
     private PushButton mReturnToMenuButton;
@@ -60,7 +66,8 @@ public class RiskGameScreen extends GameScreen {
         assetManager.loadAssets(
                 "txt/assets/RiskGameAssets.JSON");
 
-        assetManager.loadAndAddBitmap("RiskGameScreen2", "img/RiskGamesImages/RiskGameScreen2.png");
+        //assetManager.loadAndAddBitmap("RiskGameScreen2", "img/RiskGamesImages/RiskGameScreen2.png");
+        assetManager.loadAndAddBitmap("RiskAttackButton", "img/RiskGameImages/risk_attack_pressed.png");
 
         mRiskGameScreenBackground = assetManager.getBitmap("RiskGameScreen2");
 
@@ -70,7 +77,6 @@ public class RiskGameScreen extends GameScreen {
         createAreas();
         // Generate Player objects
         createPlayers();
-        mFields = GenerateFields();
 
         mRiskMap = new GameObject(
                 mDefaultLayerViewport.x, mDefaultLayerViewport.y,
@@ -83,6 +89,12 @@ public class RiskGameScreen extends GameScreen {
                 mDefaultLayerViewport.getWidth() * 0.075f,
                 mDefaultLayerViewport.getHeight() * 0.10f,
                 "BackArrow", "BackArrowSelected", this);
+        mAttackButton = new PushButton(
+                mDefaultLayerViewport.getWidth() * 0.95f,
+                mDefaultLayerViewport.getHeight() * 0.60f,
+                mDefaultLayerViewport.getWidth() * 0.075f,
+                mDefaultLayerViewport.getHeight() * 0.10f,
+                "RiskAttackButton", "RiskAttackButton", this);
         mReturnToMenuButton.setPlaySounds(true, true);
 
         float screenWidth = mGame.getScreenWidth();
@@ -110,38 +122,35 @@ public class RiskGameScreen extends GameScreen {
         List<TouchEvent> touchEvents = input.getTouchEvents();
         if (touchEvents.size() > 0 && mTimeToChange > 0.5f) {
 
-            for(TouchEvent touchEvent : touchEvents) {
-
-                Vector2 layerPosition = new Vector2();
-                ViewportHelper.convertScreenPosIntoLayer(
-                        mDefaultScreenViewport, touchEvent.x, touchEvent.y,
-                        mDefaultLayerViewport, layerPosition);
-
-                BoundingBox bound = mRiskMap.getBound();
-                if(bound.contains(layerPosition.x, layerPosition.y)) {
-
-                    float xLoc = (layerPosition.x - bound.getLeft())/bound.getWidth();
-                    float yLoc = (bound.getTop() - layerPosition.y)/bound.getHeight();
-
-                    Bitmap bitmap = mRiskMap.getBitmap();
-                    int colour = bitmap.getPixel(
-                            (int)(xLoc * bitmap.getWidth()),
-                            (int)(yLoc * bitmap.getHeight()));
-
-                    // Detects pixel colour and compares to the list of areas
-                    // The background image colours match mAreas colours)
-                    for(int i = 0; i < mAreas.size(); i++) {
-                        if(colour == mAreas.get(i).getColour()) {
-                            mTouchedArea = mAreas.get(i);
-                            break;
-                        }
+            // If we're in attacking mode get a touched area
+            //if(attackState != ATTACK_NULL) getAreaClicked();
+            if(attackState == ATTACK_PICK) {
+                Area tmpArea = getAreaClicked();
+                if(tmpArea != null) {
+                    mTouchedArea[0] = tmpArea;
+                    attackState = ATTACK_PICK_AGAIN;
+                }
+            }
+            else if(attackState == ATTACK_PICK_AGAIN) {
+                Area tmpArea = getAreaClicked();
+                if(tmpArea != null) {
+                    if (tmpArea != mTouchedArea[0]) {
+                        mTouchedArea[1] = getAreaClicked();
+                        attackState = ATTACK_BATTLING;
+                        beginBattle(mTouchedArea[0], mTouchedArea[1], 1, 1); //parameter 3 and 4 set to 1 as default, will need to be changed to the number of the field within the area
                     }
                 }
             }
 
+
             mReturnToMenuButton.update(elapsedTime);
             if (mReturnToMenuButton.isPushTriggered())
                 mGame.getScreenManager().removeScreen(this);
+
+            // Changing attack state
+            mAttackButton.update(elapsedTime);
+            if (mAttackButton.isPushTriggered())
+                attackState = ATTACK_PICK;
         }
         mTimeToChange += elapsedTime.stepTime;
     }
@@ -165,6 +174,7 @@ public class RiskGameScreen extends GameScreen {
 
 
         mReturnToMenuButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        mAttackButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
 
         float textSize =
                 ViewportHelper.convertXDistanceFromLayerToScreen(
@@ -187,11 +197,23 @@ public class RiskGameScreen extends GameScreen {
                 0.0f, lineHeight + 40.0f, textPaint);
         graphics2D.drawText("Screen: [" + this.getName() + "]",
                 0.0f, lineHeight + 80.0f, textPaint);
-        graphics2D.drawText("Touched: " + mTouchedArea.getName(),
+        graphics2D.drawText("Touch[0]: " + mTouchedArea[0].getName() + " Touch[1]: " + mTouchedArea[1].getName(),
                 0.0f, lineHeight + 120.0f, textPaint);
-        // Used during testing...
-        /*graphics2D.drawText("Touched Colour: " + touchedAreaColour,
-                0.0f, lineHeight + 160.0f, textPaint);*/
+
+        switch(attackState) {
+            case ATTACK_NULL: attackStr = "State: Not battling."; break;
+            case ATTACK_PICK: attackStr = "State: Pick area 1."; break;
+            case ATTACK_PICK_AGAIN: attackStr = "State: Pick area 2."; break;
+            case ATTACK_BATTLING: attackStr = "State: Battle: " + mTouchedArea[0].getName() + " vs. " + mTouchedArea[1].getName(); break;
+            default: attackStr = "State: Not battling."; break;
+        }
+        graphics2D.drawText(attackStr,
+                0.0f, lineHeight + 160.0f, textPaint);
+
+        /* Work In Progress
+        graphics2D.drawText("Winner: " + winner.getName() + " Loser: " + loser.getName(),
+                0.0f, lineHeight + 200.0f, textPaint);
+        */
 
     }
     ///////////////////////////////////////////////////
@@ -206,7 +228,23 @@ public class RiskGameScreen extends GameScreen {
         mAreas.add(new Area("Development", 0xFFffe51c));
         mAreas.add(new Area("Machine Learning", 0xFFb87756));
         mAreas.add(new Area("Data & Information", 0xFFb63eb8));
-        mTouchedArea = mAreas.get(0); // null results in crash.
+        // Generate the fields for the areas
+
+
+        // Field class should probably be revamped
+        mAreas.get(0).addField(new Field(this, 1, "Internet Provider", null, 5));
+        mAreas.get(0).addField(new Field(this, 1, "Phone Carrier", null, 5));
+        mAreas.get(1).addField(new Field(this, 1, "Cyber Security", null, 5));
+        mAreas.get(1).addField(new Field(this, 1, "CCTV", null, 5));
+        mAreas.get(2).addField(new Field(this, 1, "C++", null, 5));
+        mAreas.get(2).addField(new Field(this, 1, "Java", null, 5));
+        mAreas.get(3).addField(new Field(this, 1, "General Intelligence", null, 5));
+        mAreas.get(3).addField(new Field(this, 1, "AI Cars", null, 5));
+        mAreas.get(4).addField(new Field(this, 1, "Social Media", null, 5));
+        mAreas.get(4).addField(new Field(this, 1, "Research Labs", null, 5));
+
+        mTouchedArea[0] = mAreas.get(0); // null results in crash when displaying getName() text
+        mTouchedArea[1] = mAreas.get(0); // null results in crash when displaying getName() text
     }
 
     private void createPlayers() {
@@ -215,26 +253,60 @@ public class RiskGameScreen extends GameScreen {
         mPlayers.add(new Player("Google", Color.GREEN));
         mPlayers.add(new Player("Apple", Color.RED));
     }
-    private Field[] GenerateFields()
-    {
-        Field[] fields = new Field[2];
-        fields[0] = new Field(50, 50, 50, 50, null, this, 1, "AI", mPlayers.get(0), 5);
-        fields[1] = new Field(50, 50, 50, 50, null, this, 2, "SelfDrivingCars", mPlayers.get(1), 5);
-        return fields;
+
+
+    private Area getAreaClicked() {
+        Input input = mGame.getInput();
+        List<TouchEvent> touchEvents = input.getTouchEvents();
+
+        for (TouchEvent touchEvent : touchEvents) {
+            Vector2 layerPosition = new Vector2();
+            ViewportHelper.convertScreenPosIntoLayer(
+                    mDefaultScreenViewport, touchEvent.x, touchEvent.y,
+                    mDefaultLayerViewport, layerPosition);
+
+            BoundingBox bound = mRiskMap.getBound();
+            if (bound.contains(layerPosition.x, layerPosition.y)) {
+
+                float xLoc = (layerPosition.x - bound.getLeft()) / bound.getWidth();
+                float yLoc = (bound.getTop() - layerPosition.y) / bound.getHeight();
+
+                Bitmap bitmap = mRiskMap.getBitmap();
+                int colour = bitmap.getPixel(
+                        (int) (xLoc * bitmap.getWidth()),
+                        (int) (yLoc * bitmap.getHeight()));
+
+                // Detects pixel colour and compares to the list of areas
+                // The background image colours match mAreas colours)
+                for (int i = 0; i < mAreas.size(); i++) {
+                    if (colour == mAreas.get(i).getColour()) {
+                        return mAreas.get(i);
+                    }
+                }
+            }
+        }
+        // Be careful, returning null can cause crashes
+        return null;
     }
 
-    private void Battle(Field Attacker, Field Defender) {
-        Battle tempBattle = new Battle(3,3, Attacker.getFNumOfTeams() - 1, Defender.getFNumOfTeams());
-        int[] Results = tempBattle.Battling();
-        mFields[Attacker.getFNum()].decreaseNumOfTeams(Results[0]);
+    private void beginBattle(Area att, Area def, int AttFieldNum, int DefFieldNum) {
+        int DefDice = 2;
+        int AttDice = 3;
+        if((att.getField(AttFieldNum).getFNumOfTeams()-1) < 3){AttDice = att.getField(AttFieldNum).getFNumOfTeams()-1;}
+        if((def.getField(DefFieldNum).getFNumOfTeams()) < 2){DefDice = 1;}
+        Battle battle = new Battle(AttDice, DefDice,
+                att.getField(AttFieldNum).getFNumOfTeams()-1, def.getField(DefFieldNum).getFNumOfTeams());
+        int[] Results = battle.Battling();
+        att.getField(AttFieldNum).decreaseNumOfTeams(Results[0]);
         if(Results[2] == 0)
         {
-            mFields[Defender.getFNum()].hostileTakeOver(mFields[Attacker.getFNum()].getFPlayer(),  mFields[Attacker.getFNum()].getFNumOfTeams()-1);
+            def.getField(DefFieldNum).hostileTakeOver(att.getField(AttFieldNum).getFPlayer(),  att.getField(AttFieldNum).getFNumOfTeams()-1);
 
         }
         else
-            {
-                mFields[Defender.getFNum()].decreaseNumOfTeams(Results[1]);
-            }
+        {
+            def.getField(DefFieldNum).decreaseNumOfTeams(Results[1]);
+        }
     }
+
 }
