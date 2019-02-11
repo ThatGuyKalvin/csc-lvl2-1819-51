@@ -40,7 +40,8 @@ public class FieldClassTests {
 
     @Test
     public void TestHostileTakeover(){
-
+        Defender.hostileTakeOver(Attacker.getFPlayer(), Attacker.getFNumOfTeams()-1);
+        assertTrue((Defender.getFPlayer() == Attacker.getFPlayer()) && (Defender.getFNumOfTeams() == Attacker.getFNumOfTeams()-1));
     }
 
 
