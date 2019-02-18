@@ -27,6 +27,8 @@ public class Area {
     void addField(Field f) { aFields.add(f); }
     Field getField(int i) { return aFields.get(i); }
 
+    int getFieldSize() { return aFields.size(); }
+
     public void setOwner(Player owner) { this.aOwner = owner; }
     public Player getOwner() {
         return this.aOwner;
