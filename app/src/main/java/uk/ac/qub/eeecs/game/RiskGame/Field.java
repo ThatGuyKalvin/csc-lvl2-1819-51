@@ -21,7 +21,7 @@ public class Field extends Sprite {
     private float FCentreY;
     private Bitmap FBitmap;
 
-    Field(float startX, float startY,
+    public Field(float startX, float startY,
                  float width, float height, Bitmap bitmap, GameScreen gameScreen, int Num, String Name, Player player, int NumOfTeams) {
         super(startX, startY, width, height, bitmap, gameScreen);
 
@@ -50,7 +50,7 @@ public class Field extends Sprite {
         FNumOfTeams++;
     }
 
-    void decreaseNumOfTeams(int decrease){
+    public void decreaseNumOfTeams(int decrease){
         FNumOfTeams -= decrease;
     }
 
@@ -58,11 +58,11 @@ public class Field extends Sprite {
         FNumOfTeams--;
     }
 
-    Player getFPlayer(){
+    public Player getFPlayer(){
         return FPlayer;
     }
 
-    int getFNumOfTeams(){
+    public int getFNumOfTeams(){
         return FNumOfTeams;
     }
 
@@ -78,9 +78,9 @@ public class Field extends Sprite {
 
     public String getFName(){return FName;}
 
-    int getFNum(){return FNum;}
+    public int getFNum(){return FNum;}
 
-    void hostileTakeOver(Player Team, int numOfTeams)
+    public void hostileTakeOver(Player Team, int numOfTeams)
     {
         FPlayer = Team;
         FNumOfTeams = numOfTeams;

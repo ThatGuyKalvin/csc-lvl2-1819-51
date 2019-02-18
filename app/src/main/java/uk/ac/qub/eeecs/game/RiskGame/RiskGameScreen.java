@@ -51,7 +51,6 @@ public class RiskGameScreen extends GameScreen {
     private final int MAX_PLAYERS = 3;
     private ArrayList<Player> mPlayers = new ArrayList<>(MAX_PLAYERS);
     private ArrayList<Area> mAreas = new ArrayList<>(MAX_AREAS);
-    private Field[] mFields;
     private Paint textPaint = new Paint();
 
     private PushButton mReturnToMenuButton;
@@ -78,7 +77,6 @@ public class RiskGameScreen extends GameScreen {
         createAreas();
         // Generate Player objects
         createPlayers();
-        mFields = GenerateFields();
 
         mRiskMap = new GameObject(
                 mDefaultLayerViewport.x, mDefaultLayerViewport.y,
@@ -139,7 +137,7 @@ public class RiskGameScreen extends GameScreen {
                     if (tmpArea != mTouchedArea[0]) {
                         mTouchedArea[1] = getAreaClicked();
                         attackState = ATTACK_BATTLING;
-                        beginBattle(mTouchedArea[0], mTouchedArea[1]);
+                        beginBattle(mTouchedArea[0], mTouchedArea[1], 1, 1); //parameter 3 and 4 set to 1 as default, will need to be changed to the number of the field within the area
                     }
                 }
             }
@@ -255,13 +253,7 @@ public class RiskGameScreen extends GameScreen {
         mPlayers.add(new Player("Google", Color.GREEN));
         mPlayers.add(new Player("Apple", Color.RED));
     }
-    private Field[] GenerateFields()
-    {
-        Field[] fields = new Field[2];
-        fields[0] = new Field(50, 50, 50, 50, null, this, 1, "AI", mPlayers.get(0), 5);
-        fields[1] = new Field(50, 50, 50, 50, null, this, 2, "SelfDrivingCars", mPlayers.get(1), 5);
-        return fields;
-    }
+
 
     private Area getAreaClicked() {
         Input input = mGame.getInput();
@@ -297,27 +289,24 @@ public class RiskGameScreen extends GameScreen {
         return null;
     }
 
-    private void beginBattle(Area att, Area def) {
-        // Something here...
-
-        Battle battle = new Battle(3, 3,
-                att.getField(0).getFNumOfTeams()-1, def.getField(0).getFNumOfTeams()-1);
-        // Transfer ownership of lost fields should be done here...
-        // Not really doing much here, battle happens but need to display/do something...
-    }
-
-    private void Battle(Field Attacker, Field Defender) {
-        Battle tempBattle = new Battle(3,3, Attacker.getFNumOfTeams() - 1, Defender.getFNumOfTeams());
-        int[] Results = tempBattle.Battling();
-        mFields[Attacker.getFNum()].decreaseNumOfTeams(Results[0]);
+    private void beginBattle(Area att, Area def, int AttFieldNum, int DefFieldNum) {
+        int DefDice = 2;
+        int AttDice = 3;
+        if((att.getField(AttFieldNum).getFNumOfTeams()-1) < 3){AttDice = att.getField(AttFieldNum).getFNumOfTeams()-1;}
+        if((def.getField(DefFieldNum).getFNumOfTeams()) < 2){DefDice = 1;}
+        Battle battle = new Battle(AttDice, DefDice,
+                att.getField(AttFieldNum).getFNumOfTeams()-1, def.getField(DefFieldNum).getFNumOfTeams());
+        int[] Results = battle.Battling();
+        att.getField(AttFieldNum).decreaseNumOfTeams(Results[0]);
         if(Results[2] == 0)
         {
-            mFields[Defender.getFNum()].hostileTakeOver(mFields[Attacker.getFNum()].getFPlayer(),  mFields[Attacker.getFNum()].getFNumOfTeams()-1);
+            def.getField(DefFieldNum).hostileTakeOver(att.getField(AttFieldNum).getFPlayer(),  att.getField(AttFieldNum).getFNumOfTeams()-1);
 
         }
         else
         {
-            mFields[Defender.getFNum()].decreaseNumOfTeams(Results[1]);
+            def.getField(DefFieldNum).decreaseNumOfTeams(Results[1]);
         }
     }
+
 }

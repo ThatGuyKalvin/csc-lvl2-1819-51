@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 public class Area {
 
+    ArrayList<Field> fields = new ArrayList<>();
+
     private int aColour;
     private String aName;
     private Player aOwner;
