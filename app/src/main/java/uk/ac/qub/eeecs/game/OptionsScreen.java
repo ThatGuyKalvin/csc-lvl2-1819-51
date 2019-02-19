@@ -55,35 +55,33 @@ public class OptionsScreen extends GameScreen {
         assetManager.loadAndAddBitmap("main_menu_button_pressed", "img/RiskGameImages/main_menu_button_pressed.png");
         assetManager.loadAndAddBitmap("BackArrowPS", "img/BackArrowPerformanceScreen.png");
         assetManager.loadAndAddBitmap("BackArrowSelectedPS", "img/BackArrowPerformanceScreen.png");
-       // assetManager.loadAndAddBitmap("OptionScreenBackground", "img/OptionScreenBackground.png");
+
 
         assetManager.loadAssets(
                 "txt/assets/OptionsScreenAssets.JSON");
 
-        assetManager.loadAndAddBitmap("OptionScreenBackground", "img/RiskGameImages/RiskOptionScreen.png");
+        assetManager.loadAndAddBitmap("OptionScreenBackground", "img/RiskGameImages/RiskMainMenuScreen.png");
 
         mOptionsBackground = assetManager.getBitmap("OptionScreenBackground");
 
-        //mOptionsBackground = assetManager.getBitmap("OptionScreenBackground");
 
         // Define the spacing that will be used to position the buttons
-        int spacingX = (int)mDefaultLayerViewport.getWidth() / 5;
-        int spacingY = (int)mDefaultLayerViewport.getHeight() / 3;
+        int spacingX = (int)mDefaultLayerViewport.getWidth() / 4;
+        int spacingY = (int)mDefaultLayerViewport.getHeight() / 15;
 
         // Create the trigger buttons
         mOptionsScreenButton = new PushButton(
-                spacingX * 4.50f, spacingY * 1.5f, spacingX, spacingY,
+                spacingX * 3.5f, spacingY * 5.2f, spacingX, spacingY,
                 "OptionsScreenButton", "OptionsScreenButtonSelected", this);
         mOptionsScreenButton.setPlaySounds(true, true);
 
-
         mMainMenuButton = new PushButton(
-                spacingX * 0.75f, spacingY * 1.5f, spacingX, spacingY,
+                spacingX * 2.0f, spacingY * 8.5f, spacingX, spacingY,
                 "main_menu_button", "main_menu_button_pressed", this);
         mMainMenuButton.setPlaySounds(true, true);
 
         mReturnToPerformanceScreenButton = new PushButton(
-                spacingX * 0.75f, spacingY * 1.5f, spacingX, spacingY,
+                spacingX * 2.0f, spacingY * 10.5f, spacingX, spacingY,
                 "BackArrowPS", "BackArrowSelectedPS", this);
         mReturnToPerformanceScreenButton.setPlaySounds(true, true);
     }
@@ -140,13 +138,15 @@ public class OptionsScreen extends GameScreen {
 
 
 
-        mOptionsScreenButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
-        mMainMenuButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
-        mReturnToPerformanceScreenButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
-
         Rect sourceRectBackg = new Rect(0,0, mOptionsBackground.getWidth(), mOptionsBackground.getHeight());
         Rect destRectBackg = new Rect((int) (width * 0.0f), (int) (height * 0.0f), (int) (width * 1.0f), (int) (height * 1.0f));
         graphics2D.drawBitmap(mOptionsBackground, sourceRectBackg, destRectBackg, null);
+
+
+        //mOptionsScreenButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        mMainMenuButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        //mReturnToPerformanceScreenButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+
 
     }
 }

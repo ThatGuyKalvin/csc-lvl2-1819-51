@@ -3,7 +3,7 @@
     {
       "type": "Bitmap",
       "name": "OptionScreenBackground",
-      "file": "img/RiskGameImages/RiskOptionScreen.png"
+      "file": "img/RiskGameImages/RiskMainMenuScreen.png"
     },
     {
       "type": "Bitmap",

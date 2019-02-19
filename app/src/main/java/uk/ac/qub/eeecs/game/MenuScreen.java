@@ -56,9 +56,6 @@ public class MenuScreen extends GameScreen {
     private PushButton mCreditsButton;
     private PushButton mPerformanceScreenButton;
     private Bitmap mMainMenuBackground;
-
-
-
     private float mTimeToChange = 0;
 
     // /////////////////////////////////////////////////////////////////////////
@@ -160,7 +157,6 @@ public class MenuScreen extends GameScreen {
             mSettingsButton.update(elapsedTime);
             mCreditsButton.update(elapsedTime);
             mPerformanceScreenButton.update(elapsedTime);
-
 
 
             if (mSpaceshipDemoButton.isPushTriggered())
