@@ -20,6 +20,7 @@ public class Field extends Sprite {
     private float FCentreX;
     private float FCentreY;
     private Bitmap FBitmap;
+    private int fColour;
 
     public Field(float startX, float startY,
                  float width, float height, Bitmap bitmap, GameScreen gameScreen, int Num, String Name, Player player, int NumOfTeams) {
@@ -34,13 +35,17 @@ public class Field extends Sprite {
         FNumOfTeams = NumOfTeams;
     }
 
-    Field(GameScreen gameScreen, int num, String name, Player owner, int numOfTeams) {
+    Field(GameScreen gameScreen, int num, String name, Player owner, int numOfTeams, int colour) {
         super(50, 50, 50, 50, null, gameScreen);
         FNum = num;
         FName = name;
         FPlayer = owner;
         FNumOfTeams = numOfTeams;
+        fColour = colour;
     }
+
+    public int getColour() { return fColour; }
+    public void setColour(int colour) { fColour = colour; }
 
     public void increaseNumOfTeams(int increase){
         FNumOfTeams += increase;

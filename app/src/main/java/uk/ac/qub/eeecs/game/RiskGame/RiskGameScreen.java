@@ -41,10 +41,13 @@ public class RiskGameScreen extends GameScreen {
     private String attackStr = "State: Not battling.";
     private PushButton mAttackButton;
     private Bitmap mRiskGameScreenBackground;
+    private Bitmap mRiskMapAreas;
     private GameObject mRiskMap;
     // Used to store the last touched area
     private Area[] mTouchedArea = new Area[2];
+    private Field[] mFieldsAttacking = new Field[2];
     private int attackState = ATTACK_NULL;
+    private int clickedColour = 0;
 
     // ArrayList for Areas and Players
     private final int MAX_AREAS = 5;
@@ -70,6 +73,7 @@ public class RiskGameScreen extends GameScreen {
         assetManager.loadAndAddBitmap("RiskAttackButton", "img/RiskGameImages/risk_attack_pressed.png");
 
         mRiskGameScreenBackground = assetManager.getBitmap("RiskGameScreen2");
+        mRiskMapAreas = assetManager.getBitmap("RiskGameScreen3");
 
 
 
@@ -125,23 +129,19 @@ public class RiskGameScreen extends GameScreen {
             // If we're in attacking mode get a touched area
             //if(attackState != ATTACK_NULL) getAreaClicked();
             if(attackState == ATTACK_PICK) {
-                Area tmpArea = getAreaClicked();
-                if(tmpArea != null) {
-                    mTouchedArea[0] = tmpArea;
+                Field tmpField = getFieldClicked();
+                if(tmpField != null) {
+                    mFieldsAttacking[0] = tmpField;
                     attackState = ATTACK_PICK_AGAIN;
                 }
             }
             else if(attackState == ATTACK_PICK_AGAIN) {
-                Area tmpArea = getAreaClicked();
-                if(tmpArea != null) {
-                    if (tmpArea != mTouchedArea[0]) {
-                        mTouchedArea[1] = getAreaClicked();
-                        attackState = ATTACK_BATTLING;
-                        beginBattle(mTouchedArea[0], mTouchedArea[1], 1, 1); //parameter 3 and 4 set to 1 as default, will need to be changed to the number of the field within the area
-                    }
+                Field tmpField = getFieldClicked();
+                if(tmpField != null && tmpField != mFieldsAttacking[0]) {
+                    mFieldsAttacking[1] = tmpField;
+                    attackState = ATTACK_BATTLING;
                 }
             }
-
 
             mReturnToMenuButton.update(elapsedTime);
             if (mReturnToMenuButton.isPushTriggered())
@@ -204,11 +204,13 @@ public class RiskGameScreen extends GameScreen {
             case ATTACK_NULL: attackStr = "State: Not battling."; break;
             case ATTACK_PICK: attackStr = "State: Pick area 1."; break;
             case ATTACK_PICK_AGAIN: attackStr = "State: Pick area 2."; break;
-            case ATTACK_BATTLING: attackStr = "State: Battle: " + mTouchedArea[0].getName() + " vs. " + mTouchedArea[1].getName(); break;
+            case ATTACK_BATTLING: attackStr = "State: Battle: " + mFieldsAttacking[0].getFName() + " vs. " + mFieldsAttacking[1].getFName(); break;
             default: attackStr = "State: Not battling."; break;
         }
         graphics2D.drawText(attackStr,
                 0.0f, lineHeight + 160.0f, textPaint);
+        graphics2D.drawText("clickedColour:" + Integer.toHexString(clickedColour),
+                0.0f, lineHeight + 200.0f, textPaint);
 
         /* Work In Progress
         graphics2D.drawText("Winner: " + winner.getName() + " Loser: " + loser.getName(),
@@ -232,16 +234,32 @@ public class RiskGameScreen extends GameScreen {
 
 
         // Field class should probably be revamped
-        mAreas.get(0).addField(new Field(this, 1, "Internet Provider", null, 5));
-        mAreas.get(0).addField(new Field(this, 1, "Phone Carrier", null, 5));
-        mAreas.get(1).addField(new Field(this, 1, "Cyber Security", null, 5));
-        mAreas.get(1).addField(new Field(this, 1, "CCTV", null, 5));
-        mAreas.get(2).addField(new Field(this, 1, "C++", null, 5));
-        mAreas.get(2).addField(new Field(this, 1, "Java", null, 5));
-        mAreas.get(3).addField(new Field(this, 1, "General Intelligence", null, 5));
-        mAreas.get(3).addField(new Field(this, 1, "AI Cars", null, 5));
-        mAreas.get(4).addField(new Field(this, 1, "Social Media", null, 5));
-        mAreas.get(4).addField(new Field(this, 1, "Research Labs", null, 5));
+        // Telecommunications
+        mAreas.get(0).addField(new Field(this, 1, "Internet Provider", null, 5, 0xFFDE7879));
+        mAreas.get(0).addField(new Field(this, 1, "Phone Carrier", null, 5, 0xFF9C0003));
+        mAreas.get(0).addField(new Field(this, 1, "Tele. 3", null, 5, 0xFFF0ADAD));
+        mAreas.get(0).addField(new Field(this, 1, "Tele. 4", null, 5, 0xFFB84B4B));
+        mAreas.get(0).addField(new Field(this, 1, "Tele. 5", null, 5, 0xFF5C0000));
+        // Security
+        mAreas.get(1).addField(new Field(this, 1, "Cyber Security", null, 5, 0xFF007820));
+        mAreas.get(1).addField(new Field(this, 1, "CCTV", null, 5, 0xFF4AAB3F));
+        mAreas.get(1).addField(new Field(this, 1, "Sec. 3", null, 5, 0xFF24401F));
+        mAreas.get(1).addField(new Field(this, 1, "Sec. 4", null, 5, 0xFF7AC28C));
+        mAreas.get(1).addField(new Field(this, 1, "Sec. 5", null, 5, 0xFF648F5D));
+        mAreas.get(1).addField(new Field(this, 1, "Sec. 6", null, 5, 0xFF4A6945));
+        // Development
+        mAreas.get(2).addField(new Field(this, 1, "C++", null, 5, 0xFFAB9700));
+        mAreas.get(2).addField(new Field(this, 1, "Java", null, 5, 0xFF7D721E));
+        mAreas.get(2).addField(new Field(this, 1, "Python", null, 5, 0xFF453E08));
+        // Machine Learning
+        mAreas.get(3).addField(new Field(this, 1, "General Intelligence", null, 5, 0xFF804121));
+        mAreas.get(3).addField(new Field(this, 1, "AI Cars", null, 5, 0xFF4D220D));
+        mAreas.get(3).addField(new Field(this, 1, "Machine Learning 3", null, 5, 0xFF734B37));
+        mAreas.get(3).addField(new Field(this, 1, "Machine Learning 4", null, 5, 0xFF612000));
+        // Data & Information
+        mAreas.get(4).addField(new Field(this, 1, "Social Media", null, 5, 0xFF8B1D8F));
+        mAreas.get(4).addField(new Field(this, 1, "Research Labs", null, 5, 0xFF8F0081));
+        mAreas.get(4).addField(new Field(this, 1, "Data. & Info. 3", null, 5, 0xFFC963CF));
 
         mTouchedArea[0] = mAreas.get(0); // null results in crash when displaying getName() text
         mTouchedArea[1] = mAreas.get(0); // null results in crash when displaying getName() text
@@ -255,6 +273,8 @@ public class RiskGameScreen extends GameScreen {
     }
 
 
+    // Kinda obsolete code since fields got revamped...
+    // Keep it for now? Maybe could be useful for layered images
     private Area getAreaClicked() {
         Input input = mGame.getInput();
         List<TouchEvent> touchEvents = input.getTouchEvents();
@@ -281,6 +301,42 @@ public class RiskGameScreen extends GameScreen {
                 for (int i = 0; i < mAreas.size(); i++) {
                     if (colour == mAreas.get(i).getColour()) {
                         return mAreas.get(i);
+                    }
+                }
+            }
+        }
+        // Be careful, returning null can cause crashes
+        return null;
+    }
+
+    private Field getFieldClicked() {
+        Input input = mGame.getInput();
+        List<TouchEvent> touchEvents = input.getTouchEvents();
+
+        for (TouchEvent touchEvent : touchEvents) {
+            Vector2 layerPosition = new Vector2();
+            ViewportHelper.convertScreenPosIntoLayer(
+                    mDefaultScreenViewport, touchEvent.x, touchEvent.y,
+                    mDefaultLayerViewport, layerPosition);
+
+            BoundingBox bound = mRiskMap.getBound();
+            if (bound.contains(layerPosition.x, layerPosition.y)) {
+
+                float xLoc = (layerPosition.x - bound.getLeft()) / bound.getWidth();
+                float yLoc = (bound.getTop() - layerPosition.y) / bound.getHeight();
+                Bitmap bitmap = mRiskMap.getBitmap();
+                int colour = bitmap.getPixel(
+                        (int) (xLoc * bitmap.getWidth()),
+                        (int) (yLoc * bitmap.getHeight()));
+                clickedColour = colour; // debug info
+
+                // Detects pixel colour and compares to the list of areas
+                // The background image colours match mAreas colours)
+                for(int i = 0; i < mAreas.size(); i++) {
+                    for(int x = 0; x < mAreas.get(i).getFieldSize(); x++) {
+                        if (colour == mAreas.get(i).getField(x).getColour()) {
+                            return mAreas.get(i).getField(x);
+                        }
                     }
                 }
             }
