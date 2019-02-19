@@ -57,6 +57,7 @@ public class RiskGameScreen extends GameScreen {
     private Paint textPaint = new Paint();
 
     private PushButton mReturnToMenuButton;
+    private PushButton mMainMenuButton;
     private ScreenViewport mGameScreenViewport;
     private float mTimeToChange = 0;
 
@@ -65,6 +66,11 @@ public class RiskGameScreen extends GameScreen {
         AssetManager assetManager = mGame.getAssetManager();
         assetManager.loadAndAddBitmap("BackArrow", "img/BackArrow.png");
         assetManager.loadAndAddBitmap("BackArrowSelected", "img/BackArrowSelected.png");
+        assetManager.loadAndAddBitmap("main_menu_button", "img/RiskGameImages/main_menu_button.png");
+        assetManager.loadAndAddBitmap("main_menu_button_pressed", "img/RiskGameImages/main_menu_button_pressed.png");
+
+        assetManager.loadAssets(
+                "txt/assets/OptionsScreenAssets.JSON");
 
         assetManager.loadAssets(
                 "txt/assets/RiskGameAssets.JSON");
@@ -81,6 +87,18 @@ public class RiskGameScreen extends GameScreen {
         createAreas();
         // Generate Player objects
         createPlayers();
+
+
+        // Define the spacing that will be used to position the buttons
+        int spacingX = (int)mDefaultLayerViewport.getWidth() / 4;
+        int spacingY = (int)mDefaultLayerViewport.getHeight() / 15;
+
+        // Create the trigger buttons
+        mMainMenuButton = new PushButton(
+                spacingX * 0.4f, spacingY * 1.4f, spacingX, spacingY,
+                "main_menu_button", "main_menu_button_pressed", this);
+        mMainMenuButton.setPlaySounds(true, true);
+
 
         mRiskMap = new GameObject(
                 mDefaultLayerViewport.x, mDefaultLayerViewport.y,
@@ -126,6 +144,10 @@ public class RiskGameScreen extends GameScreen {
         List<TouchEvent> touchEvents = input.getTouchEvents();
         if (touchEvents.size() > 0 && mTimeToChange > 0.5f) {
 
+
+            // Update each button and transition if needed
+            mMainMenuButton.update(elapsedTime);
+
             // If we're in attacking mode get a touched area
             //if(attackState != ATTACK_NULL) getAreaClicked();
             if(attackState == ATTACK_PICK) {
@@ -135,6 +157,9 @@ public class RiskGameScreen extends GameScreen {
                     attackState = ATTACK_PICK_AGAIN;
                 }
             }
+            else if (mMainMenuButton.isPushTriggered())
+                mGame.getScreenManager().removeScreen(this);
+
             else if(attackState == ATTACK_PICK_AGAIN) {
                 Field tmpField = getFieldClicked();
                 if(tmpField != null && tmpField != mFieldsAttacking[0]) {
@@ -175,6 +200,8 @@ public class RiskGameScreen extends GameScreen {
 
         mReturnToMenuButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         mAttackButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        mMainMenuButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+
 
         float textSize =
                 ViewportHelper.convertXDistanceFromLayerToScreen(

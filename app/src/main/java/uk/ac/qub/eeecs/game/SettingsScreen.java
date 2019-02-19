@@ -20,7 +20,7 @@ import uk.ac.qub.eeecs.gage.world.GameScreen;
  *
  * @version 1.0
  */
-public class VolumeScreen extends GameScreen {
+public class SettingsScreen extends GameScreen {
 
     // /////////////////////////////////////////////////////////////////////////
     // Properties
@@ -45,8 +45,8 @@ public class VolumeScreen extends GameScreen {
      *
      * @param game Game to which this screen belongs
      */
-    public VolumeScreen(Game game) {
-        super("VolumeScreen", game);
+    public SettingsScreen(Game game) {
+        super("SettingsScreen", game);
 
         // Load in the bitmaps used on the main menu screen
         AssetManager assetManager = mGame.getAssetManager();
@@ -112,7 +112,7 @@ public class VolumeScreen extends GameScreen {
             mReturnToPerformanceScreenButton.update(elapsedTime);
 
            if (mVolumeScreenButton.isPushTriggered())
-                mGame.getScreenManager().addScreen(new VolumeScreen(mGame));
+                mGame.getScreenManager().addScreen(new SettingsScreen(mGame));
            else if (mMainMenuButton.isPushTriggered())
                mGame.getScreenManager().removeScreen(this);
            else if (mReturnToPerformanceScreenButton.isPushTriggered())

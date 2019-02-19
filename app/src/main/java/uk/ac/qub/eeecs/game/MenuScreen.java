@@ -5,9 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
@@ -15,20 +13,11 @@ import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
-import uk.ac.qub.eeecs.gage.engine.particle.ParticleSystemManager;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
-import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
-import uk.ac.qub.eeecs.gage.world.LayerViewport;
 import uk.ac.qub.eeecs.game.RiskGame.DiceRollScreen;
 import uk.ac.qub.eeecs.game.RiskGame.RiskGameScreen;
 import uk.ac.qub.eeecs.game.miscDemos.DemoMenuScreen;
-import uk.ac.qub.eeecs.game.platformDemo.PlatformDemoScreen;
-import uk.ac.qub.eeecs.game.spaceDemo.Asteroid;
-import uk.ac.qub.eeecs.game.spaceDemo.PlayerSpaceship;
-import uk.ac.qub.eeecs.game.spaceDemo.Seeker;
-import uk.ac.qub.eeecs.game.spaceDemo.SpaceshipDemoScreen;
-import uk.ac.qub.eeecs.game.spaceDemo.Turret;
 
 /**
  * An exceedingly basic menu screen with a couple of touch buttons
@@ -168,7 +157,7 @@ public class MenuScreen extends GameScreen {
             else if (mDemosButton.isPushTriggered())
                 mGame.getScreenManager().addScreen(new DemoMenuScreen(mGame));
             else if (mSettingsButton.isPushTriggered())
-                mGame.getScreenManager().addScreen(new VolumeScreen(mGame));
+                mGame.getScreenManager().addScreen(new SettingsScreen(mGame));
             else if (mCreditsButton.isPushTriggered())
                 mGame.getScreenManager().addScreen(new GameCreditsScreen(mGame));
             else if (mPerformanceScreenButton.isPushTriggered())
