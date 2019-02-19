@@ -1,0 +1,12 @@
+{
+  "spritesheet" : "img/dice/Dice0Animation.png",
+  "numRows" : 1,
+  "numColumns" : 6,
+  "animations": [
+    {
+      "name": "Dice0Calculate",
+      "totalPeriod" : 1.0,
+      "loopAnimation" : false
+    }
+  ]
+}
