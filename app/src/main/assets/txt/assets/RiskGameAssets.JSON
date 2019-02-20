@@ -54,6 +54,11 @@
       "type": "Bitmap",
       "name": "risk_credits_button",
       "file": "img/RiskGameImages/risk_credits_button.png"
+    },
+	{
+      "type": "Music",
+      "name": "RiskBackgroundSound",
+      "file": "sound/RiskBackgroundSound.mp3"
     }
 	
     ]

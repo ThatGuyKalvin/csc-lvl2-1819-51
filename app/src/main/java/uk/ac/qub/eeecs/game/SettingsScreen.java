@@ -9,6 +9,7 @@ import java.util.List;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
+import uk.ac.qub.eeecs.gage.engine.audio.AudioManager;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
@@ -56,16 +57,16 @@ public class SettingsScreen extends GameScreen {
         assetManager.loadAndAddBitmap("main_menu_button_pressed", "img/RiskGameImages/main_menu_button_pressed.png");
         assetManager.loadAndAddBitmap("BackArrowPS", "img/BackArrowPerformanceScreen.png");
         assetManager.loadAndAddBitmap("BackArrowSelectedPS", "img/BackArrowPerformanceScreen.png");
-       // assetManager.loadAndAddBitmap("OptionScreenBackground", "img/OptionScreenBackground.png");
 
+        //Load Background
         assetManager.loadAssets(
                 "txt/assets/OptionsScreenAssets.JSON");
-
         assetManager.loadAndAddBitmap("OptionScreenBackground", "img/RiskGameImages/RiskOptionScreen.png");
-
         mOptionsBackground = assetManager.getBitmap("OptionScreenBackground");
 
-        //mOptionsBackground = assetManager.getBitmap("OptionScreenBackground");
+        // Background Music
+        assetManager.loadAssets("txt/assets/RiskGameAssets.JSON");
+
 
         // Define the spacing that will be used to position the buttons
         int spacingX = (int)mDefaultLayerViewport.getWidth() / 4;
@@ -87,6 +88,21 @@ public class SettingsScreen extends GameScreen {
                 "BackArrowPS", "BackArrowSelectedPS", this);
         mReturnToPerformanceScreenButton.setPlaySounds(true, true);
     }
+
+
+
+    private void playBackgroundMusic() {
+        AudioManager audioManager = getGame().getAudioManager();
+        if(!audioManager.isMusicPlaying())
+            audioManager.playMusic(
+                    getGame().getAssetManager().getMusic("RiskBackgroundSound"));
+    }
+    public void stopMusic(){
+        AudioManager audioManager = getGame().getAudioManager();
+        audioManager.stopMusic();
+    }
+
+
 
     // /////////////////////////////////////////////////////////////////////////
     // Methods
@@ -141,8 +157,6 @@ public class SettingsScreen extends GameScreen {
         Rect destRectBackg = new Rect((int) (width * 0.0f), (int) (height * 0.0f), (int) (width * 1.0f), (int) (height * 1.0f));
         graphics2D.drawBitmap(mOptionsBackground, sourceRectBackg, destRectBackg, null);
 
-        //mVolumeScreenButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         mMainMenuButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
-        //mReturnToPerformanceScreenButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
     }
 }
