@@ -10,6 +10,7 @@ import java.util.List;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
+import uk.ac.qub.eeecs.gage.engine.audio.AudioManager;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
@@ -33,9 +34,6 @@ public class MenuScreen extends GameScreen {
     /**
      * Define the buttons for playing the 'games'
      */
-
-
-
 
     private PushButton mSpaceshipDemoButton;
     private PushButton mRulesButton;
@@ -119,10 +117,6 @@ public class MenuScreen extends GameScreen {
         mPerformanceScreenButton.setPlaySounds(true, true);
     }
 
-    // /////////////////////////////////////////////////////////////////////////
-    // Methods
-    // /////////////////////////////////////////////////////////////////////////
-
 
     /**
      * Update the menu screen
@@ -165,6 +159,28 @@ public class MenuScreen extends GameScreen {
         }
 
         mTimeToChange += elapsedTime.stepTime;
+
+        playBackgroundMusic();
+        getGame().getAssetManager().getMusic("RiskBackgroundSound").setLopping(true);
+    }
+
+
+
+    // /////////////////////////////////////////////////////////////////////////
+    // Methods
+    // /////////////////////////////////////////////////////////////////////////
+
+
+
+    private void playBackgroundMusic() {
+        AudioManager audioManager = getGame().getAudioManager();
+        if(!audioManager.isMusicPlaying())
+            audioManager.playMusic(
+                    getGame().getAssetManager().getMusic("RiskBackgroundSound"));
+    }
+    public void stopMusic(){
+        AudioManager audioManager = getGame().getAudioManager();
+        audioManager.stopMusic();
     }
 
     /**

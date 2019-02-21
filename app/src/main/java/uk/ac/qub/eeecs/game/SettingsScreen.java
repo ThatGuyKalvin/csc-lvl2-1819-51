@@ -32,6 +32,8 @@ public class SettingsScreen extends GameScreen {
      */
     private PushButton mVolumeScreenButton;
     private PushButton mMainMenuButton;
+    private PushButton mMuteButton;
+    private PushButton mUnmuteButton;
     private PushButton mReturnToPerformanceScreenButton;
     private Bitmap mOptionsBackground;
     private float mTimeToChange = 0;
@@ -55,6 +57,12 @@ public class SettingsScreen extends GameScreen {
         assetManager.loadAndAddBitmap("VolumeButtonSelected", "img/VolumeButtonSelected.png");
         assetManager.loadAndAddBitmap("main_menu_button", "img/RiskGameImages/main_menu_button.png");
         assetManager.loadAndAddBitmap("main_menu_button_pressed", "img/RiskGameImages/main_menu_button_pressed.png");
+        assetManager.loadAndAddBitmap("BackArrowPS", "img/BackArrowPerformanceScreen.png");
+        assetManager.loadAndAddBitmap("BackArrowSelectedPS", "img/BackArrowPerformanceScreen.png");
+        assetManager.loadAndAddBitmap("risk_mute_button", "img/risk_mute_button.png");
+        assetManager.loadAndAddBitmap("risk_mute_button_pressed", "img/risk_mute_button_pressed.png");
+        assetManager.loadAndAddBitmap("risk_unmute_button", "img/risk_unmute_button.png");
+        assetManager.loadAndAddBitmap("risk_unmute_button_pressed", "img/risk_unmute_button_pressed.png");
         assetManager.loadAndAddBitmap("BackArrowPS", "img/BackArrowPerformanceScreen.png");
         assetManager.loadAndAddBitmap("BackArrowSelectedPS", "img/BackArrowPerformanceScreen.png");
 
@@ -83,23 +91,22 @@ public class SettingsScreen extends GameScreen {
                 "main_menu_button", "main_menu_button_pressed", this);
         mMainMenuButton.setPlaySounds(true, true);
 
+        mMuteButton = new PushButton(
+                spacingX * 2.0f, spacingY * 8.5f, spacingX, spacingY,
+                "risk_mute_button", "risk_mute_button_pressed", this);
+        mMuteButton.setPlaySounds(true, true);
+
+        mUnmuteButton = new PushButton(
+                spacingX * 2.0f, spacingY * 6.5f, spacingX, spacingY,
+                "risk_unmute_button", "risk_unmute_button_pressed", this);
+        mMuteButton.setPlaySounds(true, true);
+
         mReturnToPerformanceScreenButton = new PushButton(
                 spacingX * 0.75f, spacingY * 1.5f, spacingX, spacingY,
                 "BackArrowPS", "BackArrowSelectedPS", this);
         mReturnToPerformanceScreenButton.setPlaySounds(true, true);
-    }
 
 
-
-    private void playBackgroundMusic() {
-        AudioManager audioManager = getGame().getAudioManager();
-        if(!audioManager.isMusicPlaying())
-            audioManager.playMusic(
-                    getGame().getAssetManager().getMusic("RiskBackgroundSound"));
-    }
-    public void stopMusic(){
-        AudioManager audioManager = getGame().getAudioManager();
-        audioManager.stopMusic();
     }
 
 
@@ -125,9 +132,15 @@ public class SettingsScreen extends GameScreen {
             // Update each button and transition if needed
             mVolumeScreenButton.update(elapsedTime);
             mMainMenuButton.update(elapsedTime);
+            mMuteButton.update(elapsedTime);
+            mUnmuteButton.update(elapsedTime);
             mReturnToPerformanceScreenButton.update(elapsedTime);
 
-           if (mVolumeScreenButton.isPushTriggered())
+            if (mMuteButton.isPushTriggered())
+                mGame.getAssetManager().getMusic("RiskBackgroundSound").stop();
+            else if (mUnmuteButton.isPushTriggered())
+                mGame.getAssetManager().getMusic("RiskBackgroundSound").play();
+           else if (mVolumeScreenButton.isPushTriggered())
                 mGame.getScreenManager().addScreen(new SettingsScreen(mGame));
            else if (mMainMenuButton.isPushTriggered())
                mGame.getScreenManager().removeScreen(this);
@@ -136,7 +149,10 @@ public class SettingsScreen extends GameScreen {
         }
 
         mTimeToChange += elapsedTime.stepTime;
+
+
     }
+
 
     /**
      * Draw the menu screen
@@ -158,5 +174,8 @@ public class SettingsScreen extends GameScreen {
         graphics2D.drawBitmap(mOptionsBackground, sourceRectBackg, destRectBackg, null);
 
         mMainMenuButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        mMuteButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        mUnmuteButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+
     }
 }

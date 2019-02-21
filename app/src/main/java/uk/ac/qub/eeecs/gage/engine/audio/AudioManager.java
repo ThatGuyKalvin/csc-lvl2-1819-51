@@ -123,7 +123,7 @@ public class AudioManager {
     public void playMusic(Music music) {
         // Stop any currently playing music
         if (mCurrentMusic != null && mCurrentMusic.isPlaying())
-            mCurrentMusic.stop();
+            mCurrentMusic.setLopping(true);
 
         // Start playback of the new music
         mCurrentMusic = music;
