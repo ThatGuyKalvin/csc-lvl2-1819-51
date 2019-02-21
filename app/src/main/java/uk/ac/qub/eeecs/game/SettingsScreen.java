@@ -34,6 +34,8 @@ public class SettingsScreen extends GameScreen {
     private PushButton mMainMenuButton;
     private PushButton mMuteButton;
     private PushButton mUnmuteButton;
+    private PushButton mVolumeUpButton;
+    private PushButton mVolumeDownButton;
     private PushButton mReturnToPerformanceScreenButton;
     private Bitmap mOptionsBackground;
     private float mTimeToChange = 0;
@@ -63,6 +65,10 @@ public class SettingsScreen extends GameScreen {
         assetManager.loadAndAddBitmap("risk_mute_button_pressed", "img/risk_mute_button_pressed.png");
         assetManager.loadAndAddBitmap("risk_unmute_button", "img/risk_unmute_button.png");
         assetManager.loadAndAddBitmap("risk_unmute_button_pressed", "img/risk_unmute_button_pressed.png");
+        assetManager.loadAndAddBitmap("risk_volume_up_button", "img/risk_volume_up_button.png");
+        assetManager.loadAndAddBitmap("risk_volume_up_button_pressed", "img/risk_volume_up_button_pressed.png");
+        assetManager.loadAndAddBitmap("risk_volume_down_button", "img/risk_volume_down_button.png");
+        assetManager.loadAndAddBitmap("risk_volume_down_button_pressed", "img/risk_volume_down_button_pressed.png");
         assetManager.loadAndAddBitmap("BackArrowPS", "img/BackArrowPerformanceScreen.png");
         assetManager.loadAndAddBitmap("BackArrowSelectedPS", "img/BackArrowPerformanceScreen.png");
 
@@ -97,9 +103,19 @@ public class SettingsScreen extends GameScreen {
         mMuteButton.setPlaySounds(true, true);
 
         mUnmuteButton = new PushButton(
-                spacingX * 2.0f, spacingY * 6.5f, spacingX, spacingY,
+                spacingX * 2.0f, spacingY * 10.5f, spacingX, spacingY,
                 "risk_unmute_button", "risk_unmute_button_pressed", this);
-        mMuteButton.setPlaySounds(true, true);
+        mUnmuteButton.setPlaySounds(true, true);
+
+        mVolumeUpButton = new PushButton(
+                spacingX * 2.0f, spacingY * 6.5f, spacingX, spacingY,
+                "risk_volume_up_button", "risk_volume_up_button_pressed", this);
+        mVolumeUpButton.setPlaySounds(true, true);
+
+        mVolumeDownButton = new PushButton(
+                spacingX * 2.0f, spacingY * 4.5f, spacingX, spacingY,
+                "risk_volume_down_button", "risk_volume_down_button_pressed", this);
+        mVolumeDownButton.setPlaySounds(true, true);
 
         mReturnToPerformanceScreenButton = new PushButton(
                 spacingX * 0.75f, spacingY * 1.5f, spacingX, spacingY,
@@ -134,14 +150,18 @@ public class SettingsScreen extends GameScreen {
             mMainMenuButton.update(elapsedTime);
             mMuteButton.update(elapsedTime);
             mUnmuteButton.update(elapsedTime);
+            mVolumeUpButton.update(elapsedTime);
+            mVolumeDownButton.update(elapsedTime);
             mReturnToPerformanceScreenButton.update(elapsedTime);
 
             if (mMuteButton.isPushTriggered())
-                mGame.getAssetManager().getMusic("RiskBackgroundSound").stop();
+                mGame.getAssetManager().getMusic("RiskBackgroundSound").setVolume(0);
             else if (mUnmuteButton.isPushTriggered())
-                mGame.getAssetManager().getMusic("RiskBackgroundSound").play();
-           else if (mVolumeScreenButton.isPushTriggered())
-                mGame.getScreenManager().addScreen(new SettingsScreen(mGame));
+                mGame.getAssetManager().getMusic("RiskBackgroundSound").setVolume(mGame.getAudioManager().getMusicVolume());
+            else if (mVolumeUpButton.isPushTriggered())
+                mGame.getAssetManager().getMusic("RiskBackgroundSound").setVolume(mGame.getAudioManager().getMusicVolume() + 0.1f);
+            else if (mVolumeDownButton.isPushTriggered())
+                mGame.getAssetManager().getMusic("RiskBackgroundSound").setVolume(mGame.getAudioManager().getMusicVolume() - 0.1f);
            else if (mMainMenuButton.isPushTriggered())
                mGame.getScreenManager().removeScreen(this);
            else if (mReturnToPerformanceScreenButton.isPushTriggered())
@@ -176,6 +196,9 @@ public class SettingsScreen extends GameScreen {
         mMainMenuButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         mMuteButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         mUnmuteButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        mVolumeUpButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        mVolumeDownButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+
 
     }
 }
