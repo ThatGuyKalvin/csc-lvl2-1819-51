@@ -1,0 +1,110 @@
+{
+  "assets": [
+    {
+      "type": "Bitmap",
+      "name": "AbortHack",
+      "file": "img/dice/AbortHack.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "AbortHackSelected",
+      "file": "img/dice/AbortHackSelected.png"
+    }
+  ,
+    {
+      "type": "Bitmap",
+      "name": "Roll1",
+      "file": "img/dice/Roll1.png"
+    }
+  ,
+    {
+      "type": "Bitmap",
+      "name": "Roll2",
+      "file": "img/dice/Roll2.png"
+    }
+  ,
+    {
+      "type": "Bitmap",
+      "name": "Dice1Selected",
+      "file": "img/dice/1Selected.png"
+    }
+  ,
+    {
+      "type": "Bitmap",
+      "name": "Dice2Selected",
+      "file": "img/dice/2Selected.png"
+    }
+  ,
+    {
+      "type": "Bitmap",
+      "name": "Dice3Selected",
+      "file": "img/dice/3Selected.png"
+    }
+  ,
+    {
+      "type": "Bitmap",
+      "name": "ChooseDiceNumber1",
+      "file": "img/dice/ChooseDiceNumber1.png"
+    }
+  ,
+    {
+      "type": "Bitmap",
+      "name": "ChooseDiceNumber2",
+      "file": "img/dice/ChooseDiceNumber2.png"
+    }
+  ,
+    {
+      "type": "Bitmap",
+      "name": "ChooseDiceNumber3",
+      "file": "img/dice/ChooseDiceNumber3.png"
+    }
+  ,
+    {
+      "type": "Bitmap",
+      "name": "background",
+      "file": "img/dice/DiceRollScreenBackGround.png"
+    }
+  ,
+    {
+      "type": "Bitmap",
+      "name": "Number1",
+      "file": "img/dice/Results/Number1.png"
+    }
+  ,
+    {
+      "type": "Bitmap",
+      "name": "Number2",
+      "file": "img/dice/Results/Number2.png"
+    }
+  ,
+    {
+      "type": "Bitmap",
+      "name": "Number3",
+      "file": "img/dice/Results/Number3.png"
+    }
+  ,
+    {
+      "type": "Bitmap",
+      "name": "Number4",
+      "file": "img/dice/Results/Number4.png"
+    }
+  ,
+    {
+      "type": "Bitmap",
+      "name": "Number5",
+      "file": "img/dice/Results/Number5.png"
+    }
+  ,
+    {
+      "type": "Bitmap",
+      "name": "Number6",
+      "file": "img/dice/Results/Number6.png"
+    }
+  ,
+    {
+      "type": "Bitmap",
+      "name": "Number0",
+      "file": "img/dice/Results/Number0.png"
+    }
+    ]
+}
