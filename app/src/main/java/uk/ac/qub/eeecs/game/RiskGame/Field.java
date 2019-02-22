@@ -75,6 +75,8 @@ public class Field extends Sprite {
         return FConnectedFields;
     }
 
+    public void addConnectedFields(ArrayList<Field> Connected){FConnectedFields = Connected;}
+
     public float GetFCentreX(){ return FCentreX; }
 
     public float getFCentreY(){

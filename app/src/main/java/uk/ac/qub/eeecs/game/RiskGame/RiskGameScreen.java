@@ -8,6 +8,7 @@ import android.graphics.Rect;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
@@ -54,10 +55,12 @@ public class RiskGameScreen extends GameScreen {
     private final int MAX_PLAYERS = 3;
     private ArrayList<Player> mPlayers = new ArrayList<>(MAX_PLAYERS);
     private ArrayList<Area> mAreas = new ArrayList<>(MAX_AREAS);
+    private int CurrentPlayerNum;
     private Paint textPaint = new Paint();
 
     private PushButton mReturnToMenuButton;
     private PushButton mMainMenuButton;
+    private PushButton mEndTurnButton;
     private ScreenViewport mGameScreenViewport;
     private float mTimeToChange = 0;
 
@@ -68,6 +71,7 @@ public class RiskGameScreen extends GameScreen {
         assetManager.loadAndAddBitmap("BackArrowSelected", "img/BackArrowSelected.png");
         assetManager.loadAndAddBitmap("main_menu_button", "img/RiskGameImages/main_menu_button.png");
         assetManager.loadAndAddBitmap("main_menu_button_pressed", "img/RiskGameImages/main_menu_button_pressed.png");
+        assetManager.loadAndAddBitmap("end_turn_button","img/RiskGameImages/end_turn_button.png");
 
         assetManager.loadAssets(
                 "txt/assets/OptionsScreenAssets.JSON");
@@ -87,6 +91,8 @@ public class RiskGameScreen extends GameScreen {
         createAreas();
         // Generate Player objects
         createPlayers();
+        //Decide which player goes first
+        firstTurn();
 
 
         // Define the spacing that will be used to position the buttons
@@ -99,6 +105,8 @@ public class RiskGameScreen extends GameScreen {
                 "main_menu_button", "main_menu_button_pressed", this);
         mMainMenuButton.setPlaySounds(true, true);
 
+        mEndTurnButton = new PushButton(
+                spacingX * 3f, spacingY * 12f, spacingX, spacingY, "End_Turn_Button", this);
 
         mRiskMap = new GameObject(
                 mDefaultLayerViewport.x, mDefaultLayerViewport.y,
@@ -147,6 +155,7 @@ public class RiskGameScreen extends GameScreen {
 
             // Update each button and transition if needed
             mMainMenuButton.update(elapsedTime);
+            mEndTurnButton.update(elapsedTime);
 
             // If we're in attacking mode get a touched area
             //if(attackState != ATTACK_NULL) getAreaClicked();
@@ -159,6 +168,9 @@ public class RiskGameScreen extends GameScreen {
             }
             else if (mMainMenuButton.isPushTriggered())
                 mGame.getScreenManager().removeScreen(this);
+
+            else if (mMainMenuButton.isPushTriggered())
+                endTurn();
 
             else if(attackState == ATTACK_PICK_AGAIN) {
                 Field tmpField = getFieldClicked();
@@ -201,6 +213,7 @@ public class RiskGameScreen extends GameScreen {
         mReturnToMenuButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         mAttackButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         mMainMenuButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        mEndTurnButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
 
 
         float textSize =
@@ -288,8 +301,15 @@ public class RiskGameScreen extends GameScreen {
         mAreas.get(4).addField(new Field(this, 1, "Research Labs", null, 5, 0xFF8F0081));
         mAreas.get(4).addField(new Field(this, 1, "Data. & Info. 3", null, 5, 0xFFC963CF));
 
+        addConnectedFields();
+
         mTouchedArea[0] = mAreas.get(0); // null results in crash when displaying getName() text
         mTouchedArea[1] = mAreas.get(0); // null results in crash when displaying getName() text
+    }
+
+    private void addConnectedFields()
+    {
+        //Blank method to add list of fields connected to each field
     }
 
     private void createPlayers() {
@@ -297,8 +317,19 @@ public class RiskGameScreen extends GameScreen {
         mPlayers.add(new Player("Microsoft", Color.BLACK));
         mPlayers.add(new Player("Google", Color.GREEN));
         mPlayers.add(new Player("Apple", Color.RED));
+        assignFields();
     }
 
+    private void assignFields()
+    {
+        //Assign each player with their portion of the fields
+        assignTeams();
+    }
+
+    private void assignTeams()
+    {
+        //Assign each player a number of teams and put those in their selected fields
+    }
 
     // Kinda obsolete code since fields got revamped...
     // Keep it for now? Maybe could be useful for layered images
@@ -391,5 +422,26 @@ public class RiskGameScreen extends GameScreen {
             def.getField(DefFieldNum).decreaseNumOfTeams(Results[1]);
         }
     }
+
+    private void firstTurn(){
+        Random Rand = new Random();
+        CurrentPlayerNum = Rand.nextInt(3);
+    }
+
+    private void endTurn()
+    {
+        CurrentPlayerNum++;
+        if(CurrentPlayerNum > MAX_PLAYERS) CurrentPlayerNum = 0;
+        beginTurn();
+    }
+
+    private void beginTurn()
+    {
+        //incomplete Method
+        //Add turn start Team allocation
+        //Risk card claiming
+        //Any other appropriate tasks
+    }
+
 
 }
