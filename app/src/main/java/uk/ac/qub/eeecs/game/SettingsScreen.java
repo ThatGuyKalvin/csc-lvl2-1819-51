@@ -21,7 +21,7 @@ import uk.ac.qub.eeecs.gage.world.GameScreen;
  *
  * @version 1.0
  */
-public class SettingsScreen extends GameScreen {
+public class  SettingsScreen extends GameScreen {
 
     // /////////////////////////////////////////////////////////////////////////
     // Properties
@@ -161,7 +161,7 @@ public class SettingsScreen extends GameScreen {
             else if (mVolumeUpButton.isPushTriggered())
                 mGame.getAssetManager().getMusic("RiskBackgroundSound").setVolume(mGame.getAudioManager().getMusicVolume() + 0.1f);
             else if (mVolumeDownButton.isPushTriggered())
-                mGame.getAssetManager().getMusic("RiskBackgroundSound").setVolume(mGame.getAudioManager().getMusicVolume() - 0.1f);
+                mGame.getAssetManager().getMusic("RiskBackgroundSound").setVolume(mGame.getAudioManager().getMusicVolume() - 0.5f);
            else if (mMainMenuButton.isPushTriggered())
                mGame.getScreenManager().removeScreen(this);
            else if (mReturnToPerformanceScreenButton.isPushTriggered())

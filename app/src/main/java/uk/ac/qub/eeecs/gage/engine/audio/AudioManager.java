@@ -79,6 +79,7 @@ public class AudioManager {
                 .build();
 
         // Request control of the volume
+        if(mGame.getActivity() != null)
         mGame.getActivity().setVolumeControlStream(
                 android.media.AudioManager.STREAM_MUSIC);
     }
