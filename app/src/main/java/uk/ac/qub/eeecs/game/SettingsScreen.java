@@ -21,6 +21,10 @@ import uk.ac.qub.eeecs.gage.world.GameScreen;
  *
  * @version 1.0
  */
+
+/**
+ * Author: Daniel Nelis
+ */
 public class  SettingsScreen extends GameScreen {
 
     // /////////////////////////////////////////////////////////////////////////

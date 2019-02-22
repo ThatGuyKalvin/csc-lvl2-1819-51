@@ -82,10 +82,15 @@ public class MenuScreen extends GameScreen {
         assetManager.loadAssets(
                 "txt/assets/RiskGameAssets.JSON");
 
+        //Author: Daniel Nelis
         assetManager.loadAndAddBitmap("RiskMainMenuScreen", "img/RiskGameImages/RiskMainMenuScreen.png");
 
         mMainMenuBackground = assetManager.getBitmap("RiskMainMenuScreen");
 
+
+        /*
+        Author: Daniel Nelis (Format for Main Menu)
+         */
 
         // Define the spacing that will be used to position the buttons
         int spacingX = (int)mDefaultLayerViewport.getWidth() / 4;
@@ -172,6 +177,9 @@ public class MenuScreen extends GameScreen {
 
         mTimeToChange += elapsedTime.stepTime;
 
+        /*
+        Author: Daniel Nelis
+         */
         playBackgroundMusic();
         getGame().getAssetManager().getMusic("RiskBackgroundSound").setLopping(true);
     }
@@ -183,7 +191,9 @@ public class MenuScreen extends GameScreen {
     // /////////////////////////////////////////////////////////////////////////
 
 
-
+    /*
+    Author: Daniel Nelis
+    */
     private void playBackgroundMusic() {
         AudioManager audioManager = getGame().getAudioManager();
         if(!audioManager.isMusicPlaying())
