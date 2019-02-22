@@ -76,6 +76,26 @@
       "file": "img/RiskGameImages/risk_unmute_button_pressed.png"
     },
 	{
+      "type": "Bitmap",
+      "name": "risk_volume_up_button",
+      "file": "img/RiskGameImages/risk_volume_up_button.png"
+    },
+	{
+      "type": "Bitmap",
+      "name": "risk_volume_up_button_pressed",
+      "file": "img/RiskGameImages/risk_volume_up_button_pressed.png"
+    },
+	{
+      "type": "Bitmap",
+      "name": "risk_volume_down_button",
+      "file": "img/RiskGameImages/risk_volume_down_button.png"
+    },
+	{
+      "type": "Bitmap",
+      "name": "risk_volume_down_button_pressed",
+      "file": "img/RiskGameImages/risk_volume_down_button_pressed.png"
+    },
+	{
       "type": "Music",
       "name": "RiskBackgroundSound",
       "file": "sound/RiskBackgroundSound.mp3"

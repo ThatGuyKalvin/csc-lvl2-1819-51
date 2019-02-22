@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.game.RiskGame.DiceRoll;
 
+
 import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
@@ -171,5 +172,62 @@ public class DiceTest {
                 assertTrue(true);
             }
         }
+    }
+
+    //animation and result sprites
+    @Test
+    public void loadAndAddBitmap_Number0_Success() {
+
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "Number0", "img/dice/Results/Number0.png");
+        assertTrue(success);
+    }
+    @Test
+    public void loadAndAddBitmap_Number1_Success() {
+
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "Number1", "img/dice/Results/Number1.png");
+        assertTrue(success);
+    }
+    @Test
+    public void loadAndAddBitmap_Number2_Success() {
+
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "Number2", "img/dice/Results/Number2.png");
+        assertTrue(success);
+    }
+    @Test
+    public void loadAndAddBitmap_Number3_Success() {
+
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "Number3", "img/dice/Results/Number3.png");
+        assertTrue(success);
+    }
+    @Test
+    public void loadAndAddBitmap_Number4_Success() {
+
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "Number4", "img/dice/Results/Number4.png");
+        assertTrue(success);
+    }
+    @Test
+    public void loadAndAddBitmap_Number5_Success() {
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "Number5", "img/dice/Results/Number5.png");
+        assertTrue(success);
+    }
+
+    @Test
+    public void loadAndAddBitmap_Number6_Success() {
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "Number6", "img/dice/Results/Number6.png");
+        assertTrue(success);
     }
 }
