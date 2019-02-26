@@ -87,7 +87,7 @@ public class  SettingsScreen extends GameScreen {
 
 
         // Define the spacing that will be used to position the buttons
-        int spacingX = (int)mDefaultLayerViewport.getWidth() / 4;
+        int spacingX = (int)mDefaultLayerViewport.getWidth() / 5;
         int spacingY = (int)mDefaultLayerViewport.getHeight() / 15;
 
         // Create the trigger buttons
@@ -102,22 +102,22 @@ public class  SettingsScreen extends GameScreen {
         mMainMenuButton.setPlaySounds(true, true);
 
         mMuteButton = new PushButton(
-                spacingX * 2.0f, spacingY * 8.5f, spacingX, spacingY,
+                spacingX * 2.5f, spacingY * 8.5f, spacingX, spacingY,
                 "risk_mute_button", "risk_mute_button_pressed", this);
         mMuteButton.setPlaySounds(true, true);
 
         mUnmuteButton = new PushButton(
-                spacingX * 2.0f, spacingY * 10.5f, spacingX, spacingY,
+                spacingX * 2.5f, spacingY * 10.5f, spacingX, spacingY,
                 "risk_unmute_button", "risk_unmute_button_pressed", this);
         mUnmuteButton.setPlaySounds(true, true);
 
         mVolumeUpButton = new PushButton(
-                spacingX * 2.0f, spacingY * 6.5f, spacingX, spacingY,
+                spacingX * 2.5f, spacingY * 6.5f, spacingX, spacingY,
                 "risk_volume_up_button", "risk_volume_up_button_pressed", this);
         mVolumeUpButton.setPlaySounds(true, true);
 
         mVolumeDownButton = new PushButton(
-                spacingX * 2.0f, spacingY * 4.5f, spacingX, spacingY,
+                spacingX * 2.5f, spacingY * 4.5f, spacingX, spacingY,
                 "risk_volume_down_button", "risk_volume_down_button_pressed", this);
         mVolumeDownButton.setPlaySounds(true, true);
 

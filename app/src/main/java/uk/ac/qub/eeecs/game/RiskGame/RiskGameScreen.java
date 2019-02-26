@@ -90,12 +90,12 @@ public class RiskGameScreen extends GameScreen {
 
 
         // Define the spacing that will be used to position the buttons
-        int spacingX = (int)mDefaultLayerViewport.getWidth() / 4;
+        int spacingX = (int)mDefaultLayerViewport.getWidth() / 5;
         int spacingY = (int)mDefaultLayerViewport.getHeight() / 15;
 
         // Create the trigger buttons
         mMainMenuButton = new PushButton(
-                spacingX * 0.4f, spacingY * 1.4f, spacingX, spacingY,
+                spacingX * 0.8f, spacingY * 1.4f, spacingX, spacingY,
                 "main_menu_button", "main_menu_button_pressed", this);
         mMainMenuButton.setPlaySounds(true, true);
 
