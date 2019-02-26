@@ -76,7 +76,7 @@ public class  SettingsScreen extends GameScreen {
         assetManager.loadAndAddBitmap("BackArrowPS", "img/BackArrowPerformanceScreen.png");
         assetManager.loadAndAddBitmap("BackArrowSelectedPS", "img/BackArrowPerformanceScreen.png");
 
-        //Load Background
+        //Loading Bitmaps
         assetManager.loadAssets(
                 "txt/assets/OptionsScreenAssets.JSON");
         assetManager.loadAndAddBitmap("OptionScreenBackground", "img/RiskGameImages/RiskOptionScreen.png");

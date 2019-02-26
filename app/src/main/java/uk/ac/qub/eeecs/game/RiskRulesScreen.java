@@ -26,6 +26,9 @@ public class RiskRulesScreen extends GameScreen {
      */
     private PushButton mMainMenuButton;
     private Bitmap mRiskRulesBackground;
+    private PushButton mRiskRulesPrevButton;
+    private PushButton mRiskRulesNextButton;
+
     private float mTimeToChange = 0;
 
     // /////////////////////////////////////////////////////////////////////////
@@ -43,17 +46,24 @@ public class RiskRulesScreen extends GameScreen {
         AssetManager assetManager = mGame.getAssetManager();
         assetManager.loadAndAddBitmap("main_menu_button", "img/RiskGameImages/main_menu_button.png");
         assetManager.loadAndAddBitmap("main_menu_button_pressed", "img/RiskGameImages/main_menu_button_pressed.png");
+        assetManager.loadAndAddBitmap("risk_rules_next_button", "img/RiskGameImages/risk_rules_next_button.png");
+        assetManager.loadAndAddBitmap("risk_rules_next_button_pressed", "img/RiskGameImages/risk_rules_next_button_pressed.png");
+        assetManager.loadAndAddBitmap("risk_rules_prev_button", "img/RiskGameImages/risk_rules_prev_button.png");
+        assetManager.loadAndAddBitmap("risk_rules_prev_button_pressed", "img/RiskGameImages/risk_rules_prev_button_pressed.png");
 
+
+
+
+        //Laoding Bitmaps
         assetManager.loadAssets(
                 "txt/assets/OptionsScreenAssets.JSON");
-
         assetManager.loadAndAddBitmap("OptionScreenBackground", "img/RiskGameImages/RiskMainMenuScreen.png");
-
         mRiskRulesBackground = assetManager.getBitmap("OptionScreenBackground");
 
 
+
         // Define the spacing that will be used to position the buttons
-        int spacingX = (int)mDefaultLayerViewport.getWidth() / 4;
+        int spacingX = (int)mDefaultLayerViewport.getWidth() / 7;
         int spacingY = (int)mDefaultLayerViewport.getHeight() / 15;
 
         // Create the trigger buttons
@@ -62,6 +72,16 @@ public class RiskRulesScreen extends GameScreen {
                 spacingX * 0.50f, spacingY * 8.5f, spacingX, spacingY,
                 "main_menu_button", "main_menu_button_pressed", this);
         mMainMenuButton.setPlaySounds(true, true);
+
+        mRiskRulesPrevButton = new PushButton(
+                spacingX * 3.0f, spacingY * 4.7f, spacingX, spacingY,
+                "risk_rules_prev_button", "risk_rules_prev_button_pressed", this);
+        mRiskRulesPrevButton.setPlaySounds(true, true);
+
+        mRiskRulesNextButton = new PushButton(
+                spacingX * 4.0f, spacingY * 4.7f, spacingX, spacingY,
+                "risk_rules_next_button", "risk_rules_next_button_pressed", this);
+        mRiskRulesNextButton.setPlaySounds(true, true);
 
     }
     // /////////////////////////////////////////////////////////////////////////
@@ -90,7 +110,13 @@ public class RiskRulesScreen extends GameScreen {
             mGame.getScreenManager().removeScreen(this);
             }
 
-            mTimeToChange += elapsedTime.stepTime;
+        mRiskRulesPrevButton.update(elapsedTime);
+
+
+        mRiskRulesNextButton.update(elapsedTime);
+
+
+        mTimeToChange += elapsedTime.stepTime;
     }
     /**
      * Draw the risk rules screen
@@ -113,6 +139,9 @@ public class RiskRulesScreen extends GameScreen {
 
 
         mMainMenuButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        mRiskRulesPrevButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        mRiskRulesNextButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+
 
     }
 }
