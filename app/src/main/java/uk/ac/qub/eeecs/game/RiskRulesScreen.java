@@ -125,7 +125,7 @@ public class RiskRulesScreen extends GameScreen {
         graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("RiskRulesSpeechBubble"), null, speechBubbleBackground,null);
     }
 
-    //This method changes the dimensions of the rectangle taht the speechBubble is drawn to based off which section/button you press
+    //This method changes the dimensions of the rectangle thatt the speechBubble is drawn to based off which section/button you press
     public void drawSpeechBubbleRect(int divideTop, int divideLeft, int divideBottom, int divideRight)
     {
         speechBubbleBackground.top = mGame.getScreenHeight()*100/divideTop;
@@ -142,7 +142,7 @@ public class RiskRulesScreen extends GameScreen {
 
     }
 
-    
+
 
 
 
