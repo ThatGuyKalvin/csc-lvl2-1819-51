@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.preference.PreferenceManager;
 
 import java.util.List;
+import java.util.Objects;
 
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
@@ -21,10 +23,9 @@ import uk.ac.qub.eeecs.gage.world.GameScreen;
 
 public class RiskRulesScreen extends GameScreen {
 
-    // /////////////////////////////////////////////////////////////////////////
-    // Properties
-
-    // /////////////////////////////////////////////////////////////////////////
+    /**
+     * Author: Daniel Nelis
+     */
 
     /**
      * Define the buttons for the Risk Rules Screen
@@ -48,7 +49,7 @@ public class RiskRulesScreen extends GameScreen {
     public int riskImageCounter = 0;
 
     public boolean rulesOfGamePushed = false;
-    public boolean rulesBurronPressed = false;
+    public boolean rulesButtonPressed = false;
 
     // /////////////////////////////////////////////////////////////////////////
     // Constructors
@@ -71,6 +72,7 @@ public class RiskRulesScreen extends GameScreen {
             assetManager.loadAndAddBitmap("risk_rules_next_button_pressed", "img/RiskGameImages/risk_rules_next_button_pressed.png");
             assetManager.loadAndAddBitmap("risk_rules_prev_button", "img/RiskGameImages/risk_rules_prev_button.png");
             assetManager.loadAndAddBitmap("risk_rules_prev_button_pressed", "img/RiskGameImages/risk_rules_prev_button_pressed.png");
+            assetManager.loadAndAddBitmap("How_To_Play_Rule_Button", "img/RiskGameImages/How_To_Play_Rule_Button.png");
 
 
             //Laoding Bitmaps
@@ -102,6 +104,10 @@ public class RiskRulesScreen extends GameScreen {
                 "risk_rules_next_button", "risk_rules_next_button_pressed", this);
         mRiskRulesNextButton.setPlaySounds(true, true);
 
+        mHowToPlayRiskButton = new PushButton(
+                spacingX * 4.0f, spacingY * 4.7f, spacingX, spacingY,
+                "How_To_Play_Rule_Button", "How_To_Play_Rule_Button", this);
+        mHowToPlayRiskButton.setPlaySounds(true, true);
     }
 
     public void stopMusic(){
@@ -120,12 +126,12 @@ public class RiskRulesScreen extends GameScreen {
 
     }
 
-    // This method draws the speechBubble bitmap
-    public void drawSpeechBubble(IGraphics2D graphics2D){
+    // This method draws the bitmap of where the text will be going
+    public void drawSpeechBubbleBitmap(IGraphics2D graphics2D){
         graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("RiskRulesSpeechBubble"), null, speechBubbleBackground,null);
     }
 
-    //This method changes the dimensions of the rectangle thatt the speechBubble is drawn to based off which section/button you press
+    //This method changes the dimensions of the rectangle that the speechBubble is drawn to based off which section/button you press
     public void drawSpeechBubbleRect(int divideTop, int divideLeft, int divideBottom, int divideRight)
     {
         speechBubbleBackground.top = mGame.getScreenHeight()*100/divideTop;
@@ -143,8 +149,21 @@ public class RiskRulesScreen extends GameScreen {
     }
 
 
+    //This method are in place tp draw the speech bubble to rectangles based off which section of the instructions the user wants to view
+    void drawSpeechBubbleRect(IGraphics2D graphics2D, String instructionType)
+    {
+        if(Objects.equals(instructionType, "Main"))
+        {
+            drawSpeechBubbleRect(350, 800, 130, 0);
+            drawSpeechBubbleBitmap(graphics2D);
+        }
 
-
+        if(Objects.equals(instructionType, "Rules"))
+        {
+            drawSpeechBubbleRect(300, 1200, 130, 200);
+            drawSpeechBubbleBitmap(graphics2D);
+        }
+    }
 
 
     /**
@@ -169,6 +188,16 @@ public class RiskRulesScreen extends GameScreen {
             mGame.getScreenManager().removeScreen(this);
             }
 
+            if(mHowToPlayRiskButton.isPushTriggered())
+            {
+                mRiskRulesPrevButton.setPosition(1.2f, 2.7f);
+                mRiskRulesNextButton.setPosition(1.8f, 2.7f);
+                rulesOfGamePushed = true;
+
+            }
+
+
+
         mRiskRulesPrevButton.update(elapsedTime);
 
 
@@ -192,12 +221,20 @@ public class RiskRulesScreen extends GameScreen {
         int height = graphics2D.getSurfaceHeight();
 
 
+        //Making a new paint so I can display text
+        Paint paint = new Paint();
+        paint.setColor(Color.WHITE);
+        paint.setTextSize(45.0f);
+
+
+
         Rect sourceRectBackg = new Rect(0,0, mRiskRulesBackground.getWidth(), mRiskRulesBackground.getHeight());
         Rect destRectBackg = new Rect((int) (width * 0.0f), (int) (height * 0.0f), (int) (width * 1.0f), (int) (height * 1.0f));
         graphics2D.drawBitmap(mRiskRulesBackground, sourceRectBackg, destRectBackg, null);
 
 
         mMainMenuButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        mHowToPlayRiskButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         mRiskRulesPrevButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         mRiskRulesNextButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
 
