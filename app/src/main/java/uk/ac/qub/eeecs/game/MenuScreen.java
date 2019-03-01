@@ -120,41 +120,20 @@ public class MenuScreen extends GameScreen {
                 spacingX * 3.5f, spacingY * 5.2f, spacingX, spacingY,
                 "SpaceDemoIcon", "SpaceDemoIconSelected",this);
         mSpaceshipDemoButton.setPlaySounds(true, true);
-        /*mRulesButton = new PushButton(
-                spacingX * 2.0f, spacingY * 8.5f, spacingX, spacingY,
-                "risk_rules_button", "risk_rules_button_ pressed", this);
-        mRulesButton.setPlaySounds(true, true);
-        mStartGameButton = new PushButton(
-                spacingX * 2.0f, spacingY * 10.5f, spacingX, spacingY,
-                "risk_start_game_button", "risk_start_game_button_pressed", this);
-        mStartGameButton.setPlaySounds(true, true);*/
         mDemosButton = new PushButton(
                 spacingX * 3.5f, spacingY * 4.0f, spacingX/2, spacingY/2,
                 "DemosIcon", "DemosIconSelected", this);
         mDemosButton.setPlaySounds(true, true);
-//        mSettingsButton = new PushButton(
-//                spacingX * 2.0f, spacingY * 6.5f, spacingX, spacingY,
-//                "risk_settings_button", "risk_settings_button_pressed", this);
-//        mSettingsButton.setPlaySounds(true, true);
-//        mCreditsButton = new PushButton(
-//                spacingX * 2.0f, spacingY * 4.5f, spacingX, spacingY,
-//                "risk_credits_button", "risk_credits_button_pressed", this);
-//        mCreditsButton.setPlaySounds(true, true);
         mPerformanceScreenButton = new PushButton(
                 spacingX * 3.5f, spacingY * 2.0f, spacingX/2, spacingY/2,
                 "PerformanceScreenIcon", "PerformanceScreenIconSelected", this);
         mPerformanceScreenButton.setPlaySounds(true, true);
 
-
-
-
-
         ////////////////////////////////////
         test();
 
         //@Aimee Millar
-
-        //Setting the bitmap needed for the icons and buttons
+        //Setting the bitmaps needed for the icons and buttons
         Bitmap startIcon = assetManager.getBitmap("startIcon");
         Bitmap rulesIcon = assetManager.getBitmap("rulesIcon");
         Bitmap settingsIcon = assetManager.getBitmap("settingsIcon");
@@ -289,7 +268,7 @@ public class MenuScreen extends GameScreen {
     }
 
     //@Aimee Millar
-    //Method to set out the position and draw the icons and buttons
+    //Method to set out the position and draw rects that hold the icons and buttons
     public Rect setAndDrawRect(int x, int y, Rect rect, Bitmap rectBitmap, IGraphics2D graphics2D){
         if(rect == null){
             rect = new Rect(x,y,rectBitmap.getWidth()+x, rectBitmap.getHeight()+y);
