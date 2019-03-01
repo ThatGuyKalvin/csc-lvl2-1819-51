@@ -93,7 +93,7 @@ public class MenuScreen extends GameScreen {
          */
 
         // Define the spacing that will be used to position the buttons
-        int spacingX = (int)mDefaultLayerViewport.getWidth() / 4;
+        int spacingX = (int)mDefaultLayerViewport.getWidth() / 5;
         int spacingY = (int)mDefaultLayerViewport.getHeight() / 15;
 
         // Create the trigger buttons
@@ -102,11 +102,11 @@ public class MenuScreen extends GameScreen {
                 "SpaceDemoIcon", "SpaceDemoIconSelected",this);
         mSpaceshipDemoButton.setPlaySounds(true, true);
         mRulesButton = new PushButton(
-                spacingX * 2.0f, spacingY * 8.5f, spacingX, spacingY,
+                spacingX * 2.50f, spacingY * 8.5f, spacingX, spacingY,
                 "risk_rules_button", "risk_rules_button_ pressed", this);
         mRulesButton.setPlaySounds(true, true);
         mStartGameButton = new PushButton(
-                spacingX * 2.0f, spacingY * 10.5f, spacingX, spacingY,
+                spacingX * 2.50f, spacingY * 10.5f, spacingX, spacingY,
                 "risk_start_game_button", "risk_start_game_button_pressed", this);
         mStartGameButton.setPlaySounds(true, true);
         mDemosButton = new PushButton(
@@ -114,15 +114,15 @@ public class MenuScreen extends GameScreen {
                 "DemosIcon", "DemosIconSelected", this);
         mDemosButton.setPlaySounds(true, true);
         mSettingsButton = new PushButton(
-                spacingX * 2.0f, spacingY * 6.5f, spacingX, spacingY,
+                spacingX * 2.50f, spacingY * 6.5f, spacingX, spacingY,
                 "risk_settings_button", "risk_settings_button_pressed", this);
         mSettingsButton.setPlaySounds(true, true);
         mCreditsButton = new PushButton(
-                spacingX * 2.0f, spacingY * 4.5f, spacingX, spacingY,
+                spacingX * 2.50f, spacingY * 4.5f, spacingX, spacingY,
                 "risk_credits_button", "risk_credits_button_pressed", this);
         mCreditsButton.setPlaySounds(true, true);
         mPerformanceScreenButton = new PushButton(
-                spacingX * 3.5f, spacingY * 2.0f, spacingX/2, spacingY/2,
+                spacingX * 2.50f, spacingY * 2.0f, spacingX/2, spacingY/2,
                 "PerformanceScreenIcon", "PerformanceScreenIconSelected", this);
         mPerformanceScreenButton.setPlaySounds(true, true);
 
