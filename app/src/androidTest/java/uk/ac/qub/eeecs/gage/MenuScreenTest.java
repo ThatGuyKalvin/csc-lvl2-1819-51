@@ -20,6 +20,18 @@ public class MenuScreenTest {
         context = InstrumentationRegistry.getTargetContext();
     }
 
+    //Author: Daniel Nelis
+
+
+    @Test
+    public void loadAndAddMusic_BackgroundMusic(){
+
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddMusic(
+                "RiskBackgroundSound", "sound/RiskBackgroundSound.mp3");
+        assertTrue(success);
+
+    }
 
     @Test
     public void loadAndAddBitmap_ValidData_TestIsSuccessful1() {
@@ -30,6 +42,8 @@ public class MenuScreenTest {
         assertTrue(success);
 
     }
+
+    //Author: Daniel Nelis
 
     @Test
     public void loadAndAddBitmap_ValidData_TestIsSuccessful2() {
@@ -81,7 +95,6 @@ public class MenuScreenTest {
         assertTrue(success);
 
     }
-
 
     @Test
     public void loadAndAddBitmap_ValidData_TestIsSuccessful7() {

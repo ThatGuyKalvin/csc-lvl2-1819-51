@@ -15,8 +15,12 @@ import uk.ac.qub.eeecs.game.DemoGame;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+
+
+    //Author: Daniel Nelis
+
 @RunWith(AndroidJUnit4.class)
-public class AssetManagerTest {
+public class OptionsScreenTest {
 
     private Context context;
 
@@ -26,134 +30,106 @@ public class AssetManagerTest {
     }
 
 
-    //Daniel Nelis
     @Test
-    public void loadAndAddBitmap_ValidData_TestIsSuccessful(){
+    public void loadAndAddBitmap_main_menu_button(){
 
         AssetManager assetManager = new AssetManager(context);
         boolean success = assetManager.loadAndAddBitmap(
-                "OptionScreenBackground", "img/OptionScreenBackground.png");
+                "main_menu_button", "img/RiskGameImages/main_menu_button.png");
         assertTrue(success);
 
     }
 
     @Test
-    public void loadAndAddBitmap_ValidData_TestIsSuccessful2(){
+    public void loadAndAddBitmap_main_menu_button_pressed(){
 
         AssetManager assetManager = new AssetManager(context);
         boolean success = assetManager.loadAndAddBitmap(
-                "OptionsScreenButton", "img/OptionsScreenButton.png");
-        assertTrue(success);
-
-    }
-
-    //: Daniel Nelis
-
-    @Test
-    public void loadAndAddBitmap_ValidData_TestIsSuccessful3(){
-
-        AssetManager assetManager = new AssetManager(context);
-        boolean success = assetManager.loadAndAddBitmap(
-                "VolumeButton", "img/VolumeButton.png");
+                "main_menu_button_pressed", "img/RiskGameImages/main_menu_button_pressed.png");
         assertTrue(success);
 
     }
 
     @Test
-    public void loadAndAddBitmap_ValidData_TestIsSuccessful4(){
+    public void loadAndAddBitmap_risk_mute_button(){
 
         AssetManager assetManager = new AssetManager(context);
         boolean success = assetManager.loadAndAddBitmap(
-                "BackButtonMM", "img/BackArrowMainMenu.png");
+                "risk_mute_button", "img/RiskGameImages/risk_mute_button.png");
         assertTrue(success);
 
     }
 
     @Test
-    public void loadAndAddBitmap_ValidData_TestIsSuccessful5(){
+    public void loadAndAddBitmap_risk_mute_button_pressed(){
 
         AssetManager assetManager = new AssetManager(context);
         boolean success = assetManager.loadAndAddBitmap(
-                "BackButtonSelectedMM", "img/BackArrowMainMenu.png");
+                "risk_mute_button_pressed", "img/RiskGameImages/risk_mute_button_pressed.png");
         assertTrue(success);
 
     }
 
     @Test
-    public void loadAndAddBitmap_ValidData_TestIsSuccessful6(){
+    public void loadAndAddBitmap_risk_unmute_button(){
 
         AssetManager assetManager = new AssetManager(context);
         boolean success = assetManager.loadAndAddBitmap(
-                "TexturedRectangle", "img/TexturedRectangle.png");
-        assertTrue(success);
-
-    }
-    @Test
-    public void loadAndAddBitmap_ValidData_TestIsSuccessful7(){
-
-        AssetManager assetManager = new AssetManager(context);
-        boolean success = assetManager.loadAndAddBitmap(
-                "PerformanceScreenIcon", "img/PerformanceScreenIcon.png");
-        assertTrue(success);
-
-    }
-    @Test
-    public void loadAndAddBitmap_ValidData_TestIsSuccessful8(){
-
-        AssetManager assetManager = new AssetManager(context);
-        boolean success = assetManager.loadAndAddBitmap(
-                "PerformanceScreenIconSelected", "img/PerformanceScreenIconSelected.png");
+                "risk_unmute_button", "img/RiskGameImages/risk_unmute_button.png");
         assertTrue(success);
 
     }
 
     @Test
-    public void loadAndAddBitmap_ValidData_TestIsSuccessful9(){
+    public void loadAndAddBitmap_risk_unmute_button_pressed(){
 
         AssetManager assetManager = new AssetManager(context);
         boolean success = assetManager.loadAndAddBitmap(
-                "GreenPlus", "img/GreenPlus.png");
+                "risk_unmute_button_pressed", "img/RiskGameImages/risk_unmute_button_pressed.png");
         assertTrue(success);
 
     }
 
     @Test
-    public void loadAndAddBitmap_ValidData_TestIsSuccessful10(){
+    public void loadAndAddBitmap_risk_volume_up_button(){
 
         AssetManager assetManager = new AssetManager(context);
         boolean success = assetManager.loadAndAddBitmap(
-                "RedMinus", "img/RedMinus.png");
+                "risk_volume_up_button", "img/RiskGameImages/risk_volume_up_button.png");
         assertTrue(success);
 
     }
 
     @Test
-    public void loadAndAddBitmap_ValidData_TestIsSuccessful11(){
+    public void loadAndAddBitmap_risk_volume_up_button_pressed(){
 
         AssetManager assetManager = new AssetManager(context);
         boolean success = assetManager.loadAndAddBitmap(
-                "BackButtonPS", "img/BackArrowPerformanceScreen.png");
+                "risk_volume_up_button_pressed", "img/RiskGameImages/risk_volume_up_button_pressed.png");
         assertTrue(success);
 
     }
 
     @Test
-    public void loadAndAddBitmap_ValidData_TestIsSuccessful12(){
+    public void loadAndAddBitmap_risk_volume_down_button(){
 
         AssetManager assetManager = new AssetManager(context);
         boolean success = assetManager.loadAndAddBitmap(
-                "BackArrowSelectedPS", "img/BackArrowPerformanceScreen.png");
+                "risk_volume_down_button", "img/RiskGameImages/risk_volume_down_button.png");
+        assertTrue(success);
+
+    }
+
+    @Test
+    public void loadAndAddBitmap_risk_volume_down_button_pressed(){
+
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "risk_volume_down_button_pressed", "img/RiskGameImages/risk_volume_down_button_pressed.png");
         assertTrue(success);
 
     }
 
 
-//    @Test
-//    public void loadAndAddBitmap_InvalidData_TestError(){
-//
-//        AssetManager assetManager = new AssetManager(context);
-//        boolean success = assetManager.loadAndAddBitmap(
-//                "OptionScreenBackground", "img/OptionScreenBackground2018.png");
-//        assertFalse(success);
-//    }
+
 }

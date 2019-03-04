@@ -10,14 +10,17 @@ import java.util.List;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
+import uk.ac.qub.eeecs.gage.engine.audio.AudioManager;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
+import uk.ac.qub.eeecs.game.RiskGame.Battle;
 import uk.ac.qub.eeecs.game.RiskGame.DiceRollScreen;
 import uk.ac.qub.eeecs.game.RiskGame.RiskGameScreen;
 import uk.ac.qub.eeecs.game.miscDemos.DemoMenuScreen;
+import uk.ac.qub.eeecs.game.RiskGame.Player;
 
 /**
  * An exceedingly basic menu screen with a couple of touch buttons
@@ -34,9 +37,6 @@ public class MenuScreen extends GameScreen {
      * Define the buttons for playing the 'games'
      */
 
-
-
-
     private PushButton mSpaceshipDemoButton;
     private PushButton mRulesButton;
     private PushButton mStartGameButton;
@@ -46,6 +46,9 @@ public class MenuScreen extends GameScreen {
     private PushButton mPerformanceScreenButton;
     private Bitmap mMainMenuBackground;
     private float mTimeToChange = 0;
+
+    public Battle battle;
+    public Player google, apple;
 
     // /////////////////////////////////////////////////////////////////////////
     // Constructors
@@ -79,10 +82,15 @@ public class MenuScreen extends GameScreen {
         assetManager.loadAssets(
                 "txt/assets/RiskGameAssets.JSON");
 
+        //Author: Daniel Nelis
         assetManager.loadAndAddBitmap("RiskMainMenuScreen", "img/RiskGameImages/RiskMainMenuScreen.png");
 
         mMainMenuBackground = assetManager.getBitmap("RiskMainMenuScreen");
 
+
+        /*
+        Author: Daniel Nelis (Format for Main Menu)
+         */
 
         // Define the spacing that will be used to position the buttons
         int spacingX = (int)mDefaultLayerViewport.getWidth() / 4;
@@ -117,11 +125,14 @@ public class MenuScreen extends GameScreen {
                 spacingX * 3.5f, spacingY * 2.0f, spacingX/2, spacingY/2,
                 "PerformanceScreenIcon", "PerformanceScreenIconSelected", this);
         mPerformanceScreenButton.setPlaySounds(true, true);
-    }
 
-    // /////////////////////////////////////////////////////////////////////////
-    // Methods
-    // /////////////////////////////////////////////////////////////////////////
+
+
+
+
+        ////////////////////////////////////
+        test();
+    }
 
 
     /**
@@ -149,7 +160,7 @@ public class MenuScreen extends GameScreen {
 
 
             if (mSpaceshipDemoButton.isPushTriggered())
-                mGame.getScreenManager().addScreen(new DiceRollScreen(mGame));
+                mGame.getScreenManager().addScreen(new DiceRollScreen(mGame, battle, google, apple));
             else if (mStartGameButton.isPushTriggered())
                 mGame.getScreenManager().addScreen(new RiskGameScreen(mGame));
             else if (mRulesButton.isPushTriggered())
@@ -165,6 +176,33 @@ public class MenuScreen extends GameScreen {
         }
 
         mTimeToChange += elapsedTime.stepTime;
+
+        /*
+        Author: Daniel Nelis
+         */
+        playBackgroundMusic();
+        getGame().getAssetManager().getMusic("RiskBackgroundSound").setLopping(true);
+    }
+
+
+
+    // /////////////////////////////////////////////////////////////////////////
+    // Methods
+    // /////////////////////////////////////////////////////////////////////////
+
+
+    /*
+    Author: Daniel Nelis
+    */
+    private void playBackgroundMusic() {
+        AudioManager audioManager = getGame().getAudioManager();
+        if(!audioManager.isMusicPlaying())
+            audioManager.playMusic(
+                    getGame().getAssetManager().getMusic("RiskBackgroundSound"));
+    }
+    public void stopMusic(){
+        AudioManager audioManager = getGame().getAudioManager();
+        audioManager.stopMusic();
     }
 
     /**
@@ -196,5 +234,16 @@ public class MenuScreen extends GameScreen {
         mPerformanceScreenButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
 
 
+    }
+
+    public void test(){
+        int attDice = 3;
+        int defDice = 2;
+        int TeamsAttacking = 5;
+        int teamsDefending = 4;
+
+        battle = new Battle(attDice,defDice, TeamsAttacking, teamsDefending);
+        google = new Player("google", -01000016);
+        apple = new Player("apple", -01000016);
     }
 }

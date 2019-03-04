@@ -7,8 +7,11 @@ public class Battle {
     private int numOfDiceAtt, numOfDiceDef, numOfAttTeams, numOfDefTeams, DefTeamsLost, AttTeamsLost, minimumNumDice;
     private int[] BattleResults = new int[3]; //first number = attackers teams lost / second number = defenders teams lost / third number = results, 0 for Attacker withdraws, 1 for attackers win
     private int[] DefResults, AttResults;
+    private DiceRoll diceRollAtt = new DiceRoll(numOfDiceAtt);
+    private DiceRoll diceRollDef = new DiceRoll(numOfDiceDef);
 
-    public Battle(int numOfAttDice, int numOfDefDice, int numOfTeamsAtt, int numOfTeamsDef){
+    //Player attPlayer, Player defPlayer,
+    public Battle( int numOfAttDice, int numOfDefDice, int numOfTeamsAtt, int numOfTeamsDef){
         numOfAttTeams = numOfTeamsAtt;
         numOfDefTeams = numOfTeamsDef;
         numOfDiceAtt = numOfAttDice;
@@ -55,16 +58,75 @@ public class Battle {
         return results;
     }
 
-    //getters for the dice class
-    //Philip Murphy
-
-    //public String attackersName(){return attPlayer.getName();}
-    //public String defendersName(){return defPlayer.getName();}
-
-    //public int attackerColour(){return attPlayer.getColour();}
-    //public int defenderColour(){return defPlayer.getColour();}
 
 
+    //A battle that is done one by one by pressing the roll button on the dice screen.
+    //@Philip Murphy
+    public void singleBattle(){
+        setDiceRollDef();
+        if(canBattle()){
+            newRoll();
+
+            if(diceRollDef.getTotal() >= diceRollAtt.getTotal()){
+                numOfAttTeams--;
+            } else{numOfDefTeams--;}
+
+            if(numOfAttTeams == 0 || numOfDefTeams == 0){
+                //do something
+            }
+        }
+    }
+
+    //Creates a new set of values for the arrays
+    //@Philip Murphy
+    public void newRoll(){
+        diceRollAtt = new DiceRoll(numOfDiceAtt);
+        diceRollDef = new DiceRoll(numOfDiceDef);
+    }
+
+    //@Philip Murphy
+    //Checks that the number of dice is right.
+    public boolean canBattle(){
+        if(numOfDiceAtt < numOfAttTeams){ return true; }
+        return false;
+    }
+
+    //Creating an array and then setting all the values to 0 for the first roll
+    //@Philip Murphy
+    public void resetDice(){
+        newRoll();
+        for(int i = 0; i<diceRollAtt.getDiceResults().length; i++)
+            diceRollAtt.getDiceResults()[i] = 0;
+        for(int i = 0; i <diceRollDef.getDiceResults().length; i++)
+            diceRollDef.getDiceResults()[i] = 0;
+    }
 
 
+    //getters and setters that can be used by the buttons in the dice screen
+    //@Philip Murphy
+
+    public void setNumOfAttTeams(int numOfAttTeams) { this.numOfAttTeams = numOfAttTeams; }
+    public void setNumOfDefTeams(int numOfDefTeams){ this.numOfDefTeams = numOfDefTeams; }
+
+    public void setNumOfDiceAtt(int number){ this.numOfDiceAtt = number;}
+    public void setDiceRollDef(){
+        if(numOfDefTeams >= 3){
+            this.numOfDiceDef = 2;
+        }else{
+            this.numOfDiceDef = 1;
+        }
+    }
+
+    public int getNumOfAttTeams(){ return numOfAttTeams; }
+    public int getNumOfDefTeams(){ return numOfDefTeams; }
+
+    public int[] getDiceResultsAtt(){return diceRollAtt.getDiceResults();}
+    public int[] getDiceResultsDef(){ return diceRollDef.getDiceResults(); }
+
+    public int getAttDiceTotal(){return diceRollAtt.getTotal();}
+    public int getDefDiceTotal(){return diceRollDef.getTotal();}
 }
+
+
+
+
