@@ -106,7 +106,7 @@ public class RiskGameScreen extends GameScreen {
         mMainMenuButton.setPlaySounds(true, true);
 
         mEndTurnButton = new PushButton(
-                spacingX * 3f, spacingY * 12f, spacingX, spacingY, "End_Turn_Button", this);
+                spacingX * 3.4f, spacingY * 1f, spacingX, spacingY, "end_turn_button", this);
 
         mRiskMap = new GameObject(
                 mDefaultLayerViewport.x, mDefaultLayerViewport.y,
@@ -275,31 +275,31 @@ public class RiskGameScreen extends GameScreen {
 
         // Field class should probably be revamped
         // Telecommunications
-        mAreas.get(0).addField(new Field(this, 1, "Internet Provider", null, 5, 0xFFDE7879));
-        mAreas.get(0).addField(new Field(this, 1, "Phone Carrier", null, 5, 0xFF9C0003));
-        mAreas.get(0).addField(new Field(this, 1, "Tele. 3", null, 5, 0xFFF0ADAD));
-        mAreas.get(0).addField(new Field(this, 1, "Tele. 4", null, 5, 0xFFB84B4B));
-        mAreas.get(0).addField(new Field(this, 1, "Tele. 5", null, 5, 0xFF5C0000));
+        mAreas.get(0).addField(new Field(1,"Internet Provider",0xFFDE7879));
+        mAreas.get(0).addField(new Field(2,"Phone Carrier",0xFF9C0003));
+        mAreas.get(0).addField(new Field(3,"Tele. 3",0xFFF0ADAD));
+        mAreas.get(0).addField(new Field(4,"Tele. 4",0xFFB84B4B));
+        mAreas.get(0).addField(new Field(5, "Tele. 5",0xFF5C0000));
         // Security
-        mAreas.get(1).addField(new Field(this, 1, "Cyber Security", null, 5, 0xFF007820));
-        mAreas.get(1).addField(new Field(this, 1, "CCTV", null, 5, 0xFF4AAB3F));
-        mAreas.get(1).addField(new Field(this, 1, "Sec. 3", null, 5, 0xFF24401F));
-        mAreas.get(1).addField(new Field(this, 1, "Sec. 4", null, 5, 0xFF7AC28C));
-        mAreas.get(1).addField(new Field(this, 1, "Sec. 5", null, 5, 0xFF648F5D));
-        mAreas.get(1).addField(new Field(this, 1, "Sec. 6", null, 5, 0xFF4A6945));
+        mAreas.get(1).addField(new Field(6, "Cyber Security",0xFF007820));
+        mAreas.get(1).addField(new Field(7, "CCTV",0xFF4AAB3F));
+        mAreas.get(1).addField(new Field(8, "Sec. 3",0xFF24401F));
+        mAreas.get(1).addField(new Field(9, "Sec. 4",0xFF7AC28C));
+        mAreas.get(1).addField(new Field(10, "Sec. 5",0xFF648F5D));
+        mAreas.get(1).addField(new Field(11, "Sec. 6",0xFF4A6945));
         // Development
-        mAreas.get(2).addField(new Field(this, 1, "C++", null, 5, 0xFFAB9700));
-        mAreas.get(2).addField(new Field(this, 1, "Java", null, 5, 0xFF7D721E));
-        mAreas.get(2).addField(new Field(this, 1, "Python", null, 5, 0xFF453E08));
+        mAreas.get(2).addField(new Field(12, "C++",0xFFAB9700));
+        mAreas.get(2).addField(new Field(13, "Java",0xFF7D721E));
+        mAreas.get(2).addField(new Field(14, "Python",0xFF453E08));
         // Machine Learning
-        mAreas.get(3).addField(new Field(this, 1, "General Intelligence", null, 5, 0xFF804121));
-        mAreas.get(3).addField(new Field(this, 1, "AI Cars", null, 5, 0xFF4D220D));
-        mAreas.get(3).addField(new Field(this, 1, "Machine Learning 3", null, 5, 0xFF734B37));
-        mAreas.get(3).addField(new Field(this, 1, "Machine Learning 4", null, 5, 0xFF612000));
+        mAreas.get(3).addField(new Field(15, "General Intelligence",0xFF804121));
+        mAreas.get(3).addField(new Field(16, "AI Cars",0xFF4D220D));
+        mAreas.get(3).addField(new Field(17, "Machine Learning 3",0xFF734B37));
+        mAreas.get(3).addField(new Field(18, "Machine Learning 4",0xFF612000));
         // Data & Information
-        mAreas.get(4).addField(new Field(this, 1, "Social Media", null, 5, 0xFF8B1D8F));
-        mAreas.get(4).addField(new Field(this, 1, "Research Labs", null, 5, 0xFF8F0081));
-        mAreas.get(4).addField(new Field(this, 1, "Data. & Info. 3", null, 5, 0xFFC963CF));
+        mAreas.get(4).addField(new Field(19, "Social Media",0xFF8B1D8F));
+        mAreas.get(4).addField(new Field(20, "Research Labs",0xFF8F0081));
+        mAreas.get(4).addField(new Field(21, "Data. & Info. 3",0xFFC963CF));
 
         addConnectedFields();
 

@@ -8,8 +8,6 @@ import org.junit.Test;
 
 import java.text.MessageFormat;
 
-import uk.ac.qub.eeecs.gage.engine.AssetManager;
-
 import uk.ac.qub.eeecs.game.RiskGame.Field;
 import uk.ac.qub.eeecs.game.RiskGame.Player;
 
@@ -21,9 +19,9 @@ public class FieldClassTests {
 
 
     private Context context;
-    private Field Incrementer = new Field(50, 50, 50, 50, null, null, 1, "AI", new Player("Test", 1), 5);
-    private Field Attacker = new Field(50, 50, 50, 50, null, null, 2, "AI", new Player("Test", 1), 5);
-    private Field Defender = new Field(50, 50, 50, 50, null, null, 3, "AI", new Player("Test", 1), 5);
+    private Field Incrementer = new Field(1, "Incrementer", 1);
+    private Field Attacker = new Field(2, "Attacker", 2);
+    private Field Defender = new Field(3, "Defender", 3);
 
 
     @Before
@@ -43,6 +41,5 @@ public class FieldClassTests {
         Defender.hostileTakeOver(Attacker.getFPlayer(), Attacker.getFNumOfTeams()-1);
         assertTrue((Defender.getFPlayer() == Attacker.getFPlayer()) && (Defender.getFNumOfTeams() == Attacker.getFNumOfTeams()-1));
     }
-
 
 }

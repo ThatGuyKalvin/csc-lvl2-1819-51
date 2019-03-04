@@ -10,42 +10,24 @@ import uk.ac.qub.eeecs.gage.world.Sprite;
 //Field class to use for individual fields within an area and manipulate them
 //Author: Peter Gilfedder
 
-public class Field extends Sprite {
+public class Field{
 
     private int FNum;
     private String FName;
     private Player FPlayer;
-    private int FNumOfTeams;
+    private int FNumOfTeams = 1;
     private ArrayList<Field> FConnectedFields;
-    private float FCentreX;
-    private float FCentreY;
-    private Bitmap FBitmap;
-    private int fColour;
+    private int FColour;
 
-    public Field(float startX, float startY,
-                 float width, float height, Bitmap bitmap, GameScreen gameScreen, int Num, String Name, Player player, int NumOfTeams) {
-        super(startX, startY, width, height, bitmap, gameScreen);
-
-        FCentreX = startX;
-        FCentreY = startY;
-        FBitmap = bitmap;
+    public Field(int Num, String Name, int Colour) {
         FNum = Num;
         FName = Name;
-        FPlayer = player;
-        FNumOfTeams = NumOfTeams;
+        FColour = Colour;
     }
 
-    Field(GameScreen gameScreen, int num, String name, Player owner, int numOfTeams, int colour) {
-        super(50, 50, 50, 50, null, gameScreen);
-        FNum = num;
-        FName = name;
-        FPlayer = owner;
-        FNumOfTeams = numOfTeams;
-        fColour = colour;
-    }
+    public int getColour() { return FColour; }
 
-    public int getColour() { return fColour; }
-    public void setColour(int colour) { fColour = colour; }
+    public void setColour(int colour) { FColour = colour; }
 
     public void increaseNumOfTeams(int increase){
         FNumOfTeams += increase;
@@ -76,12 +58,6 @@ public class Field extends Sprite {
     }
 
     public void addConnectedFields(ArrayList<Field> Connected){FConnectedFields = Connected;}
-
-    public float GetFCentreX(){ return FCentreX; }
-
-    public float getFCentreY(){
-        return FCentreY;
-    }
 
     public String getFName(){return FName;}
 
