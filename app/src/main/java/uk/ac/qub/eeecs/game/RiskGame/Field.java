@@ -25,6 +25,8 @@ public class Field{
         FColour = Colour;
     }
 
+    public void setPlayer(Player player){FPlayer = player;}
+
     public int getColour() { return FColour; }
 
     public void setColour(int colour) { FColour = colour; }

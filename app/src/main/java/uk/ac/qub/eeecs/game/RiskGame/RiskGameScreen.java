@@ -67,17 +67,17 @@ public class RiskGameScreen extends GameScreen {
     public RiskGameScreen(Game game) {
         super("RiskScreen", game);
         AssetManager assetManager = mGame.getAssetManager();
-        assetManager.loadAndAddBitmap("BackArrow", "img/BackArrow.png");
-        assetManager.loadAndAddBitmap("BackArrowSelected", "img/BackArrowSelected.png");
-        assetManager.loadAndAddBitmap("main_menu_button", "img/RiskGameImages/main_menu_button.png");
-        assetManager.loadAndAddBitmap("main_menu_button_pressed", "img/RiskGameImages/main_menu_button_pressed.png");
-        assetManager.loadAndAddBitmap("end_turn_button","img/RiskGameImages/end_turn_button.png");
-
         assetManager.loadAssets(
                 "txt/assets/OptionsScreenAssets.JSON");
 
         assetManager.loadAssets(
                 "txt/assets/RiskGameAssets.JSON");
+        assetManager.loadAndAddBitmap("BackArrow", "img/BackArrow.png");
+        assetManager.loadAndAddBitmap("BackArrowSelected", "img/BackArrowSelected.png");
+        assetManager.loadAndAddBitmap("main_menu_button", "img/RiskGameImages/main_menu_button.png");
+        assetManager.loadAndAddBitmap("main_menu_button_pressed", "img/RiskGameImages/main_menu_button_pressed.png");
+        assetManager.loadAndAddBitmap("end_turn_button","img/RiskGameImages/end_turn_button.png");
+        assetManager.loadAndAddBitmap("end_turn_pressed", "img/end_turn_pressed");
 
         //assetManager.loadAndAddBitmap("RiskGameScreen2", "img/RiskGamesImages/RiskGameScreen2.png");
         assetManager.loadAndAddBitmap("RiskAttackButton", "img/RiskGameImages/risk_attack_pressed.png");
@@ -106,7 +106,8 @@ public class RiskGameScreen extends GameScreen {
         mMainMenuButton.setPlaySounds(true, true);
 
         mEndTurnButton = new PushButton(
-                spacingX * 3.4f, spacingY * 1f, spacingX, spacingY, "end_turn_button", this);
+                spacingX * 2.5f, spacingY * 1f, spacingX, spacingY,
+                "end_turn_button", "end_turn_pressed", this);
 
         mRiskMap = new GameObject(
                 mDefaultLayerViewport.x, mDefaultLayerViewport.y,
@@ -169,7 +170,7 @@ public class RiskGameScreen extends GameScreen {
             else if (mMainMenuButton.isPushTriggered())
                 mGame.getScreenManager().removeScreen(this);
 
-            else if (mMainMenuButton.isPushTriggered())
+            else if (mEndTurnButton.isPushTriggered())
                 endTurn();
 
             else if(attackState == ATTACK_PICK_AGAIN) {

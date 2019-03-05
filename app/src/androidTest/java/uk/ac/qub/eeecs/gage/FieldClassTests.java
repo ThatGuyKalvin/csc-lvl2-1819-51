@@ -22,11 +22,16 @@ public class FieldClassTests {
     private Field Incrementer = new Field(1, "Incrementer", 1);
     private Field Attacker = new Field(2, "Attacker", 2);
     private Field Defender = new Field(3, "Defender", 3);
+    private Player Player1 = new Player("Peter", 1);
+    private Player Player2 = new Player("John", 2);
+
 
 
     @Before
     public void setUp() {
         context = InstrumentationRegistry.getTargetContext();
+        Attacker.setPlayer(Player1);
+        Defender.setPlayer(Player2);
     }
 
     @Test
@@ -42,4 +47,8 @@ public class FieldClassTests {
         assertTrue((Defender.getFPlayer() == Attacker.getFPlayer()) && (Defender.getFNumOfTeams() == Attacker.getFNumOfTeams()-1));
     }
 
+    @Test
+    public void TestGetColour(){
+
+    }
 }
