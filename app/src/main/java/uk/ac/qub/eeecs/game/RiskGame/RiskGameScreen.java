@@ -77,7 +77,7 @@ public class RiskGameScreen extends GameScreen {
         assetManager.loadAndAddBitmap("main_menu_button", "img/RiskGameImages/main_menu_button.png");
         assetManager.loadAndAddBitmap("main_menu_button_pressed", "img/RiskGameImages/main_menu_button_pressed.png");
         assetManager.loadAndAddBitmap("end_turn_button","img/RiskGameImages/end_turn_button.png");
-        assetManager.loadAndAddBitmap("end_turn_pressed", "img/end_turn_pressed");
+        assetManager.loadAndAddBitmap("end_turn_pressed", "img/end_turn_pressed.png");
 
         //assetManager.loadAndAddBitmap("RiskGameScreen2", "img/RiskGamesImages/RiskGameScreen2.png");
         assetManager.loadAndAddBitmap("RiskAttackButton", "img/RiskGameImages/risk_attack_pressed.png");
