@@ -20,7 +20,9 @@ public class MenuScreenTest {
         context = InstrumentationRegistry.getTargetContext();
     }
 
-    //Author: Daniel Nelis
+    /*
+    Author: Daniel Nelis
+     */
 
 
     @Test

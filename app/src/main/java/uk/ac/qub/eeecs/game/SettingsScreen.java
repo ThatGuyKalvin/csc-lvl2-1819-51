@@ -39,7 +39,7 @@ public class  SettingsScreen extends GameScreen {
     private PushButton mUnmuteButton;
     private PushButton mVolumeUpButton;
     private PushButton mVolumeDownButton;
-     private Bitmap mOptionsBackground;
+    private Bitmap mOptionsBackground;
     private float mTimeToChange = 0;
 
 
@@ -69,8 +69,7 @@ public class  SettingsScreen extends GameScreen {
         assetManager.loadAndAddBitmap("risk_volume_down_button_pressed", "img/risk_volume_down_button_pressed.png");
 
         //Loading Bitmaps
-        assetManager.loadAssets(
-                "txt/assets/OptionsScreenAssets.JSON");
+        assetManager.loadAssets("txt/assets/OptionsScreenAssets.JSON");
         assetManager.loadAndAddBitmap("OptionScreenBackground", "img/RiskGameImages/RiskOptionScreen.png");
         mOptionsBackground = assetManager.getBitmap("OptionScreenBackground");
 
