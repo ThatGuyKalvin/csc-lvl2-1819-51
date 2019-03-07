@@ -22,6 +22,7 @@ import static org.junit.Assert.assertTrue;
 Author: Daniel Nelis Entire Class
  */
 
+
 @RunWith(AndroidJUnit4.class)
 public class RulesScreenTests {
 

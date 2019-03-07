@@ -67,7 +67,8 @@ public class RiskRulesScreen extends GameScreen
             //assetManager.loadAndAddBitmap("risk_rules_next_button_pressed", "img/RiskGameImages/risk_rules_next_button_pressed.png");
             assetManager.loadAndAddBitmap("risk_rules_prev_button", "img/RiskGameImages/risk_rules_prev_button.png");
             //assetManager.loadAndAddBitmap("risk_rules_prev_button_pressed", "img/RiskGameImages/risk_rules_prev_button_pressed.png");
-
+            assetManager.loadAndAddBitmap("Rules_Dice_Roll", "img/RiskGameImages/Rules_Dice_Roll.png");
+            assetManager.loadAndAddBitmap("Rules_Deploy_Armies", "img/RiskGameImages/Rules_Deploy_Armies.png");
 
 
        }
@@ -245,12 +246,14 @@ public class RiskRulesScreen extends GameScreen
             switch(rulePageCounter)
             {
                 case 0:
+                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Dice_Roll"),null, boardImage,null);
                     graphics2D.drawText("All players will roll dice",spacingX * 0.75f ,spacingY * 1.3f,paint);
                     graphics2D.drawText("the player with the highest",spacingX * 0.75f,spacingY * 1.5f,paint);
                     graphics2D.drawText("with the highest roll will go",spacingX * 0.75f,spacingY * 1.7f,paint);
                     graphics2D.drawText("first.",spacingX * 0.75f,spacingY * 1.9f,paintRules);
                     break;
                 case 1:
+                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Deploy_Armies"),null, boardImage,null);
                     graphics2D.drawText("Player will choose where to", spacingX * 0.70f, spacingY * 1.3f, paint);
                     graphics2D.drawText("deploy their armies. Second", spacingX * 0.70f, spacingY * 1.5f, paint);
                     graphics2D.drawText("highest roller will then deploy", spacingX * 0.70f, spacingY * 1.7f, paint);
