@@ -15,8 +15,6 @@ import uk.ac.qub.eeecs.game.DemoGame;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-
-
     /*
     Author: Daniel Nelis Entire Class
      */

@@ -181,8 +181,8 @@ public class RiskRulesScreen extends GameScreen
             }
             if(mHowToPlayTheRules.isPushTriggered()){
 
-                nextPageButton.setPosition(spacingX * 0.60f, spacingY * 0.20f);
-                prevPageButton.setPosition(spacingX * 0.40f, spacingY * 0.20f);
+                nextPageButton.setPosition(spacingX * 0.40f, spacingY * 0.20f);
+                prevPageButton.setPosition(spacingX * 0.25f, spacingY * 0.20f);
                 rulesOfGamePushed = true;
 
                 rulePageCounter = 0;
@@ -261,17 +261,17 @@ public class RiskRulesScreen extends GameScreen
                     graphics2D.drawText("Player will then choose to attack", spacingX * 0.70f, spacingY * 1.3f, paint);
                     graphics2D.drawText("another army in a connected field.", spacingX * 0.70f, spacingY * 1.5f, paint);
                     graphics2D.drawText("Attacking Player will roll 3 dice.", spacingX * 0.70f, spacingY * 1.7f, paint);
-                    graphics2D.drawText("Defending player will roll 2 dice", spacingX * 0.70f, spacingY * 1.9f, paint);
+                    graphics2D.drawText("Defending player will roll 2 dice.", spacingX * 0.70f, spacingY * 1.9f, paint);
                     break;
                 case 3:
                     graphics2D.drawText("If attacking player dice is greater", spacingX * 0.70f, spacingY * 1.3f, paint);
                     graphics2D.drawText("Than defending player dice then", spacingX * 0.70f, spacingY * 1.5f, paint);
-                    graphics2D.drawText("attacking player will take over", spacingX * 0.70f, spacingY * 1.7f, paint);
-                    graphics2D.drawText("the field", spacingX * 0.70f, spacingY * 1.9f, paint);
+                    graphics2D.drawText("the attacking player will take", spacingX * 0.70f, spacingY * 1.7f, paint);
+                    graphics2D.drawText("over the field.", spacingX * 0.70f, spacingY * 1.9f, paint);
                     break;
                 case 4:
                     graphics2D.drawText("If defending player dice is greater", spacingX * 0.70f, spacingY * 1.3f, paint);
-                    graphics2D.drawText("Than attacking player dice then", spacingX * 0.70f, spacingY * 1.5f, paint);
+                    graphics2D.drawText("than attacking player dice then", spacingX * 0.70f, spacingY * 1.5f, paint);
                     graphics2D.drawText("attacking player will not take", spacingX * 0.70f, spacingY * 1.7f, paint);
                     graphics2D.drawText("over.", spacingX * 0.70f, spacingY * 1.9f, paint);
                     break;
