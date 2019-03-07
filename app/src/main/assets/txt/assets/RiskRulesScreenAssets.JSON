@@ -1,0 +1,45 @@
+{
+  "assets": [
+    {
+      "type": "Bitmap",
+      "name": "risk_rules_next_button",
+      "file": "img/RiskGameImages/risk_rules_next_button.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "risk_rules_next_button_pressed",
+      "file": "img/RiskGameImages/risk_rules_next_button_pressed.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "risk_rules_prev_button",
+      "file": "img/RiskGameImages/risk_rules_prev_button.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "risk_rules_prev_button_pressed",
+      "file": "img/RiskGameImages/risk_rules_prev_button_pressed.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "How_To_Play_Rule_Button",
+      "file": "img/RiskGameImages/How_To_Play_Rule_Button.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "Risk_Rules_Text_Circle",
+      "file": "img/RiskGameImages/Risk_Rules_Text_Circle.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "RiskMainMenuScreen",
+      "file": "img/RiskGameImages/RiskMainMenuScreen.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "Rules_Rules_Black_Background",
+      "file": "img/RiskGameImages/Rules_Rules_Black_Background.png"
+    }
+	
+    ]
+}
