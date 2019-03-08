@@ -22,7 +22,7 @@ import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 
 /*
-Author: Daniel Nelis
+Author: Daniel Nelis Entire Classs
  */
 
 public class RiskRulesScreen extends GameScreen
@@ -78,7 +78,7 @@ public class RiskRulesScreen extends GameScreen
         spacingY = game.getScreenHeight() / 3;
 
         // Create the trigger buttons
-        mBackToMainMenuButton = new PushButton (spacingX * 0.20f, spacingY * 0.65f, spacingX/4, spacingY/10, "main_menu_button", this);
+        mBackToMainMenuButton = new PushButton (spacingX * 0.30f, spacingY * 0.30f, spacingX/4, spacingY/10, "main_menu_button", this);
         mHowToPlayTheRules = new PushButton(spacingX * 0.10f, spacingY * 0.12f, spacingX/6, spacingY/6, "How_To_Play_Rule_Button", this);
 
 
@@ -124,14 +124,14 @@ public class RiskRulesScreen extends GameScreen
     {
         if(Objects.equals(instructionType, "Main"))
         {
-            drawSpeechBubbleRect(300,1200,130,200);
+            drawSpeechBubbleRect(300,1200,110,110);
             drawSpeechBubbleBitmap(graphics2D);
         }
 
 
         if(Objects.equals(instructionType, "Rules"))
         {
-            drawSpeechBubbleRect(300,1200,130,190);
+            drawSpeechBubbleRect(750,900,200,110);
             drawSpeechBubbleBitmap(graphics2D);
         }
     }
@@ -196,12 +196,12 @@ public class RiskRulesScreen extends GameScreen
     {
         //Making a new paint so i can display text (colour = black)
         Paint paint = new Paint();
-        paint.setColor(Color.BLACK);
+        paint.setColor(Color.WHITE);
         paint.setTextSize(45.0f);
         //Setting up a second paint colour for some of the text (colour = black)
         Paint paintRules = new Paint();
-        paintRules.setColor(Color.BLACK);
-        paintRules.setTextSize(50.0f);
+        paintRules.setColor(Color.WHITE);
+        paintRules.setTextSize(65.0f);
 
         //Drawing the main background for the class
         background.top = 0;
@@ -226,10 +226,10 @@ public class RiskRulesScreen extends GameScreen
 
 
             drawSpeechBubbleToRectangle(graphics2D,"Main");
-            graphics2D.drawText("Hey! Not sure how to play",spacingX * 0.75f,spacingY * 1.3f,paint);
-            graphics2D.drawText("Black Hat Hackers ?",spacingX * 0.75f,spacingY * 1.5f,paint);
-            graphics2D.drawText("Hit the Rules button.",spacingX * 0.75f,spacingY * 1.7f,paint);
-            graphics2D.drawText("Goodluck!",spacingX * 0.75f,spacingY * 1.9f,paint);
+            graphics2D.drawText("Hey! Not sure how to play",spacingX * 1.0f,spacingY * 1.3f,paintRules);
+            graphics2D.drawText("Black Hat Hackers ?",spacingX * 1.0f,spacingY * 1.5f,paintRules);
+            graphics2D.drawText("Hit the Rules button.",spacingX * 1.0f,spacingY * 1.7f,paintRules);
+            graphics2D.drawText("Goodluck!",spacingX * 1.0f,spacingY * 1.9f,paintRules);
         }
 
 
@@ -247,48 +247,42 @@ public class RiskRulesScreen extends GameScreen
             {
                 case 0:
                     graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Dice_Roll"),null, boardImage,null);
-                    graphics2D.drawText("All players will roll dice",spacingX * 0.75f ,spacingY * 1.3f,paint);
-                    graphics2D.drawText("the player with the highest",spacingX * 0.75f,spacingY * 1.5f,paint);
-                    graphics2D.drawText("with the highest roll will go",spacingX * 0.75f,spacingY * 1.7f,paint);
-                    graphics2D.drawText("first.",spacingX * 0.75f,spacingY * 1.9f,paintRules);
+                    graphics2D.drawText("All players will roll dice & the player with the highest with",spacingX * 1.0f ,spacingY * 0.65f,paint);
+                    graphics2D.drawText("the highest roll will go first.",spacingX * 1.0f,spacingY * 0.85f,paint);
                     break;
                 case 1:
                     graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Deploy_Armies"),null, boardImage,null);
-                    graphics2D.drawText("Player will choose where to", spacingX * 0.70f, spacingY * 1.3f, paint);
-                    graphics2D.drawText("deploy their armies. Second", spacingX * 0.70f, spacingY * 1.5f, paint);
-                    graphics2D.drawText("highest roller will then deploy", spacingX * 0.70f, spacingY * 1.7f, paint);
-                    graphics2D.drawText("their armies and so on....", spacingX * 0.70f, spacingY * 1.9f, paint);
+                    graphics2D.drawText("Player will choose where to deploy their armies. Second", spacingX * 1.0f, spacingY * 0.65f, paint);
+                    graphics2D.drawText("highest roller will then deploy their armies and so on...", spacingX * 1.0f, spacingY * 0.85f, paint);
 
                     break;
                 case 2:
-                    graphics2D.drawText("Player will then choose to attack", spacingX * 0.70f, spacingY * 1.3f, paint);
-                    graphics2D.drawText("another army in a connected field.", spacingX * 0.70f, spacingY * 1.5f, paint);
-                    graphics2D.drawText("Attacking Player will roll 3 dice.", spacingX * 0.70f, spacingY * 1.7f, paint);
-                    graphics2D.drawText("Defending player will roll 2 dice.", spacingX * 0.70f, spacingY * 1.9f, paint);
+                    graphics2D.drawText("Player will then choose to attack another army in a", spacingX * 1.0f, spacingY * 0.65f, paint);
+                    graphics2D.drawText("connected field. Attacking Player will roll 3 dice. ", spacingX * 1.0f, spacingY * 0.85f, paint);
+                    graphics2D.drawText("", spacingX * 1.0f, spacingY * 1.05f, paint);
+                    graphics2D.drawText("", spacingX * 0.70f, spacingY * 1.9f, paint);
                     break;
                 case 3:
-                    graphics2D.drawText("If attacking player dice is greater", spacingX * 0.70f, spacingY * 1.3f, paint);
-                    graphics2D.drawText("Than defending player dice then", spacingX * 0.70f, spacingY * 1.5f, paint);
-                    graphics2D.drawText("the attacking player will take", spacingX * 0.70f, spacingY * 1.7f, paint);
-                    graphics2D.drawText("over the field.", spacingX * 0.70f, spacingY * 1.9f, paint);
+                    graphics2D.drawText("The defending player will then roll 2 dice.", spacingX * 1.0f, spacingY * 0.65f, paint);
                     break;
                 case 4:
-                    graphics2D.drawText("If defending player dice is greater", spacingX * 0.70f, spacingY * 1.3f, paint);
-                    graphics2D.drawText("than attacking player dice then", spacingX * 0.70f, spacingY * 1.5f, paint);
-                    graphics2D.drawText("attacking player will not take", spacingX * 0.70f, spacingY * 1.7f, paint);
-                    graphics2D.drawText("over.", spacingX * 0.70f, spacingY * 1.9f, paint);
+                    graphics2D.drawText("If attacking player dice is greater than defending player", spacingX * 1.0f, spacingY * 0.65f, paint);
+                    graphics2D.drawText("dice then the attacking player will take over the field.", spacingX * 1.0f, spacingY * 0.85f, paint);
+                    graphics2D.drawText("", spacingX * 0.70f, spacingY * 1.7f, paint);
+                    graphics2D.drawText("", spacingX * 0.70f, spacingY * 1.9f, paint);
                     break;
                 case 5:
-                    graphics2D.drawText("Repeat this process until one", spacingX * 0.70f, spacingY * 1.3f, paint);
-                    graphics2D.drawText("player has every field!", spacingX * 0.70f, spacingY * 1.5f, paint);
-                    graphics2D.drawText("       GOODLUCK!      ", spacingX * 0.70f, spacingY * 1.7f, paint);
-                    graphics2D.drawText("       STAY SAFE!      ", spacingX * 0.70f, spacingY * 1.9f, paint);
+                    graphics2D.drawText("If defending player dice is greater than attacking player", spacingX * 1.0f, spacingY * 0.65f, paint);
+                    graphics2D.drawText("dice then attacking player will not take over.", spacingX * 1.0f, spacingY * 0.85f, paint);
+                    graphics2D.drawText("", spacingX * 0.70f, spacingY * 1.7f, paint);
+                    graphics2D.drawText("", spacingX * 0.70f, spacingY * 1.9f, paint);
+                    break;
+                case 6:
+                    graphics2D.drawText("Repeat this process until one player has every field!", spacingX * 1.0f, spacingY * 0.65f, paint);
+                    graphics2D.drawText("                      GOODLUCK!                      ", spacingX * 1.0f, spacingY * 0.85f, paintRules);
                     break;
                 default:
-                    graphics2D.drawText(" ",spacingX *0.75f ,spacingY * 1.3f,paint);
-                    graphics2D.drawText("         END OF RULES",spacingX * 0.75f,spacingY * 1.5f,paintRules);
-                    graphics2D.drawText(" ",spacingX * 0.75f,spacingY * 1.7f,paint);
-                    graphics2D.drawText(" ",spacingX * 0.75f,spacingY * 1.9f,paint);
+                    graphics2D.drawText("                    END OF RULES                     ",spacingX * 1.0f,spacingY * 0.85f,paintRules);
                     break;
             }
         }
