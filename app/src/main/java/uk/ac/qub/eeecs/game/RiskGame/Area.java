@@ -12,6 +12,7 @@ public class Area {
     private String aName;
     private Player aOwner;
     private ArrayList<Field> aFields = new ArrayList<>();
+    private int aValue = 0;
 
     // Package private instead of public
     Area() {
@@ -21,9 +22,10 @@ public class Area {
     }
 
     // Package private instead of public
-    Area(String name, int colour) {
+    Area(String name, int colour, int value) {
         this.aName = name;
         this.aColour = colour;
+        this.aValue = value;
     }
 
     void addField(Field f) { aFields.add(f); }
@@ -48,5 +50,12 @@ public class Area {
     }
     public String getName() {
         return this.aName;
+    }
+
+    public void setValue(int value) {
+        this.aValue = value;
+    }
+    public int getValue() {
+        return this.aValue;
     }
 }

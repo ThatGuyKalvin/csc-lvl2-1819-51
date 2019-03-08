@@ -99,6 +99,16 @@
       "type": "Music",
       "name": "RiskBackgroundSound",
       "file": "sound/RiskBackgroundSound.mp3"
+    },
+    {
+      "type": "Bitmap",
+      "name": "end_turn_button",
+      "file": "img/RiskGameImages/end_turn_button.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "end_turn_pressed",
+      "file": "img/RiskGameImages/end_turn_pressed.png"
     }
 	
     ]

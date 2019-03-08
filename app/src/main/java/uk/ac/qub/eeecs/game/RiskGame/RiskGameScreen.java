@@ -56,6 +56,7 @@ public class RiskGameScreen extends GameScreen {
     private ArrayList<Player> mPlayers = new ArrayList<>(MAX_PLAYERS);
     private ArrayList<Area> mAreas = new ArrayList<>(MAX_AREAS);
     private int CurrentPlayerNum;
+    private boolean SuccessfulAttack = false;
     private Paint textPaint = new Paint();
 
     private PushButton mReturnToMenuButton;
@@ -77,7 +78,7 @@ public class RiskGameScreen extends GameScreen {
         assetManager.loadAndAddBitmap("main_menu_button", "img/RiskGameImages/main_menu_button.png");
         assetManager.loadAndAddBitmap("main_menu_button_pressed", "img/RiskGameImages/main_menu_button_pressed.png");
         assetManager.loadAndAddBitmap("end_turn_button","img/RiskGameImages/end_turn_button.png");
-        assetManager.loadAndAddBitmap("end_turn_pressed", "img/end_turn_pressed");
+        assetManager.loadAndAddBitmap("end_turn_pressed", "img/RiskGameImages/end_turn_pressed.png");
 
         //assetManager.loadAndAddBitmap("RiskGameScreen2", "img/RiskGamesImages/RiskGameScreen2.png");
         assetManager.loadAndAddBitmap("RiskAttackButton", "img/RiskGameImages/risk_attack_pressed.png");
@@ -105,9 +106,7 @@ public class RiskGameScreen extends GameScreen {
                 "main_menu_button", "main_menu_button_pressed", this);
         mMainMenuButton.setPlaySounds(true, true);
 
-        mEndTurnButton = new PushButton(
-                spacingX * 2.5f, spacingY * 1f, spacingX, spacingY,
-                "end_turn_button", "end_turn_pressed", this);
+        mEndTurnButton = new PushButton(spacingX * 1.5f, spacingY * 1f, spacingX, spacingY, "end_turn_button", "end_turn_pressed", this);
 
         mRiskMap = new GameObject(
                 mDefaultLayerViewport.x, mDefaultLayerViewport.y,
@@ -266,11 +265,11 @@ public class RiskGameScreen extends GameScreen {
     private void createAreas() {
 
         // Generate the areas and add colour
-        mAreas.add(new Area("Telecommunications", 0xFFeb1c23));
-        mAreas.add(new Area("Security", 0xFF0ecf42));
-        mAreas.add(new Area("Development", 0xFFffe51c));
-        mAreas.add(new Area("Machine Learning", 0xFFb87756));
-        mAreas.add(new Area("Data & Information", 0xFFb63eb8));
+        mAreas.add(new Area("Telecommunications", 0xFFeb1c23, 6));
+        mAreas.add(new Area("Security", 0xFF0ecf42, 7));
+        mAreas.add(new Area("Development", 0xFFffe51c, 4));
+        mAreas.add(new Area("Machine Learning", 0xFFb87756,5));
+        mAreas.add(new Area("Data & Information", 0xFFb63eb8,4));
         // Generate the fields for the areas
 
 
@@ -431,6 +430,8 @@ public class RiskGameScreen extends GameScreen {
 
     private void endTurn()
     {
+        if(SuccessfulAttack) {mPlayers.get(CurrentPlayerNum).incrementRiskCards();}
+        SuccessfulAttack = false;
         CurrentPlayerNum++;
         if(CurrentPlayerNum > MAX_PLAYERS) CurrentPlayerNum = 0;
         beginTurn();
@@ -439,10 +440,61 @@ public class RiskGameScreen extends GameScreen {
     private void beginTurn()
     {
         //incomplete Method
-        //Add turn start Team allocation
-        //Risk card claiming
-        //Any other appropriate tasks
+        ArrayList<Field> PlayerFieldsAtTurnStart = findPlayerFields();
+        int numOfTeamsAllocated = (PlayerFieldsAtTurnStart.size()/2) + riskCardCalc() + areaControlledCalc();
+        allocateTeams(numOfTeamsAllocated, PlayerFieldsAtTurnStart);
     }
 
+    private void allocateTeams(int NumOfTeams, ArrayList<Field> playerFields)
+    {
+        //Method to go through each field and ask if any of the teams care to be allocated to this field
+    }
+
+    private int riskCardCalc()
+    {
+        int TeamsForCards = 0;
+        int NumOfCards = mPlayers.get(CurrentPlayerNum).getNumOfRiskCards();
+        if (NumOfCards > 3) {
+            TeamsForCards += 6;
+            mPlayers.get(CurrentPlayerNum).useRiskCards();
+        }
+        return TeamsForCards;
+    }
+
+    private int areaControlledCalc()
+    {
+        boolean areaOwned = true;
+        int teamsEarned = 0;
+        for (int i = 0; i < mAreas.size(); i++)
+        {
+            for (int j = 0; j < mAreas.get(i).fields.size(); i++)
+            {
+                if(mAreas.get(i).fields.get(j).getFPlayer() != mPlayers.get(CurrentPlayerNum))
+                {
+                    areaOwned = false;
+                }
+            }
+            if(areaOwned) teamsEarned =+ mAreas.get(i).getValue();
+            areaOwned = true;
+        }
+        return teamsEarned;
+    }
+
+
+    private ArrayList<Field> findPlayerFields()
+    {
+        ArrayList<Field> TempList = new ArrayList<>();
+        for(int i = 0; i < mAreas.size(); i++)
+        {
+            for(int j = 0; j < mAreas.get(i).fields.size(); i++)
+            {
+                if(mAreas.get(i).fields.get(j).getFPlayer() == mPlayers.get(CurrentPlayerNum))
+                {
+                    TempList.add(mAreas.get(i).fields.get(j));
+                }
+            }
+        }
+        return TempList;
+    }
 
 }
