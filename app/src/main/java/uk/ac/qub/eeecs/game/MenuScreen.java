@@ -232,7 +232,7 @@ public class MenuScreen extends GameScreen {
                 if (currentCounter == 0) {
                     mGame.getScreenManager().addScreen(new RiskGameScreen(mGame));
                 } else if (currentCounter == 1) {
-                    mGame.getScreenManager().addScreen(new RiskRulesScreen(mGame));
+                    mGame.getScreenManager().addScreen(new RiskRulesScreen("Instructions", mGame));
                 } else if (currentCounter == 2) {
                     mGame.getScreenManager().addScreen(new SettingsScreen(mGame));
                 } else if (currentCounter == 3) {

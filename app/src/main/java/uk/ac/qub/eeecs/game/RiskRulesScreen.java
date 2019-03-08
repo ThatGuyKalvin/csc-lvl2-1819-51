@@ -21,122 +21,93 @@ import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 
-public class RiskRulesScreen extends GameScreen {
+/*
+Author: Daniel Nelis
+ */
 
-    /**
-     * Author: Daniel Nelis
-     */
+public class RiskRulesScreen extends GameScreen
+{
+    //Create asset manager
+    AssetManager assetManager = mGame.getAssetManager();
+    //Background for the RiskRulesScreen
+    public Rect background = new Rect();
 
-    /**
-     * Define the buttons for the Risk Rules Screen
-     */
-
-    private Bitmap mRiskRulesBackground;
-    private PushButton mMainMenuButton;
-    public PushButton mHowToPlayRiskButton;
-    private PushButton mRiskRulesPrevButton;
-    private PushButton mRiskRulesNextButton;
+    //public Bitmap speechBubbleBackground;
     public Rect speechBubbleBackground = new Rect();
+    public Rect boardImage = new Rect();
     public static boolean alreadyLoaded = false;
-
-    private float mTimeToChange = 0;
-
-    //managing music
-    public Context myContext = mGame.getActivity();
-    public SharedPreferences getPreferences = PreferenceManager.getDefaultSharedPreferences(myContext);
+    public PushButton mHowToPlayTheRules, mBackToMainMenuButton, nextPageButton, prevPageButton;
 
 
-    public int riskImageCounter = 0;
+
+    // Define the spacing that will be used to position the buttons
+    public int spacingX = 0;
+    public int spacingY = 0;
+
+    //Used for cycling through the pages for The Rules
+    public int rulePageCounter = 0;
+
 
     public boolean rulesOfGamePushed = false;
-    public boolean rulesButtonPressed = false;
+    public boolean arrowPressed = false;
 
-    // /////////////////////////////////////////////////////////////////////////
-    // Constructors
-    // /////////////////////////////////////////////////////////////////////////
-
-    /**
-     * @param game Game to which this screen belongs
-     */
-
-    public RiskRulesScreen(Game game) {
-        super("RiskRulesScreen", game);
+    public RiskRulesScreen(String name, Game game)
+    {
+        super(name,game);
 
 
-        // Load in the bitmaps used on the risk rules screen
         if(alreadyLoaded == false) {
-            AssetManager assetManager = mGame.getAssetManager();
+            assetManager.loadAssets("txt/assets/RiskRulesScreenAssets.JSON");
+            assetManager.loadAndAddBitmap("Rules_Rules_Black_Background", "img/RiskGameImages/Rules_Rules_Black_Background.png");
+            assetManager.loadAndAddBitmap("speechBubble", "img/RiskGameImages/newSpeechBubble.png");
             assetManager.loadAndAddBitmap("main_menu_button", "img/RiskGameImages/main_menu_button.png");
-            assetManager.loadAndAddBitmap("main_menu_button_pressed", "img/RiskGameImages/main_menu_button_pressed.png");
-            assetManager.loadAndAddBitmap("risk_rules_next_button", "img/RiskGameImages/risk_rules_next_button.png");
-            assetManager.loadAndAddBitmap("risk_rules_next_button_pressed", "img/RiskGameImages/risk_rules_next_button_pressed.png");
-            assetManager.loadAndAddBitmap("risk_rules_prev_button", "img/RiskGameImages/risk_rules_prev_button.png");
-            assetManager.loadAndAddBitmap("risk_rules_prev_button_pressed", "img/RiskGameImages/risk_rules_prev_button_pressed.png");
+            //assetManager.loadAndAddBitmap("main_menu_button_pressed", "img/RiskGameImages/main_menu_button_pressed.png");
             assetManager.loadAndAddBitmap("How_To_Play_Rule_Button", "img/RiskGameImages/How_To_Play_Rule_Button.png");
+            assetManager.loadAndAddBitmap("risk_rules_next_button", "img/RiskGameImages/risk_rules_next_button.png");
+            //assetManager.loadAndAddBitmap("risk_rules_next_button_pressed", "img/RiskGameImages/risk_rules_next_button_pressed.png");
+            assetManager.loadAndAddBitmap("risk_rules_prev_button", "img/RiskGameImages/risk_rules_prev_button.png");
+            //assetManager.loadAndAddBitmap("risk_rules_prev_button_pressed", "img/RiskGameImages/risk_rules_prev_button_pressed.png");
+            assetManager.loadAndAddBitmap("Rules_Dice_Roll", "img/RiskGameImages/Rules_Dice_Roll.png");
+            assetManager.loadAndAddBitmap("Rules_Deploy_Armies", "img/RiskGameImages/Rules_Deploy_Armies.png");
 
 
-            //Laoding Bitmaps
-            assetManager.loadAssets(
-                    "txt/assets/OptionsScreenAssets.JSON");
-            assetManager.loadAndAddBitmap("OptionScreenBackground", "img/RiskGameImages/RiskMainMenuScreen.png");
-            mRiskRulesBackground = assetManager.getBitmap("OptionScreenBackground");
+       }
 
-        }
-
-        // Define the spacing that will be used to position the buttons
-        int spacingX = (int)mDefaultLayerViewport.getWidth() / 7;
-        int spacingY = (int)mDefaultLayerViewport.getHeight() / 15;
+        // Defining the spacing that will be used to position the buttons
+        spacingX = game.getScreenWidth() / 5;
+        spacingY = game.getScreenHeight() / 3;
 
         // Create the trigger buttons
+        mBackToMainMenuButton = new PushButton (spacingX * 0.20f, spacingY * 0.65f, spacingX/4, spacingY/10, "main_menu_button", this);
+        mHowToPlayTheRules = new PushButton(spacingX * 0.10f, spacingY * 0.12f, spacingX/6, spacingY/6, "How_To_Play_Rule_Button", this);
 
-        mMainMenuButton = new PushButton(
-                spacingX * 0.50f, spacingY * 8.5f, spacingX, spacingY,
-                "main_menu_button", "main_menu_button_pressed", this);
-        mMainMenuButton.setPlaySounds(true, true);
 
-        mRiskRulesPrevButton = new PushButton(
-                spacingX * 3.0f, spacingY * 4.7f, spacingX, spacingY,
-                "risk_rules_prev_button", "risk_rules_prev_button_pressed", this);
-        mRiskRulesPrevButton.setPlaySounds(true, true);
-
-        mRiskRulesNextButton = new PushButton(
-                spacingX * 4.0f, spacingY * 4.7f, spacingX, spacingY,
-                "risk_rules_next_button", "risk_rules_next_button_pressed", this);
-        mRiskRulesNextButton.setPlaySounds(true, true);
-
-        mHowToPlayRiskButton = new PushButton(
-                spacingX * 4.0f, spacingY * 4.7f, spacingX, spacingY,
-                "How_To_Play_Rule_Button", "How_To_Play_Rule_Button", this);
-        mHowToPlayRiskButton.setPlaySounds(true, true);
+        nextPageButton = new PushButton(spacingX * -100f, spacingY * -100f, spacingX/7, spacingY/13, "risk_rules_next_button", this);
+        prevPageButton = new PushButton(spacingX * -100f, spacingY * -100f, spacingX/7, spacingY/13, "risk_rules_prev_button", this);
     }
 
-    public void stopMusic(){
-        AudioManager audioManager = getGame().getAudioManager();
-        audioManager.stopMusic();
-    }
 
-    public void changeToScreen(GameScreen screen){
-        //Stops the song from playing on the next screen
-        if (getPreferences.getBoolean("Music", true)){
-            stopMusic();
-        }
+    public void changeToScreen(GameScreen screen) {
         alreadyLoaded = true;
         mGame.getScreenManager().removeScreen(this.getName());
         mGame.getScreenManager().addScreen(screen);
-
     }
 
-    // This method draws the bitmap of where the text will be going
-    public void drawSpeechBubbleBitmap(IGraphics2D graphics2D){
-        graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("RiskRulesSpeechBubble"), null, speechBubbleBackground,null);
+
+    //This method draws the speechBubble bitmap and the wizard on a stump bitmap
+    public void drawSpeechBubbleBitmap(IGraphics2D graphics2D)
+    {
+        //speechBubbleBackground = assetManager.getBitmap("OptionScreenBackground");
+
+        graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("speechBubble"),null, speechBubbleBackground, null);
     }
 
     //This method changes the dimensions of the rectangle that the speechBubble is drawn to based off which section/button you press
     public void drawSpeechBubbleRect(int divideTop, int divideLeft, int divideBottom, int divideRight)
     {
         speechBubbleBackground.top = mGame.getScreenHeight()*100/divideTop;
-        speechBubbleBackground.left = mGame.getScreenHeight()*100/divideLeft;
-        speechBubbleBackground.bottom = mGame.getScreenHeight();
+        speechBubbleBackground.left = mGame.getScreenWidth()*100/divideLeft;
+        speechBubbleBackground.bottom = mGame.getScreenHeight()*100/divideBottom;
         if(divideRight == 0)
         {
             speechBubbleBackground.right = mGame.getScreenWidth();
@@ -148,96 +119,178 @@ public class RiskRulesScreen extends GameScreen {
 
     }
 
-
-    //This method are in place tp draw the speech bubble to rectangles based off which section of the instructions the user wants to view
-    void drawSpeechBubbleRect(IGraphics2D graphics2D, String instructionType)
+    //These Methods are to draw the speech bubble to rectangle dimensions
+    void drawSpeechBubbleToRectangle(IGraphics2D graphics2D, String instructionType)
     {
         if(Objects.equals(instructionType, "Main"))
         {
-            drawSpeechBubbleRect(350, 800, 130, 0);
+            drawSpeechBubbleRect(300,1200,130,200);
             drawSpeechBubbleBitmap(graphics2D);
         }
+
 
         if(Objects.equals(instructionType, "Rules"))
         {
-            drawSpeechBubbleRect(300, 1200, 130, 200);
+            drawSpeechBubbleRect(300,1200,130,190);
             drawSpeechBubbleBitmap(graphics2D);
         }
     }
 
-
-    /**
-     * Update the risk rules screen
-     *
-     * @param elapsedTime Elapsed time information
-     */
     @Override
-    public void update(ElapsedTime elapsedTime) {
+    public void update(ElapsedTime elapsedTime)
+    {
 
-            // Process any touch events occurring since the update
-            Input input = mGame.getInput();
+        // Process any touch events occurring since the update
+        Input input = mGame.getInput();
 
-            List<TouchEvent> touchEvents = input.getTouchEvents();
-            if (touchEvents.size() > 0 && mTimeToChange > 0.5f) {
+        // Update each button and transition if needed
+        mBackToMainMenuButton.update(elapsedTime);
+        mHowToPlayTheRules.update(elapsedTime);
+        nextPageButton.update(elapsedTime);
+        prevPageButton.update(elapsedTime);
 
-            // Update each button and transition if needed
+        List<TouchEvent> touchEvents = input.getTouchEvents();
+        if (touchEvents.size() > 0) {
 
-            mMainMenuButton.update(elapsedTime);
 
-            if (mMainMenuButton.isPushTriggered())
-            mGame.getScreenManager().removeScreen(this);
+            TouchEvent touchEvent = touchEvents.get(0);
+
+            if (mBackToMainMenuButton.isPushTriggered()) {
+
+                changeToScreen(new MenuScreen(mGame));
             }
+            //Increases the number when the button is pressed to change the image being draw to the rectangle
+            if(nextPageButton.isPushTriggered()) {
+                arrowPressed = true;
+                if (rulePageCounter < 7) {
+                    rulePageCounter++;
+                } else {
+                    rulePageCounter = 7;
+                }
 
-            if(mHowToPlayRiskButton.isPushTriggered())
+            }
+            if(prevPageButton.isPushTriggered())
             {
-                mRiskRulesPrevButton.setPosition(1.2f, 2.7f);
-                mRiskRulesNextButton.setPosition(1.8f, 2.7f);
+                arrowPressed = true;
+                if(rulePageCounter >0)
+                {
+                    rulePageCounter--;
+                }
+                else {
+                    rulePageCounter = 0;
+                }
+            }
+            if(mHowToPlayTheRules.isPushTriggered()){
+
+                nextPageButton.setPosition(spacingX * 0.40f, spacingY * 0.20f);
+                prevPageButton.setPosition(spacingX * 0.25f, spacingY * 0.20f);
                 rulesOfGamePushed = true;
 
+                rulePageCounter = 0;
             }
-
-
-
-        mRiskRulesPrevButton.update(elapsedTime);
-
-
-        mRiskRulesNextButton.update(elapsedTime);
-
-
-        mTimeToChange += elapsedTime.stepTime;
+        }
     }
-    /**
-     * Draw the risk rules screen
-     *
-     * @param elapsedTime Elapsed time information
-     * @param graphics2D  Graphics instance
-     */
+
     @Override
-    public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
-
-        // Clear the screen and draw the buttons
-        graphics2D.clear(Color.WHITE);
-        int width = graphics2D.getSurfaceWidth();
-        int height = graphics2D.getSurfaceHeight();
-
-
-        //Making a new paint so I can display text
+    public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D)
+    {
+        //Making a new paint so i can display text (colour = black)
         Paint paint = new Paint();
-        paint.setColor(Color.WHITE);
+        paint.setColor(Color.BLACK);
         paint.setTextSize(45.0f);
+        //Setting up a second paint colour for some of the text (colour = black)
+        Paint paintRules = new Paint();
+        paintRules.setColor(Color.BLACK);
+        paintRules.setTextSize(50.0f);
+
+        //Drawing the main background for the class
+        background.top = 0;
+        background.left = 0;
+        background.bottom = mGame.getScreenHeight();
+        background.right =mGame.getScreenWidth();
+        graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Rules_Black_Background"),null,background, null);
+
+        mBackToMainMenuButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        mHowToPlayTheRules.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        //draw arrows for going through images
+        nextPageButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        prevPageButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+
+        if(!rulesOfGamePushed)
+        {
+
+            boardImage.top = mGame.getScreenHeight()*100/300;
+            boardImage.left = mGame.getScreenWidth()*100/200;
+            boardImage.bottom = mGame.getScreenHeight()*100/110;
+            boardImage.right = mGame.getScreenWidth()*100/105;
+
+
+            drawSpeechBubbleToRectangle(graphics2D,"Main");
+            graphics2D.drawText("Hey! Not sure how to play",spacingX * 0.75f,spacingY * 1.3f,paint);
+            graphics2D.drawText("Black Hat Hackers ?",spacingX * 0.75f,spacingY * 1.5f,paint);
+            graphics2D.drawText("Hit the Rules button.",spacingX * 0.75f,spacingY * 1.7f,paint);
+            graphics2D.drawText("Goodluck!",spacingX * 0.75f,spacingY * 1.9f,paint);
+        }
+
+
+        if(rulesOfGamePushed)
+        {
+            drawSpeechBubbleToRectangle(graphics2D,"Rules");
+            boardImage.top = mGame.getScreenHeight()*100/300;
+            boardImage.left = mGame.getScreenWidth()*100/200;
+            boardImage.bottom = mGame.getScreenHeight()*100/110;
+            boardImage.right = mGame.getScreenWidth()*100/105;
 
 
 
-        Rect sourceRectBackg = new Rect(0,0, mRiskRulesBackground.getWidth(), mRiskRulesBackground.getHeight());
-        Rect destRectBackg = new Rect((int) (width * 0.0f), (int) (height * 0.0f), (int) (width * 1.0f), (int) (height * 1.0f));
-        graphics2D.drawBitmap(mRiskRulesBackground, sourceRectBackg, destRectBackg, null);
+            switch(rulePageCounter)
+            {
+                case 0:
+                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Dice_Roll"),null, boardImage,null);
+                    graphics2D.drawText("All players will roll dice",spacingX * 0.75f ,spacingY * 1.3f,paint);
+                    graphics2D.drawText("the player with the highest",spacingX * 0.75f,spacingY * 1.5f,paint);
+                    graphics2D.drawText("with the highest roll will go",spacingX * 0.75f,spacingY * 1.7f,paint);
+                    graphics2D.drawText("first.",spacingX * 0.75f,spacingY * 1.9f,paintRules);
+                    break;
+                case 1:
+                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Deploy_Armies"),null, boardImage,null);
+                    graphics2D.drawText("Player will choose where to", spacingX * 0.70f, spacingY * 1.3f, paint);
+                    graphics2D.drawText("deploy their armies. Second", spacingX * 0.70f, spacingY * 1.5f, paint);
+                    graphics2D.drawText("highest roller will then deploy", spacingX * 0.70f, spacingY * 1.7f, paint);
+                    graphics2D.drawText("their armies and so on....", spacingX * 0.70f, spacingY * 1.9f, paint);
 
-
-        mMainMenuButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
-        mHowToPlayRiskButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
-        mRiskRulesPrevButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
-        mRiskRulesNextButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
-
-
+                    break;
+                case 2:
+                    graphics2D.drawText("Player will then choose to attack", spacingX * 0.70f, spacingY * 1.3f, paint);
+                    graphics2D.drawText("another army in a connected field.", spacingX * 0.70f, spacingY * 1.5f, paint);
+                    graphics2D.drawText("Attacking Player will roll 3 dice.", spacingX * 0.70f, spacingY * 1.7f, paint);
+                    graphics2D.drawText("Defending player will roll 2 dice.", spacingX * 0.70f, spacingY * 1.9f, paint);
+                    break;
+                case 3:
+                    graphics2D.drawText("If attacking player dice is greater", spacingX * 0.70f, spacingY * 1.3f, paint);
+                    graphics2D.drawText("Than defending player dice then", spacingX * 0.70f, spacingY * 1.5f, paint);
+                    graphics2D.drawText("the attacking player will take", spacingX * 0.70f, spacingY * 1.7f, paint);
+                    graphics2D.drawText("over the field.", spacingX * 0.70f, spacingY * 1.9f, paint);
+                    break;
+                case 4:
+                    graphics2D.drawText("If defending player dice is greater", spacingX * 0.70f, spacingY * 1.3f, paint);
+                    graphics2D.drawText("than attacking player dice then", spacingX * 0.70f, spacingY * 1.5f, paint);
+                    graphics2D.drawText("attacking player will not take", spacingX * 0.70f, spacingY * 1.7f, paint);
+                    graphics2D.drawText("over.", spacingX * 0.70f, spacingY * 1.9f, paint);
+                    break;
+                case 5:
+                    graphics2D.drawText("Repeat this process until one", spacingX * 0.70f, spacingY * 1.3f, paint);
+                    graphics2D.drawText("player has every field!", spacingX * 0.70f, spacingY * 1.5f, paint);
+                    graphics2D.drawText("       GOODLUCK!      ", spacingX * 0.70f, spacingY * 1.7f, paint);
+                    graphics2D.drawText("       STAY SAFE!      ", spacingX * 0.70f, spacingY * 1.9f, paint);
+                    break;
+                default:
+                    graphics2D.drawText(" ",spacingX *0.75f ,spacingY * 1.3f,paint);
+                    graphics2D.drawText("         END OF RULES",spacingX * 0.75f,spacingY * 1.5f,paintRules);
+                    graphics2D.drawText(" ",spacingX * 0.75f,spacingY * 1.7f,paint);
+                    graphics2D.drawText(" ",spacingX * 0.75f,spacingY * 1.9f,paint);
+                    break;
+            }
+        }
     }
 }
