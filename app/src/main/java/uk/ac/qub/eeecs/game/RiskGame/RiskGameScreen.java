@@ -277,16 +277,16 @@ public class RiskGameScreen extends GameScreen {
         // Telecommunications
         mAreas.get(0).addField(new Field(1,"Internet Provider",0xFFDE7879));
         mAreas.get(0).addField(new Field(2,"Phone Carrier",0xFF9C0003));
-        mAreas.get(0).addField(new Field(3,"Tele. 3",0xFFF0ADAD));
-        mAreas.get(0).addField(new Field(4,"Tele. 4",0xFFB84B4B));
-        mAreas.get(0).addField(new Field(5, "Tele. 5",0xFF5C0000));
+        mAreas.get(0).addField(new Field(3,"VoIP",0xFFF0ADAD));
+        mAreas.get(0).addField(new Field(4,"Radio",0xFFB84B4B));
+        mAreas.get(0).addField(new Field(5, "Telegraphy",0xFF5C0000));
         // Security
         mAreas.get(1).addField(new Field(6, "Cyber Security",0xFF007820));
         mAreas.get(1).addField(new Field(7, "CCTV",0xFF4AAB3F));
-        mAreas.get(1).addField(new Field(8, "Sec. 3",0xFF24401F));
-        mAreas.get(1).addField(new Field(9, "Sec. 4",0xFF7AC28C));
-        mAreas.get(1).addField(new Field(10, "Sec. 5",0xFF648F5D));
-        mAreas.get(1).addField(new Field(11, "Sec. 6",0xFF4A6945));
+        mAreas.get(1).addField(new Field(8, "Audit Trails",0xFF24401F));
+        mAreas.get(1).addField(new Field(9, "TFA",0xFF7AC28C));
+        mAreas.get(1).addField(new Field(10, "Firewall",0xFF648F5D));
+        mAreas.get(1).addField(new Field(11, "AntiVirus",0xFF4A6945));
         // Development
         mAreas.get(2).addField(new Field(12, "C++",0xFFAB9700));
         mAreas.get(2).addField(new Field(13, "Java",0xFF7D721E));
@@ -294,12 +294,12 @@ public class RiskGameScreen extends GameScreen {
         // Machine Learning
         mAreas.get(3).addField(new Field(15, "General Intelligence",0xFF804121));
         mAreas.get(3).addField(new Field(16, "AI Cars",0xFF4D220D));
-        mAreas.get(3).addField(new Field(17, "Machine Learning 3",0xFF734B37));
-        mAreas.get(3).addField(new Field(18, "Machine Learning 4",0xFF612000));
+        mAreas.get(3).addField(new Field(17, "Robotics",0xFF734B37));
+        mAreas.get(3).addField(new Field(18, "Virtual Reality",0xFF612000));
         // Data & Information
         mAreas.get(4).addField(new Field(19, "Social Media",0xFF8B1D8F));
         mAreas.get(4).addField(new Field(20, "Research Labs",0xFF8F0081));
-        mAreas.get(4).addField(new Field(21, "Data. & Info. 3",0xFFC963CF));
+        mAreas.get(4).addField(new Field(21, "Surveyors",0xFFC963CF));
 
         addConnectedFields();
 
@@ -310,6 +310,114 @@ public class RiskGameScreen extends GameScreen {
     private void addConnectedFields()
     {
         //Blank method to add list of fields connected to each field
+        ArrayList<Field> connectToIntPro = new ArrayList<Field>(1);
+        connectToIntPro.add(mAreas.get(0).getField(1));
+
+        ArrayList<Field> connectToPhoneCarr = new ArrayList<Field>(4);
+        connectToPhoneCarr.add(mAreas.get(0).getField(0));
+        connectToPhoneCarr.add(mAreas.get(0).getField(2));
+        connectToPhoneCarr.add(mAreas.get(0).getField(3));
+        connectToPhoneCarr.add(mAreas.get(0).getField(4));
+
+        ArrayList<Field> connectToVoIP = new ArrayList<Field>(4);
+        connectToVoIP.add(mAreas.get(0).getField(0));
+        connectToVoIP.add(mAreas.get(0).getField(3));
+        connectToVoIP.add(mAreas.get(0).getField(4));
+        connectToVoIP.add(mAreas.get(1).getField(2));
+
+        ArrayList<Field> connectToRadio = new ArrayList<Field>(2);
+        connectToRadio.add(mAreas.get(0).getField(2));
+        connectToRadio.add(mAreas.get(0).getField(4));
+
+        ArrayList<Field> connectToTeleg = new ArrayList<Field>(4);
+        connectToTeleg.add(mAreas.get(0).getField(1));
+        connectToTeleg.add(mAreas.get(0).getField(2));
+        connectToTeleg.add(mAreas.get(0).getField(3));
+        connectToTeleg.add(mAreas.get(2).getField(0));
+
+        ArrayList<Field> connectToCybSec = new ArrayList<Field>(2);
+        connectToCybSec.add(mAreas.get(1).getField(1));
+        connectToCybSec.add(mAreas.get(3).getField(0));
+
+        ArrayList<Field> connectToCCTV = new ArrayList<Field>(5);
+        connectToCCTV.add(mAreas.get(1).getField(0));
+        connectToCCTV.add(mAreas.get(1).getField(2));
+        connectToCCTV.add(mAreas.get(1).getField(3));
+        connectToCCTV.add(mAreas.get(1).getField(6));
+        connectToCCTV.add(mAreas.get(3).getField(1));
+
+        ArrayList<Field> connectToAudit = new ArrayList<Field>(4);
+        connectToAudit.add(mAreas.get(0).getField(2));
+        connectToAudit.add(mAreas.get(1).getField(1));
+        connectToAudit.add(mAreas.get(1).getField(3));
+        connectToAudit.add(mAreas.get(1).getField(4));
+
+        ArrayList<Field> connectToTFA = new ArrayList<Field>(4);
+        connectToTFA.add(mAreas.get(1).getField(1));
+        connectToTFA.add(mAreas.get(1).getField(2));
+        connectToTFA.add(mAreas.get(1).getField(4));
+        connectToTFA.add(mAreas.get(1).getField(5));
+
+        ArrayList<Field> connectToFW = new ArrayList<Field>(3);
+        connectToFW.add(mAreas.get(1).getField(2));
+        connectToFW.add(mAreas.get(1).getField(3));
+        connectToFW.add(mAreas.get(1).getField(5));
+
+        ArrayList<Field> connectToAV = new ArrayList<Field>(5);
+        connectToAV.add(mAreas.get(1).getField(1));
+        connectToAV.add(mAreas.get(1).getField(3));
+        connectToAV.add(mAreas.get(1).getField(4));
+        connectToAV.add(mAreas.get(4).getField(0));
+        connectToAV.add(mAreas.get(4).getField(2));
+
+        ArrayList<Field> connectToC = new ArrayList<Field>(3);
+        connectToC.add(mAreas.get(0).getField(4));
+        connectToC.add(mAreas.get(2).getField(1));
+        connectToC.add(mAreas.get(2).getField(2));
+
+        ArrayList<Field> connectToJava = new ArrayList<Field>(3);
+        connectToJava.add(mAreas.get(2).getField(0));
+        connectToJava.add(mAreas.get(2).getField(2));
+        connectToJava.add(mAreas.get(3).getField(0));
+
+        ArrayList<Field> connectToPython = new ArrayList<Field>(3);
+        connectToPython.add(mAreas.get(2).getField(0));
+        connectToPython.add(mAreas.get(2).getField(1));
+
+        ArrayList<Field> connectToGI = new ArrayList<Field>(4);
+        connectToGI.add(mAreas.get(1).getField(0));
+        connectToGI.add(mAreas.get(2).getField(1));
+        connectToGI.add(mAreas.get(3).getField(1));
+        connectToGI.add(mAreas.get(3).getField(2));
+
+        ArrayList<Field> connectToAICars = new ArrayList<Field>(4);
+        connectToAICars.add(mAreas.get(1).getField(1));
+        connectToAICars.add(mAreas.get(3).getField(0));
+        connectToAICars.add(mAreas.get(3).getField(2));
+        connectToAICars.add(mAreas.get(3).getField(3));
+
+        ArrayList<Field> connectToRobot = new ArrayList<Field>(3);
+        connectToRobot.add(mAreas.get(3).getField(0));
+        connectToRobot.add(mAreas.get(3).getField(1));
+        connectToRobot.add(mAreas.get(3).getField(3));
+
+        ArrayList<Field> connectToVR = new ArrayList<Field>(2);
+        connectToVR.add(mAreas.get(3).getField(1));
+        connectToVR.add(mAreas.get(3).getField(2));
+
+        ArrayList<Field> connectToSM = new ArrayList<Field>(2);
+        connectToSM.add(mAreas.get(4).getField(1));
+        connectToSM.add(mAreas.get(4).getField(2));
+
+        ArrayList<Field> connectToRL = new ArrayList<Field>(3);
+        connectToRL.add(mAreas.get(1).getField(5));
+        connectToRL.add(mAreas.get(4).getField(0));
+        connectToRL.add(mAreas.get(4).getField(2));
+
+        ArrayList<Field> connectToSurvey = new ArrayList<Field>(3);
+        connectToSurvey.add(mAreas.get(1).getField(5));
+        connectToSurvey.add(mAreas.get(4).getField(0));
+        connectToSurvey.add(mAreas.get(4).getField(1));
     }
 
     private void createPlayers() {
