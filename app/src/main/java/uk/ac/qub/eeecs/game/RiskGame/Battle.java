@@ -58,23 +58,38 @@ public class Battle {
         return results;
     }
 
-
+    //A method that will complete the battle asap
+    //based on the original by Micheal and reimplemented
+    //by philip after peter changed the battle class.
+    public void fastBattle(){
+        do{
+            autoSetNumOfDiceAtt();
+            setNumOfDiceDef();
+            newRoll();
+            if(diceRollDef.getTotal() >= diceRollAtt.getTotal())
+                numOfAttTeams--;
+            else
+                numOfDefTeams--;
+        }
+        while (!noArmies());
+    }
 
     //A battle that is done one by one by pressing the roll button on the dice screen.
     //@Philip Murphy
     public void singleBattle(){
-        setDiceRollDef();
+        setNumOfDiceDef();
         if(canBattle()){
             newRoll();
-
             if(diceRollDef.getTotal() >= diceRollAtt.getTotal()){
                 numOfAttTeams--;
             } else{numOfDefTeams--;}
-
-            if(numOfAttTeams == 0 || numOfDefTeams == 0){
-                //do something
-            }
         }
+    }
+
+    boolean noArmies(){
+        if(numOfAttTeams == 1 || numOfDefTeams == 0)
+            return true;
+        return false;
     }
 
     //Creates a new set of values for the arrays
@@ -94,22 +109,29 @@ public class Battle {
     //Creating an array and then setting all the values to 0 for the first roll
     //@Philip Murphy
     public void resetDice(){
-        newRoll();
         for(int i = 0; i<diceRollAtt.getDiceResults().length; i++)
             diceRollAtt.getDiceResults()[i] = 0;
         for(int i = 0; i <diceRollDef.getDiceResults().length; i++)
             diceRollDef.getDiceResults()[i] = 0;
     }
+    public void autoSetNumOfDiceAtt(){
+        switch  (numOfAttTeams){
+            case 2 : this.numOfDiceAtt = 1;
+                break;
+            case 3 : this.numOfDiceAtt = 2;
+                break;
+            default: this.numOfDiceAtt = 3;
+        }
+    }
+
 
 
     //getters and setters that can be used by the buttons in the dice screen
     //@Philip Murphy
 
-    public void setNumOfAttTeams(int numOfAttTeams) { this.numOfAttTeams = numOfAttTeams; }
-    public void setNumOfDefTeams(int numOfDefTeams){ this.numOfDefTeams = numOfDefTeams; }
-
     public void setNumOfDiceAtt(int number){ this.numOfDiceAtt = number;}
-    public void setDiceRollDef(){
+
+    public void setNumOfDiceDef(){
         if(numOfDefTeams >= 3){
             this.numOfDiceDef = 2;
         }else{

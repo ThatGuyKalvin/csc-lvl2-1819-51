@@ -33,12 +33,22 @@
       "type": "Bitmap",
       "name": "Dice2Selected",
       "file": "img/dice/2Selected.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "Dice2SelectedNull",
+      "file": "img/dice/2SelectedNull.png"
     }
   ,
     {
       "type": "Bitmap",
       "name": "Dice3Selected",
       "file": "img/dice/3Selected.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "Dice3SelectedNull",
+      "file": "img/dice/3SelectedNull.png"
     }
   ,
     {
@@ -51,12 +61,22 @@
       "type": "Bitmap",
       "name": "ChooseDiceNumber2",
       "file": "img/dice/ChooseDiceNumber2.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "ChooseDiceNumber2Null",
+      "file": "img/dice/ChooseDiceNumber2Null.png"
     }
   ,
     {
       "type": "Bitmap",
       "name": "ChooseDiceNumber3",
       "file": "img/dice/ChooseDiceNumber3.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "ChooseDiceNumber3Null",
+      "file": "img/dice/ChooseDiceNumber3Null.png"
     }
   ,
     {
@@ -105,6 +125,17 @@
       "type": "Bitmap",
       "name": "Number0",
       "file": "img/dice/Results/Number0.png"
+    },
+
+    {
+      "type": "Bitmap",
+      "name": "FastBattle",
+      "file": "img/dice/FastBattle.png"
+    },
+    {
+      "type": "Bitmap",
+      "name": "FastBattleSelected",
+      "file": "img/dice/FastBattleSelected.png"
     }
     ]
 }

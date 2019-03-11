@@ -15,23 +15,23 @@ public class Area {
     private int aValue = 0;
 
     // Package private instead of public
-    Area() {
+    public Area() {
         this.aColour = Color.BLACK;
         this.aName = "DEFAULT";
         this.aOwner = null;
     }
 
     // Package private instead of public
-    Area(String name, int colour, int value) {
+    public Area(String name, int colour, int value) {
         this.aName = name;
         this.aColour = colour;
         this.aValue = value;
     }
 
-    void addField(Field f) { aFields.add(f); }
-    Field getField(int i) { return aFields.get(i); }
+    public void addField(Field f) { aFields.add(f); }
+    public Field getField(int i) { return aFields.get(i); }
 
-    int getFieldSize() { return aFields.size(); }
+    public int getFieldSize() { return aFields.size(); }
 
     public void setOwner(Player owner) { this.aOwner = owner; }
     public Player getOwner() {

@@ -13,7 +13,6 @@ import android.support.test.runner.AndroidJUnit4;
 import android.content.Context;
 
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
-
 import static org.junit.Assert.assertTrue;
 
 
