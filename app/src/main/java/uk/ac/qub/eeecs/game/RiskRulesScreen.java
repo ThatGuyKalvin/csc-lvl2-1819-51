@@ -71,6 +71,10 @@ public class RiskRulesScreen extends GameScreen
             assetManager.loadAndAddBitmap("Blue_Circle_Around_Rules_Button", "img/RiskGameImages/Blue_Circle_Around_Rules_Button.png");
             assetManager.loadAndAddBitmap("Rules_Dice_Roll", "img/RiskGameImages/Rules_Dice_Roll.png");
             assetManager.loadAndAddBitmap("Rules_Deploy_Armies", "img/RiskGameImages/Rules_Deploy_Armies.png");
+            assetManager.loadAndAddBitmap("Rules_Field_Transitions_Image", "img/RiskGameImages/Rules_Field_Transitions_Image.png");
+            assetManager.loadAndAddBitmap("Rules_Attack_3_Dice", "img/RiskGameImages/Rules_Attack_3_Dice.png");
+            assetManager.loadAndAddBitmap("Rules_Defend_2_Dice", "img/RiskGameImages/Rules_Defend_2_Dice.png");
+
 
 
         }
@@ -281,13 +285,16 @@ public class RiskRulesScreen extends GameScreen
 
                     break;
                 case 2:
+                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Attack_3_Dice"),null, boardImage,null);
                     graphics2D.drawText("Player will then choose to attack another army in a", spacingX * 1.0f, spacingY * 0.65f, paint);
                     graphics2D.drawText("connected field. Attacking Player will roll 3 dice. ", spacingX * 1.0f, spacingY * 0.85f, paint);
                     break;
                 case 3:
+                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Defend_2_Dice"),null, boardImage,null);
                     graphics2D.drawText("The defending player will then roll 2 dice.", spacingX * 1.0f, spacingY * 0.65f, paint);
                     break;
                 case 4:
+                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Field_Transitions_Image"),null, boardImage,null);
                     graphics2D.drawText("If attacking player dice is greater than defending player", spacingX * 1.0f, spacingY * 0.65f, paint);
                     graphics2D.drawText("dice then the attacking player will take over the field.", spacingX * 1.0f, spacingY * 0.85f, paint);
                     graphics2D.drawText("", spacingX * 0.70f, spacingY * 1.7f, paint);
