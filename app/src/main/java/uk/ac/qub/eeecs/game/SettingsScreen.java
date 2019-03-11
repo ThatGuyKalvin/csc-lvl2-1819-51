@@ -23,7 +23,7 @@ import uk.ac.qub.eeecs.gage.world.GameScreen;
  */
 
 /**
- * Author: Daniel Nelis
+ * Author: Daniel Nelis Entire Class
  */
 public class  SettingsScreen extends GameScreen {
 

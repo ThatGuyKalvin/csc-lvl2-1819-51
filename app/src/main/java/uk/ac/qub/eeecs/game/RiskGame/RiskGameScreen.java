@@ -463,7 +463,7 @@ public class RiskGameScreen extends GameScreen {
                         (int) (yLoc * bitmap.getHeight()));
 
                 // Detects pixel colour and compares to the list of areas
-                // The background image colours match mAreas colours)
+                // The RiskRulesScreenBackground image colours match mAreas colours)
                 for (int i = 0; i < mAreas.size(); i++) {
                     if (colour == mAreas.get(i).getColour()) {
                         return mAreas.get(i);
@@ -497,7 +497,7 @@ public class RiskGameScreen extends GameScreen {
                 clickedColour = colour; // debug info
 
                 // Detects pixel colour and compares to the list of areas
-                // The background image colours match mAreas colours)
+                // The RiskRulesScreenBackground image colours match mAreas colours)
                 for(int i = 0; i < mAreas.size(); i++) {
                     for(int x = 0; x < mAreas.get(i).getFieldSize(); x++) {
                         if (colour == mAreas.get(i).getField(x).getColour()) {

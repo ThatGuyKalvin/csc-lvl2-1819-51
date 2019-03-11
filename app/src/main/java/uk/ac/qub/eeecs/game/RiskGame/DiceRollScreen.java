@@ -80,7 +80,7 @@ public class DiceRollScreen extends GameScreen {
         battle = bat;
         attacker = att;
         defender = def;
-        background = assetManager.getBitmap("background");
+        background = assetManager.getBitmap("RiskRulesScreenBackground");
 
         battle.resetDice();
         DrawDiceButtons();
@@ -163,7 +163,7 @@ public class DiceRollScreen extends GameScreen {
         int screenWidth = graphics2D.getSurfaceWidth();
         int screenHeight = graphics2D.getSurfaceHeight();
 
-        //drawing the background to the screen.
+        //drawing the RiskRulesScreenBackground to the screen.
         Rect sourceRect = new Rect(0, 0, background.getWidth(), background.getHeight());
         Rect destRect = new Rect((int) (screenWidth * 0.0f), (int) (screenHeight * 0.0f), (int) (screenWidth * 1.0f), (int) (screenHeight * 1.0f));
         graphics2D.drawBitmap(background, sourceRect, destRect, null);

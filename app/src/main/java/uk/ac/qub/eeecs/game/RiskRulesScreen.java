@@ -1,12 +1,8 @@
 package uk.ac.qub.eeecs.game;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.preference.PreferenceManager;
 
 import java.util.List;
 import java.util.Objects;
@@ -14,7 +10,6 @@ import java.util.Objects;
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
-import uk.ac.qub.eeecs.gage.engine.audio.AudioManager;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
@@ -22,7 +17,7 @@ import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 
 /*
-Author: Daniel Nelis Entire Classs
+Author: Daniel Nelis Entire Class
  */
 
 public class RiskRulesScreen extends GameScreen
@@ -30,12 +25,11 @@ public class RiskRulesScreen extends GameScreen
     //Create asset manager
     AssetManager assetManager = mGame.getAssetManager();
     //Background for the RiskRulesScreen
-    public Rect background = new Rect();
+    public Rect RiskRulesScreenBackground = new Rect();
 
-    //public Bitmap speechBubbleBackground;
-    public Rect speechBubbleBackground = new Rect();
+    public Rect BlueRoundRectangle = new Rect();
     public Rect BlueCircle = new Rect();
-    public Rect boardImage = new Rect();
+    public Rect gameImage = new Rect();
     public static boolean alreadyLoaded = false;
     public PushButton mHowToPlayTheRules, mBackToMainMenuButton, nextPageButton, prevPageButton;
 
@@ -50,7 +44,7 @@ public class RiskRulesScreen extends GameScreen
 
 
     public boolean rulesOfGamePushed = false;
-    public boolean arrowPressed = false;
+    public boolean prevNextButtonPressed = false;
 
     public RiskRulesScreen(String name, Game game)
     {
@@ -74,6 +68,7 @@ public class RiskRulesScreen extends GameScreen
             assetManager.loadAndAddBitmap("Rules_Field_Transitions_Image", "img/RiskGameImages/Rules_Field_Transitions_Image.png");
             assetManager.loadAndAddBitmap("Rules_Attack_3_Dice", "img/RiskGameImages/Rules_Attack_3_Dice.png");
             assetManager.loadAndAddBitmap("Rules_Defend_2_Dice", "img/RiskGameImages/Rules_Defend_2_Dice.png");
+            assetManager.loadAndAddBitmap("Rules_Defending_Team_Wins_Dice_Roll", "img/RiskGameImages/Rules_Defending_Team_Wins_Dice_Roll.png");
 
 
 
@@ -103,7 +98,7 @@ public class RiskRulesScreen extends GameScreen
     //This method draws the speechBubble bitmap and the wizard on a stump bitmap
     public void drawSpeechBubbleBitmap(IGraphics2D graphics2D)
     {
-        graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("speechBubble"),null, speechBubbleBackground, null);
+        graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("speechBubble"),null, BlueRoundRectangle, null);
     }
 
     public void drawBlueCircleBitmap(IGraphics2D graphics2D)
@@ -112,18 +107,18 @@ public class RiskRulesScreen extends GameScreen
     }
 
     //This method changes the dimensions of the rectangle that the speechBubble is drawn to based off which section/button you press
-    public void drawSpeechBubbleRect(int divideTop, int divideLeft, int divideBottom, int divideRight)
+    public void drawBlueRoundRectangle(int divideTop, int divideLeft, int divideBottom, int divideRight)
     {
-        speechBubbleBackground.top = mGame.getScreenHeight()*100/divideTop;
-        speechBubbleBackground.left = mGame.getScreenWidth()*100/divideLeft;
-        speechBubbleBackground.bottom = mGame.getScreenHeight()*100/divideBottom;
+        BlueRoundRectangle.top = mGame.getScreenHeight()*100/divideTop;
+        BlueRoundRectangle.left = mGame.getScreenWidth()*100/divideLeft;
+        BlueRoundRectangle.bottom = mGame.getScreenHeight()*100/divideBottom;
         if(divideRight == 0)
         {
-            speechBubbleBackground.right = mGame.getScreenWidth();
+            BlueRoundRectangle.right = mGame.getScreenWidth();
         }
         else
         {
-            speechBubbleBackground.right = mGame.getScreenWidth()*100/divideRight;
+            BlueRoundRectangle.right = mGame.getScreenWidth()*100/divideRight;
         }
 
     }
@@ -149,7 +144,7 @@ public class RiskRulesScreen extends GameScreen
     {
         if(Objects.equals(instructionType, "Main"))
         {
-            drawSpeechBubbleRect(900,1200,150,110);
+            drawBlueRoundRectangle(900,1200,150,110);
             drawSpeechBubbleBitmap(graphics2D);
 
             drawBlueCircle(144, 1400, 97, 350);
@@ -159,7 +154,7 @@ public class RiskRulesScreen extends GameScreen
 
         if(Objects.equals(instructionType, "Rules"))
         {
-            drawSpeechBubbleRect(750,900,220,110);
+            drawBlueRoundRectangle(750,900,220,110);
             drawSpeechBubbleBitmap(graphics2D);
         }
     }
@@ -189,7 +184,7 @@ public class RiskRulesScreen extends GameScreen
             }
             //Increases the number when the button is pressed to change the image being draw to the rectangle
             if(nextPageButton.isPushTriggered()) {
-                arrowPressed = true;
+                prevNextButtonPressed = true;
                 if (rulePageCounter < 7) {
                     rulePageCounter++;
                 } else {
@@ -199,7 +194,7 @@ public class RiskRulesScreen extends GameScreen
             }
             if(prevPageButton.isPushTriggered())
             {
-                arrowPressed = true;
+                prevNextButtonPressed = true;
                 if(rulePageCounter >0)
                 {
                     rulePageCounter--;
@@ -231,12 +226,12 @@ public class RiskRulesScreen extends GameScreen
         paintRules.setColor(Color.WHITE);
         paintRules.setTextSize(57.0f);
 
-        //Drawing the main background for the class
-        background.top = 0;
-        background.left = 0;
-        background.bottom = mGame.getScreenHeight();
-        background.right =mGame.getScreenWidth();
-        graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Rules_Black_Background"),null, background, null);
+        //Drawing the main RiskRulesScreenBackground for the class
+        RiskRulesScreenBackground.top = 0;
+        RiskRulesScreenBackground.left = 0;
+        RiskRulesScreenBackground.bottom = mGame.getScreenHeight();
+        RiskRulesScreenBackground.right =mGame.getScreenWidth();
+        graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Rules_Black_Background"),null, RiskRulesScreenBackground, null);
 
         mBackToMainMenuButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         mHowToPlayTheRules.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
@@ -247,10 +242,10 @@ public class RiskRulesScreen extends GameScreen
         if(!rulesOfGamePushed)
         {
 
-            boardImage.top = mGame.getScreenHeight()* 100/300;
-            boardImage.left = mGame.getScreenWidth()* 100/200;
-            boardImage.bottom = mGame.getScreenHeight()* 100/110;
-            boardImage.right = mGame.getScreenWidth()* 100/105;
+            gameImage.top = mGame.getScreenHeight()* 100/300;
+            gameImage.left = mGame.getScreenWidth()* 100/200;
+            gameImage.bottom = mGame.getScreenHeight()* 100/110;
+            gameImage.right = mGame.getScreenWidth()* 100/105;
 
 
             drawTextShapes(graphics2D,"Main");
@@ -264,43 +259,44 @@ public class RiskRulesScreen extends GameScreen
         if(rulesOfGamePushed)
         {
             drawTextShapes(graphics2D,"Rules");
-            boardImage.top = mGame.getScreenHeight()*100/350;
-            boardImage.left = mGame.getScreenWidth()*100/310;
-            boardImage.bottom = mGame.getScreenHeight()*100/97;
-            boardImage.right = mGame.getScreenWidth()*100/105;
+            gameImage.top = mGame.getScreenHeight()*100/350;
+            gameImage.left = mGame.getScreenWidth()*100/310;
+            gameImage.bottom = mGame.getScreenHeight()*100/97;
+            gameImage.right = mGame.getScreenWidth()*100/105;
 
 
 
             switch(rulePageCounter)
             {
                 case 0:
-                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Dice_Roll"),null, boardImage,null);
+                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Dice_Roll"),null, gameImage,null);
                     graphics2D.drawText("All players will roll dice & the player with the highest with",spacingX * 1.0f ,spacingY * 0.65f,paint);
                     graphics2D.drawText("the highest roll will go first.",spacingX * 1.0f,spacingY * 0.85f,paint);
                     break;
                 case 1:
-                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Deploy_Armies"),null, boardImage,null);
+                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Deploy_Armies"),null, gameImage,null);
                     graphics2D.drawText("Player will choose where to deploy their armies. Second", spacingX * 1.0f, spacingY * 0.65f, paint);
                     graphics2D.drawText("highest roller will then deploy their armies and so on...", spacingX * 1.0f, spacingY * 0.85f, paint);
 
                     break;
                 case 2:
-                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Attack_3_Dice"),null, boardImage,null);
+                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Attack_3_Dice"),null, gameImage,null);
                     graphics2D.drawText("Player will then choose to attack another army in a", spacingX * 1.0f, spacingY * 0.65f, paint);
                     graphics2D.drawText("connected field. Attacking Player will roll 3 dice. ", spacingX * 1.0f, spacingY * 0.85f, paint);
                     break;
                 case 3:
-                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Defend_2_Dice"),null, boardImage,null);
+                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Defend_2_Dice"),null, gameImage,null);
                     graphics2D.drawText("The defending player will then roll 2 dice.", spacingX * 1.0f, spacingY * 0.65f, paint);
                     break;
                 case 4:
-                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Field_Transitions_Image"),null, boardImage,null);
+                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Field_Transitions_Image"),null, gameImage,null);
                     graphics2D.drawText("If attacking player dice is greater than defending player", spacingX * 1.0f, spacingY * 0.65f, paint);
                     graphics2D.drawText("dice then the attacking player will take over the field.", spacingX * 1.0f, spacingY * 0.85f, paint);
                     graphics2D.drawText("", spacingX * 0.70f, spacingY * 1.7f, paint);
                     graphics2D.drawText("", spacingX * 0.70f, spacingY * 1.9f, paint);
                     break;
                 case 5:
+                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Defending_Team_Wins_Dice_Roll"),null, gameImage,null);
                     graphics2D.drawText("If defending player dice is greater than attacking player", spacingX * 1.0f, spacingY * 0.65f, paint);
                     graphics2D.drawText("dice then attacking player will not take over.", spacingX * 1.0f, spacingY * 0.85f, paint);
                     break;
