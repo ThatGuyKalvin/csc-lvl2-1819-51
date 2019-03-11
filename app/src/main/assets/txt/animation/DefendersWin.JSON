@@ -1,0 +1,12 @@
+{
+  "spritesheet" : "img/dice/DefendersWinAnimation.png",
+  "numRows" : 1,
+  "numColumns" : 5,
+  "animations": [
+    {
+      "name": "DefendersWinAnimation",
+      "totalPeriod" : 4.0,
+      "loopAnimation" : false
+    }
+  ]
+}
