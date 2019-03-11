@@ -426,6 +426,12 @@ public class RiskGameScreen extends GameScreen {
     private void firstTurn(){
         Random Rand = new Random();
         CurrentPlayerNum = Rand.nextInt(3);
+        initialFieldAllocation();
+    }
+
+    private void  initialFieldAllocation()
+    {
+
     }
 
     private void endTurn()
