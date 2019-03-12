@@ -69,6 +69,7 @@ public class RiskRulesScreen extends GameScreen
             assetManager.loadAndAddBitmap("Rules_Attack_3_Dice", "img/RiskGameImages/Rules_Attack_3_Dice.png");
             assetManager.loadAndAddBitmap("Rules_Defend_2_Dice", "img/RiskGameImages/Rules_Defend_2_Dice.png");
             assetManager.loadAndAddBitmap("Rules_Defending_Team_Wins_Dice_Roll", "img/RiskGameImages/Rules_Defending_Team_Wins_Dice_Roll.png");
+            assetManager.loadAndAddBitmap("Blue_Leprechaun", "img/RiskGameImages/Blue_Leprechaun.png");
 
 
 
@@ -79,7 +80,7 @@ public class RiskRulesScreen extends GameScreen
         spacingY = game.getScreenHeight() / 3;
 
         // Create the trigger buttons
-        mBackToMainMenuButton = new PushButton (spacingX * 0.15f, spacingY * 0.42f, spacingX/4, spacingY/10, "main_menu_button", this);
+        mBackToMainMenuButton = new PushButton (spacingX * 0.22f, spacingY * 0.42f, spacingX/4, spacingY/10, "main_menu_button", this);
         mHowToPlayTheRules = new PushButton(spacingX * 0.15f, spacingY * 0.12f, spacingX/6, spacingY/6, "How_To_Play_Rule_Button", this);
 
 
@@ -301,11 +302,11 @@ public class RiskRulesScreen extends GameScreen
                     graphics2D.drawText("dice then attacking player will not take over.", spacingX * 1.0f, spacingY * 0.85f, paint);
                     break;
                 case 6:
-                    graphics2D.drawText("Repeat this process until one player has every field!", spacingX * 1.0f, spacingY * 0.65f, paint);
-                    graphics2D.drawText("                      GOODLUCK!                      ", spacingX * 1.0f, spacingY * 0.85f, paintRules);
+                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Blue_Leprechaun"),null, gameImage,null);
+                    graphics2D.drawText("      Repeat this process until one player has every field!", spacingX * 1.0f, spacingY * 0.65f, paint);
                     break;
                 default:
-                    graphics2D.drawText("                    END OF RULES                     ",spacingX * 1.0f,spacingY * 0.85f,paintRules);
+                    graphics2D.drawText("                          END OF RULES                     ",spacingX * 1.0f,spacingY * 0.70f,paintRules);
                     break;
             }
         }
