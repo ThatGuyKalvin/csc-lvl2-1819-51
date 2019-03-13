@@ -180,6 +180,11 @@ public class RiskGameScreen extends GameScreen {
                 }
             }
 
+            if (attackState == ATTACK_BATTLING){
+                beginBattle(mFieldsAttacking[0], mFieldsAttacking[1]);
+                attackState = ATTACK_NULL;
+            }
+
             mReturnToMenuButton.update(elapsedTime);
             if (mReturnToMenuButton.isPushTriggered())
                 mGame.getScreenManager().removeScreen(this);
@@ -511,24 +516,16 @@ public class RiskGameScreen extends GameScreen {
         return null;
     }
 
-    private void beginBattle(Area att, Area def, int AttFieldNum, int DefFieldNum) {
-        int DefDice = 2;
-        int AttDice = 3;
-        if((att.getField(AttFieldNum).getFNumOfTeams()-1) < 3){AttDice = att.getField(AttFieldNum).getFNumOfTeams()-1;}
-        if((def.getField(DefFieldNum).getFNumOfTeams()) < 2){DefDice = 1;}
-        Battle battle = new Battle(AttDice, DefDice,
-                att.getField(AttFieldNum).getFNumOfTeams()-1, def.getField(DefFieldNum).getFNumOfTeams());
-        int[] Results = battle.Battling();
-        att.getField(AttFieldNum).decreaseNumOfTeams(Results[0]);
-        if(Results[2] == 0)
-        {
-            def.getField(DefFieldNum).hostileTakeOver(att.getField(AttFieldNum).getFPlayer(),  att.getField(AttFieldNum).getFNumOfTeams()-1);
+    private void beginBattle(Field att, Field def){
 
-        }
-        else
-        {
-            def.getField(DefFieldNum).decreaseNumOfTeams(Results[1]);
-        }
+        Battle battle = new Battle(att, def);
+
+        if(battle.canBattle())
+            mGame.getScreenManager().addScreen(
+                    new DiceRollScreen(mGame, battle, att.getFPlayer(), def.getFPlayer()));
+
+        if(battle.attackersWin())
+            def.hostileTakeOver(att.getFPlayer(), att.getFNumOfTeams());
     }
 
     private void firstTurn(){

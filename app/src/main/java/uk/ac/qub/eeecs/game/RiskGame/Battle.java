@@ -5,17 +5,18 @@ import uk.ac.qub.eeecs.gage.ui.PushButton;
 
 public class Battle {
     private int numOfDiceAtt, numOfDiceDef, numOfAttTeams, numOfDefTeams, DefTeamsLost, AttTeamsLost, minimumNumDice;
+    Field attackField, defendField;
     private int[] BattleResults = new int[3]; //first number = attackers teams lost / second number = defenders teams lost / third number = results, 0 for Attacker withdraws, 1 for attackers win
     private int[] DefResults, AttResults;
     private DiceRoll diceRollAtt = new DiceRoll(numOfDiceAtt);
     private DiceRoll diceRollDef = new DiceRoll(numOfDiceDef);
 
     //Player attPlayer, Player defPlayer,
-    public Battle( int numOfAttDice, int numOfDefDice, int numOfTeamsAtt, int numOfTeamsDef){
-        numOfAttTeams = numOfTeamsAtt;
-        numOfDefTeams = numOfTeamsDef;
-        numOfDiceAtt = numOfAttDice;
-        numOfDiceDef = numOfDefDice;
+    public Battle(Field att, Field def){
+        attackField = att;
+        defendField = def;
+        numOfAttTeams = att.getFNumOfTeams();
+        numOfDefTeams = def.getFNumOfTeams();
         DefTeamsLost = 0;
         AttTeamsLost = 0;
     }
@@ -66,13 +67,18 @@ public class Battle {
             autoSetNumOfDiceAtt();
             setNumOfDiceDef();
             newRoll();
-            if(diceRollDef.getTotal() >= diceRollAtt.getTotal())
+            if(diceRollDef.getTotal() >= diceRollAtt.getTotal()){
                 numOfAttTeams--;
-            else
+                attackField.decreaseNumOfTeams(1);
+            }else{
                 numOfDefTeams--;
+                defendField.decreaseNumOfTeams(1);
+            }
         }
         while (!noArmies());
     }
+    //can be done using the single battle later.
+
 
     //A battle that is done one by one by pressing the roll button on the dice screen.
     //@Philip Murphy
@@ -82,8 +88,18 @@ public class Battle {
             newRoll();
             if(diceRollDef.getTotal() >= diceRollAtt.getTotal()){
                 numOfAttTeams--;
-            } else{numOfDefTeams--;}
+                attackField.decreaseNumOfTeams(1);
+            }else {
+                numOfDefTeams--;
+                defendField.decreaseNumOfTeams(1);
+            }
         }
+    }
+
+    boolean attackersWin(){
+        if(numOfDefTeams == 0)
+            return true;
+        return false;
     }
 
     boolean noArmies(){
@@ -124,8 +140,6 @@ public class Battle {
         }
     }
 
-
-
     //getters and setters that can be used by the buttons in the dice screen
     //@Philip Murphy
 
@@ -143,7 +157,7 @@ public class Battle {
     public int getNumOfDefTeams(){ return numOfDefTeams; }
 
     public int[] getDiceResultsAtt(){return diceRollAtt.getDiceResults();}
-    public int[] getDiceResultsDef(){ return diceRollDef.getDiceResults(); }
+    public int[] getDiceResultsDef(){ return diceRollDef.getDiceResults();}
 
     public int getAttDiceTotal(){return diceRollAtt.getTotal();}
     public int getDefDiceTotal(){return diceRollDef.getTotal();}

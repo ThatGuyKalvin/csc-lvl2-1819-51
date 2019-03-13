@@ -80,8 +80,9 @@ public class DiceRollScreen extends GameScreen {
         battle = bat;
         attacker = att;
         defender = def;
-        background = assetManager.getBitmap("RiskRulesScreenBackground");
+        background = assetManager.getBitmap("background");
 
+        battle.autoSetNumOfDiceAtt();
         battle.resetDice();
         DrawDiceButtons();
         createCalculateAnimation();
@@ -226,8 +227,8 @@ public class DiceRollScreen extends GameScreen {
         textPaint.setTextAlign(Paint.Align.LEFT);
         textPaint.setColor(-01000016);
 
-        graphics2D.drawText(attacker.getName(), screenWidth * 0.08f, lineHeight + 100.0f, textPaint);
-        graphics2D.drawText(defender.getName(), screenWidth * 0.78f, lineHeight + 100.0f, textPaint);
+        //graphics2D.drawText(attacker.getName(), screenWidth * 0.08f, lineHeight + 100.0f, textPaint);
+        //graphics2D.drawText(defender.getName(), screenWidth * 0.78f, lineHeight + 100.0f, textPaint);
 
         graphics2D.drawText("Teams: " + battle.getNumOfAttTeams(), screenWidth * 0.08f, lineHeight + 300.0f, textPaint);
         graphics2D.drawText("Teams: " + battle.getNumOfDefTeams(), screenWidth * 0.78f, lineHeight + 300.0f, textPaint);
