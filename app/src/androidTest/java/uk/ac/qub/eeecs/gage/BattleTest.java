@@ -11,6 +11,8 @@ import org.junit.runner.RunWith;
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.game.RiskGame.Battle;
 import uk.ac.qub.eeecs.game.RiskGame.DiceRoll;
+import uk.ac.qub.eeecs.game.RiskGame.Field;
+import uk.ac.qub.eeecs.game.RiskGame.Player;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -19,13 +21,24 @@ import static org.junit.Assert.fail;
 @RunWith(AndroidJUnit4.class)
 public class BattleTest {
 
-    private Context context;
-    int attDice = 3;
-    int defDice = 2;
-    int TeamsAttacking = 5;
-    int teamsDefending = 4;
 
-    Battle battle = new Battle(attDice,defDice, TeamsAttacking, teamsDefending);
+    private Context context;
+
+
+
+    Player google = new Player("google", -01000016);
+    Player apple = new Player("apple", -01000016);
+
+    Field field1 = new Field(19, "Social Media",0xFF8B1D8F);
+    Field field2 = new Field(20, "Research Labs",0xFF8F0081);
+
+    public void setTeams(int attackers, int defenders){
+        field1.setNumOfTeams(attackers);
+        field2.setNumOfTeams(defenders);
+    }
+
+    Battle battle = new Battle(field1, field2);
+
 
     @Before
     public void setUp() { context = InstrumentationRegistry.getTargetContext(); }
@@ -33,34 +46,54 @@ public class BattleTest {
 
     @Test
     public void can_battle_success() {
-        battle = new Battle(3 ,defDice, 4, teamsDefending);
+        setTeams(4, 10);
+        battle = new Battle(field1, field2);
         assertTrue(battle.canBattle());
     }
 
     @Test
     public void can_battle_fail() {
-        battle = new Battle(3 ,defDice, 3, teamsDefending);
+        setTeams(2, 3);
+        battle.setNumOfDiceAtt(3);
         assertFalse(battle.canBattle());
     }
 
 
     @Test
     public void DiceResultsAtt_returns_correct_number_of_results_success() {
-
-        battle = new Battle(attDice,defDice, TeamsAttacking, teamsDefending);
+        setTeams(5, 5);
+        battle = new Battle(field1, field2);
+        battle.autoSetNumOfDiceAtt();
+        battle.setNumOfDiceDef();
+        battle.resetDice();
         battle.newRoll();
         boolean success = false;
 
-        if(attDice == battle.getDiceResultsAtt().length )
+        if(battle.getDiceResultsAtt().length == 3 )
             success = true;
 
-
         assertTrue(success);
+    }
+
+    public void DiceResultsAtt_returns_correct_number_of_results_fail() {
+        setTeams(3, 5);
+        battle = new Battle(field1, field2);
+        battle.autoSetNumOfDiceAtt();
+        battle.setNumOfDiceDef();
+        battle.resetDice();
+        battle.newRoll();
+        boolean success = false;
+
+        if(battle.getDiceResultsAtt().length == 3 )
+            success = true;
+
+        assertFalse(success);
     }
 
 
     @Test
     public void diceReset_success() {
+        battle.newRoll();
         battle.resetDice();
         for(int i =0; i < battle.getDiceResultsAtt().length; i++){
             if(battle.getDiceResultsAtt()[i] != 0)
@@ -85,8 +118,8 @@ public class BattleTest {
 
     @Test
     public void getTotal_success() {
-
-        battle = new Battle(attDice,defDice, TeamsAttacking, teamsDefending);
+        setTeams(10, 10);
+        battle = new Battle(field1, field2);
         battle.newRoll();
         int total = 0;
 

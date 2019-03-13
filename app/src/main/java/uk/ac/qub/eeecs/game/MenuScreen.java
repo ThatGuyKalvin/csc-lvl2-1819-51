@@ -309,12 +309,7 @@ public class MenuScreen extends GameScreen {
     }
 
     public void test(){
-        int attDice = 3;
-        int defDice = 2;
-        int TeamsAttacking = 5;
-        int teamsDefending = 4;
-
-        battle = new Battle(attDice,defDice, TeamsAttacking, teamsDefending);
+        //battle = new Battle(TeamsAttacking, teamsDefending);
         google = new Player("google", -01000016);
         apple = new Player("apple", -01000016);
     }

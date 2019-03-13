@@ -31,6 +31,8 @@ public class Field{
 
     public void setColour(int colour) { FColour = colour; }
 
+    public void setNumOfTeams(int teams) {FNumOfTeams = teams;}
+
     public void increaseNumOfTeams(int increase){
         FNumOfTeams += increase;
     }
