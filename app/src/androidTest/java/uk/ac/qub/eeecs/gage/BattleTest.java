@@ -24,21 +24,14 @@ public class BattleTest {
 
     private Context context;
 
+    private Field field1 = new Field(19, "Social Media",0xFF8B1D8F);
+    private Field field2 = new Field(20, "Research Labs",0xFF8F0081);
+    private Battle battle = new Battle(field1, field2);
 
-
-    Player google = new Player("google", -01000016);
-    Player apple = new Player("apple", -01000016);
-
-    Field field1 = new Field(19, "Social Media",0xFF8B1D8F);
-    Field field2 = new Field(20, "Research Labs",0xFF8F0081);
-
-    public void setTeams(int attackers, int defenders){
+    private void setTeams(int attackers, int defenders){
         field1.setNumOfTeams(attackers);
         field2.setNumOfTeams(defenders);
     }
-
-    Battle battle = new Battle(field1, field2);
-
 
     @Before
     public void setUp() { context = InstrumentationRegistry.getTargetContext(); }
@@ -175,6 +168,58 @@ public class BattleTest {
         }
         assertFalse(success);
     }
+
+    @Test
+    public void dice_auto_set_success(){
+        boolean success = true;
+
+        setTeams(2, 1);
+        battle = new Battle(field1, field2);
+        battle.newRoll();
+        battle.autoSetNumOfDiceAtt();
+        battle.setNumOfDiceDef();
+        int length  = battle.getDiceResultsAtt().length;
+        if(length != 1)
+            success = false;
+        if(battle.getDiceResultsDef().length != 1)
+            success = false;
+
+        setTeams(2, 2);
+        battle.autoSetNumOfDiceAtt();
+        battle.setNumOfDiceDef();
+        battle.newRoll();
+        length  = battle.getDiceResultsAtt().length;
+        if(length != 1)
+            success = false;
+        if(battle.getDiceResultsDef().length != 1)
+            success = false;
+
+
+        //it fails from here for some reason.
+        setTeams(3, 3);
+        battle.autoSetNumOfDiceAtt();
+        battle.setNumOfDiceDef();
+        battle.newRoll();
+        length  = battle.getDiceResultsAtt().length;
+        if(length != 2)
+            success = false;
+        if(battle.getDiceResultsDef().length != 2)
+            success = false;
+
+        setTeams(4, 4);
+        battle = new Battle(field1, field2);
+        battle.autoSetNumOfDiceAtt();
+        battle.setNumOfDiceDef();
+        battle.newRoll();
+        length  = battle.getDiceResultsAtt().length;
+        if(length != 3)
+            success = false;
+        if(battle.getDiceResultsDef().length != 2)
+            success = false;
+
+        assertTrue(success);
+    }
+
 
 
 

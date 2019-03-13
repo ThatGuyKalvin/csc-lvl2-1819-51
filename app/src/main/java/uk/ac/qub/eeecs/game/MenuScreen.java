@@ -19,6 +19,7 @@ import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.game.RiskGame.Battle;
 import uk.ac.qub.eeecs.game.RiskGame.DiceRollScreen;
+import uk.ac.qub.eeecs.game.RiskGame.Field;
 import uk.ac.qub.eeecs.game.RiskGame.RiskGameScreen;
 import uk.ac.qub.eeecs.game.miscDemos.DemoMenuScreen;
 import uk.ac.qub.eeecs.game.RiskGame.Player;
@@ -62,6 +63,7 @@ public class MenuScreen extends GameScreen {
     private int rightCounter;
 
     public Battle battle;
+    Field field1, field2;
     public Player google, apple;
 
     AssetManager assetManager = mGame.getAssetManager();
@@ -309,9 +311,16 @@ public class MenuScreen extends GameScreen {
     }
 
     public void test(){
-        //battle = new Battle(TeamsAttacking, teamsDefending);
-        google = new Player("google", -01000016);
-        apple = new Player("apple", -01000016);
+        Player google = new Player("google", -01000016);
+        Player apple = new Player("apple", -01000016);
+
+        Field field1 = new Field(19, "Social Media",0xFF8B1D8F);
+        Field field2 = new Field(20, "Research Labs",0xFF8F0081);
+        field1.setPlayer(google);
+        field2.setPlayer(apple);
+        field1.setNumOfTeams(5);
+        field2.setNumOfTeams(5);
+        battle = new Battle(field1, field2);
     }
 }
 

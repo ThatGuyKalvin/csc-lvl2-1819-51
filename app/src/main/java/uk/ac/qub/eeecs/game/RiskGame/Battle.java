@@ -14,6 +14,8 @@ public class Battle {
         defendField = def;
         numOfAttTeams = att.getFNumOfTeams();
         numOfDefTeams = def.getFNumOfTeams();
+        autoSetNumOfDiceAtt();
+        setNumOfDiceDef();
         DefTeamsLost = 0;
         AttTeamsLost = 0;
     }
@@ -57,25 +59,15 @@ public class Battle {
     }
 
     //A method that will complete the battle asap
-    //based on the original by Micheal and reimplemented
-    //by philip after peter changed the battle class.
+    //Original by Micheal and reimplemented by philip
+    //after peter changed the battle class.
     public void fastBattle(){
         do{
             autoSetNumOfDiceAtt();
-            setNumOfDiceDef();
-            newRoll();
-            if(diceRollDef.getTotal() >= diceRollAtt.getTotal()){
-                numOfAttTeams--;
-                attackField.decreaseNumOfTeams(1);
-            }else{
-                numOfDefTeams--;
-                defendField.decreaseNumOfTeams(1);
-            }
+            singleBattle();
         }
         while (!noArmies());
     }
-    //can be done using the single battle later.
-
 
     //A battle that is done one by one by pressing the roll button on the dice screen.
     //@Philip Murphy
@@ -128,12 +120,13 @@ public class Battle {
             diceRollDef.getDiceResults()[i] = 0;
     }
     public void autoSetNumOfDiceAtt(){
-        switch  (numOfAttTeams){
+        switch  (attackField.getFNumOfTeams()){
             case 2 : this.numOfDiceAtt = 1;
                 break;
             case 3 : this.numOfDiceAtt = 2;
                 break;
             default: this.numOfDiceAtt = 3;
+                break;
         }
     }
 
@@ -143,7 +136,7 @@ public class Battle {
     public void setNumOfDiceAtt(int number){ this.numOfDiceAtt = number;}
 
     public void setNumOfDiceDef(){
-        if(numOfDefTeams >= 3){
+        if(defendField.getFNumOfTeams() >= 3){
             this.numOfDiceDef = 2;
         }else{
             this.numOfDiceDef = 1;
