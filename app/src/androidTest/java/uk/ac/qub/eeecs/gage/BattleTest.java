@@ -133,4 +133,49 @@ public class BattleTest {
             assertTrue(false);
         }
     }
+
+    @Test
+    public void fastBattle_Success(){
+        boolean success = false;
+        setTeams(10, 10);
+        battle = new Battle(field1, field2);
+        battle.newRoll();
+
+        battle.fastBattle();
+        if(field1.getFNumOfTeams() == 1 || field2.getFNumOfTeams() == 0){
+            success = true;
+        }
+        assertTrue(success);
+    }
+
+    @Test
+    public void attackerWin_Success(){
+        boolean success = false;
+        //virtually impossible for the defenders to win.
+        setTeams(1000, 1);
+        battle = new Battle(field1, field2);
+        battle.newRoll();
+        battle.fastBattle();
+        if(battle.attackersWin() == true){
+            success = true;
+        }
+        assertTrue(success);
+    }
+
+    @Test
+    public void attackerWin_Fail(){
+        boolean success = true;
+        //virtually impossible for the attackers to win.
+        setTeams(1, 1000);
+        battle = new Battle(field1, field2);
+        battle.newRoll();
+        battle.fastBattle();
+        if(battle.attackersWin() == false){
+            success = false;
+        }
+        assertFalse(success);
+    }
+
+
+
 }

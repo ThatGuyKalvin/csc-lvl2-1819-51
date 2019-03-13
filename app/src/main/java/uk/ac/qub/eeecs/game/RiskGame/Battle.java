@@ -1,8 +1,5 @@
 package uk.ac.qub.eeecs.game.RiskGame;
 
-import uk.ac.qub.eeecs.gage.engine.AssetManager;
-import uk.ac.qub.eeecs.gage.ui.PushButton;
-
 public class Battle {
     private int numOfDiceAtt, numOfDiceDef, numOfAttTeams, numOfDefTeams, DefTeamsLost, AttTeamsLost, minimumNumDice;
     Field attackField, defendField;
@@ -96,13 +93,13 @@ public class Battle {
         }
     }
 
-    boolean attackersWin(){
+    public boolean attackersWin(){
         if(numOfDefTeams == 0)
             return true;
         return false;
     }
 
-    boolean noArmies(){
+    public boolean noArmies(){
         if(numOfAttTeams == 1 || numOfDefTeams == 0)
             return true;
         return false;
