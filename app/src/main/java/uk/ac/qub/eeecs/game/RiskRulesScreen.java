@@ -56,12 +56,12 @@ public class RiskRulesScreen extends GameScreen
             assetManager.loadAndAddBitmap("Rules_Rules_Black_Background", "img/RiskGameImages/Rules_Rules_Black_Background.png");
             assetManager.loadAndAddBitmap("speechBubble", "img/RiskGameImages/newSpeechBubble.png");
             assetManager.loadAndAddBitmap("main_menu_button", "img/RiskGameImages/main_menu_button.png");
-            //assetManager.loadAndAddBitmap("main_menu_button_pressed", "img/RiskGameImages/main_menu_button_pressed.png");
+            assetManager.loadAndAddBitmap("main_menu_button_pressed", "img/RiskGameImages/main_menu_button_pressed.png");
             assetManager.loadAndAddBitmap("How_To_Play_Rule_Button", "img/RiskGameImages/How_To_Play_Rule_Button.png");
             assetManager.loadAndAddBitmap("risk_rules_next_button", "img/RiskGameImages/risk_rules_next_button.png");
-            //assetManager.loadAndAddBitmap("risk_rules_next_button_pressed", "img/RiskGameImages/risk_rules_next_button_pressed.png");
+            assetManager.loadAndAddBitmap("risk_rules_next_button_pressed", "img/RiskGameImages/risk_rules_next_button_pressed.png");
             assetManager.loadAndAddBitmap("risk_rules_prev_button", "img/RiskGameImages/risk_rules_prev_button.png");
-            //assetManager.loadAndAddBitmap("risk_rules_prev_button_pressed", "img/RiskGameImages/risk_rules_prev_button_pressed.png");
+            assetManager.loadAndAddBitmap("risk_rules_prev_button_pressed", "img/RiskGameImages/risk_rules_prev_button_pressed.png");
             assetManager.loadAndAddBitmap("Blue_Circle_Around_Rules_Button", "img/RiskGameImages/Blue_Circle_Around_Rules_Button.png");
             assetManager.loadAndAddBitmap("Rules_Dice_Roll", "img/RiskGameImages/Rules_Dice_Roll.png");
             assetManager.loadAndAddBitmap("Rules_Deploy_Armies", "img/RiskGameImages/Rules_Deploy_Armies.png");
@@ -70,6 +70,7 @@ public class RiskRulesScreen extends GameScreen
             assetManager.loadAndAddBitmap("Rules_Defend_2_Dice", "img/RiskGameImages/Rules_Defend_2_Dice.png");
             assetManager.loadAndAddBitmap("Rules_Defending_Team_Wins_Dice_Roll", "img/RiskGameImages/Rules_Defending_Team_Wins_Dice_Roll.png");
             assetManager.loadAndAddBitmap("Blue_Leprechaun", "img/RiskGameImages/Blue_Leprechaun.png");
+            assetManager.loadAndAddBitmap("Rules_Map_With_Areas", "img/RiskGameImages/Rules_Map_With_Areas.png");
 
 
 
@@ -80,12 +81,12 @@ public class RiskRulesScreen extends GameScreen
         spacingY = game.getScreenHeight() / 3;
 
         // Create the trigger buttons
-        mBackToMainMenuButton = new PushButton (spacingX * 0.22f, spacingY * 0.42f, spacingX/4, spacingY/10, "main_menu_button", this);
+        mBackToMainMenuButton = new PushButton (spacingX * 0.20f, spacingY * 0.42f, spacingX/4, spacingY/10, "main_menu_button", "main_menu_button_pressed",this);
         mHowToPlayTheRules = new PushButton(spacingX * 0.15f, spacingY * 0.12f, spacingX/6, spacingY/6, "How_To_Play_Rule_Button", this);
 
 
-        nextPageButton = new PushButton(spacingX * -100f, spacingY * -100f, spacingX/7, spacingY/13, "risk_rules_next_button", this);
-        prevPageButton = new PushButton(spacingX * -100f, spacingY * -100f, spacingX/7, spacingY/13, "risk_rules_prev_button", this);
+        nextPageButton = new PushButton(spacingX * -100f, spacingY * -100f, spacingX/7, spacingY/13, "risk_rules_next_button", "risk_rules_next_button_pressed",this);
+        prevPageButton = new PushButton(spacingX * -100f, spacingY * -100f, spacingX/7, spacingY/13, "risk_rules_prev_button", "risk_rules_prev_button_pressed", this);
     }
 
 
@@ -145,8 +146,8 @@ public class RiskRulesScreen extends GameScreen
     {
         if(Objects.equals(instructionType, "Main"))
         {
-            drawBlueRoundRectangle(900,1200,150,110);
-            drawSpeechBubbleBitmap(graphics2D);
+            //drawBlueRoundRectangle(900,1200,170,110);
+            //drawSpeechBubbleBitmap(graphics2D);
 
             drawBlueCircle(144, 1400, 97, 350);
             drawBlueCircleBitmap(graphics2D);
@@ -225,7 +226,7 @@ public class RiskRulesScreen extends GameScreen
         //Setting up a second paint colour for some of the text (colour = black)
         Paint paintRules = new Paint();
         paintRules.setColor(Color.WHITE);
-        paintRules.setTextSize(57.0f);
+        paintRules.setTextSize(45.0f);
 
         //Drawing the main RiskRulesScreenBackground for the class
         RiskRulesScreenBackground.top = 0;
@@ -243,17 +244,17 @@ public class RiskRulesScreen extends GameScreen
         if(!rulesOfGamePushed)
         {
 
-            gameImage.top = mGame.getScreenHeight()* 100/300;
-            gameImage.left = mGame.getScreenWidth()* 100/200;
-            gameImage.bottom = mGame.getScreenHeight()* 100/110;
+            gameImage.top = mGame.getScreenHeight()* 100/350;
+            gameImage.left = mGame.getScreenWidth()* 100/310;
+            gameImage.bottom = mGame.getScreenHeight()* 100/97;
             gameImage.right = mGame.getScreenWidth()* 100/105;
 
 
             drawTextShapes(graphics2D,"Main");
-            graphics2D.drawText("Hey! Not sure how to play Black Hat Hackers ?",spacingX * 1.0f,spacingY * 0.62f,paintRules);
-            graphics2D.drawText("The overall goal of the game is to take overall",spacingX * 1.0f,spacingY * 0.82f,paintRules);
-            graphics2D.drawText("the entire with one team remaining!",spacingX * 1.0f,spacingY * 1.02f,paintRules);
-            graphics2D.drawText("Hit the rules to learn how to play!",spacingX * 1.0f,spacingY * 1.22f,paintRules);
+            graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Map_With_Areas"),null, gameImage,null);
+            graphics2D.drawText("Hey! Not sure how to play Black Hat Hackers ? The overall goal of",spacingX * 0.90f,spacingY * 0.55f,paintRules);
+            graphics2D.drawText("the game is to take overall the entire map with one team remaining!",spacingX * 0.90f,spacingY * 0.75f,paintRules);
+            graphics2D.drawText("Hit the rules button to learn how to play!",spacingX * 0.90f,spacingY * 0.95f,paintRules);
         }
 
 
