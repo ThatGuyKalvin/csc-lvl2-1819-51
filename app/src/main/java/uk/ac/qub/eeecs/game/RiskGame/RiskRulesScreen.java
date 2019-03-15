@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.game;
+package uk.ac.qub.eeecs.game.RiskGame;
 
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -142,7 +142,7 @@ public class RiskRulesScreen extends GameScreen
     }
 
     //These Methods are to draw the speech bubble to rectangle dimensions
-    void drawTextShapes(IGraphics2D graphics2D, String instructionType)
+    public void drawTextShapes(IGraphics2D graphics2D, String instructionType)
     {
         if(Objects.equals(instructionType, "Main"))
         {

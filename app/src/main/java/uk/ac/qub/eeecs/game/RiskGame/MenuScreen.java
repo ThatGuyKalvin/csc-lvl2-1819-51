@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.game;
+package uk.ac.qub.eeecs.game.RiskGame;
 
 import android.graphics.Bitmap;
 
@@ -17,13 +17,16 @@ import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
+import uk.ac.qub.eeecs.game.GameCreditsScreen;
+import uk.ac.qub.eeecs.game.PerformanceScreen;
 import uk.ac.qub.eeecs.game.RiskGame.Battle;
 import uk.ac.qub.eeecs.game.RiskGame.DiceRollScreen;
 import uk.ac.qub.eeecs.game.RiskGame.Field;
 import uk.ac.qub.eeecs.game.RiskGame.RiskGameScreen;
+import uk.ac.qub.eeecs.game.RiskGame.RiskRulesScreen;
+import uk.ac.qub.eeecs.game.RiskGame.SettingsScreen;
 import uk.ac.qub.eeecs.game.miscDemos.DemoMenuScreen;
 import uk.ac.qub.eeecs.game.RiskGame.Player;
-import android.graphics.Rect;
 
 /**
  * An exceedingly basic menu screen with a couple of touch buttons
