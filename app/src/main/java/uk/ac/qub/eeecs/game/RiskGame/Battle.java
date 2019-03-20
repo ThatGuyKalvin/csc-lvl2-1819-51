@@ -1,21 +1,21 @@
 package uk.ac.qub.eeecs.game.RiskGame;
 
-import uk.ac.qub.eeecs.gage.engine.AssetManager;
-import uk.ac.qub.eeecs.gage.ui.PushButton;
-
 public class Battle {
     private int numOfDiceAtt, numOfDiceDef, numOfAttTeams, numOfDefTeams, DefTeamsLost, AttTeamsLost, minimumNumDice;
+    Field attackField, defendField;
     private int[] BattleResults = new int[3]; //first number = attackers teams lost / second number = defenders teams lost / third number = results, 0 for Attacker withdraws, 1 for attackers win
     private int[] DefResults, AttResults;
     private DiceRoll diceRollAtt = new DiceRoll(numOfDiceAtt);
     private DiceRoll diceRollDef = new DiceRoll(numOfDiceDef);
 
     //Player attPlayer, Player defPlayer,
-    public Battle( int numOfAttDice, int numOfDefDice, int numOfTeamsAtt, int numOfTeamsDef){
-        numOfAttTeams = numOfTeamsAtt;
-        numOfDefTeams = numOfTeamsDef;
-        numOfDiceAtt = numOfAttDice;
-        numOfDiceDef = numOfDefDice;
+    public Battle(Field att, Field def){
+        attackField = att;
+        defendField = def;
+        numOfAttTeams = att.getFNumOfTeams();
+        numOfDefTeams = def.getFNumOfTeams();
+        autoSetNumOfDiceAtt();
+        setNumOfDiceDef();
         DefTeamsLost = 0;
         AttTeamsLost = 0;
     }
@@ -59,17 +59,12 @@ public class Battle {
     }
 
     //A method that will complete the battle asap
-    //based on the original by Micheal and reimplemented
-    //by philip after peter changed the battle class.
+    //Original by Micheal and reimplemented by philip
+    //after peter changed the battle class.
     public void fastBattle(){
         do{
             autoSetNumOfDiceAtt();
-            setNumOfDiceDef();
-            newRoll();
-            if(diceRollDef.getTotal() >= diceRollAtt.getTotal())
-                numOfAttTeams--;
-            else
-                numOfDefTeams--;
+            singleBattle();
         }
         while (!noArmies());
     }
@@ -82,11 +77,21 @@ public class Battle {
             newRoll();
             if(diceRollDef.getTotal() >= diceRollAtt.getTotal()){
                 numOfAttTeams--;
-            } else{numOfDefTeams--;}
+                attackField.decreaseNumOfTeams(1);
+            }else {
+                numOfDefTeams--;
+                defendField.decreaseNumOfTeams(1);
+            }
         }
     }
 
-    boolean noArmies(){
+    public boolean attackersWin(){
+        if(numOfDefTeams == 0)
+            return true;
+        return false;
+    }
+
+    public boolean noArmies(){
         if(numOfAttTeams == 1 || numOfDefTeams == 0)
             return true;
         return false;
@@ -115,16 +120,15 @@ public class Battle {
             diceRollDef.getDiceResults()[i] = 0;
     }
     public void autoSetNumOfDiceAtt(){
-        switch  (numOfAttTeams){
+        switch  (attackField.getFNumOfTeams()){
             case 2 : this.numOfDiceAtt = 1;
                 break;
             case 3 : this.numOfDiceAtt = 2;
                 break;
             default: this.numOfDiceAtt = 3;
+                break;
         }
     }
-
-
 
     //getters and setters that can be used by the buttons in the dice screen
     //@Philip Murphy
@@ -132,7 +136,7 @@ public class Battle {
     public void setNumOfDiceAtt(int number){ this.numOfDiceAtt = number;}
 
     public void setNumOfDiceDef(){
-        if(numOfDefTeams >= 3){
+        if(defendField.getFNumOfTeams() >= 3){
             this.numOfDiceDef = 2;
         }else{
             this.numOfDiceDef = 1;
@@ -143,7 +147,7 @@ public class Battle {
     public int getNumOfDefTeams(){ return numOfDefTeams; }
 
     public int[] getDiceResultsAtt(){return diceRollAtt.getDiceResults();}
-    public int[] getDiceResultsDef(){ return diceRollDef.getDiceResults(); }
+    public int[] getDiceResultsDef(){ return diceRollDef.getDiceResults();}
 
     public int getAttDiceTotal(){return diceRollAtt.getTotal();}
     public int getDefDiceTotal(){return diceRollDef.getTotal();}

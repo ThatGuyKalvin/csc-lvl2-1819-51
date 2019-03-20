@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.game;
+package uk.ac.qub.eeecs.game.RiskGame;
 
 import android.graphics.Bitmap;
 
@@ -17,12 +17,16 @@ import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
+import uk.ac.qub.eeecs.game.GameCreditsScreen;
+import uk.ac.qub.eeecs.game.PerformanceScreen;
 import uk.ac.qub.eeecs.game.RiskGame.Battle;
 import uk.ac.qub.eeecs.game.RiskGame.DiceRollScreen;
+import uk.ac.qub.eeecs.game.RiskGame.Field;
 import uk.ac.qub.eeecs.game.RiskGame.RiskGameScreen;
+import uk.ac.qub.eeecs.game.RiskGame.RiskRulesScreen;
+import uk.ac.qub.eeecs.game.RiskGame.SettingsScreen;
 import uk.ac.qub.eeecs.game.miscDemos.DemoMenuScreen;
 import uk.ac.qub.eeecs.game.RiskGame.Player;
-import android.graphics.Rect;
 
 /**
  * An exceedingly basic menu screen with a couple of touch buttons
@@ -62,6 +66,7 @@ public class MenuScreen extends GameScreen {
     private int rightCounter;
 
     public Battle battle;
+    Field field1, field2;
     public Player google, apple;
 
     AssetManager assetManager = mGame.getAssetManager();
@@ -309,14 +314,16 @@ public class MenuScreen extends GameScreen {
     }
 
     public void test(){
-        int attDice = 3;
-        int defDice = 2;
-        int TeamsAttacking = 5;
-        int teamsDefending = 4;
+        Player google = new Player("google", -01000016);
+        Player apple = new Player("apple", -01000016);
 
-        battle = new Battle(attDice,defDice, TeamsAttacking, teamsDefending);
-        google = new Player("google", -01000016);
-        apple = new Player("apple", -01000016);
+        Field field1 = new Field(19, "Social Media",0xFF8B1D8F);
+        Field field2 = new Field(20, "Research Labs",0xFF8F0081);
+        field1.setPlayer(google);
+        field2.setPlayer(apple);
+        field1.setNumOfTeams(5);
+        field2.setNumOfTeams(5);
+        battle = new Battle(field1, field2);
     }
 }
 

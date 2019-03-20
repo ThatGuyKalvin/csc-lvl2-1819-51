@@ -15,6 +15,7 @@ import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.ui.Bar;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
+import uk.ac.qub.eeecs.game.RiskGame.MenuScreen;
 
 /**
  * An exceedingly basic menu screen with a couple of touch buttons

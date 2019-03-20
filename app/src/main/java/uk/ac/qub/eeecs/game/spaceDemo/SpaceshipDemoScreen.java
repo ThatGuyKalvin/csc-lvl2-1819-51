@@ -50,7 +50,7 @@ public class SpaceshipDemoScreen extends GameScreen {
     private LayerViewport mSpaceLayerViewport;
 
     /**
-     * Define the background star scape
+     * Define the RiskRulesScreenBackground star scape
      */
     private GameObject mSpaceBackground;
 
@@ -151,7 +151,7 @@ public class SpaceshipDemoScreen extends GameScreen {
         // Create the particle system manager
         mParticleSystemManager = new ParticleSystemManager(this.getGame());
 
-        // Create the space background
+        // Create the space RiskRulesScreenBackground
         mSpaceBackground = new GameObject(LEVEL_WIDTH / 2.0f,
                 LEVEL_HEIGHT / 2.0f, LEVEL_WIDTH, LEVEL_HEIGHT, getGame()
                 .getAssetManager().getBitmap("SpaceBackground"), this);
@@ -255,7 +255,7 @@ public class SpaceshipDemoScreen extends GameScreen {
     @Override
     public void update(ElapsedTime elapsedTime) {
 
-        // Ensure background music is playing
+        // Ensure RiskRulesScreenBackground music is playing
         playBackgroundMusic();
 
         // Consider any user provided input
@@ -272,7 +272,7 @@ public class SpaceshipDemoScreen extends GameScreen {
     }
 
     /**
-     * Play background music,
+     * Play RiskRulesScreenBackground music,
      */
     private void playBackgroundMusic() {
         AudioManager audioManager = getGame().getAudioManager();
@@ -396,7 +396,7 @@ public class SpaceshipDemoScreen extends GameScreen {
         graphics2D.clear(Color.BLACK);
         graphics2D.clipRect(mDefaultScreenViewport.toRect());
 
-        // Draw the background first of all
+        // Draw the RiskRulesScreenBackground first of all
         mSpaceBackground.draw(elapsedTime, graphics2D, mSpaceLayerViewport,
                 mDefaultScreenViewport);
 

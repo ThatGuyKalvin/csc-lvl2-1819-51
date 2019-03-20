@@ -1,4 +1,4 @@
-package uk.ac.qub.eeecs.game;
+package uk.ac.qub.eeecs.game.RiskGame;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -23,7 +23,7 @@ import uk.ac.qub.eeecs.gage.world.GameScreen;
  */
 
 /**
- * Author: Daniel Nelis
+ * Author: Daniel Nelis Entire Class
  */
 public class  SettingsScreen extends GameScreen {
 

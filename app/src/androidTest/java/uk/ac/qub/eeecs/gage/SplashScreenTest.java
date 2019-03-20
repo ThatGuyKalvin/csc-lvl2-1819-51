@@ -29,7 +29,7 @@ public class SplashScreenTest {
 
         AssetManager assetManager = new AssetManager(context);
         boolean success = assetManager.loadAndAddBitmap(
-                "background", "img/splashScreen/Background2.png");
+                "RiskRulesScreenBackground", "img/splashScreen/Background2.png");
         assertTrue(success);
     }
 

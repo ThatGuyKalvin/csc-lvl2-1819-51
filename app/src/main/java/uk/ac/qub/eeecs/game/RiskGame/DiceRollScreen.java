@@ -82,6 +82,7 @@ public class DiceRollScreen extends GameScreen {
         defender = def;
         background = assetManager.getBitmap("background");
 
+        battle.autoSetNumOfDiceAtt();
         battle.resetDice();
         DrawDiceButtons();
         createCalculateAnimation();
@@ -163,7 +164,7 @@ public class DiceRollScreen extends GameScreen {
         int screenWidth = graphics2D.getSurfaceWidth();
         int screenHeight = graphics2D.getSurfaceHeight();
 
-        //drawing the background to the screen.
+        //drawing the RiskRulesScreenBackground to the screen.
         Rect sourceRect = new Rect(0, 0, background.getWidth(), background.getHeight());
         Rect destRect = new Rect((int) (screenWidth * 0.0f), (int) (screenHeight * 0.0f), (int) (screenWidth * 1.0f), (int) (screenHeight * 1.0f));
         graphics2D.drawBitmap(background, sourceRect, destRect, null);
@@ -226,8 +227,8 @@ public class DiceRollScreen extends GameScreen {
         textPaint.setTextAlign(Paint.Align.LEFT);
         textPaint.setColor(-01000016);
 
-        graphics2D.drawText(attacker.getName(), screenWidth * 0.08f, lineHeight + 100.0f, textPaint);
-        graphics2D.drawText(defender.getName(), screenWidth * 0.78f, lineHeight + 100.0f, textPaint);
+        //graphics2D.drawText(attacker.getName(), screenWidth * 0.08f, lineHeight + 100.0f, textPaint);
+        //graphics2D.drawText(defender.getName(), screenWidth * 0.78f, lineHeight + 100.0f, textPaint);
 
         graphics2D.drawText("Teams: " + battle.getNumOfAttTeams(), screenWidth * 0.08f, lineHeight + 300.0f, textPaint);
         graphics2D.drawText("Teams: " + battle.getNumOfDefTeams(), screenWidth * 0.78f, lineHeight + 300.0f, textPaint);
