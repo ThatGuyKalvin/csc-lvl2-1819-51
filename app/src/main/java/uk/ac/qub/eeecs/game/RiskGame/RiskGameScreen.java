@@ -544,7 +544,7 @@ public class RiskGameScreen extends GameScreen {
 
         if(battle.canBattle())
             mGame.getScreenManager().addScreen(
-                    new DiceRollScreen(mGame, battle, att.getFPlayer(), def.getFPlayer()));
+                    new DiceRollScreen(mGame, battle));
 
         if(battle.attackersWin())
             def.hostileTakeOver(att.getFPlayer(), att.getFNumOfTeams());
