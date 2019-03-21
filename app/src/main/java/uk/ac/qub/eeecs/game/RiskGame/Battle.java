@@ -65,7 +65,17 @@ public class Battle {
     //@Philip Murphy
     //Checks that the number of dice is right.
     public boolean canBattle(){
-        if(numOfDiceAtt < numOfAttTeams){ return true; }
+        if(numOfDiceAtt < numOfAttTeams && connected())
+            return true;
+
+        return false;
+    }
+
+    public boolean connected(){
+        for(int i =0; i < attackField.getFConnectedFields().size(); i++)
+            if(defendField == attackField.getFConnectedFields().get(i))
+                return true;
+
         return false;
     }
 
