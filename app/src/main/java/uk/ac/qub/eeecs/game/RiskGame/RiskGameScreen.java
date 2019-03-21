@@ -192,9 +192,9 @@ public class RiskGameScreen extends GameScreen {
                 }
             }
 
-            if (attackState == ATTACK_BATTLING){
+            if (state == ATTACK_BATTLING){
                 beginBattle(mFieldsAttacking[0], mFieldsAttacking[1]);
-                attackState = ATTACK_NULL;
+                state = ATTACK_NULL;
             }
 
             mReturnToMenuButton.update(elapsedTime);
