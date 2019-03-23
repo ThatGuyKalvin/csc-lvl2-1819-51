@@ -15,7 +15,8 @@ public class Field{
     private int FNum;
     private String FName;
     private Player FPlayer;
-    private int FNumOfTeams = 1;
+    private int FNumOfTeams = 2;
+    private boolean assigned = false;
     private ArrayList<Field> FConnectedFields;
     private int FColour;
 
@@ -25,7 +26,13 @@ public class Field{
         FColour = Colour;
     }
 
-    public void setPlayer(Player player){FPlayer = player;}
+    public void setPlayer(Player player)
+    {
+        FPlayer = player;
+        assigned = true;
+    }
+
+    public boolean checkAssigned(){return assigned;}
 
     public int getColour() { return FColour; }
 

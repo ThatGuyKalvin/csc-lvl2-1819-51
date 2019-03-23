@@ -2,7 +2,7 @@ package uk.ac.qub.eeecs.game.RiskGame;
 
 public class Battle {
     private int numOfDiceAtt, numOfDiceDef, numOfAttTeams, numOfDefTeams, DefTeamsLost, AttTeamsLost, minimumNumDice;
-    Field attackField, defendField;
+    private Field attackField, defendField;
     private int[] BattleResults = new int[3]; //first number = attackers teams lost / second number = defenders teams lost / third number = results, 0 for Attacker withdraws, 1 for attackers win
     private int[] DefResults, AttResults;
     private DiceRoll diceRollAtt = new DiceRoll(numOfDiceAtt);
@@ -136,7 +136,7 @@ public class Battle {
     public void setNumOfDiceAtt(int number){ this.numOfDiceAtt = number;}
 
     public void setNumOfDiceDef(){
-        if(defendField.getFNumOfTeams() >= 3){
+        if(defendField.getFNumOfTeams() >= 2){
             this.numOfDiceDef = 2;
         }else{
             this.numOfDiceDef = 1;
