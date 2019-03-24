@@ -257,7 +257,7 @@ public class RiskGameScreen extends GameScreen {
             for (int i = 0; i < MAX_AREAS; i++) areasString += "(" + mAreas.get(i).getName() + ") ";
             graphics2D.drawText(areasString + "]",
                     0.0f, lineHeight + 40.0f, textPaint);
-            graphics2D.drawText("Screen: [" + this.getName() + "]",
+            graphics2D.drawText("Player " + CurrentPlayerNum + "'s turn (" + mPlayers.get(CurrentPlayerNum).getName() + ")",
                     0.0f, lineHeight + 80.0f, textPaint);
             if(mFieldTouched != null){
                 graphics2D.drawText("Touch[0]: " + mFieldTouched.getFName() + " Number of teams assigned: " + mFieldTouched.getFNumOfTeams() + " Owned by: " + mFieldTouched.getFPlayer().getName(),
@@ -339,8 +339,6 @@ public class RiskGameScreen extends GameScreen {
 
         addConnectedFields();
 
-        mTouchedArea[0] = mAreas.get(0); // null results in crash when displaying getName() text
-        mTouchedArea[1] = mAreas.get(0); // null results in crash when displaying getName() text
     }
 
     private void addConnectedFields()
@@ -464,31 +462,31 @@ public class RiskGameScreen extends GameScreen {
         assignFields();
     }
 
-    private void assignFields()
+    public void assignFields()
     {
         ArrayList<Field> allFields = new ArrayList<>();
-        for (int i = 0; i < mAreas.size(); i++)
+        for (int i = 0; i <= 4; i++)
         {
-            for (int j = 0; j < mAreas.get(i).fields.size(); i++)
+            for (int j = 0; j < mAreas.get(i).getFieldSize(); j++)
             {
-                allFields.add(mAreas.get(i).fields.get(j));
+                allFields.add(mAreas.get(i).getField(j));
             }
         }
 
         Random randomNumber = new Random();
         int random;
-        for(int i = 0; i < allFields.size(); i++){
-            random = randomNumber.nextInt(allFields.size() - 1);
-            if(allFields.get(random).checkAssigned())
+        do{
+            random = randomNumber.nextInt(allFields.size());
+            if(!allFields.get(random).checkAssigned())
             {
                 allFields.get(random).setPlayer(mPlayers.get(CurrentPlayerNum));
                 endTurn(false);
             }
-        }
+        }while(!FieldsAllOwned(allFields));
 
-        for(Field field : allFields)
+        for(Area area : mAreas)
         {
-            for(Area area : mAreas)
+            for(Field field : allFields)
             {
                 for(Field areaField : area.fields)
                 {
@@ -499,6 +497,15 @@ public class RiskGameScreen extends GameScreen {
                 }
             }
         }
+    }
+
+    public boolean FieldsAllOwned(ArrayList<Field> fields)
+    {
+        for(Field f : fields)
+        {
+            if(!f.checkAssigned()) return false;
+        }
+        return true;
     }
 
     // Kinda obsolete code since fields got revamped...
@@ -611,7 +618,7 @@ public class RiskGameScreen extends GameScreen {
         if(SuccessfulAttack) {mPlayers.get(CurrentPlayerNum).incrementRiskCards();}
         SuccessfulAttack = false;
         CurrentPlayerNum++;
-        if(CurrentPlayerNum > MAX_PLAYERS) CurrentPlayerNum = 0;
+        if(CurrentPlayerNum > 2) CurrentPlayerNum = 0;
         beginTurn();
     }
 
