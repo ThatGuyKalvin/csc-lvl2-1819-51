@@ -10,7 +10,6 @@ public class Area {
 
     private int aColour;
     private String aName;
-    private Player aOwner;
     private ArrayList<Field> aFields = new ArrayList<>();
     private int aValue = 0;
 
@@ -18,7 +17,6 @@ public class Area {
     public Area() {
         this.aColour = Color.BLACK;
         this.aName = "DEFAULT";
-        this.aOwner = null;
     }
 
     // Package private instead of public
@@ -32,11 +30,6 @@ public class Area {
     public Field getField(int i) { return aFields.get(i); }
 
     public int getFieldSize() { return aFields.size(); }
-
-    public void setOwner(Player owner) { this.aOwner = owner; }
-    public Player getOwner() {
-        return this.aOwner;
-    }
 
     public void setColour(int colour) {
         this.aColour = colour;

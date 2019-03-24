@@ -39,6 +39,15 @@ public class AssignFieldsMethodTests {
     }
 
     @Test
+    public void TestIfFieldsAreConnected()
+    {
+        RiskGameScreenMethodsTester Risk1 = new RiskGameScreenMethodsTester(2);
+        assertEquals(Risk1.mAreas.get(1).getField(2).getFConnectedFields().get(1).getFNum(), 7);
+        assertEquals(Risk1.mAreas.get(2).getField(1).getFConnectedFields().get(2).getFNum(), 15);
+        assertEquals(Risk1.mAreas.get(1).getField(3).getFConnectedFields().get(0).getFNum(), 7);
+    }
+
+    @Test
     public void TestIfFieldsAreAssignedByAssignFieldsMethod()
     {
         RiskGameScreenMethodsTester risk2 = new RiskGameScreenMethodsTester(3);
@@ -62,17 +71,5 @@ public class AssignFieldsMethodTests {
     public void TestIfFieldsAreAssignedByAssignFieldsMethod3() {
         RiskGameScreenMethodsTester risk4 = new RiskGameScreenMethodsTester(3);
         assertTrue(risk4.mAreas.get(2).getField(2).getFPlayer() != null);
-    }
-
-    @Test
-    public void TestIfFieldsListIsCreatedInAssignFields() {
-        RiskGameScreenMethodsTester risk5 = new RiskGameScreenMethodsTester(3);
-        assertTrue(risk5.fieldListReturned);
-    }
-
-    @Test
-    public void TestIfFallFieldsListsIsUpdatedWithPlayers() {
-        RiskGameScreenMethodsTester risk6 = new RiskGameScreenMethodsTester(3);
-        assertTrue(risk6.firstListHasPlayersAssigned);
     }
 }
