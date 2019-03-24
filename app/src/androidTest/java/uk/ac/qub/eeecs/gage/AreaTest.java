@@ -31,6 +31,24 @@ public class AreaTest {
         a1.setName("Testing");
         assertEquals("Testing", a1.getName());
     }
+
+    @Test
+    public void getColourTest() {
+        assertEquals(0xFFeb1c23, a1.getColour());
+    }
+
+    @Test
+    public void setColourTest() {
+        a1.setColour(0xFFeb1A11);
+        assertEquals(0xFFeb1A11, a1.getColour());
+    }
+
+    @Test
+    public void addFieldTest() {
+        Field testField = new Field(1,"Internet Provider",0xFFDE7879);
+        a1.addField(testField);
+        assertEquals(testField, a1.getField(0));
+    }
 }
 
 

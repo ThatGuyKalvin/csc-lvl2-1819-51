@@ -187,7 +187,7 @@ public class MenuScreen extends GameScreen {
 
 
             if (mSpaceshipDemoButton.isPushTriggered())
-                mGame.getScreenManager().addScreen(new DiceRollScreen(mGame, battle, google, apple));
+                mGame.getScreenManager().addScreen(new DiceRollScreen(mGame, battle));
             else if (mDemosButton.isPushTriggered())
                 mGame.getScreenManager().addScreen(new DemoMenuScreen(mGame));
             else if (mPerformanceScreenButton.isPushTriggered())
@@ -314,8 +314,8 @@ public class MenuScreen extends GameScreen {
     }
 
     public void test(){
-        Player google = new Player("google", -01000016);
-        Player apple = new Player("apple", -01000016);
+        Player google = new Player("Google", -01000016);
+        Player apple = new Player("Apple", -01000016);
 
         Field field1 = new Field(19, "Social Media",0xFF8B1D8F);
         Field field2 = new Field(20, "Research Labs",0xFF8F0081);

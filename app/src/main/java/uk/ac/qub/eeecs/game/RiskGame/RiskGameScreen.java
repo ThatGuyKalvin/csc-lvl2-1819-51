@@ -470,6 +470,35 @@ public class RiskGameScreen extends GameScreen {
         connectToSurvey.add(mAreas.get(1).getField(5));
         connectToSurvey.add(mAreas.get(4).getField(0));
         connectToSurvey.add(mAreas.get(4).getField(1));
+
+
+
+        mAreas.get(0).getField(1).addConnectedFields(connectToIntPro);
+        mAreas.get(0).getField(1).addConnectedFields(connectToPhoneCarr);
+        mAreas.get(0).getField(3).addConnectedFields(connectToVoIP);
+        mAreas.get(0).getField(4).addConnectedFields(connectToRadio);
+        mAreas.get(0).getField(5).addConnectedFields(connectToTeleg);
+
+        mAreas.get(1).getField(6).addConnectedFields(connectToCybSec);
+        mAreas.get(1).getField(7).addConnectedFields(connectToCCTV);
+        mAreas.get(1).getField(8).addConnectedFields(connectToAudit);
+        mAreas.get(1).getField(9).addConnectedFields(connectToTFA);
+        mAreas.get(1).getField(10).addConnectedFields(connectToFW);
+        mAreas.get(1).getField(11).addConnectedFields(connectToAV);
+
+        mAreas.get(2).getField(12).addConnectedFields(connectToC);
+        mAreas.get(2).getField(13).addConnectedFields(connectToJava);
+        mAreas.get(2).getField(14).addConnectedFields(connectToPython);
+
+        mAreas.get(3).getField(15).addConnectedFields(connectToGI);
+        mAreas.get(3).getField(16).addConnectedFields(connectToAICars);
+        mAreas.get(3).getField(17).addConnectedFields(connectToRobot);
+        mAreas.get(3).getField(18).addConnectedFields(connectToVR);
+
+        mAreas.get(4).getField(19).addConnectedFields(connectToSM);
+        mAreas.get(4).getField(20).addConnectedFields(connectToRL);
+        mAreas.get(4).getField(21).addConnectedFields(connectToSurvey);
+
     }
 
     private void createPlayers() {
@@ -605,7 +634,7 @@ public class RiskGameScreen extends GameScreen {
 
         if(battle.canBattle())
             mGame.getScreenManager().addScreen(
-                    new DiceRollScreen(mGame, battle, att.getFPlayer(), def.getFPlayer()));
+                    new DiceRollScreen(mGame, battle));
 
         if(battle.attackersWin())
             def.hostileTakeOver(att.getFPlayer(), att.getFNumOfTeams());

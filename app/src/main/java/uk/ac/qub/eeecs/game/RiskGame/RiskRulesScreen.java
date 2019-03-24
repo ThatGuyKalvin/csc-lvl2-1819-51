@@ -146,9 +146,6 @@ public class RiskRulesScreen extends GameScreen
     {
         if(Objects.equals(instructionType, "Main"))
         {
-            //drawBlueRoundRectangle(900,1200,170,110);
-            //drawSpeechBubbleBitmap(graphics2D);
-
             drawBlueCircle(144, 1400, 97, 350);
             drawBlueCircleBitmap(graphics2D);
         }
