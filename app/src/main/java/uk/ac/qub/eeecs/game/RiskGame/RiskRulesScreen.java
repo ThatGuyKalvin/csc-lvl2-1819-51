@@ -83,8 +83,6 @@ public class RiskRulesScreen extends GameScreen
         // Create the trigger buttons
         mBackToMainMenuButton = new PushButton (spacingX * 0.20f, spacingY * 0.42f, spacingX/4, spacingY/10, "main_menu_button", "main_menu_button_pressed",this);
         mHowToPlayTheRules = new PushButton(spacingX * 0.15f, spacingY * 0.12f, spacingX/6, spacingY/6, "How_To_Play_Rule_Button", this);
-
-
         nextPageButton = new PushButton(spacingX * -100f, spacingY * -100f, spacingX/7, spacingY/13, "risk_rules_next_button", "risk_rules_next_button_pressed",this);
         prevPageButton = new PushButton(spacingX * -100f, spacingY * -100f, spacingX/7, spacingY/13, "risk_rules_prev_button", "risk_rules_prev_button_pressed", this);
     }
