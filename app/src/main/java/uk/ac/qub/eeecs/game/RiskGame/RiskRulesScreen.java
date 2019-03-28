@@ -25,26 +25,26 @@ public class RiskRulesScreen extends GameScreen
     //Create asset manager
     AssetManager assetManager = mGame.getAssetManager();
     //Background for the RiskRulesScreen
-    public Rect RiskRulesScreenBackground = new Rect();
+    private Rect RiskRulesScreenBackground = new Rect();
 
-    public Rect BlueRoundRectangle = new Rect();
-    public Rect BlueCircle = new Rect();
-    public Rect gameImage = new Rect();
-    public static boolean alreadyLoaded = false;
-    public PushButton mHowToPlayTheRules, mBackToMainMenuButton, nextPageButton, prevPageButton;
+    private Rect BlueRoundRectangle = new Rect();
+    private Rect BlueCircle = new Rect();
+    private Rect gameImage = new Rect();
+    private static boolean alreadyLoaded = false;
+    private PushButton mHowToPlayTheRules, mBackToMainMenuButton, nextPageButton, prevPageButton;
 
 
 
     // Define the spacing that will be used to position the buttons
-    public int spacingX = 0;
-    public int spacingY = 0;
+    private int spacingX = 0;
+    private int spacingY = 0;
 
     //Used for cycling through the pages for The Rules
-    public int rulePageCounter = 0;
+    private int rulePageCounter = 0;
 
 
-    public boolean rulesOfGamePushed = false;
-    public boolean prevNextButtonPressed = false;
+    private boolean rulesOfGamePushed = false;
+    private boolean prevNextButtonPressed = false;
 
     public RiskRulesScreen(String name, Game game)
     {
