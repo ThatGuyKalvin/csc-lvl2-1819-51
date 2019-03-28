@@ -12,10 +12,16 @@ import uk.ac.qub.eeecs.gage.engine.ElapsedTime;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
+import uk.ac.qub.eeecs.gage.ui.Button;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.ScreenViewport;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.util.ArrayList;
 
+import java.io.IOException;
 public class DiceRollScreen extends GameScreen {
 
     // /////////////////////////////////////////////////////////////////////////
@@ -63,24 +69,24 @@ public class DiceRollScreen extends GameScreen {
 
     //properties
     Battle battle;
+    private List<PushButton> mButtons = new ArrayList<>();
 
     private ScreenViewport mGameScreenViewport;
     private Paint textPaint = new Paint();
     private float mTimeToChange = 0;
 
-    public DiceRollScreen(Game game, Battle bat) {
+    public DiceRollScreen(Game game, Battle batt) {
         super("RiskScreen", game);
         AssetManager assetManager = mGame.getAssetManager();
         assetManager.loadAssets("txt/assets/DiceRollScreenAssets.JSON");
+        DrawDiceButtons("txt/assets/DiceScreenButtons.JSON", mButtons);
 
-        battle = bat;
+        battle = batt;
         background = assetManager.getBitmap("background");
-
         battle.autoSetNumOfDiceAtt();
         battle.resetDice();
-        DrawDiceButtons();
-        createCalculateAnimation();
 
+        createCalculateAnimation();
         float screenWidth = mGame.getScreenWidth();
         float screenHeight = mGame.getScreenHeight();
 
@@ -111,25 +117,17 @@ public class DiceRollScreen extends GameScreen {
             }
         }
 
-        if (battle.noArmies())
+        if (battle.noTeams())
             mGame.getScreenManager().removeScreen(this);
 
         Input input = mGame.getInput();
         List<TouchEvent> touchEvents = input.getTouchEvents();
         if (touchEvents.size() > 0 && mTimeToChange > 0.5f) {
 
-            mRollDiceButton.update(elapsedTime);
-            mFastBattle.update(elapsedTime);
-            oneDice.update(elapsedTime);
-            twoDice.update(elapsedTime);
-            threeDice.update(elapsedTime);
-            oneDiceSelected.update(elapsedTime);
-            twoDiceSelected.update(elapsedTime);
-            threeDiceSelected.update(elapsedTime);
-            twoDiceSelectedNull.update(elapsedTime);
-            threeDiceSelectedNull.update(elapsedTime);
+            for(PushButton button : mButtons){
+                button.update(elapsedTime);
+            }
 
-            mAbortHack.update(elapsedTime);
             if (mAbortHack.isPushTriggered())
                 mGame.getScreenManager().removeScreen(this);
 
@@ -262,7 +260,6 @@ public class DiceRollScreen extends GameScreen {
         attDiceRolls1 = new Rolling(width * 0.03f, height * 0.50f, this);
         attDiceRolls2 = new Rolling(width * 0.08f, height * 0.50f, this);
         attDiceRolls3 = new Rolling(width * 0.13f, height * 0.50f, this);
-
         //the defenders Dice
         defDiceRolls1 = new Rolling(width * 0.9f, height * 0.50f, this);
         defDiceRolls2 = new Rolling(width * 0.95f, height * 0.50f, this);
@@ -329,97 +326,55 @@ public class DiceRollScreen extends GameScreen {
     }
 
     //just drawing all the buttons.
-    public void DrawDiceButtons() {
-        //The Roll Button
-        mRollDiceButton = new PushButton(
-                mDefaultLayerViewport.getWidth() * 0.65f,
-                mDefaultLayerViewport.getHeight() * 0.1f,
-                mDefaultLayerViewport.getWidth() * 0.15f,
-                mDefaultLayerViewport.getHeight() * 0.2f,
-                "Roll1", "Roll2", this);
+    public void DrawDiceButtons(String buttonsToConstructJSONFile, List<PushButton> buttons) {
 
-        mFastBattle = new PushButton(
-                mDefaultLayerViewport.getWidth() * 0.49f,
-                mDefaultLayerViewport.getHeight() * 0.4f,
-                mDefaultLayerViewport.getWidth() * 0.2f,
-                mDefaultLayerViewport.getHeight() * 0.267f,
-                "FastBattle", "FastBattleSelected", this);
+        String loadedJSON;
+        try {
+            loadedJSON = mGame.getFileIO().loadJSON(buttonsToConstructJSONFile);
+        } catch (IOException e) {
+            throw new RuntimeException(
+                    "DemoMenuScreen.constructButtons: Cannot load JSON [" + buttonsToConstructJSONFile + "]");
+        }
 
+        try {
+            JSONObject settings = new JSONObject(loadedJSON);
+            JSONArray buttonDetails = settings.getJSONArray("pushButtons");
 
-//////////////////////////////////////////////////////////////////////////////////////////////////
-        //The images with a dice
-        oneDiceSelected = new PushButton(
-                mDefaultLayerViewport.getWidth() * 0.037f,
-                mDefaultLayerViewport.getHeight() * 0.115f,
-                mDefaultLayerViewport.getWidth() * 0.08f,
-                mDefaultLayerViewport.getHeight() * 0.1066f,
-                "Dice1Selected", "ChooseDiceNumber1", this);
+            // Store the game layer width and height
+            float layerWidth = mDefaultLayerViewport.getWidth();
+            float layerHeight = mDefaultLayerViewport.getHeight();
 
-        oneDice = new PushButton(
-                mDefaultLayerViewport.getWidth() * 0.037f,
-                mDefaultLayerViewport.getHeight() * 0.115f,
-                mDefaultLayerViewport.getWidth() * 0.08f,
-                mDefaultLayerViewport.getHeight() * 0.1066f,
-                "ChooseDiceNumber1", "Dice1Selected", this);
+            // Construct each button
+            for (int idx = 0; idx < buttonDetails.length(); idx++){
+                float x = (float)buttonDetails.getJSONObject(idx).getDouble("x");
+                float y = (float)buttonDetails.getJSONObject(idx).getDouble("y");
+                float width = (float)buttonDetails.getJSONObject(idx).getDouble("width");
+                float height = (float)buttonDetails.getJSONObject(idx).getDouble("height");
 
-//////////////////////////////////////////////////////////////////////////////////////////////////
+                String defaultBitmap = buttonDetails.getJSONObject(idx).getString("defaultBitmap");
+                String pushBitmap = buttonDetails.getJSONObject(idx).getString("pushBitmap");
 
-        //The image with two Dice
-        twoDiceSelected = new PushButton(
-                mDefaultLayerViewport.getWidth() * 0.205f,
-                mDefaultLayerViewport.getHeight() * 0.115f,
-                mDefaultLayerViewport.getWidth() * 0.08f,
-                mDefaultLayerViewport.getHeight() * 0.1066f,
-                "Dice2Selected", "ChooseDiceNumber2", this);
+                PushButton button = new PushButton(x*layerWidth, y*layerHeight,
+                        width*layerWidth, height*layerHeight,
+                        defaultBitmap, pushBitmap, this);
+                buttons.add(button);
+            }
 
-        twoDiceSelectedNull = new PushButton(
-                mDefaultLayerViewport.getWidth() * 0.205f,
-                mDefaultLayerViewport.getHeight() * 0.115f,
-                mDefaultLayerViewport.getWidth() * 0.08f,
-                mDefaultLayerViewport.getHeight() * 0.1066f,
-                "Dice2SelectedNull", "ChooseDiceNumber2Null", this);
+        } catch (JSONException | IllegalArgumentException e) {
+            throw new RuntimeException(
+                    "DemoMenuScreen.constructButtons: JSON parsing error [" + e.getMessage() + "]");
+        }
 
-        twoDice = new PushButton(
-                mDefaultLayerViewport.getWidth() * 0.205f,
-                mDefaultLayerViewport.getHeight() * 0.115f,
-                mDefaultLayerViewport.getWidth() * 0.08f,
-                mDefaultLayerViewport.getHeight() * 0.1066f,
-                "ChooseDiceNumber2", "Dice2Selected", this);
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////
-
-        //The image with 3 dice
-        threeDiceSelected = new PushButton(
-                mDefaultLayerViewport.getWidth() * 0.385f,
-                mDefaultLayerViewport.getHeight() * 0.118f,
-                mDefaultLayerViewport.getWidth() * 0.08f,
-                mDefaultLayerViewport.getHeight() * 0.1066f,
-                "Dice3Selected", "ChooseDiceNumber3", this);
-
-        threeDiceSelectedNull = new PushButton(
-                mDefaultLayerViewport.getWidth() * 0.385f,
-                mDefaultLayerViewport.getHeight() * 0.118f,
-                mDefaultLayerViewport.getWidth() * 0.08f,
-                mDefaultLayerViewport.getHeight() * 0.1066f,
-                "Dice3SelectedNull", "ChooseDiceNumber3Null", this);
-
-        threeDice = new PushButton(
-                mDefaultLayerViewport.getWidth() * 0.385f,
-                mDefaultLayerViewport.getHeight() * 0.118f,
-                mDefaultLayerViewport.getWidth() * 0.08f,
-                mDefaultLayerViewport.getHeight() * 0.1066f,
-                "ChooseDiceNumber3", "Dice3Selected", this);
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////
-        mAbortHack = new PushButton(
-                mDefaultLayerViewport.getWidth() * 0.9f,
-                mDefaultLayerViewport.getHeight() * 0.11f,
-                mDefaultLayerViewport.getWidth() * 0.15f,
-                mDefaultLayerViewport.getHeight() * 0.2f,
-                "AbortHack", "AbortHackSelected", this);
-        mAbortHack.setPlaySounds(true, true);
-
+        mRollDiceButton = buttons.get(0);
+        mFastBattle = buttons.get(1);
+        oneDiceSelected = buttons.get(2);
+        oneDice = buttons.get(3);
+        twoDiceSelected = buttons.get(4);
+        twoDiceSelectedNull = buttons.get(5);
+        twoDice = buttons.get(6);
+        threeDiceSelected = buttons.get(7);
+        threeDiceSelectedNull = buttons.get(8);
+        threeDice = buttons.get(9);
+        mAbortHack = buttons.get(10);
     }
 }
