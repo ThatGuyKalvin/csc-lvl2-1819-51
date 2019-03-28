@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
+
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -194,6 +196,8 @@ public class RiskGameScreen extends GameScreen {
             if (mAttackButton.isPushTriggered())
                 attackState = ATTACK_PICK;
         }
+
+
         mTimeToChange += elapsedTime.stepTime;
     }
 
@@ -348,7 +352,7 @@ public class RiskGameScreen extends GameScreen {
         connectToCCTV.add(mAreas.get(1).getField(0));
         connectToCCTV.add(mAreas.get(1).getField(2));
         connectToCCTV.add(mAreas.get(1).getField(3));
-        connectToCCTV.add(mAreas.get(1).getField(6));
+        connectToCCTV.add(mAreas.get(1).getField(5));
         connectToCCTV.add(mAreas.get(3).getField(1));
 
         ArrayList<Field> connectToAudit = new ArrayList<Field>(4);
@@ -436,7 +440,6 @@ public class RiskGameScreen extends GameScreen {
     private void assignFields()
     {
         //Assign each player with their portion of the fields
-        assignTeams();
     }
 
     private void assignTeams()
@@ -602,4 +605,53 @@ public class RiskGameScreen extends GameScreen {
         return TempList;
     }
 
+    private void drawTeamsToField(Paint textPaint, IGraphics2D graphics2D) {
+
+        //Drawing out the number of teams on each field in the colour correlating to what player owns them
+        int screenWidth = graphics2D.getSurfaceWidth();
+        int screenHeight = graphics2D.getSurfaceHeight();
+
+        Float xPositions[] = {0.1f, 0.14f,0.21f, 0.18f, 0.26f,//NA
+                0.49f, 0.56f, 0.68f, 0.65f, 0.66f, 0.77f, //EUR
+                0.21f, 0.26f, 0.2f, //SA
+                0.43f, 0.47f, 0.52f, 0.49f, //AFR
+                0.84f, 0.82f, 0.9f}; //AUS
+        Float yPositions[] = {0.35f, 0.35f, 0.31f, 0.39f, 0.33f,
+                0.35f, 0.39f,0.32f, 0.37f, 0.45f, 0.35f,
+                0.56f, 0.62f, 0.69f,
+                0.48f, 0.56f, 0.52f, 0.66f,
+                0.63f, 0.68f, 0.69f};
+
+        int v =0;
+        int w =0;
+        int x =0;
+        int y =0;
+        int z =0;
+
+        for (int i = 0; i < 5; i++) {
+            textPaint.setColor(mAreas.get(0).getField(v).getFPlayer().getColour());
+            graphics2D.drawText(Integer.toString(mAreas.get(0).getField(v).getFNumOfTeams()),screenWidth*xPositions[i], screenHeight*yPositions[i], textPaint);
+            v++;
+        }
+        for (int i = 5; i < 11; i++) {
+            textPaint.setColor(mAreas.get(1).getField(w).getFPlayer().getColour());
+            graphics2D.drawText(Integer.toString(mAreas.get(1).getField(w).getFNumOfTeams()), screenWidth*xPositions[i], screenHeight*yPositions[i], textPaint);
+            w++;
+        }
+        for (int i = 11; i < 14; i++) {
+            textPaint.setColor(mAreas.get(2).getField(x).getFPlayer().getColour());
+            graphics2D.drawText(Integer.toString(mAreas.get(2).getField(x).getFNumOfTeams()), screenWidth*xPositions[i], screenHeight*yPositions[i], textPaint);
+            x++;
+        }
+        for (int i = 14; i < 18; i++) {
+            textPaint.setColor(mAreas.get(3).getField(y).getFPlayer().getColour());
+            graphics2D.drawText(Integer.toString(mAreas.get(3).getField(y).getFNumOfTeams()), screenWidth*xPositions[i], screenHeight*yPositions[i], textPaint);
+            y++;
+        }
+        for (int i = 18; i < 21; i++) {
+            textPaint.setColor(mAreas.get(4).getField(z).getFPlayer().getColour());
+            graphics2D.drawText(Integer.toString(mAreas.get(4).getField(z).getFNumOfTeams()), screenWidth*xPositions[i], screenHeight*yPositions[i], textPaint);
+            z++;
+        }
+    }
 }
