@@ -40,6 +40,7 @@ public class RiskGameScreen extends GameScreen {
     private final int ATTACK_PICK_AGAIN = 2;
     private final int ATTACK_BATTLING = 3;
     private final int ALLOCATE = 4;
+    private final int INITIAL_ALLOCATE = 5;
     private String attackStr = "State: Not battling.";
     private PushButton mAttackButton;
     private Bitmap mRiskGameScreenBackground;
@@ -48,6 +49,7 @@ public class RiskGameScreen extends GameScreen {
     // Used to store the last touched area
     private Area[] mTouchedArea = new Area[2];
     private Field[] mFieldsAttacking = new Field[2];
+    private Field mFieldTouched;
     private int state = ATTACK_NULL;
     private int clickedColour = 0;
 
@@ -56,8 +58,10 @@ public class RiskGameScreen extends GameScreen {
     private final int MAX_PLAYERS = 3;
     private ArrayList<Player> mPlayers = new ArrayList<>(MAX_PLAYERS);
     private ArrayList<Area> mAreas = new ArrayList<>(MAX_AREAS);
-    private int CurrentPlayerNum;
+    private int CurrentPlayerNum = 0;
+    private int teamsToAllocate = 0;
     private boolean SuccessfulAttack = false;
+    private boolean allocated = false;
     private Paint textPaint = new Paint();
 
     private PushButton mReturnToMenuButton;
@@ -87,18 +91,6 @@ public class RiskGameScreen extends GameScreen {
         mRiskGameScreenBackground = assetManager.getBitmap("RiskGameScreen2");
         mRiskMapAreas = assetManager.getBitmap("RiskGameScreen3");
 
-
-
-        // Generate Area objects
-        createAreas();
-        // Generate Player objects
-        createPlayers();
-        //Decide which player goes first
-        firstTurn();
-        // Allocate teams
-        AllocateTeams(initialTeamsCalc());
-        //Begin First players turn
-        beginTurn();
 
         // Define the spacing that will be used to position the buttons
         int spacingX = (int)mDefaultLayerViewport.getWidth() / 5;
@@ -137,6 +129,18 @@ public class RiskGameScreen extends GameScreen {
         mGameScreenViewport =
                 new ScreenViewport(0, 0, (int) screenWidth, (int) screenHeight);
 
+        // Generate Area objects
+        createAreas();
+        // Generate Player objects
+        createPlayers();
+        //Assign Players fields
+        assignFields();
+        //Decide which player goes first
+        firstTurn();
+        // Allocate teams
+        AllocateTeams(60);
+        //Begin First players turn
+        beginTurn();
 
     }
 
@@ -174,7 +178,7 @@ public class RiskGameScreen extends GameScreen {
                 mGame.getScreenManager().removeScreen(this);
 
             else if (mEndTurnButton.isPushTriggered())
-                endTurn(true);
+                endTurn();
 
             else if(state == ATTACK_PICK_AGAIN) {
                 Field tmpField = getFieldClicked();
@@ -187,7 +191,24 @@ public class RiskGameScreen extends GameScreen {
             else if(state == ALLOCATE) {
                 Field tmpField = getFieldClicked();
                 if(tmpField != null && findPlayerFields(CurrentPlayerNum).contains(tmpField)){
-                    tmpField.incrementNumOfTeams();
+                    findOriginalField(tmpField).incrementNumOfTeams();
+                    teamsToAllocate--;
+                }
+                if(teamsToAllocate <= 0)
+                {
+                    state = ATTACK_NULL;
+                }
+            }
+
+            else if(state == INITIAL_ALLOCATE) {
+                Field tmpField = getFieldClicked();
+                if(tmpField != null && findPlayerFields(CurrentPlayerNum).contains(tmpField)){
+                    findOriginalField(tmpField).incrementNumOfTeams();
+                    teamsToAllocate--;
+                    endTurn(false);
+                }
+                if(teamsToAllocate <= 0)
+                {
                     state = ATTACK_NULL;
                 }
             }
@@ -254,10 +275,12 @@ public class RiskGameScreen extends GameScreen {
             for (int i = 0; i < MAX_AREAS; i++) areasString += "(" + mAreas.get(i).getName() + ") ";
             graphics2D.drawText(areasString + "]",
                     0.0f, lineHeight + 40.0f, textPaint);
-            graphics2D.drawText("Screen: [" + this.getName() + "]",
+            graphics2D.drawText("Player " + CurrentPlayerNum + "'s turn (" + mPlayers.get(CurrentPlayerNum).getName() + ")",
                     0.0f, lineHeight + 80.0f, textPaint);
-            graphics2D.drawText("Touch[0]: " + mTouchedArea[0].getName() + " Touch[1]: " + mTouchedArea[1].getName(),
-                    0.0f, lineHeight + 120.0f, textPaint);
+            if(mFieldTouched != null){
+                graphics2D.drawText("Touch[0]: " + mFieldTouched.getFName() + " Number of teams assigned: " + mFieldTouched.getFNumOfTeams() + " Owned by: " + mFieldTouched.getFPlayer().getName(),
+                        0.0f, lineHeight + 120.0f, textPaint);
+            }
 
             switch (state) {
                 case ATTACK_NULL:
@@ -273,7 +296,7 @@ public class RiskGameScreen extends GameScreen {
                     attackStr = "State: Battle: " + mFieldsAttacking[0].getFName() + " vs. " + mFieldsAttacking[1].getFName();
                     break;
                 case ALLOCATE:
-                    attackStr = "State: Player" + CurrentPlayerNum + " Allocate Team";
+                    attackStr = "State: Player " + CurrentPlayerNum + " Allocate Team";
                     break;
                 default:
                     attackStr = "State: Not battling.";
@@ -305,8 +328,6 @@ public class RiskGameScreen extends GameScreen {
         mAreas.add(new Area("Data & Information", 0xFFb63eb8,4));
         // Generate the fields for the areas
 
-
-        // Field class should probably be revamped
         // Telecommunications
         mAreas.get(0).addField(new Field(1,"Internet Provider",0xFFDE7879));
         mAreas.get(0).addField(new Field(2,"Phone Carrier",0xFF9C0003));
@@ -336,8 +357,6 @@ public class RiskGameScreen extends GameScreen {
 
         addConnectedFields();
 
-        mTouchedArea[0] = mAreas.get(0); // null results in crash when displaying getName() text
-        mTouchedArea[1] = mAreas.get(0); // null results in crash when displaying getName() text
     }
 
     private void addConnectedFields()
@@ -454,31 +473,31 @@ public class RiskGameScreen extends GameScreen {
 
 
 
-        mAreas.get(0).getField(1).addConnectedFields(connectToIntPro);
+        mAreas.get(0).getField(0).addConnectedFields(connectToIntPro);
         mAreas.get(0).getField(1).addConnectedFields(connectToPhoneCarr);
-        mAreas.get(0).getField(3).addConnectedFields(connectToVoIP);
-        mAreas.get(0).getField(4).addConnectedFields(connectToRadio);
-        mAreas.get(0).getField(5).addConnectedFields(connectToTeleg);
+        mAreas.get(0).getField(2).addConnectedFields(connectToVoIP);
+        mAreas.get(0).getField(3).addConnectedFields(connectToRadio);
+        mAreas.get(0).getField(4).addConnectedFields(connectToTeleg);
 
-        mAreas.get(1).getField(6).addConnectedFields(connectToCybSec);
-        mAreas.get(1).getField(7).addConnectedFields(connectToCCTV);
-        mAreas.get(1).getField(8).addConnectedFields(connectToAudit);
-        mAreas.get(1).getField(9).addConnectedFields(connectToTFA);
-        mAreas.get(1).getField(10).addConnectedFields(connectToFW);
-        mAreas.get(1).getField(11).addConnectedFields(connectToAV);
+        mAreas.get(1).getField(0).addConnectedFields(connectToCybSec);
+        mAreas.get(1).getField(1).addConnectedFields(connectToCCTV);
+        mAreas.get(1).getField(2).addConnectedFields(connectToAudit);
+        mAreas.get(1).getField(3).addConnectedFields(connectToTFA);
+        mAreas.get(1).getField(4).addConnectedFields(connectToFW);
+        mAreas.get(1).getField(5).addConnectedFields(connectToAV);
 
-        mAreas.get(2).getField(12).addConnectedFields(connectToC);
-        mAreas.get(2).getField(13).addConnectedFields(connectToJava);
-        mAreas.get(2).getField(14).addConnectedFields(connectToPython);
+        mAreas.get(2).getField(0).addConnectedFields(connectToC);
+        mAreas.get(2).getField(1).addConnectedFields(connectToJava);
+        mAreas.get(2).getField(2).addConnectedFields(connectToPython);
 
-        mAreas.get(3).getField(15).addConnectedFields(connectToGI);
-        mAreas.get(3).getField(16).addConnectedFields(connectToAICars);
-        mAreas.get(3).getField(17).addConnectedFields(connectToRobot);
-        mAreas.get(3).getField(18).addConnectedFields(connectToVR);
+        mAreas.get(3).getField(0).addConnectedFields(connectToGI);
+        mAreas.get(3).getField(1).addConnectedFields(connectToAICars);
+        mAreas.get(3).getField(2).addConnectedFields(connectToRobot);
+        mAreas.get(3).getField(3).addConnectedFields(connectToVR);
 
-        mAreas.get(4).getField(19).addConnectedFields(connectToSM);
-        mAreas.get(4).getField(20).addConnectedFields(connectToRL);
-        mAreas.get(4).getField(21).addConnectedFields(connectToSurvey);
+        mAreas.get(4).getField(0).addConnectedFields(connectToSM);
+        mAreas.get(4).getField(1).addConnectedFields(connectToRL);
+        mAreas.get(4).getField(2).addConnectedFields(connectToSurvey);
 
     }
 
@@ -490,9 +509,50 @@ public class RiskGameScreen extends GameScreen {
         assignFields();
     }
 
-    private void assignFields()
+    public void assignFields()
     {
-        //Assign each player with their portion of the fields
+        ArrayList<Field> allFields = new ArrayList<>();
+        for (int i = 0; i <= 4; i++)
+        {
+            for (int j = 0; j < mAreas.get(i).getFieldSize(); j++)
+            {
+                allFields.add(mAreas.get(i).getField(j));
+            }
+        }
+
+        Random randomNumber = new Random();
+        int random;
+        do{
+            random = randomNumber.nextInt(allFields.size());
+            if(!allFields.get(random).checkAssigned())
+            {
+                allFields.get(random).setPlayer(mPlayers.get(CurrentPlayerNum));
+                endTurn(false);
+            }
+        }while(!FieldsAllOwned(allFields));
+
+        for(Area area : mAreas)
+        {
+            for(Field field : allFields)
+            {
+                for(Field areaField : area.fields)
+                {
+                    if(field.getFNum() == areaField.getFNum())
+                    {
+                        areaField.setPlayer(field.getFPlayer());
+                    }
+                }
+            }
+        }
+    }
+
+    public boolean FieldsAllOwned(ArrayList<Field> fields)
+    {
+        for(Field f : fields)
+        {
+            if(!f.checkAssigned()) return false;
+        }
+        return true;
     }
 
     // Kinda obsolete code since fields got revamped...
@@ -557,6 +617,7 @@ public class RiskGameScreen extends GameScreen {
                 for(int i = 0; i < mAreas.size(); i++) {
                     for(int x = 0; x < mAreas.get(i).getFieldSize(); x++) {
                         if (colour == mAreas.get(i).getField(x).getColour()) {
+                            mFieldTouched =  mAreas.get(i).getField(x);
                             return mAreas.get(i).getField(x);
                         }
                     }
@@ -585,42 +646,36 @@ public class RiskGameScreen extends GameScreen {
     }
 
     private void AllocateTeams(int numOfTeams){
-       for(int i = 0; i < 3; i++) {
-           IncrementTeams(false);
-       }
-       while(numOfTeams > 0) {
-           AllocateTeams(--numOfTeams);
-       }
+       teamsToAllocate = numOfTeams;
+       state = INITIAL_ALLOCATE;
+    }
+
+    private void AllocateTeams(int numOfTeams, int playerNum){
+        teamsToAllocate = numOfTeams;
     }
 
     private void endTurn(boolean bool)
     {
+        CurrentPlayerNum++;
+        if(CurrentPlayerNum > 2) CurrentPlayerNum = 0;
+    }
+
+    private void endTurn()
+    {
         if(SuccessfulAttack) {mPlayers.get(CurrentPlayerNum).incrementRiskCards();}
         SuccessfulAttack = false;
         CurrentPlayerNum++;
-        if(CurrentPlayerNum > MAX_PLAYERS) CurrentPlayerNum = 0;
-        if(bool) beginTurn();
+        if(CurrentPlayerNum > 2) CurrentPlayerNum = 0;
+        beginTurn();
     }
 
     private void beginTurn()
     {
         ArrayList<Field> PlayerFieldsAtTurnStart = findPlayerFields(CurrentPlayerNum);
         int numOfTeamsAllocated = (PlayerFieldsAtTurnStart.size()/2) + riskCardCalc() + areaControlledCalc();
-        for(int i = 0; i < numOfTeamsAllocated; i++) {
-            IncrementTeams();
-        }
+        AllocateTeams(numOfTeamsAllocated, CurrentPlayerNum);
     }
 
-    private void IncrementTeams()
-    {
-        state = ALLOCATE;
-    }
-
-    private void IncrementTeams(boolean bool)
-    {
-        state = ALLOCATE;
-        endTurn(bool);
-    }
 
     private int riskCardCalc()
     {
@@ -658,19 +713,26 @@ public class RiskGameScreen extends GameScreen {
         ArrayList<Field> TempList = new ArrayList<>();
         for(int i = 0; i < mAreas.size(); i++)
         {
-            for(int j = 0; j < mAreas.get(i).fields.size(); i++)
+            for(int j = 0; j < mAreas.get(i).getFieldSize(); j++)
             {
-                if(mAreas.get(i).fields.get(j).getFPlayer() == mPlayers.get(PlayerNum))
+                if(mAreas.get(i).getField(j).getFPlayer() == mPlayers.get(PlayerNum))
                 {
-                    TempList.add(mAreas.get(i).fields.get(j));
+                    TempList.add(mAreas.get(i).getField(j));
                 }
             }
         }
         return TempList;
     }
 
-    private int initialTeamsCalc(){
-        return (60 / MAX_PLAYERS);
+    private Field findOriginalField(Field tempField)
+    {
+        for(Area area : mAreas){
+            for(int i = 0; i < area.getFieldSize(); i++){
+                if(tempField == area.getField(i)){
+                    return area.getField(i);
+                }
+            }
+        }
+        return null;
     }
-
 }
