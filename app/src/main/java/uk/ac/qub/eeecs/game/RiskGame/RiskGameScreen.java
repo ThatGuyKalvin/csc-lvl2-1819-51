@@ -368,10 +368,36 @@ public class RiskGameScreen extends GameScreen {
         mAreas.get(1).addField(new Field(9, "TFA",0xFF7AC28C));
         mAreas.get(1).addField(new Field(10, "Firewall",0xFF648F5D));
         mAreas.get(1).addField(new Field(11, "AntiVirus",0xFF4A6945));
+
+
+
         // Development
         mAreas.get(2).addField(new Field(12, "C++",0xFFAB9700));
+
+        //top south america
+//        mAreas.get(2).getField(0).addColourToArray(0xff012b5d);
+//        mAreas.get(2).getField(0).addColourToArray(0xffea1b25);
+//        mAreas.get(2).getField(0).addColourToArray(0xffde7a7a);
+//        mAreas.get(2).getField(0).addColourToArray(0xffe07877);
+//        mAreas.get(2).getField(0).addColourToArray(0xffdd797b);
+//        mAreas.get(2).getField(0).addColourToArray(0xffdf787b);
+//        mAreas.get(2).getField(0).addColourToArray(0xffde7a78);
+//        mAreas.get(2).getField(0).addColourToArray(0xffdd7b78);
+//        mAreas.get(2).getField(0).addColourToArray(0xffdd7b7a);
+//        mAreas.get(2).getField(0).addColourToArray(0xffe07879);
+//        mAreas.get(2).getField(0).addColourToArray(0xffde7a7c);
+
+
+        // middle south america
         mAreas.get(2).addField(new Field(13, "Java",0xFF7D721E));
+
+
+        //bottom south america
         mAreas.get(2).addField(new Field(14, "Python",0xFF453E08));
+
+
+
+
         // Machine Learning
         mAreas.get(3).addField(new Field(15, "General Intelligence",0xFF804121));
         mAreas.get(3).addField(new Field(16, "AI Cars",0xFF4D220D));
