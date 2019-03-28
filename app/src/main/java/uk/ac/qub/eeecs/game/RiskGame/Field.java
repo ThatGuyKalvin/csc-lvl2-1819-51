@@ -18,6 +18,7 @@ public class Field{
     private int FNumOfTeams = 2;
     private boolean assigned = false;
     private ArrayList<Field> FConnectedFields;
+    private ArrayList<Integer> colourArray = new ArrayList<>();
     private int FColour;
 
     public Field(int Num, String Name, int Colour) {
@@ -31,6 +32,12 @@ public class Field{
         FPlayer = player;
         assigned = true;
     }
+
+    public int getColourArray(int i) { return colourArray.get(i); }
+
+    public int getColourArraySize() { return colourArray.size(); }
+
+    public void addColourToArray(int colour) { colourArray.add(colour); }
 
     public boolean checkAssigned(){return assigned;}
 

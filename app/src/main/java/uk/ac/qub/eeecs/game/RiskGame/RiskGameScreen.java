@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -306,6 +307,9 @@ public class RiskGameScreen extends GameScreen {
                     0.0f, lineHeight + 160.0f, textPaint);
             graphics2D.drawText("clickedColour:" + Integer.toHexString(clickedColour),
                     0.0f, lineHeight + 200.0f, textPaint);
+            if(state == ATTACK_PICK) {
+                Log.d("Hex", Integer.toHexString(clickedColour));
+            }
         }
 
         /* Work In Progress
@@ -330,10 +334,33 @@ public class RiskGameScreen extends GameScreen {
 
         // Telecommunications
         mAreas.get(0).addField(new Field(1,"Internet Provider",0xFFDE7879));
+        mAreas.get(0).getField(0).addColourToArray(0xff012b5d);
+        mAreas.get(0).getField(0).addColourToArray(0xffea1b25);
+        mAreas.get(0).getField(0).addColourToArray(0xffde7a7a);
+        mAreas.get(0).getField(0).addColourToArray(0xffe07877);
+        mAreas.get(0).getField(0).addColourToArray(0xffdd797b);
+        mAreas.get(0).getField(0).addColourToArray(0xffdf787b);
+        mAreas.get(0).getField(0).addColourToArray(0xffde7a78);
+        mAreas.get(0).getField(0).addColourToArray(0xffdd7b78);
+        mAreas.get(0).getField(0).addColourToArray(0xffdd7b7a);
+        mAreas.get(0).getField(0).addColourToArray(0xffe07879);
+        mAreas.get(0).getField(0).addColourToArray(0xffde7a7c);
+        mAreas.get(0).addField(new Field(2,"Phone Carrier",0xFF9C0003));
+        mAreas.get(0).getField(1).addColourToArray(0xFF9C0003);
+        mAreas.get(0).getField(1).addColourToArray(0xFF002B60);
+        mAreas.get(0).getField(1).addColourToArray(0xFF0A3B6E);
+        mAreas.get(0).getField(1).addColourToArray(0xFFE15C5F);
+        mAreas.get(0).getField(1).addColourToArray(0xFF022850);
+        mAreas.get(0).getField(1).addColourToArray(0xFF0E2849);
+        mAreas.get(0).getField(1).addColourToArray(0xFF0D386B);
+        mAreas.get(0).getField(1).addColourToArray(0xFF123F6F);
+        mAreas.get(0).getField(1).addColourToArray(0xFF144372);
         mAreas.get(0).addField(new Field(2,"Phone Carrier",0xFF9C0003));
         mAreas.get(0).addField(new Field(3,"VoIP",0xFFF0ADAD));
         mAreas.get(0).addField(new Field(4,"Radio",0xFFB84B4B));
         mAreas.get(0).addField(new Field(5, "Telegraphy",0xFF5C0000));
+
+
         // Security
         mAreas.get(1).addField(new Field(6, "Cyber Security",0xFF007820));
         mAreas.get(1).addField(new Field(7, "CCTV",0xFF4AAB3F));
@@ -560,7 +587,7 @@ public class RiskGameScreen extends GameScreen {
 
                 float xLoc = (layerPosition.x - bound.getLeft()) / bound.getWidth();
                 float yLoc = (bound.getTop() - layerPosition.y) / bound.getHeight();
-                Bitmap bitmap = mRiskMap.getBitmap();
+                Bitmap bitmap = mRiskGameScreenBackground;
                 int colour = bitmap.getPixel(
                         (int) (xLoc * bitmap.getWidth()),
                         (int) (yLoc * bitmap.getHeight()));
@@ -571,8 +598,12 @@ public class RiskGameScreen extends GameScreen {
                 for(int i = 0; i < mAreas.size(); i++) {
                     for(int x = 0; x < mAreas.get(i).getFieldSize(); x++) {
                         if (colour == mAreas.get(i).getField(x).getColour()) {
-                            mFieldTouched =  mAreas.get(i).getField(x);
                             return mAreas.get(i).getField(x);
+                        }
+                        for(int y = 0; y < mAreas.get(i).getField(x).getColourArraySize(); y++) {
+                            if (colour == mAreas.get(i).getField(x).getColourArray(y)) {
+                                return mAreas.get(i).getField(x);
+                            }
                         }
                     }
                 }
@@ -581,7 +612,6 @@ public class RiskGameScreen extends GameScreen {
         // Be careful, returning null can cause crashes
         return null;
     }
-
     //All Code below Author @Peter Gilfedder
 
     public void assignFields()
