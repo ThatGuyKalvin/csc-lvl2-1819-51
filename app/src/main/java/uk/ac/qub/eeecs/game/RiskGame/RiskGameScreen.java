@@ -509,52 +509,6 @@ public class RiskGameScreen extends GameScreen {
         assignFields();
     }
 
-    public void assignFields()
-    {
-        ArrayList<Field> allFields = new ArrayList<>();
-        for (int i = 0; i <= 4; i++)
-        {
-            for (int j = 0; j < mAreas.get(i).getFieldSize(); j++)
-            {
-                allFields.add(mAreas.get(i).getField(j));
-            }
-        }
-
-        Random randomNumber = new Random();
-        int random;
-        do{
-            random = randomNumber.nextInt(allFields.size());
-            if(!allFields.get(random).checkAssigned())
-            {
-                allFields.get(random).setPlayer(mPlayers.get(CurrentPlayerNum));
-                endTurn(false);
-            }
-        }while(!FieldsAllOwned(allFields));
-
-        for(Area area : mAreas)
-        {
-            for(Field field : allFields)
-            {
-                for(Field areaField : area.fields)
-                {
-                    if(field.getFNum() == areaField.getFNum())
-                    {
-                        areaField.setPlayer(field.getFPlayer());
-                    }
-                }
-            }
-        }
-    }
-
-    public boolean FieldsAllOwned(ArrayList<Field> fields)
-    {
-        for(Field f : fields)
-        {
-            if(!f.checkAssigned()) return false;
-        }
-        return true;
-    }
-
     // Kinda obsolete code since fields got revamped...
     // Keep it for now? Maybe could be useful for layered images
     private Area getAreaClicked() {
@@ -626,6 +580,54 @@ public class RiskGameScreen extends GameScreen {
         }
         // Be careful, returning null can cause crashes
         return null;
+    }
+
+    //All Code below Author @Peter Gilfedder
+
+    public void assignFields()
+    {
+        ArrayList<Field> allFields = new ArrayList<>();
+        for (int i = 0; i <= 4; i++)
+        {
+            for (int j = 0; j < mAreas.get(i).getFieldSize(); j++)
+            {
+                allFields.add(mAreas.get(i).getField(j));
+            }
+        }
+
+        Random randomNumber = new Random();
+        int random;
+        do{
+            random = randomNumber.nextInt(allFields.size());
+            if(!allFields.get(random).checkAssigned())
+            {
+                allFields.get(random).setPlayer(mPlayers.get(CurrentPlayerNum));
+                endTurn(false);
+            }
+        }while(!FieldsAllOwned(allFields));
+
+        for(Area area : mAreas)
+        {
+            for(Field field : allFields)
+            {
+                for(Field areaField : area.fields)
+                {
+                    if(field.getFNum() == areaField.getFNum())
+                    {
+                        areaField.setPlayer(field.getFPlayer());
+                    }
+                }
+            }
+        }
+    }
+
+    public boolean FieldsAllOwned(ArrayList<Field> fields)
+    {
+        for(Field f : fields)
+        {
+            if(!f.checkAssigned()) return false;
+        }
+        return true;
     }
 
     private void beginBattle(Field att, Field def){

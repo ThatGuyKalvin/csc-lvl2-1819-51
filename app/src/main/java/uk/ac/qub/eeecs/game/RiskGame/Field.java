@@ -40,10 +40,6 @@ public class Field{
 
     public void setNumOfTeams(int teams) {FNumOfTeams = teams;}
 
-    public void increaseNumOfTeams(int increase){
-        FNumOfTeams += increase;
-    }
-
     public void incrementNumOfTeams(){
         FNumOfTeams++;
     }
