@@ -103,7 +103,7 @@ public class RiskGameScreen extends GameScreen {
                 "main_menu_button", "main_menu_button_pressed", this);
         mMainMenuButton.setPlaySounds(true, true);
 
-        mEndTurnButton = new PushButton(spacingX * 1.5f, spacingY * 1f, spacingX, spacingY, "end_turn_button", "end_turn_pressed", this);
+        mEndTurnButton = new PushButton(spacingX * 4.0f, spacingY * 2.5f, spacingX * 1.0f, spacingY * 4.0f, "end_turn_button", "end_turn_pressed", this);
 
         mRiskMap = new GameObject(
                 mDefaultLayerViewport.x, mDefaultLayerViewport.y,
@@ -534,13 +534,37 @@ public class RiskGameScreen extends GameScreen {
 
 
 
-
-
         mAreas.get(4).addField(new Field(20, "Research Labs",0xFF8F0081));
+        mAreas.get(4).getField(1).addColourToArray(0xffca63d0);
+        mAreas.get(4).getField(1).addColourToArray(0xffc962cd);
+        mAreas.get(4).getField(1).addColourToArray(0xff8f0081);
+        mAreas.get(4).getField(1).addColourToArray(0xffca63ce);
+        mAreas.get(4).getField(1).addColourToArray(0xff920083);
+        mAreas.get(4).getField(1).addColourToArray(0xff910083);
+        mAreas.get(4).getField(1).addColourToArray(0xffb53fb9);
+        mAreas.get(4).getField(1).addColourToArray(0xff012b5d);
+        mAreas.get(4).getField(1).addColourToArray(0xff002c5d);
+        mAreas.get(4).getField(1).addColourToArray(0xff022b57);
+        mAreas.get(4).getField(1).addColourToArray(0xff022b57);
+        mAreas.get(4).getField(1).addColourToArray(0xff022b57);
+        mAreas.get(4).getField(1).addColourToArray(0xff022b57);
+        mAreas.get(4).getField(1).addColourToArray(0xff022b57);
 
 
 
         mAreas.get(4).addField(new Field(21, "Surveyors",0xFFC963CF));
+
+        mAreas.get(4).getField(2).addColourToArray(0xff01274e);
+        mAreas.get(4).getField(2).addColourToArray(0xff12344f);
+        mAreas.get(4).getField(2).addColourToArray(0xff04273b);
+        mAreas.get(4).getField(2).addColourToArray(0xff05254e);
+        mAreas.get(4).getField(2).addColourToArray(0xff0c2850);
+        mAreas.get(4).getField(2).addColourToArray(0xff001d49);
+        mAreas.get(4).getField(2).addColourToArray(0xff00224c);
+        mAreas.get(4).getField(2).addColourToArray(0xff092a55);
+        mAreas.get(4).getField(2).addColourToArray(0xff002552);
+        mAreas.get(4).getField(2).addColourToArray(0xff022c5e);
+
 
         addConnectedFields();
 
