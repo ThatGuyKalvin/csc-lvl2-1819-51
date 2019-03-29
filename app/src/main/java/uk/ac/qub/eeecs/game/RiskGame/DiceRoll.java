@@ -7,7 +7,6 @@ public class DiceRoll {
 
     private int[] diceResults;
     private int total;
-    private PushButton mDiceButton1;
 
     public DiceRoll(int num_of_dice){
 

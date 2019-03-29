@@ -1,0 +1,103 @@
+{
+  "pushButtons": [
+    {
+        "x": 0.65,
+        "y": 0.1,
+        "width": 0.15,
+        "height": 0.2,
+        "defaultBitmap": "Roll1",
+        "pushBitmap": "Roll2",
+        "name": "mRollDiceButton"
+    },
+    {
+        "x": 0.45,
+        "y": 0.4,
+        "width": 0.2,
+        "height": 0.267,
+        "defaultBitmap": "FastBattle",
+        "pushBitmap": "FastBattleSelected",
+        "name": "mFastBattle"
+    },
+    {
+        "x": 0.037,
+        "y": 0.115,
+        "width": 0.08,
+        "height": 0.1066,
+        "defaultBitmap": "Dice1Selected",
+        "pushBitmap": "ChooseDiceNumber1",
+        "name": "oneDiceSelected"
+    },
+    {
+        "x": 0.037,
+        "y": 0.115,
+        "width": 0.08,
+        "height": 0.1066,
+        "defaultBitmap": "ChooseDiceNumber1",
+        "pushBitmap": "Dice1Selected",
+        "name": "oneDice"
+      },
+    {
+        "x": 0.205,
+        "y": 0.115,
+        "width": 0.08,
+        "height": 0.1066,
+        "defaultBitmap": "Dice2Selected",
+        "pushBitmap": "ChooseDiceNumber2",
+        "name": "twoDiceSelected"
+      },
+    {
+        "x": 0.205,
+        "y": 0.115,
+        "width": 0.08,
+        "height": 0.1066,
+        "defaultBitmap": "Dice2SelectedNull",
+        "pushBitmap": "ChooseDiceNumber2Null",
+        "name": "twoDiceSelectedNull"
+      },
+    {
+      "x": 0.205,
+      "y": 0.115,
+      "width": 0.08,
+      "height": 0.1066,
+      "defaultBitmap": "ChooseDiceNumber2",
+      "pushBitmap": "Dice2Selected",
+      "name": "twoDice"
+    },
+    {
+      "x": 0.385,
+      "y": 0.115,
+      "width": 0.08,
+      "height": 0.1066,
+      "defaultBitmap": "Dice3Selected",
+      "pushBitmap": "ChooseDiceNumber3",
+      "name": "threeDiceSelected"
+    },
+    {
+      "x": 0.385,
+      "y": 0.115,
+      "width": 0.08,
+      "height": 0.1066,
+      "defaultBitmap": "Dice3SelectedNull",
+      "pushBitmap": "ChooseDiceNumber3Null",
+      "name": "threeDiceSelectedNull"
+    },
+    {
+      "x": 0.385,
+      "y": 0.115,
+      "width": 0.08,
+      "height": 0.1066,
+      "defaultBitmap": "ChooseDiceNumber3",
+      "pushBitmap": "Dice3Selected",
+      "name": "threeDice"
+    },
+    {
+      "x": 0.9,
+      "y": 0.11,
+      "width": 0.15,
+      "height": 0.2,
+      "defaultBitmap": "AbortHack",
+      "pushBitmap": "AbortHackSelected",
+      "name": "mAbortHack"
+    }
+  ]
+}

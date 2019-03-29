@@ -53,7 +53,7 @@ public class RiskRulesScreenTests {
     @Mock
     Rect gameImage, BlueCircle, BlueRoundRectangle;
     @Mock
-    PushButton mHowToPlayTheRules, nextPageButton, prevPageButton;
+    PushButton mBackToMainMenuButton, mHowToPlayTheRules, nextPageButton, prevPageButton;
 
     String instructionType;
     @Mock
@@ -74,7 +74,7 @@ public class RiskRulesScreenTests {
 
         spacingY = mockGame.getScreenHeight()/5;
         spacingX = mockGame.getScreenWidth()/3;
-        screenManager = new ScreenManager(mockGame);
+        screenManager = new ScreenManager(game);
 
         when(mockGameScreen.getGame()).thenReturn(mockGame);
         when(mockGame.getAssetManager()).thenReturn(mockAssetStore);
@@ -86,39 +86,40 @@ public class RiskRulesScreenTests {
 
         when(game.getInput()).thenReturn(input);
 
-        RiskRulesScreen riskRulesScreen = new RiskRulesScreen("String", game);
-        game.mScreenManager.addScreen(riskRulesScreen);
+        RiskRulesScreen riskRulesScreen = new RiskRulesScreen("String", mockGame);
+        //game.mScreenManager.addScreen(riskRulesScreen);
 
         gameImage = new Rect();
 
+        mBackToMainMenuButton = new PushButton(spacingX * 0.20f, spacingY * 0.42f, spacingX/4, spacingY/10, "main_menu_button", "main_menu_button_pressed", mockGameScreen);
         mHowToPlayTheRules = new PushButton(spacingX * 0.15f, spacingY * 0.12f, spacingX/6, spacingY/6, "How_To_Play_Rule_Button", mockGameScreen);
-        nextPageButton = new PushButton(-100, -100, spacingX/7, spacingY/13, "risk_rules_next_button", mockGameScreen);
-        prevPageButton = new PushButton(-100, -100, spacingX/7, spacingY/13, "Back", mockGameScreen);
+        nextPageButton = new PushButton(-100, -100, spacingX/7, spacingY/13, "risk_rules_next_button", "risk_rules_next_button_pressed", mockGameScreen);
+        prevPageButton = new PushButton(-100, -100, spacingX/7, spacingY/13, "risk_rules_prev_button", "risk_rules_prev_button_pressed", mockGameScreen);
     }
 
     @Test
     public void testCorrectScreenTransition()
     {
         // Create test data
-        mockGame.mScreenManager = new ScreenManager(mockGame);
-        mockGame.mScreenManager.addScreen(riskRulesScreen);
-        MenuScreen menuScreen = new MenuScreen(mockGame);
-        // Call test
+        game.mScreenManager = new ScreenManager(game);
+        game.mScreenManager.addScreen(riskRulesScreen);
+        MenuScreen menuScreen = new MenuScreen(game);
+        // Calling the test
         riskRulesScreen.changeToScreen(menuScreen);
-        // Check return
-        assertEquals(mockGame.getScreenManager().getCurrentScreen().getName(),menuScreen.getName());
+        // Check the return of the test
+        assertEquals(game.getScreenManager().getCurrentScreen().getName(),menuScreen.getName());
     }
 
     @Test
     public void testMainMenuButtonInCorrectPosition()
     {
         // Define expected properties
-        float spacingX = game.getScreenWidth() / 10;
-        float spacingY = game.getScreenHeight() / 6;
+        float spacingX = game.getScreenWidth() / 5;
+        float spacingY = game.getScreenHeight() / 3;
 
         float expectedXPosition = spacingX * 0.20f;
         float expectedYPosition = spacingY * 0.42f;
-        float expectedWidth = spacingX/3;
+        float expectedWidth = spacingX/4;
         float expectedHeight = spacingY/10;
         String expectedBitmap = "main_menu_button";
 
@@ -126,14 +127,14 @@ public class RiskRulesScreenTests {
 
         // Create a new game object instance
 
-        PushButton playButton = new PushButton(spacingX * 0.20f, spacingY * 0.42f, spacingX / 3, spacingY / 10, "main_menu_button",riskRulesScreen);
+        PushButton mainMenu = new PushButton(spacingX * 0.20f, spacingY * 0.42f, spacingX / 4, spacingY / 10, "main_menu_button",riskRulesScreen);
 
         // Test that the constructed values are as expected
-        assertTrue(playButton.position.x == expectedXPosition);
-        assertTrue(playButton.position.y == expectedYPosition);
-        assertTrue(playButton.getBound().getWidth() == expectedWidth);
-        assertTrue(playButton.getBound().getHeight() == expectedHeight);
-        assertEquals(playButton.getBitmap(), assetManager.getBitmap(expectedBitmap));
+        assertTrue(mainMenu.position.x == expectedXPosition);
+        assertTrue(mainMenu.position.y == expectedYPosition);
+        assertTrue(mainMenu.getBound().getWidth() == expectedWidth);
+        assertTrue(mainMenu.getBound().getHeight() == expectedHeight);
+        assertEquals(mainMenu.getBitmap(), assetManager.getBitmap(expectedBitmap));
     }
 
 
@@ -189,7 +190,7 @@ public class RiskRulesScreenTests {
     }
 
 
-    //The 4 test below are testing the postion of BlueCircle rect & BlueRoundRectangle
+    //The 2 tests below are testing the postion of BlueCircle rect & BlueRoundRectangle
     @Test
     public void testdrawTextShapesMain()
     {

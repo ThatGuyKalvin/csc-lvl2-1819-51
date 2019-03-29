@@ -2,7 +2,7 @@ package uk.ac.qub.eeecs.game.RiskGame;
 
 public class Battle {
     private int numOfDiceAtt, numOfDiceDef, numOfAttTeams, numOfDefTeams;
-    Field attackField, defendField;
+    private Field attackField, defendField;
     private DiceRoll diceRollAtt = new DiceRoll(numOfDiceAtt);
     private DiceRoll diceRollDef = new DiceRoll(numOfDiceDef);
 
@@ -24,7 +24,7 @@ public class Battle {
             autoSetNumOfDiceAtt();
             singleBattle();
         }
-        while (!noArmies());
+        while (!noTeams());
     }
 
     //A battle that is done one by one by pressing the roll button on the dice screen.
@@ -49,7 +49,7 @@ public class Battle {
         return false;
     }
 
-    public boolean noArmies(){
+    public boolean noTeams(){
         if(numOfAttTeams == 1 || numOfDefTeams == 0)
             return true;
         return false;
