@@ -297,8 +297,11 @@ public class RiskGameScreen extends GameScreen {
                     attackStr = "State: Battle: " + mFieldsAttacking[0].getFName() + " vs. " + mFieldsAttacking[1].getFName();
                     break;
                 case ALLOCATE:
-                    attackStr = "State: Player " + CurrentPlayerNum + " Allocate Team";
+                    attackStr = "State: Player " + CurrentPlayerNum + 1 + " Allocate Team";
                     break;
+                case INITIAL_ALLOCATE:
+                    attackStr = "State: Player " + CurrentPlayerNum + 1 + " Allocate Team";
+
                 default:
                     attackStr = "State: Not battling.";
                     break;
