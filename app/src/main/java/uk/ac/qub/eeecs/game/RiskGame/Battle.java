@@ -28,7 +28,7 @@ public class Battle {
     }
 
     //A battle that is done one by one by pressing the roll button on the dice screen.
-    //@Philip Murphy
+    //Created by Michael, modified by Philip
     public void singleBattle(){
         setNumOfDiceDef();
         if(canBattle()){
