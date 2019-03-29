@@ -53,6 +53,8 @@ public class RiskGameScreen extends GameScreen {
     private Field mFieldTouched;
     private int state = ATTACK_NULL;
     private int clickedColour = 0;
+    public Rect smallLogoImage = new Rect();
+    public Rect bigLogoImage = new Rect();
 
     // ArrayList for Areas and Players
     private final int MAX_AREAS = 5;
@@ -85,6 +87,9 @@ public class RiskGameScreen extends GameScreen {
         assetManager.loadAndAddBitmap("main_menu_button_pressed", "img/RiskGameImages/main_menu_button_pressed.png");
         assetManager.loadAndAddBitmap("end_turn_button","img/RiskGameImages/end_turn_button.png");
         assetManager.loadAndAddBitmap("end_turn_pressed", "img/RiskGameImages/end_turn_pressed.png");
+        assetManager.loadAndAddBitmap("AppleLogo", "img/RiskGameImages/AppleLogo.png");
+        assetManager.loadAndAddBitmap("GoogleLogo", "img/RiskGameImages/GoogleLogo.png");
+        assetManager.loadAndAddBitmap("MicrosoftLogo", "img/RiskGameImages/MicrosoftLogo.png");
 
         //assetManager.loadAndAddBitmap("RiskGameScreen2", "img/RiskGamesImages/RiskGameScreen2.png");
         assetManager.loadAndAddBitmap("RiskAttackButton", "img/RiskGameImages/risk_attack_pressed.png");
@@ -313,6 +318,39 @@ public class RiskGameScreen extends GameScreen {
             if(state == ATTACK_PICK) {
                 Log.d("Hex", Integer.toHexString(clickedColour));
             }
+        }
+
+        //Drawing logos and the total teams for that player for the HUD - Written by Michael
+        smallLogoImage.top = mGame.getScreenHeight()*100/117;
+        smallLogoImage.left = mGame.getScreenWidth()*100/2150;
+        smallLogoImage.bottom = mGame.getScreenHeight()*100/100;
+        smallLogoImage.right = mGame.getScreenWidth()*100/700;
+
+        bigLogoImage.top = mGame.getScreenHeight()*100/113;
+        bigLogoImage.left = mGame.getScreenWidth()*100/2300;
+        bigLogoImage.bottom = mGame.getScreenHeight()*100/100;
+        bigLogoImage.right = mGame.getScreenWidth()*100/600;
+
+        graphics2D.drawText("Current Player", 115.0f, lineHeight + 900.0f, textPaint);
+        graphics2D.drawText("Total Teams", 400.0f, lineHeight + 900.0f, textPaint);
+        if(mPlayers.get(CurrentPlayerNum).getName() == "Google") {
+            String playerTotal = String.valueOf(getTotalNumOfTeams(mPlayers.get(1)));
+            graphics2D.drawText(playerTotal, 475.0f, lineHeight + 1000.0f, textPaint);
+            graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("GoogleLogo"),null, bigLogoImage,null);
+        }
+        else if(mPlayers.get(CurrentPlayerNum).getName() == "Apple") {
+            String playerTotal = String.valueOf(getTotalNumOfTeams(mPlayers.get(2)));
+            graphics2D.drawText(playerTotal, 475.0f, lineHeight + 1000.0f, textPaint);
+            graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("AppleLogo"),null, smallLogoImage,null);
+        }
+        else if(mPlayers.get(CurrentPlayerNum).getName() == "Microsoft"){
+            String playerTotal = String.valueOf(getTotalNumOfTeams(mPlayers.get(0)));
+            graphics2D.drawText(playerTotal, 475.0f, lineHeight + 1000.0f, textPaint);
+            graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("MicrosoftLogo"),null, bigLogoImage,null);
+        }
+        else{
+            smallLogoImage.isEmpty();
+            bigLogoImage.isEmpty();
         }
 
         /* Work In Progress
@@ -893,6 +931,44 @@ public class RiskGameScreen extends GameScreen {
         mPlayers.add(new Player("Google", Color.GREEN));
         mPlayers.add(new Player("Apple", Color.RED));
         assignFields();
+    }
+
+    public int getTotalNumOfTeams(Player player)
+    {
+        int playerTotal = 0;
+        int totalUnassigned = 0;
+        int j = 0;
+        for(int x=0; x < 5; x++)
+        {
+            if(mAreas.get(0).getField(x).getFPlayer() == player)
+                playerTotal = playerTotal + mAreas.get(0).getField(x).getFNumOfTeams();
+        }
+
+        for(int x=0; x < 6; x++)
+        {
+            if(mAreas.get(1).getField(x).getFPlayer() == player)
+                playerTotal = playerTotal + mAreas.get(1).getField(x).getFNumOfTeams();
+        }
+
+        for(int x=0; x < 3; x++)
+        {
+            if(mAreas.get(2).getField(x).getFPlayer() == player)
+                playerTotal = playerTotal + mAreas.get(2).getField(x).getFNumOfTeams();
+        }
+
+        for(int x=0; x < 4; x++)
+        {
+            if(mAreas.get(3).getField(x).getFPlayer() == player)
+                playerTotal = playerTotal + mAreas.get(3).getField(x).getFNumOfTeams();
+        }
+
+        for(int x=0; x < 3; x++)
+        {
+            if(mAreas.get(4).getField(x).getFPlayer() == player)
+                playerTotal = playerTotal + mAreas.get(4).getField(x).getFNumOfTeams();
+        }
+
+        return playerTotal;
     }
 
     // Kinda obsolete code since fields got revamped...
