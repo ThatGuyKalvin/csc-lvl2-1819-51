@@ -276,7 +276,7 @@ public class RiskGameScreen extends GameScreen {
             for (int i = 0; i < MAX_AREAS; i++) areasString += "(" + mAreas.get(i).getName() + ") ";
             graphics2D.drawText(areasString + "]",
                     0.0f, lineHeight + 40.0f, textPaint);
-            graphics2D.drawText("Player " + CurrentPlayerNum + "'s turn (" + mPlayers.get(CurrentPlayerNum).getName() + ")",
+            graphics2D.drawText("Player " + (CurrentPlayerNum + 1) + "'s turn (" + mPlayers.get(CurrentPlayerNum).getName() + ")",
                     0.0f, lineHeight + 80.0f, textPaint);
             if(mFieldTouched != null){
                 graphics2D.drawText("Touch[0]: " + mFieldTouched.getFName() + " Number of teams assigned: " + mFieldTouched.getFNumOfTeams() + " Owned by: " + mFieldTouched.getFPlayer().getName(),
@@ -297,7 +297,10 @@ public class RiskGameScreen extends GameScreen {
                     attackStr = "State: Battle: " + mFieldsAttacking[0].getFName() + " vs. " + mFieldsAttacking[1].getFName();
                     break;
                 case ALLOCATE:
-                    attackStr = "State: Player " + CurrentPlayerNum + " Allocate Team";
+                    attackStr = "State: Player " + (CurrentPlayerNum + 1) + " Allocate Team";
+                    break;
+                case INITIAL_ALLOCATE:
+                    attackStr = "State: Player " + (CurrentPlayerNum + 1) + " Allocate Team";
                     break;
                 default:
                     attackStr = "State: Not battling.";
@@ -370,7 +373,6 @@ public class RiskGameScreen extends GameScreen {
         mAreas.get(1).getField(0).addColourToArray(0xff007821);
         mAreas.get(1).getField(0).addColourToArray(0xff01771f);
         mAreas.get(1).getField(0).addColourToArray(0xff007821);
-        mAreas.get(1).getField(0).addColourToArray(0xff0ecf42);
         mAreas.get(1).addField(new Field(7, "CCTV",0xFF4AAB3F));
         mAreas.get(1).getField(1).addColourToArray(0xff00295d);
         mAreas.get(1).getField(1).addColourToArray(0xff48ab3e);
@@ -387,7 +389,6 @@ public class RiskGameScreen extends GameScreen {
         mAreas.get(1).getField(2).addColourToArray(0xff254321);
         mAreas.get(1).getField(2).addColourToArray(0xff25431f);
         mAreas.get(1).getField(2).addColourToArray(0xff0bcf3f);
-        mAreas.get(1).getField(2).addColourToArray(0xff65915e);
         mAreas.get(1).getField(2).addColourToArray(0xff0ccf42);
         mAreas.get(1).addField(new Field(9, "TFA",0xFF7AC28C));
         mAreas.get(1).getField(3).addColourToArray(0xff012b5d);
@@ -425,7 +426,9 @@ public class RiskGameScreen extends GameScreen {
         mAreas.get(1).getField(5).addColourToArray(0xff64905d);
         mAreas.get(1).getField(5).addColourToArray(0xff0fd043);
         mAreas.get(1).getField(5).addColourToArray(0xff0b3e73);
-        mAreas.get(1).getField(5).addColourToArray(0xff0b3e73);
+        mAreas.get(1).getField(5).addColourToArray(0xff002858);
+        mAreas.get(1).getField(5).addColourToArray(0xff00295d);
+        mAreas.get(1).getField(5).addColourToArray(0xff0dd141);
 
         // Development
         mAreas.get(2).addField(new Field(12, "C++",0xFFAB9700));
@@ -433,9 +436,28 @@ public class RiskGameScreen extends GameScreen {
         mAreas.get(2).addField(new Field(14, "Python",0xFF453E08));
         // Machine Learning
         mAreas.get(3).addField(new Field(15, "General Intelligence",0xFF804121));
+        mAreas.get(3).getField(0).addColourToArray(0xff804120);
+        mAreas.get(3).getField(0).addColourToArray(0xff7e4220);
+        mAreas.get(3).getField(0).addColourToArray(0xff746562);
+        mAreas.get(3).getField(0).addColourToArray(0xff81411e);
         mAreas.get(3).addField(new Field(16, "AI Cars",0xFF4D220D));
-        mAreas.get(3).addField(new Field(17, "Robotics",0xFF734B37));
+        mAreas.get(3).getField(1).addColourToArray(0xff754c38);
+        mAreas.get(3).getField(1).addColourToArray(0xff774d37);
+        mAreas.get(3).getField(1).addColourToArray(0xff754b35);
+        mAreas.get(3).getField(1).addColourToArray(0xff744b35);
+        mAreas.get(3).getField(1).addColourToArray(0xff734e34);
+        mAreas.get(3).getField(1).addColourToArray(0xff754b33);
+        mAreas.get(3).getField(1).addColourToArray(0xff724c35);
+        mAreas.get(3).getField(1).addColourToArray(0xff754c38);
+        mAreas.get(3).getField(1).addColourToArray(0xff754c38);
+        mAreas.get(3).addField(new Field(17, "Robotics",0xFF50230E));
+        mAreas.get(3).getField(2).addColourToArray(0xff50230e);
         mAreas.get(3).addField(new Field(18, "Virtual Reality",0xFF612000));
+        mAreas.get(3).getField(3).addColourToArray(0xff642200);
+        mAreas.get(3).getField(3).addColourToArray(0xff632100);
+        mAreas.get(3).getField(3).addColourToArray(0xff622000);
+        mAreas.get(3).getField(3).addColourToArray(0xff632101);
+
         // Data & Information
         mAreas.get(4).addField(new Field(19, "Social Media",0xFF8B1D8F));
         mAreas.get(4).addField(new Field(20, "Research Labs",0xFF8F0081));
@@ -661,6 +683,7 @@ public class RiskGameScreen extends GameScreen {
                         }
                         for(int y = 0; y < mAreas.get(i).getField(x).getColourArraySize(); y++) {
                             if (colour == mAreas.get(i).getField(x).getColourArray(y)) {
+                                mFieldTouched = mAreas.get(i).getField(x);
                                 return mAreas.get(i).getField(x);
                             }
                         }
