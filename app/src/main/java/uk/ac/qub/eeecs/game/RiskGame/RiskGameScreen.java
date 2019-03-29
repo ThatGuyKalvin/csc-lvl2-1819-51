@@ -333,7 +333,9 @@ public class RiskGameScreen extends GameScreen {
         bigLogoImage.bottom = mGame.getScreenHeight()*100/100;
         bigLogoImage.right = mGame.getScreenWidth()*100/600;
 
+        textPaint.setColor(mPlayers.get(CurrentPlayerNum).getColour());
         graphics2D.drawText("Current Player", 115.0f, lineHeight + 900.0f, textPaint);
+        textPaint.setColor(Color.WHITE);
         graphics2D.drawText("Total Teams", 400.0f, lineHeight + 900.0f, textPaint);
         if(mPlayers.get(CurrentPlayerNum).getName() == "Google") {
             String playerTotal = String.valueOf(getTotalNumOfTeams(mPlayers.get(1)));
@@ -928,7 +930,7 @@ public class RiskGameScreen extends GameScreen {
 
     private void createPlayers() {
         // Generate the players and add colour
-        mPlayers.add(new Player("Microsoft", Color.BLACK));
+        mPlayers.add(new Player("Microsoft", Color.YELLOW));
         mPlayers.add(new Player("Google", Color.GREEN));
         mPlayers.add(new Player("Apple", Color.RED));
         assignFields();
