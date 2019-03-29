@@ -1048,6 +1048,19 @@ public class RiskGameScreen extends GameScreen {
         // Be careful, returning null can cause crashes
         return null;
     }
+
+    private void beginBattle(Field att, Field def){
+
+        Battle battle = new Battle(att, def);
+
+        if(battle.canBattle())
+            mGame.getScreenManager().addScreen(
+                    new DiceRollScreen(mGame, battle));
+
+        if(battle.attackersWin())
+            def.hostileTakeOver(att.getFPlayer(), att.getFNumOfTeams());
+    }
+
     //All Code below Author @Peter Gilfedder
 
     public void assignFields()
@@ -1094,18 +1107,6 @@ public class RiskGameScreen extends GameScreen {
             if(!f.checkAssigned()) return false;
         }
         return true;
-    }
-
-    private void beginBattle(Field att, Field def){
-
-        Battle battle = new Battle(att, def);
-
-        if(battle.canBattle())
-            mGame.getScreenManager().addScreen(
-                    new DiceRollScreen(mGame, battle));
-
-        if(battle.attackersWin())
-            def.hostileTakeOver(att.getFPlayer(), att.getFNumOfTeams());
     }
 
     private void firstTurn(){
