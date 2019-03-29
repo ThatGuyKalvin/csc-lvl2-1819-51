@@ -95,7 +95,6 @@ public class RiskRulesScreen extends GameScreen
     }
 
 
-    //This method draws the speechBubble bitmap and the wizard on a stump bitmap
     public void drawSpeechBubbleBitmap(IGraphics2D graphics2D)
     {
         graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("speechBubble"),null, BlueRoundRectangle, null);
