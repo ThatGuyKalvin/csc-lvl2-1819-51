@@ -345,20 +345,107 @@ public class RiskGameScreen extends GameScreen {
         mAreas.get(0).getField(0).addColourToArray(0xffdd7b7a);
         mAreas.get(0).getField(0).addColourToArray(0xffe07879);
         mAreas.get(0).getField(0).addColourToArray(0xffde7a7c);
+
         mAreas.get(0).addField(new Field(2,"Phone Carrier",0xFF9C0003));
-        mAreas.get(0).getField(1).addColourToArray(0xFF9C0003);
-        mAreas.get(0).getField(1).addColourToArray(0xFF002B60);
-        mAreas.get(0).getField(1).addColourToArray(0xFF0A3B6E);
-        mAreas.get(0).getField(1).addColourToArray(0xFFE15C5F);
-        mAreas.get(0).getField(1).addColourToArray(0xFF022850);
-        mAreas.get(0).getField(1).addColourToArray(0xFF0E2849);
-        mAreas.get(0).getField(1).addColourToArray(0xFF0D386B);
-        mAreas.get(0).getField(1).addColourToArray(0xFF123F6F);
-        mAreas.get(0).getField(1).addColourToArray(0xFF144372);
-        mAreas.get(0).addField(new Field(2,"Phone Carrier",0xFF9C0003));
+        mAreas.get(0).getField(1).addColourToArray(0xff022d60);
+        mAreas.get(0).getField(1).addColourToArray(0xff0a2d55);
+        mAreas.get(0).getField(1).addColourToArray(0xff042a51);
+        mAreas.get(0).getField(1).addColourToArray(0xff062951);
+        mAreas.get(0).getField(1).addColourToArray(0xff032950);
+        mAreas.get(0).getField(1).addColourToArray(0xff022751);
+        mAreas.get(0).getField(1).addColourToArray(0xff012b53);
+        mAreas.get(0).getField(1).addColourToArray(0xff052c55);
+        mAreas.get(0).getField(1).addColourToArray(0xff042b54);
+        mAreas.get(0).getField(1).addColourToArray(0xff052f59);
+        mAreas.get(0).getField(1).addColourToArray(0xff032d55);
+        mAreas.get(0).getField(1).addColourToArray(0xff042b52);
+        mAreas.get(0).getField(1).addColourToArray(0xff062c53);
+        mAreas.get(0).getField(1).addColourToArray(0xff032852);
+        mAreas.get(0).getField(1).addColourToArray(0xff8a1d32);
+        mAreas.get(0).getField(1).addColourToArray(0xffe91c23);
+        mAreas.get(0).getField(1).addColourToArray(0xffeb1c22);
+        mAreas.get(0).getField(1).addColourToArray(0xff073566);
+        mAreas.get(0).getField(1).addColourToArray(0xff022c5c);
+        mAreas.get(0).getField(1).addColourToArray(0xff012c5f);
+        mAreas.get(0).getField(1).addColourToArray(0xff00295b);
+        mAreas.get(0).getField(1).addColourToArray(0xff002a5c);
+
         mAreas.get(0).addField(new Field(3,"VoIP",0xFFF0ADAD));
+        mAreas.get(0).getField(2).addColourToArray(0xff9e0004);
+        mAreas.get(0).getField(2).addColourToArray(0xff9c0204);
+        mAreas.get(0).getField(2).addColourToArray(0xffee1c25);
+        mAreas.get(0).getField(2).addColourToArray(0xffed1b24);
+        mAreas.get(0).getField(2).addColourToArray(0xffeb363f);
+        mAreas.get(0).getField(2).addColourToArray(0xfff4aeb0);
+        mAreas.get(0).getField(2).addColourToArray(0xfff2aeaf);
+        mAreas.get(0).getField(2).addColourToArray(0xfff4aeae);
+        mAreas.get(0).getField(2).addColourToArray(0xfff0b0ae);
+        mAreas.get(0).getField(2).addColourToArray(0xff9e0003);
+        mAreas.get(0).getField(2).addColourToArray(0xffa00007);
+        mAreas.get(0).getField(2).addColourToArray(0xffa00004);
+        mAreas.get(0).getField(2).addColourToArray(0xff9f0005);
+        mAreas.get(0).getField(2).addColourToArray(0xff9f0004);
+        mAreas.get(0).getField(2).addColourToArray(0xffea1d24);
+        mAreas.get(0).getField(2).addColourToArray(0xffea1c20);
+        mAreas.get(0).getField(2).addColourToArray(0xffec1a23);
+        mAreas.get(0).getField(2).addColourToArray(0xffee1b24);
+
+
         mAreas.get(0).addField(new Field(4,"Radio",0xFFB84B4B));
+        mAreas.get(0).getField(3).addColourToArray(0xffe91c21);
+        mAreas.get(0).getField(3).addColourToArray(0xffea1d24);
+        mAreas.get(0).getField(3).addColourToArray(0xff880608);
+        mAreas.get(0).getField(3).addColourToArray(0xff5f0001);
+        mAreas.get(0).getField(3).addColourToArray(0xff5c0001);
+        mAreas.get(0).getField(3).addColourToArray(0xff5f0000);
+        mAreas.get(0).getField(3).addColourToArray(0xff600001);
+        mAreas.get(0).getField(3).addColourToArray(0xffeb4142);
+        mAreas.get(0).getField(3).addColourToArray(0xfff3adab);
+        mAreas.get(0).getField(3).addColourToArray(0xfff2aeaf);
+        mAreas.get(0).getField(3).addColourToArray(0xfff1adae);
+        mAreas.get(0).getField(3).addColourToArray(0xfff3afb0);
+        mAreas.get(0).getField(3).addColourToArray(0xfff4aeb0);
+        mAreas.get(0).getField(3).addColourToArray(0xfff4aeb0);
+        mAreas.get(0).getField(3).addColourToArray(0xfff3adad);
+        mAreas.get(0).getField(3).addColourToArray(0xfff0aeaf);
+        mAreas.get(0).getField(3).addColourToArray(0xfff1b0ac);
+        mAreas.get(0).getField(3).addColourToArray(0xfff3afae);
+        mAreas.get(0).getField(3).addColourToArray(0xfff09a9d);
+        mAreas.get(0).getField(3).addColourToArray(0xffee2c34);
+        mAreas.get(0).getField(3).addColourToArray(0xffb94c49);
+        mAreas.get(0).getField(3).addColourToArray(0xffb54b4b);
+        mAreas.get(0).getField(3).addColourToArray(0xffb84b4e);
+        mAreas.get(0).getField(3).addColourToArray(0xffba494b);
+        mAreas.get(0).getField(3).addColourToArray(0xffb54c49);
+        mAreas.get(0).getField(3).addColourToArray(0xffbb4a4c);
+        mAreas.get(0).getField(3).addColourToArray(0xffb94b4c);
+        mAreas.get(0).getField(3).addColourToArray(0xffb74948);
+        mAreas.get(0).getField(3).addColourToArray(0xffb84c4a);
+        mAreas.get(0).getField(3).addColourToArray(0xffb74b4b);
+        mAreas.get(0).getField(3).addColourToArray(0xffba4c4b);
+        mAreas.get(0).getField(3).addColourToArray(0xffb84b48);
+        mAreas.get(0).getField(3).addColourToArray(0xffeb1d21);
+        mAreas.get(0).getField(3).addColourToArray(0xffbf4142);
+        mAreas.get(0).getField(3).addColourToArray(0xffed1b24);
+        mAreas.get(0).getField(3).addColourToArray(0xffee3f44);
+        mAreas.get(0).getField(3).addColourToArray(0xffe81d21);
+        mAreas.get(0).getField(3).addColourToArray(0xffed4046);
+
         mAreas.get(0).addField(new Field(5, "Telegraphy",0xFF5C0000));
+        mAreas.get(0).getField(4).addColourToArray(0xffdd797b);
+        mAreas.get(0).getField(4).addColourToArray(0xff002859);
+        mAreas.get(0).getField(4).addColourToArray(0xff9f0005);
+        mAreas.get(0).getField(4).addColourToArray(0xff9e0003);
+        mAreas.get(0).getField(4).addColourToArray(0xff9e0006);
+        mAreas.get(0).getField(4).addColourToArray(0xff9f0007);
+        mAreas.get(0).getField(4).addColourToArray(0xffac070d);
+        mAreas.get(0).getField(4).addColourToArray(0xff012d5c);
+        mAreas.get(0).getField(4).addColourToArray(0xff9a0104);
+        mAreas.get(0).getField(4).addColourToArray(0xff9c0004);
+        mAreas.get(0).getField(4).addColourToArray(0xff9d0105);
+        mAreas.get(0).getField(4).addColourToArray(0xff9e0004);
+        mAreas.get(0).getField(4).addColourToArray(0xff9c0107);
+        mAreas.get(0).getField(4).addColourToArray(0xffea1b23);
 
 
         // Security
@@ -478,7 +565,31 @@ public class RiskGameScreen extends GameScreen {
 
         // Machine Learning
         mAreas.get(3).addField(new Field(15, "General Intelligence",0xFF804121));
+        mAreas.get(3).getField(0).addColourToArray(0xff804120);
+        mAreas.get(3).getField(0).addColourToArray(0xffb97755);
+        mAreas.get(3).getField(0).addColourToArray(0xffb87653);
+        mAreas.get(3).getField(0).addColourToArray(0xff914923);
+        mAreas.get(3).getField(0).addColourToArray(0xff814221);
+        mAreas.get(3).getField(0).addColourToArray(0xff8f4927);
+        mAreas.get(3).getField(0).addColourToArray(0xffb77656);
+        mAreas.get(3).getField(0).addColourToArray(0xffb87854);
+        mAreas.get(3).getField(0).addColourToArray(0xffb87855);
+        mAreas.get(3).getField(0).addColourToArray(0xff173d54);
+        mAreas.get(3).getField(0).addColourToArray(0xff0e365a);
+        mAreas.get(3).getField(0).addColourToArray(0xff143e66);
+        mAreas.get(3).getField(0).addColourToArray(0xff485367);
+        mAreas.get(3).getField(0).addColourToArray(0xff7f3f23);
+        mAreas.get(3).getField(0).addColourToArray(0xff814223);
+
         mAreas.get(3).addField(new Field(16, "AI Cars",0xFF4D220D));
+        mAreas.get(3).getField(1).addColourToArray(0xff00285c);
+        mAreas.get(3).getField(1).addColourToArray(0xff632101);
+        mAreas.get(3).getField(1).addColourToArray(0xff632100);
+        mAreas.get(3).getField(1).addColourToArray(0xff642200);
+        mAreas.get(3).getField(1).addColourToArray(0xff622000);
+        mAreas.get(3).getField(1).addColourToArray(0xff632101);
+        mAreas.get(3).getField(1).addColourToArray(0xff754c38);
+
         mAreas.get(3).addField(new Field(17, "Robotics",0xFF734B37));
         mAreas.get(3).addField(new Field(18, "Virtual Reality",0xFF612000));
         // Data & Information
