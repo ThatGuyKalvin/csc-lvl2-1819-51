@@ -785,9 +785,8 @@ public class RiskGameScreen extends GameScreen {
 
     }
 
-    private void addConnectedFields()
+    private void addConnectedFields() //Adds list of fields connected to each field - Written by Michael
     {
-        //Blank method to add list of fields connected to each field
         ArrayList<Field> connectToIntPro = new ArrayList<Field>(1);
         connectToIntPro.add(mAreas.get(0).getField(1));
 
@@ -935,7 +934,7 @@ public class RiskGameScreen extends GameScreen {
         assignFields();
     }
 
-    public int getTotalNumOfTeams(Player player)
+    public int getTotalNumOfTeams(Player player) //Returns total number of teams for a certain player - Written by Michael
     {
         int playerTotal = 0;
         int totalUnassigned = 0;
