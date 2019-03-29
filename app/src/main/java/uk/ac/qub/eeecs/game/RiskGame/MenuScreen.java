@@ -19,14 +19,7 @@ import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.game.GameCreditsScreen;
 import uk.ac.qub.eeecs.game.PerformanceScreen;
-import uk.ac.qub.eeecs.game.RiskGame.Battle;
-import uk.ac.qub.eeecs.game.RiskGame.DiceRollScreen;
-import uk.ac.qub.eeecs.game.RiskGame.Field;
-import uk.ac.qub.eeecs.game.RiskGame.RiskGameScreen;
-import uk.ac.qub.eeecs.game.RiskGame.RiskRulesScreen;
-import uk.ac.qub.eeecs.game.RiskGame.SettingsScreen;
 import uk.ac.qub.eeecs.game.miscDemos.DemoMenuScreen;
-import uk.ac.qub.eeecs.game.RiskGame.Player;
 
 /**
  * An exceedingly basic menu screen with a couple of touch buttons
@@ -66,8 +59,6 @@ public class MenuScreen extends GameScreen {
     private int rightCounter;
 
     public Battle battle;
-    Field field1, field2;
-    public Player google, apple;
 
     AssetManager assetManager = mGame.getAssetManager();
 
@@ -239,7 +230,7 @@ public class MenuScreen extends GameScreen {
                 } else if (currentCounter == 1) {
                     mGame.getScreenManager().addScreen(new RiskRulesScreen("Instructions", mGame));
                 } else if (currentCounter == 2) {
-                    mGame.getScreenManager().addScreen(new SettingsScreen(mGame));
+                    mGame.getScreenManager().addScreen(new RiskSettingsScreen(mGame));
                 } else if (currentCounter == 3) {
                     mGame.getScreenManager().addScreen(new GameCreditsScreen(mGame));
                 }
@@ -319,10 +310,14 @@ public class MenuScreen extends GameScreen {
 
         Field field1 = new Field(19, "Social Media",0xFF8B1D8F);
         Field field2 = new Field(20, "Research Labs",0xFF8F0081);
+        Field field23 = new Field(21, "Research Labs2",0xFF8F0081);
         field1.setPlayer(google);
         field2.setPlayer(apple);
         field1.setNumOfTeams(5);
         field2.setNumOfTeams(5);
+        ArrayList<Field> connected = new ArrayList<>();
+        connected.add(field2);
+        field1.addConnectedFields(connected);
         battle = new Battle(field1, field2);
     }
 }

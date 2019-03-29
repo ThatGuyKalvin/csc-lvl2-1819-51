@@ -25,26 +25,26 @@ public class RiskRulesScreen extends GameScreen
     //Create asset manager
     AssetManager assetManager = mGame.getAssetManager();
     //Background for the RiskRulesScreen
-    public Rect RiskRulesScreenBackground = new Rect();
+    private Rect RiskRulesScreenBackground = new Rect();
 
-    public Rect BlueRoundRectangle = new Rect();
-    public Rect BlueCircle = new Rect();
-    public Rect gameImage = new Rect();
-    public static boolean alreadyLoaded = false;
-    public PushButton mHowToPlayTheRules, mBackToMainMenuButton, nextPageButton, prevPageButton;
+    private Rect BlueRoundRectangle = new Rect();
+    private Rect BlueCircle = new Rect();
+    private Rect gameImage = new Rect();
+    private static boolean alreadyLoaded = false;
+    private PushButton mHowToPlayTheRules, mBackToMainMenuButton, nextPageButton, prevPageButton;
 
 
 
     // Define the spacing that will be used to position the buttons
-    public int spacingX = 0;
-    public int spacingY = 0;
+    private int spacingX = 0;
+    private int spacingY = 0;
 
     //Used for cycling through the pages for The Rules
-    public int rulePageCounter = 0;
+    private int rulePageCounter = 0;
 
 
-    public boolean rulesOfGamePushed = false;
-    public boolean prevNextButtonPressed = false;
+    private boolean rulesOfGamePushed = false;
+    private boolean prevNextButtonPressed = false;
 
     public RiskRulesScreen(String name, Game game)
     {
@@ -83,8 +83,6 @@ public class RiskRulesScreen extends GameScreen
         // Create the trigger buttons
         mBackToMainMenuButton = new PushButton (spacingX * 0.20f, spacingY * 0.42f, spacingX/4, spacingY/10, "main_menu_button", "main_menu_button_pressed",this);
         mHowToPlayTheRules = new PushButton(spacingX * 0.15f, spacingY * 0.12f, spacingX/6, spacingY/6, "How_To_Play_Rule_Button", this);
-
-
         nextPageButton = new PushButton(spacingX * -100f, spacingY * -100f, spacingX/7, spacingY/13, "risk_rules_next_button", "risk_rules_next_button_pressed",this);
         prevPageButton = new PushButton(spacingX * -100f, spacingY * -100f, spacingX/7, spacingY/13, "risk_rules_prev_button", "risk_rules_prev_button_pressed", this);
     }
@@ -223,7 +221,7 @@ public class RiskRulesScreen extends GameScreen
         //Setting up a second paint colour for some of the text (colour = black)
         Paint paintRules = new Paint();
         paintRules.setColor(Color.WHITE);
-        paintRules.setTextSize(45.0f);
+        paintRules.setTextSize(55.0f);
 
         //Drawing the main RiskRulesScreenBackground for the class
         RiskRulesScreenBackground.top = 0;
@@ -249,9 +247,9 @@ public class RiskRulesScreen extends GameScreen
 
             drawTextShapes(graphics2D,"Main");
             graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Map_With_Areas"),null, gameImage,null);
-            graphics2D.drawText("Hey! Not sure how to play Black Hat Hackers ? The overall goal of",spacingX * 0.90f,spacingY * 0.55f,paintRules);
-            graphics2D.drawText("the game is to take overall the entire map with one team remaining!",spacingX * 0.90f,spacingY * 0.75f,paintRules);
-            graphics2D.drawText("Hit the rules button to learn how to play!",spacingX * 0.90f,spacingY * 0.95f,paintRules);
+            graphics2D.drawText("Hey! Not sure how to play Black Hat Hackers ? The overall goal of",spacingX * 0.90f,spacingY * 0.55f,paint);
+            graphics2D.drawText("the game is to take overall the entire map with one team remaining!",spacingX * 0.90f,spacingY * 0.75f,paint);
+            graphics2D.drawText("Hit the rules button to learn how to play!",spacingX * 0.90f,spacingY * 0.95f,paint);
         }
 
 

@@ -25,7 +25,7 @@ import uk.ac.qub.eeecs.gage.world.GameScreen;
 /**
  * Author: Daniel Nelis Entire Class
  */
-public class  SettingsScreen extends GameScreen {
+public class RiskSettingsScreen extends GameScreen {
 
     // /////////////////////////////////////////////////////////////////////////
     // Properties
@@ -52,8 +52,8 @@ public class  SettingsScreen extends GameScreen {
      *
      * @param game Game to which this screen belongs
      */
-    public SettingsScreen(Game game) {
-        super("SettingsScreen", game);
+    public RiskSettingsScreen(Game game) {
+        super("RiskSettingsScreen", game);
 
         // Load in the bitmaps used on the main menu screen
         AssetManager assetManager = mGame.getAssetManager();
