@@ -276,7 +276,7 @@ public class RiskGameScreen extends GameScreen {
             for (int i = 0; i < MAX_AREAS; i++) areasString += "(" + mAreas.get(i).getName() + ") ";
             graphics2D.drawText(areasString + "]",
                     0.0f, lineHeight + 40.0f, textPaint);
-            graphics2D.drawText("Player " + CurrentPlayerNum + "'s turn (" + mPlayers.get(CurrentPlayerNum).getName() + ")",
+            graphics2D.drawText("Player " + (CurrentPlayerNum + 1) + "'s turn (" + mPlayers.get(CurrentPlayerNum).getName() + ")",
                     0.0f, lineHeight + 80.0f, textPaint);
             if(mFieldTouched != null){
                 graphics2D.drawText("Touch[0]: " + mFieldTouched.getFName() + " Number of teams assigned: " + mFieldTouched.getFNumOfTeams() + " Owned by: " + mFieldTouched.getFPlayer().getName(),
@@ -297,11 +297,11 @@ public class RiskGameScreen extends GameScreen {
                     attackStr = "State: Battle: " + mFieldsAttacking[0].getFName() + " vs. " + mFieldsAttacking[1].getFName();
                     break;
                 case ALLOCATE:
-                    attackStr = "State: Player " + CurrentPlayerNum + 1 + " Allocate Team";
+                    attackStr = "State: Player " + (CurrentPlayerNum + 1) + " Allocate Team";
                     break;
                 case INITIAL_ALLOCATE:
-                    attackStr = "State: Player " + CurrentPlayerNum + 1 + " Allocate Team";
-
+                    attackStr = "State: Player " + (CurrentPlayerNum + 1) + " Allocate Team";
+                    break;
                 default:
                     attackStr = "State: Not battling.";
                     break;
@@ -961,7 +961,8 @@ public class RiskGameScreen extends GameScreen {
                         }
                         for(int y = 0; y < mAreas.get(i).getField(x).getColourArraySize(); y++) {
                             if (colour == mAreas.get(i).getField(x).getColourArray(y)) {
-                                return mAreas.get(i).getField(x);
+                                mFieldTouched =  mAreas.get(i).getField(x);
+                                return mFieldTouched;
                             }
                         }
                     }
