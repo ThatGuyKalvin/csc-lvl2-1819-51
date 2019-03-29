@@ -221,7 +221,7 @@ public class RiskRulesScreen extends GameScreen
         //Setting up a second paint colour for some of the text (colour = black)
         Paint paintRules = new Paint();
         paintRules.setColor(Color.WHITE);
-        paintRules.setTextSize(45.0f);
+        paintRules.setTextSize(55.0f);
 
         //Drawing the main RiskRulesScreenBackground for the class
         RiskRulesScreenBackground.top = 0;
@@ -247,9 +247,9 @@ public class RiskRulesScreen extends GameScreen
 
             drawTextShapes(graphics2D,"Main");
             graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Map_With_Areas"),null, gameImage,null);
-            graphics2D.drawText("Hey! Not sure how to play Black Hat Hackers ? The overall goal of",spacingX * 0.90f,spacingY * 0.55f,paintRules);
-            graphics2D.drawText("the game is to take overall the entire map with one team remaining!",spacingX * 0.90f,spacingY * 0.75f,paintRules);
-            graphics2D.drawText("Hit the rules button to learn how to play!",spacingX * 0.90f,spacingY * 0.95f,paintRules);
+            graphics2D.drawText("Hey! Not sure how to play Black Hat Hackers ? The overall goal of",spacingX * 0.90f,spacingY * 0.55f,paint);
+            graphics2D.drawText("the game is to take overall the entire map with one team remaining!",spacingX * 0.90f,spacingY * 0.75f,paint);
+            graphics2D.drawText("Hit the rules button to learn how to play!",spacingX * 0.90f,spacingY * 0.95f,paint);
         }
 
 
