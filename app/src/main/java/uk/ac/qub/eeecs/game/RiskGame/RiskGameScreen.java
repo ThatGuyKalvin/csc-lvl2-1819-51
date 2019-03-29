@@ -94,6 +94,7 @@ public class RiskGameScreen extends GameScreen {
         //assetManager.loadAndAddBitmap("RiskGameScreen2", "img/RiskGamesImages/RiskGameScreen2.png");
         assetManager.loadAndAddBitmap("RiskAttackButton", "img/RiskGameImages/risk_attack_pressed.png");
 
+        // Author: Daniel Nelis (Designed Risk Map)
         mRiskGameScreenBackground = assetManager.getBitmap("RiskGameScreen2");
         mRiskMapAreas = assetManager.getBitmap("RiskGameScreen3");
 
@@ -560,9 +561,8 @@ public class RiskGameScreen extends GameScreen {
         mAreas.get(1).getField(5).addColourToArray(0xff0dd141);
 
         // Development
+        // Author: Daniel Nelis
         mAreas.get(2).addField(new Field(12, "C++",0xFFAB9700));
-
-        //top south america
         mAreas.get(2).getField(0).addColourToArray(0xff194479);
         mAreas.get(2).getField(0).addColourToArray(0xff012c5f);
         mAreas.get(2).getField(0).addColourToArray(0xff002459);
@@ -598,10 +598,8 @@ public class RiskGameScreen extends GameScreen {
         mAreas.get(2).getField(0).addColourToArray(0xff012a5e);
         mAreas.get(2).getField(0).addColourToArray(0xff00295d);
 
-
-        // middle south america
+        // Author: Daniel Nelis
         mAreas.get(2).addField(new Field(13, "Java",0xFF7D721E));
-
         mAreas.get(2).getField(1).addColourToArray(0xffad9800);
         mAreas.get(2).getField(1).addColourToArray(0xffac9900);
         mAreas.get(2).getField(1).addColourToArray(0xffbca507);
@@ -633,12 +631,8 @@ public class RiskGameScreen extends GameScreen {
         mAreas.get(2).getField(1).addColourToArray(0xffad9800);
         mAreas.get(2).getField(1).addColourToArray(0xff002961);
 
-
-
-
-        //bottom south america
+        // Author: Daniel Nelis
         mAreas.get(2).addField(new Field(14, "Python",0xFF453E08));
-
         mAreas.get(2).getField(2).addColourToArray(0xff022451);
         mAreas.get(2).getField(2).addColourToArray(0xff02254f);
         mAreas.get(2).getField(2).addColourToArray(0xff01244c);
