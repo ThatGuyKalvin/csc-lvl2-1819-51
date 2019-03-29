@@ -301,7 +301,7 @@ public class RiskGameScreen extends GameScreen {
                     break;
                 case INITIAL_ALLOCATE:
                     attackStr = "State: Player " + CurrentPlayerNum + 1 + " Allocate Team";
-
+                    break;
                 default:
                     attackStr = "State: Not battling.";
                     break;
@@ -313,6 +313,8 @@ public class RiskGameScreen extends GameScreen {
             if(state == ATTACK_PICK) {
                 Log.d("Hex", Integer.toHexString(clickedColour));
             }
+
+            drawTeamsToField(textPaint,graphics2D);
         }
 
         /* Work In Progress
@@ -1134,16 +1136,16 @@ public class RiskGameScreen extends GameScreen {
         int screenWidth = graphics2D.getSurfaceWidth();
         int screenHeight = graphics2D.getSurfaceHeight();
 
-        Float xPositions[] = {0.1f, 0.14f, 0.21f, 0.18f, 0.26f,//NA
+        Float xPositions[] = {0.09f, 0.135f, 0.19f, 0.17f, 0.25f,//NA
                 0.49f, 0.56f, 0.68f, 0.65f, 0.66f, 0.77f, //EUR
-                0.21f, 0.26f, 0.2f, //SA
+                0.19f, 0.24f, 0.18f, //SA
                 0.43f, 0.47f, 0.52f, 0.49f, //AFR
                 0.84f, 0.82f, 0.9f}; //AUS
-        Float yPositions[] = {0.35f, 0.35f, 0.31f, 0.39f, 0.33f,
-                0.35f, 0.39f, 0.32f, 0.37f, 0.45f, 0.35f,
+        Float yPositions[] = {0.33f, 0.33f, 0.28f, 0.37f, 0.31f,
+                0.33f, 0.37f, 0.29f, 0.35f, 0.43f, 0.33f,
                 0.56f, 0.62f, 0.69f,
-                0.48f, 0.56f, 0.52f, 0.66f,
-                0.63f, 0.68f, 0.69f};
+                0.46f, 0.54f, 0.50f, 0.64f,
+                0.61f, 0.67f, 0.68f};
 
         int v = 0;
         int w = 0;
