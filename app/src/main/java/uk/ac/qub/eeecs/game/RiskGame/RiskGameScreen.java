@@ -919,7 +919,6 @@ public class RiskGameScreen extends GameScreen {
         mAreas.get(4).getField(0).addConnectedFields(connectToSM);
         mAreas.get(4).getField(1).addConnectedFields(connectToRL);
         mAreas.get(4).getField(2).addConnectedFields(connectToSurvey);
-
     }
 
     private void createPlayers() {
