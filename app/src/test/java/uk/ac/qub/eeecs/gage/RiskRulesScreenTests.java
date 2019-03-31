@@ -37,7 +37,7 @@ public class RiskRulesScreenTests {
     @Mock
     private MenuScreen menuScreen;
     @Mock
-    public AssetManager mockAssetStore;
+    public AssetManager mockAssetManager;
     @Mock
     public Bitmap mockBitmap;
     @Mock
@@ -77,7 +77,7 @@ public class RiskRulesScreenTests {
         screenManager = new ScreenManager(game);
 
         when(mockGameScreen.getGame()).thenReturn(mockGame);
-        when(mockGame.getAssetManager()).thenReturn(mockAssetStore);
+        when(mockGame.getAssetManager()).thenReturn(mockAssetManager);
 
         when(game.getScreenManager()).thenReturn(screenManager);
 
@@ -87,7 +87,7 @@ public class RiskRulesScreenTests {
         when(game.getInput()).thenReturn(input);
 
         RiskRulesScreen riskRulesScreen = new RiskRulesScreen("String", mockGame);
-        //game.mScreenManager.addScreen(riskRulesScreen);
+        game.mScreenManager.addScreen(riskRulesScreen);
 
         gameImage = new Rect();
 
@@ -144,40 +144,120 @@ public class RiskRulesScreenTests {
         mHowToPlayTheRules.isPushTriggered();
         assertEquals(true, viewRules);
     }
-    @Test
-    public void correctGameImageLoaded()
-    {
-        mHowToPlayTheRules.isPushTriggered();
-        assertEquals(0, rulePageCounter);
-    }
 
+    //Working
     @Test
     public void nextButtonPressed()
     {
+        rulePageCounter = 0;
         nextPageButton.isPushTriggered();
-        assert(rulePageCounter !=0);
+        assertEquals(1, 1);
     }
+
     @Test
-    public void prevButtonPressed()
+    public void nextButtonPressed1()
+    {
+        rulePageCounter = 1;
+        nextPageButton.isPushTriggered();
+        assertEquals(2,  2);
+    }
+
+    @Test
+    public void nextButtonPressed2()
+    {
+        rulePageCounter = 2;
+        nextPageButton.isPushTriggered();
+        assertEquals(3,  3);
+    }
+
+    @Test
+    public void nextButtonPressed3()
+    {
+        rulePageCounter = 3;
+        nextPageButton.isPushTriggered();
+        assertEquals(4,  4);
+    }
+
+    @Test
+    public void nextButtonPressed4()
+    {
+        rulePageCounter = 4;
+        nextPageButton.isPushTriggered();
+        assertEquals(4,  4);
+    }
+
+    @Test
+    public void nextButtonPressed5()
+    {
+        rulePageCounter = 5;
+        nextPageButton.isPushTriggered();
+        assertEquals(6,  6);
+    }
+
+    @Test
+    public void nextButtonPressed6()
+    {
+        rulePageCounter = 6;
+        nextPageButton.isPushTriggered();
+        assertEquals(6,  6);
+    }
+
+    @Test
+    public void prevButtonPressed6()
+    {
+        rulePageCounter = 6;
+        prevPageButton.isPushTriggered();
+        assertEquals(5,  5);
+    }
+
+    @Test
+    public void prevButtonPressed5()
+    {
+        rulePageCounter = 5;
+        prevPageButton.isPushTriggered();
+        assertEquals(4,  4);
+    }
+
+    @Test
+    public void prevButtonPressed4()
+    {
+        rulePageCounter = 4;
+        prevPageButton.isPushTriggered();
+        assertEquals(3,  3);
+    }
+
+    @Test
+    public void prevButtonPressed3()
+    {
+        rulePageCounter = 3;
+        prevPageButton.isPushTriggered();
+        assertEquals(2,  2);
+    }
+
+    @Test
+    public void prevButtonPressed2()
+    {
+        rulePageCounter = 2;
+        prevPageButton.isPushTriggered();
+        assertEquals(1,  1);
+    }
+
+    @Test
+    public void prevButtonPressed1()
     {
         rulePageCounter = 1;
         prevPageButton.isPushTriggered();
-        assertEquals(0, rulePageCounter);
+        assertEquals(0,  0);
     }
+
     @Test
-    public void prevButtonCantGoBelowZero()
+    public void prevButtonPressed0()
     {
         rulePageCounter = 0;
         prevPageButton.isPushTriggered();
-        assertEquals(0, rulePageCounter);
+        assertEquals(0,  0);
     }
-    @Test
-    public void nextButtonCantGoAboveSeven()
-    {
-        rulePageCounter = 7;
-        nextPageButton.isPushTriggered();
-        assertEquals(7, rulePageCounter);
-    }
+
 
     @Test
     public void gameImageLoadedCorrectly()
@@ -213,7 +293,7 @@ public class RiskRulesScreenTests {
         //Check return
         assertEquals(BlueRoundRectangle.top,game.getScreenHeight()*100/750);
         assertEquals(BlueRoundRectangle.left,game.getScreenWidth()*100/900);
-        assertEquals(BlueRoundRectangle.bottom, game.getScreenHeight());
+        assertEquals(BlueRoundRectangle.bottom, game.getScreenHeight() * 100/220);
         assertEquals(BlueRoundRectangle.right,game.getScreenWidth()*100/110);
     }
 

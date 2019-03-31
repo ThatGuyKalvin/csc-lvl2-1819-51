@@ -24,11 +24,7 @@ public class RiskSettingsScreen extends GameScreen {
     // Properties
     // /////////////////////////////////////////////////////////////////////////
 
-    private PushButton MainMenuButton;
-    private PushButton MuteButton;
-    private PushButton UnmuteButton;
-    private PushButton VolumeUpButton;
-    private PushButton VolumeDownButton;
+    private PushButton MainMenuButton, volumeOffButton, volumeOnButton, volumeUpButton, volumeDownButton;
     private Bitmap RiskSettingsBackground;
     private float mTimeToChange = 0;
 
@@ -40,14 +36,14 @@ public class RiskSettingsScreen extends GameScreen {
         AssetManager assetManager = mGame.getAssetManager();
         assetManager.loadAndAddBitmap("main_menu_button", "img/RiskGameImages/main_menu_button.png");
         assetManager.loadAndAddBitmap("main_menu_button_pressed", "img/RiskGameImages/main_menu_button_pressed.png");
-        assetManager.loadAndAddBitmap("risk_mute_button", "img/risk_mute_button.png");
-        assetManager.loadAndAddBitmap("risk_mute_button_pressed", "img/risk_mute_button_pressed.png");
-        assetManager.loadAndAddBitmap("risk_unmute_button", "img/risk_unmute_button.png");
-        assetManager.loadAndAddBitmap("risk_unmute_button_pressed", "img/risk_unmute_button_pressed.png");
-        assetManager.loadAndAddBitmap("risk_volume_up_button", "img/risk_volume_up_button.png");
-        assetManager.loadAndAddBitmap("risk_volume_up_button_pressed", "img/risk_volume_up_button_pressed.png");
-        assetManager.loadAndAddBitmap("risk_volume_down_button", "img/risk_volume_down_button.png");
-        assetManager.loadAndAddBitmap("risk_volume_down_button_pressed", "img/risk_volume_down_button_pressed.png");
+        assetManager.loadAndAddBitmap("risk_mute_button", "img/RiskGameImages/risk_mute_button.png");
+        assetManager.loadAndAddBitmap("risk_mute_button_pressed", "img/RiskGameImages/risk_mute_button_pressed.png");
+        assetManager.loadAndAddBitmap("risk_unmute_button", "img/RiskGameImages/risk_unmute_button.png");
+        assetManager.loadAndAddBitmap("risk_unmute_button_pressed", "img/RiskGameImages/risk_unmute_button_pressed.png");
+        assetManager.loadAndAddBitmap("risk_volume_up_button", "img/RiskGameImages/risk_volume_up_button.png");
+        assetManager.loadAndAddBitmap("risk_volume_up_button_pressed", "img/RiskGameImages/risk_volume_up_button_pressed.png");
+        assetManager.loadAndAddBitmap("risk_volume_down_button", "img/RiskGameImages/risk_volume_down_button.png");
+        assetManager.loadAndAddBitmap("risk_volume_down_button_pressed", "img/RiskGameImages/risk_volume_down_button_pressed.png");
 
         //Loading Bitmaps
         assetManager.loadAssets("txt/assets/OptionsScreenAssets.JSON");
@@ -68,25 +64,25 @@ public class RiskSettingsScreen extends GameScreen {
                 "main_menu_button", "main_menu_button_pressed", this);
         MainMenuButton.setPlaySounds(true, true);
 
-        MuteButton = new PushButton(
+        volumeOffButton = new PushButton(
                 spacingX * 2.5f, spacingY * 8.5f, spacingX, spacingY,
                 "risk_mute_button", "risk_mute_button_pressed", this);
-        MuteButton.setPlaySounds(true, true);
+        volumeOffButton.setPlaySounds(true, true);
 
-        UnmuteButton = new PushButton(
+        volumeOnButton = new PushButton(
                 spacingX * 2.5f, spacingY * 10.5f, spacingX, spacingY,
                 "risk_unmute_button", "risk_unmute_button_pressed", this);
-        UnmuteButton.setPlaySounds(true, true);
+        volumeOnButton.setPlaySounds(true, true);
 
-        VolumeUpButton = new PushButton(
+        volumeUpButton = new PushButton(
                 spacingX * 2.5f, spacingY * 6.5f, spacingX, spacingY,
                 "risk_volume_up_button", "risk_volume_up_button_pressed", this);
-        VolumeUpButton.setPlaySounds(true, true);
+        volumeUpButton.setPlaySounds(true, true);
 
-        VolumeDownButton = new PushButton(
+        volumeDownButton = new PushButton(
                 spacingX * 2.5f, spacingY * 4.5f, spacingX, spacingY,
                 "risk_volume_down_button", "risk_volume_down_button_pressed", this);
-        VolumeDownButton.setPlaySounds(true, true);
+        volumeDownButton.setPlaySounds(true, true);
 
 
     }
@@ -108,18 +104,18 @@ public class RiskSettingsScreen extends GameScreen {
 
             // Update each button and transition if needed
             MainMenuButton.update(elapsedTime);
-            MuteButton.update(elapsedTime);
-            UnmuteButton.update(elapsedTime);
-            VolumeUpButton.update(elapsedTime);
-            VolumeDownButton.update(elapsedTime);
+            volumeOffButton.update(elapsedTime);
+            volumeOnButton.update(elapsedTime);
+            volumeUpButton.update(elapsedTime);
+            volumeDownButton.update(elapsedTime);
 
-            if (MuteButton.isPushTriggered())
+            if (volumeOffButton.isPushTriggered())
                 mGame.getAssetManager().getMusic("RiskBackgroundSound").setVolume(0);
-            else if (UnmuteButton.isPushTriggered())
+            else if (volumeOnButton.isPushTriggered())
                 mGame.getAssetManager().getMusic("RiskBackgroundSound").setVolume(mGame.getAudioManager().getMusicVolume());
-            else if (VolumeUpButton.isPushTriggered())
+            else if (volumeUpButton.isPushTriggered())
                 mGame.getAssetManager().getMusic("RiskBackgroundSound").setVolume(mGame.getAudioManager().getMusicVolume() + 0.1f);
-            else if (VolumeDownButton.isPushTriggered())
+            else if (volumeDownButton.isPushTriggered())
                 mGame.getAssetManager().getMusic("RiskBackgroundSound").setVolume(mGame.getAudioManager().getMusicVolume() - 0.5f);
            else if (MainMenuButton.isPushTriggered())
                mGame.getScreenManager().removeScreen(this);
@@ -131,7 +127,18 @@ public class RiskSettingsScreen extends GameScreen {
     }
 
 
-   
+    public PushButton getVolumeOffButton() { return volumeOffButton; }
+    public PushButton setVolumeOffButton(PushButton button) { return this.volumeOffButton = button; }
+    public PushButton getVolumeOnButton() { return volumeOnButton; }
+    public PushButton setVolumeOnButton(PushButton button) { return this.volumeOnButton = button; }
+    public PushButton getVolumeUpButton() { return volumeUpButton; }
+    public PushButton setVolumeUpButton(PushButton button) { return this.volumeUpButton = button; }
+    public PushButton getVolumeDownButton() { return volumeDownButton; }
+    public PushButton setVolumeDownButton(PushButton button) { return this.volumeDownButton = button; }
+
+
+
+
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
 
@@ -146,10 +153,10 @@ public class RiskSettingsScreen extends GameScreen {
         graphics2D.drawBitmap(RiskSettingsBackground, sourceRectBackg, destRectBackg, null);
 
         MainMenuButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
-        MuteButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
-        UnmuteButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
-        VolumeUpButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
-        VolumeDownButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        volumeOffButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        volumeOnButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        volumeUpButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        volumeDownButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
 
 
     }
