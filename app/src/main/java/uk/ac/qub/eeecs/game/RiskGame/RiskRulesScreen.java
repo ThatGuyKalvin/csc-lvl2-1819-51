@@ -30,7 +30,7 @@ public class RiskRulesScreen extends GameScreen
     private Rect BlueCircle = new Rect();
     private Rect gameImage = new Rect();
     private static boolean alreadyLoaded = false;
-    private PushButton HowToPlayTheRules, BackToMainMenuButton, nextPageButton, prevPageButton;
+    private PushButton HowToPlayTheRules, mainMenuButton, nextPageButton, prevPageButton;
 
 
 
@@ -80,7 +80,7 @@ public class RiskRulesScreen extends GameScreen
         spacingY = game.getScreenHeight() / 3;
 
         // Create the trigger buttons
-        BackToMainMenuButton = new PushButton (spacingX * 0.20f, spacingY * 0.42f,
+        mainMenuButton = new PushButton (spacingX * 0.20f, spacingY * 0.42f,
                 spacingX/4, spacingY/10, "main_menu_button",
                 "main_menu_button_pressed",this);
         HowToPlayTheRules = new PushButton(spacingX * 0.15f, spacingY * 0.12f,
@@ -171,7 +171,7 @@ public class RiskRulesScreen extends GameScreen
         Input input = mGame.getInput();
 
         // Update each button and transition if needed
-        BackToMainMenuButton.update(elapsedTime);
+        mainMenuButton.update(elapsedTime);
         HowToPlayTheRules.update(elapsedTime);
         nextPageButton.update(elapsedTime);
         prevPageButton.update(elapsedTime);
@@ -182,7 +182,7 @@ public class RiskRulesScreen extends GameScreen
 
             TouchEvent touchEvent = touchEvents.get(0);
 
-            if (BackToMainMenuButton.isPushTriggered()) {
+            if (mainMenuButton.isPushTriggered()) {
 
                 changeToScreen(new MenuScreen(mGame));
             }
@@ -237,7 +237,7 @@ public class RiskRulesScreen extends GameScreen
         RiskRulesScreenBackground.right =mGame.getScreenWidth();
         graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Rules_Black_Background"),null, RiskRulesScreenBackground, null);
 
-        BackToMainMenuButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        mainMenuButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         HowToPlayTheRules.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         //draw arrows for going through images
         nextPageButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);

@@ -15,6 +15,7 @@ import uk.ac.qub.eeecs.gage.engine.ScreenManager;
 import uk.ac.qub.eeecs.gage.engine.graphics.IGraphics2D;
 import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
+import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.game.RiskGame.MenuScreen;
 import uk.ac.qub.eeecs.game.RiskGame.RiskGameScreen;
 import uk.ac.qub.eeecs.game.RiskGame.RiskRulesScreen;
@@ -53,7 +54,7 @@ public class RiskRulesScreenTests {
     @Mock
     Rect gameImage, BlueCircle, BlueRoundRectangle;
     @Mock
-    PushButton mBackToMainMenuButton, mHowToPlayTheRules, nextPageButton, prevPageButton;
+    PushButton mainMenuButton, howToPlayTheRules, nextPageButton, prevPageButton;
 
     String instructionType;
     @Mock
@@ -87,12 +88,12 @@ public class RiskRulesScreenTests {
         when(game.getInput()).thenReturn(input);
 
         RiskRulesScreen riskRulesScreen = new RiskRulesScreen("String", mockGame);
-        game.mScreenManager.addScreen(riskRulesScreen);
+        //game.mScreenManager.addScreen(riskRulesScreen);
 
         gameImage = new Rect();
 
-        mBackToMainMenuButton = new PushButton(spacingX * 0.20f, spacingY * 0.42f, spacingX/4, spacingY/10, "main_menu_button", "main_menu_button_pressed", mockGameScreen);
-        mHowToPlayTheRules = new PushButton(spacingX * 0.15f, spacingY * 0.12f, spacingX/6, spacingY/6, "How_To_Play_Rule_Button", mockGameScreen);
+        mainMenuButton = new PushButton(spacingX * 0.20f, spacingY * 0.42f, spacingX/4, spacingY/10, "main_menu_button", "main_menu_button_pressed", mockGameScreen);
+        howToPlayTheRules = new PushButton(spacingX * 0.15f, spacingY * 0.12f, spacingX/6, spacingY/6, "How_To_Play_Rule_Button", mockGameScreen);
         nextPageButton = new PushButton(-100, -100, spacingX/7, spacingY/13, "risk_rules_next_button", "risk_rules_next_button_pressed", mockGameScreen);
         prevPageButton = new PushButton(-100, -100, spacingX/7, spacingY/13, "risk_rules_prev_button", "risk_rules_prev_button_pressed", mockGameScreen);
     }
@@ -127,7 +128,9 @@ public class RiskRulesScreenTests {
 
         // Create a new game object instance
 
-        PushButton mainMenu = new PushButton(spacingX * 0.20f, spacingY * 0.42f, spacingX / 4, spacingY / 10, "main_menu_button",riskRulesScreen);
+        PushButton mainMenu = new PushButton(spacingX * 0.20f, spacingY * 0.42f,
+                spacingX / 4, spacingY / 10, "main_menu_button",
+                "main_menu_button_pressed", riskRulesScreen);
 
         // Test that the constructed values are as expected
         assertTrue(mainMenu.position.x == expectedXPosition);
@@ -141,7 +144,7 @@ public class RiskRulesScreenTests {
     @Test
     public void viewRulesSetToTrue()
     {
-        mHowToPlayTheRules.isPushTriggered();
+        howToPlayTheRules.isPushTriggered();
         assertEquals(true, viewRules);
     }
 
@@ -262,7 +265,7 @@ public class RiskRulesScreenTests {
     @Test
     public void gameImageLoadedCorrectly()
     {
-        mHowToPlayTheRules.isPushTriggered();
+        howToPlayTheRules.isPushTriggered();
         assertEquals(mockGame.getScreenHeight()*100/300, gameImage.top);
         assertEquals(mockGame.getScreenWidth()*100/140, gameImage.left);
         assertEquals(mockGame.getScreenHeight()*100/110, gameImage.bottom);

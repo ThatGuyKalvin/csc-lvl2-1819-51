@@ -26,14 +26,15 @@ import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 
 
-    //Author: Daniel Nelis Entire Class
+    /*
+    Author: Daniel Nelis Entire Class
+     */
 
 public class RiskCreditsScreen extends GameScreen {
 
     // /////////////////////////////////////////////////////////////////////////
     // Properties
     // /////////////////////////////////////////////////////////////////////////
-
 
     /*
     Providing a list to hold the buttons to provide a convenient
@@ -54,8 +55,6 @@ public class RiskCreditsScreen extends GameScreen {
     private Bitmap creditsBackground, creditsNames;
     private float timeToChange = 0;
 
-    //private int spacingX = 0;
-    //private int spacingY = 0;
 
     // /////////////////////////////////////////////////////////////////////////
     // Constructors
@@ -79,7 +78,7 @@ public class RiskCreditsScreen extends GameScreen {
          */
         constructButtons("txt/assets/RiskCreditsScreenButtonLayout.JSON", mButtons);
 
-        //Ensure click sounds are played for all created buttons
+        //Ensuring the click sounds are played for all the created buttons
         for (PushButton button : mButtons)
             button.setPlaySounds(true, true);
 
@@ -116,7 +115,7 @@ public class RiskCreditsScreen extends GameScreen {
             JSONArray buttonDetails = settings.getJSONArray("pushButtons");
 
 
-            //Store the game layer width and height
+            //Below will store the game layer width and height
             float layerWidth = mDefaultLayerViewport.getWidth();
             float layerHeight = mDefaultLayerViewport.getHeight();
 
