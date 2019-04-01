@@ -98,7 +98,7 @@ public class DiceRollScreen extends GameScreen {
     // /////////////////////////////////////////////////////////////////////////
 
     /**
-     * Update the card demo screen
+     * Update the diceRollScreen
      *
      * @param elapsedTime Elapsed time information
      */
@@ -240,7 +240,7 @@ public class DiceRollScreen extends GameScreen {
     //other methods;
     //////////////////////////////////////////////////
 
-    public void Roll() {
+    private void Roll() {
 
         if (mRollDiceButton.isPushTriggered()) {
             showAnimation = false;
@@ -252,7 +252,9 @@ public class DiceRollScreen extends GameScreen {
         }
     }
 
-    public void createCalculateAnimation() {
+    //an animation that is numbers rapidly changing.
+    //it is in the same position as the results class
+    private void createCalculateAnimation() {
         float width = mDefaultLayerViewport.getWidth();
         float height = mDefaultLayerViewport.getHeight();
 
@@ -265,11 +267,11 @@ public class DiceRollScreen extends GameScreen {
         defDiceRolls2 = new Rolling(width * 0.95f, height * 0.50f, this);
     }
 
-    public void results() {
+    private void results() {
         float width = mDefaultLayerViewport.getWidth();
         float height = mDefaultLayerViewport.getHeight();
 
-        //the attackers results
+        //results are just initialised 0 each time so that a null pointer error doesn't occur.
         attDiceResult1 = new DiceResult(width * 0.03f, height * 0.50f, this, 0);
         attDiceResult2 = new DiceResult(width * 0.08f, height * 0.50f, this, 0);
         attDiceResult3 = new DiceResult(width * 0.13f, height * 0.50f, this, 0);
@@ -306,7 +308,7 @@ public class DiceRollScreen extends GameScreen {
     //Sets the number of dice to be rolled based on the
     //push button that is pressed.
     //some more validation may be required.
-    public void numberOfDiceToRoll() {
+    private void numberOfDiceToRoll() {
 
         if (oneDice.isPushTriggered()) {
             numOfDice = 1;
@@ -325,8 +327,8 @@ public class DiceRollScreen extends GameScreen {
         }
     }
 
-    //just drawing all the buttons.
-    public void DrawDiceButtons(String buttonsToConstructJSONFile, List<PushButton> buttons) {
+    //just drawing all the buttons using a json file.
+    private void DrawDiceButtons(String buttonsToConstructJSONFile, List<PushButton> buttons) {
 
         String loadedJSON;
         try {

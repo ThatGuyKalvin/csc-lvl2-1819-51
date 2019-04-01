@@ -1,7 +1,5 @@
 package uk.ac.qub.eeecs.game.RiskGame;
 
-import uk.ac.qub.eeecs.gage.engine.AssetManager;
-import uk.ac.qub.eeecs.gage.ui.PushButton;
 
 public class DiceRoll {
 
@@ -9,7 +7,6 @@ public class DiceRoll {
     private int total;
 
     public DiceRoll(int num_of_dice){
-
 
         //set the size of the array based on the number of dice the user wants to roll
         diceResults = new int[num_of_dice];

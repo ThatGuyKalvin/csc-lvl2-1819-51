@@ -12,13 +12,13 @@ public class Battle {
         defendField = def;
         numOfAttTeams = att.getFNumOfTeams();
         numOfDefTeams = def.getFNumOfTeams();
+        //automatically setting the highest number of dice that each can roll
         autoSetNumOfDiceAtt();
         setNumOfDiceDef();
     }
 
     //A method that will complete the battle asap
     //Original by Micheal and reimplemented by philip
-    //after peter changed the battle class.
     public void fastBattle(){
         do{
             autoSetNumOfDiceAtt();
@@ -43,12 +43,16 @@ public class Battle {
         }
     }
 
+    //checks if that attacking field wins and returns a boolean value
+    //@Philip Murphy
     public boolean attackersWin(){
         if(numOfDefTeams == 0)
             return true;
         return false;
     }
 
+    //checks that there are enough teams to have a battle
+    //@philip Murphy
     public boolean noTeams(){
         if(numOfAttTeams == 1 || numOfDefTeams == 0)
             return true;
@@ -71,6 +75,8 @@ public class Battle {
         return false;
     }
 
+    //checks that two fields are connected
+    //@Philip Murphy
     public boolean connected(){
         for(int i =0; i < attackField.getFConnectedFields().size(); i++)
             if(defendField == attackField.getFConnectedFields().get(i))
@@ -100,7 +106,6 @@ public class Battle {
 
     //getters and setters that can be used by the buttons in the dice screen
     //@Philip Murphy
-
     public void setNumOfDiceAtt(int number){ this.numOfDiceAtt = number;}
 
     public void setNumOfDiceDef(){
