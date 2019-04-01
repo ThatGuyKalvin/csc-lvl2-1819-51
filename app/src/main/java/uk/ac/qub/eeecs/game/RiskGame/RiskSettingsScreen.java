@@ -118,7 +118,7 @@ public class RiskSettingsScreen extends GameScreen {
             else if (volumeDownButton.isPushTriggered())
                 mGame.getAssetManager().getMusic("RiskBackgroundSound").setVolume(mGame.getAudioManager().getMusicVolume() - 0.5f);
            else if (MainMenuButton.isPushTriggered())
-               mGame.getScreenManager().removeScreen(this);
+               mGame.getScreenManager().addScreen(new MenuScreen(mGame));
         }
 
         mTimeToChange += elapsedTime.stepTime;

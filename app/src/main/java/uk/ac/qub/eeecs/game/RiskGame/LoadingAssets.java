@@ -15,7 +15,7 @@ import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 
 /**
- * Author: Daniel Nelis Entire Class
+ * Author: Daniel Nelis Entire Class (used for Testing)
  */
 
 public class LoadingAssets extends GameScreen {

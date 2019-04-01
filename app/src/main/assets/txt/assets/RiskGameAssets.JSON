@@ -114,6 +114,16 @@
         "type": "Bitmap",
         "name": "risk_credits_screen_names",
         "file": "img/RiskGameImages/risk_credits_screen_names.png"
+    },
+    {
+        "type": "Bitmap",
+        "name": "main_menu_button",
+        "file": "img/RiskGameImages/main_menu_button.png"
+    },
+    {
+        "type": "Bitmap",
+        "name": "main_menu_button_pressed",
+        "file": "img/RiskGameImages/main_menu_button_pressed.png"
     }
 	
     ]

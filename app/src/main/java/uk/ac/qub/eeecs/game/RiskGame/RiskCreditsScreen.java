@@ -5,7 +5,16 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import uk.ac.qub.eeecs.gage.Game;
 import uk.ac.qub.eeecs.gage.engine.AssetManager;
@@ -16,21 +25,37 @@ import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 
+
+    //Author: Daniel Nelis Entire Class
+
 public class RiskCreditsScreen extends GameScreen {
 
     // /////////////////////////////////////////////////////////////////////////
     // Properties
     // /////////////////////////////////////////////////////////////////////////
 
-    /**
-     * Define the buttons for the Credits Screen
+
+    /*
+    Providing a list to hold the buttons to provide a convenient
+    way of updating and drawing each button
      */
-    private PushButton mainMenuButton, riskSettingsButton, riskRulesButton;
+
+    private List<PushButton> mButtons = new ArrayList<>();
+
+
+    /*
+    Providing a list that will store the list of game screens that
+    each button will trigger
+     */
+
+    private Map<PushButton, String> mButtonTriggers = new HashMap<>();
+
+
     private Bitmap creditsBackground, creditsNames;
     private float timeToChange = 0;
 
-    private int spacingX = 0;
-    private int spacingY = 0;
+    //private int spacingX = 0;
+    //private int spacingY = 0;
 
     // /////////////////////////////////////////////////////////////////////////
     // Constructors
@@ -43,15 +68,24 @@ public class RiskCreditsScreen extends GameScreen {
     public RiskCreditsScreen(Game game) {
         super("CreditsScreen", game);
 
+        /*
+        Loading in the set of bitmaps used for the buttons on the demo Screen
+         */
+
+        mGame.getAssetManager().loadAssets("txt/assets/RiskGameAssets.JSON");
+
+        /*
+        Constructing the Buttons within RiskCreditsScreen
+         */
+        constructButtons("txt/assets/RiskCreditsScreenButtonLayout.JSON", mButtons);
+
+        //Ensure click sounds are played for all created buttons
+        for (PushButton button : mButtons)
+            button.setPlaySounds(true, true);
+
+
         // Load in the bitmaps used on the credit screen
         AssetManager assetManager = mGame.getAssetManager();
-        assetManager.loadAndAddBitmap("main_menu_button", "img/RiskGameImages/main_menu_button.png");
-        assetManager.loadAndAddBitmap("main_menu_button_pressed", "img/RiskGameImages/main_menu_button_pressed.png");
-        assetManager.loadAndAddBitmap("risk_settings_button", "img/RiskGameImages/risk_settings_button.png");
-        assetManager.loadAndAddBitmap("risk_settings_button_pressed", "img/RiskGameImages/risk_settings_button_pressed.png");
-        assetManager.loadAndAddBitmap("risk_rules_button", "img/RiskGameImages/risk_rules_button.png");
-        assetManager.loadAndAddBitmap("risk_rules_button_pressed", "img/RiskGameImages/risk_rules_button_pressed.png");
-
         assetManager.loadAssets(
                 "txt/assets/OptionsScreenAssets.JSON");
 
@@ -59,32 +93,56 @@ public class RiskCreditsScreen extends GameScreen {
         creditsBackground = assetManager.getBitmap("OptionScreenBackground");
         assetManager.loadAndAddBitmap("risk_credits_screen_names", "img/RiskGameImages/risk_credits_screen_names.png");
         creditsNames = assetManager.getBitmap("risk_credits_screen_names");
-
-
-        // Define the spacing that will be used to position the buttons
-        int spacingX = (int) mDefaultLayerViewport.getWidth() / 5;
-        int spacingY = (int) mDefaultLayerViewport.getHeight() / 15;
-
-        // Create the trigger buttons
-
-        mainMenuButton = new PushButton(
-                spacingX * 2.50f, spacingY * 14.0f, spacingX, spacingY,
-                "main_menu_button", "main_menu_button_pressed", this);
-        mainMenuButton.setPlaySounds(true, true);
-        riskRulesButton = new PushButton(
-                spacingX * 0.60f, spacingY * 7.7f, spacingX, spacingY,
-                "risk_rules_button", "risk_rules_button_pressed", this);
-        riskRulesButton.setPlaySounds(true, true);
-        riskSettingsButton = new PushButton(
-                spacingX * 2.50f, spacingY * 1.0f, spacingX, spacingY,
-                "risk_settings_button", "risk_settings_button_pressed", this);
-        riskSettingsButton.setPlaySounds(true, true);
-
-
     }
+
     // /////////////////////////////////////////////////////////////////////////
     // Methods
     // /////////////////////////////////////////////////////////////////////////
+
+    private void constructButtons(String buttonsToConstructJSONFile, List<PushButton> buttons) {
+
+        // Attempting to load in the JSON asset details
+        String loadedJSON;
+        try {
+            loadedJSON = mGame.getFileIO().loadJSON(buttonsToConstructJSONFile);
+        } catch (IOException e) {
+            throw  new RuntimeException(
+                    "CreditsScreen.constructButtons: Cannot load JSON [" + buttonsToConstructJSONFile + "]");
+        }
+
+
+        try {
+            JSONObject settings = new JSONObject(loadedJSON);
+            JSONArray buttonDetails = settings.getJSONArray("pushButtons");
+
+
+            //Store the game layer width and height
+            float layerWidth = mDefaultLayerViewport.getWidth();
+            float layerHeight = mDefaultLayerViewport.getHeight();
+
+            //Constructing each button
+            for(int idx = 0; idx < buttonDetails.length(); idx++) {
+                float x = (float)buttonDetails.getJSONObject(idx).getDouble("x");
+                float y = (float)buttonDetails.getJSONObject(idx).getDouble("y");
+                float width = (float)buttonDetails.getJSONObject(idx).getDouble("width");
+                float height = (float)buttonDetails.getJSONObject(idx).getDouble("height");
+
+                String defaultBitmap = buttonDetails.getJSONObject(idx).getString("defaultBitmap");
+                String pushBitmap = buttonDetails.getJSONObject(idx).getString("pushBitmap");
+                String triggeredGameScreen = buttonDetails.getJSONObject(idx).getString("triggeredGameScreen");
+
+                PushButton button = new PushButton(x * layerWidth, y * layerHeight,
+                        width * layerWidth, height * layerHeight,
+                        defaultBitmap, pushBitmap, this);
+                buttons.add(button);
+                mButtonTriggers.put(button, triggeredGameScreen);
+            }
+        } catch (JSONException | IllegalArgumentException e) {
+            throw  new RuntimeException(
+                    "CreditsScreen.constructButtons: JSON parsing error [" + e.getMessage() + "]");
+        }
+    }
+
 
     /**
      * Update the credits screen
@@ -100,22 +158,34 @@ public class RiskCreditsScreen extends GameScreen {
         List<TouchEvent> touchEvents = input.getTouchEvents();
         if (touchEvents.size() > 0 && timeToChange > 0.5f) {
 
-            // Update each button and transition if needed
+            // Update each button
+            for (PushButton button : mButtons) {
+                button.update(elapsedTime);
+                if(button.isPushTriggered()) {
+                    addScreen(mButtonTriggers.get(button));
+                }
+            }
 
-            mainMenuButton.update(elapsedTime);
-            riskSettingsButton.update(elapsedTime);
-            riskRulesButton.update(elapsedTime);
 
-            if (mainMenuButton.isPushTriggered())
-                mGame.getScreenManager().addScreen(new MenuScreen(mGame));
-            else if (riskSettingsButton.isPushTriggered())
-                mGame.getScreenManager().addScreen(new RiskSettingsScreen(mGame));
-            else if (riskSettingsButton.isPushTriggered())
-                mGame.getScreenManager().addScreen(new RiskRulesScreen("Instructions",mGame));
 
         }
 
         timeToChange += elapsedTime.stepTime;
+    }
+
+    private void addScreen(String gameScreenToAdd) {
+
+        try {
+            GameScreen gameScreen =
+                    (GameScreen) Class.forName("uk.ac.qub.eeecs.game.RiskGame." + gameScreenToAdd)
+                            .getConstructor(Game.class).newInstance(mGame);
+            mGame.getScreenManager().addScreen(gameScreen);
+
+        } catch( ClassNotFoundException | NoSuchMethodException
+                | InstantiationException | IllegalAccessException | InvocationTargetException e ) {
+            throw new RuntimeException(
+                    "RiskCreditsScreen.addScreen: Error creating [" + gameScreenToAdd + " " + e.getMessage() + "]");
+        }
     }
 
     /**
@@ -127,8 +197,8 @@ public class RiskCreditsScreen extends GameScreen {
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
 
-        // Clear the screen and draw the buttons
-//        graphics2D.clear(Color.WHITE);
+        //Clear the screen and draw the buttons
+        graphics2D.clear(Color.WHITE);
         int width = graphics2D.getSurfaceWidth();
         int height = graphics2D.getSurfaceHeight();
 
@@ -139,13 +209,13 @@ public class RiskCreditsScreen extends GameScreen {
         graphics2D.drawBitmap(creditsBackground, sourceRectBackg, destRectBackg, null);
 
         Rect sourceRectBackg2 = new Rect(0, 0, creditsNames.getWidth(), creditsNames.getHeight());
-        Rect destRectBackg2 = new Rect((int) (width * 0.295f), (int) (height * 0.20f), (int) (width * 0.7f), (int) (height * 0.8f));
+        Rect destRectBackg2 = new Rect((int) (width * 0.295f), (int) (height * 0.20f), (int) (width * 0.7f), (int) (height * 0.82f));
         graphics2D.drawBitmap(creditsNames, sourceRectBackg2, destRectBackg2, null);
 
 
-        mainMenuButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
-        riskSettingsButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
-        riskRulesButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
+        // Draw each button
+        for (PushButton button : mButtons)
+            button.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
 
 
     }

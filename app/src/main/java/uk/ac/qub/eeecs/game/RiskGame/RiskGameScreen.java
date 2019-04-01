@@ -105,7 +105,7 @@ public class RiskGameScreen extends GameScreen {
 
         // Create the trigger buttons
         mMainMenuButton = new PushButton(
-                spacingX * 0.8f, spacingY * 1.4f, spacingX, spacingY,
+                spacingX * 3.0f, spacingY * 2.4f, spacingX, spacingY,
                 "main_menu_button", "main_menu_button_pressed", this);
         mMainMenuButton.setPlaySounds(true, true);
 
@@ -560,8 +560,11 @@ public class RiskGameScreen extends GameScreen {
         mAreas.get(1).getField(5).addColourToArray(0xff00295d);
         mAreas.get(1).getField(5).addColourToArray(0xff0dd141);
 
+
         // Development
-        // Author: Daniel Nelis
+        /*
+        Author: Daniel Nelis
+         */
         mAreas.get(2).addField(new Field(12, "C++",0xFFAB9700));
         mAreas.get(2).getField(0).addColourToArray(0xff194479);
         mAreas.get(2).getField(0).addColourToArray(0xff012c5f);
@@ -598,7 +601,9 @@ public class RiskGameScreen extends GameScreen {
         mAreas.get(2).getField(0).addColourToArray(0xff012a5e);
         mAreas.get(2).getField(0).addColourToArray(0xff00295d);
 
-        // Author: Daniel Nelis
+        /*
+        Author: Daniel Nelis
+         */
         mAreas.get(2).addField(new Field(13, "Java",0xFF7D721E));
         mAreas.get(2).getField(1).addColourToArray(0xffad9800);
         mAreas.get(2).getField(1).addColourToArray(0xffac9900);
@@ -631,7 +636,9 @@ public class RiskGameScreen extends GameScreen {
         mAreas.get(2).getField(1).addColourToArray(0xffad9800);
         mAreas.get(2).getField(1).addColourToArray(0xff002961);
 
-        // Author: Daniel Nelis
+        /*
+        Author: Daniel Nelis
+         */
         mAreas.get(2).addField(new Field(14, "Python",0xFF453E08));
         mAreas.get(2).getField(2).addColourToArray(0xff022451);
         mAreas.get(2).getField(2).addColourToArray(0xff02254f);
