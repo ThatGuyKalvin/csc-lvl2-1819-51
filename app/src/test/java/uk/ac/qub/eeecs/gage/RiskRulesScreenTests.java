@@ -105,6 +105,45 @@ public class RiskRulesScreenTests {
                 "risk_rules_prev_button_pressed", mockGameScreen);
     }
 
+
+    @Test
+    public void gameImageLoadedCorrectly()
+    {
+        howToPlayTheRules.isPushTriggered();
+        assertEquals(mockGame.getScreenHeight()*100/300, gameImage.top);
+        assertEquals(mockGame.getScreenWidth()*100/140, gameImage.left);
+        assertEquals(mockGame.getScreenHeight()*100/110, gameImage.bottom);
+        assertEquals(mockGame.getScreenWidth()*100/105, gameImage.right);
+    }
+
+
+    //The 2 tests below are testing the postion of BlueCircle rect & BlueRoundRectangle
+    @Test
+    public void testdrawTextShapesMain()
+    {
+        instructionType = "Main";
+        //Call test
+        riskRulesScreen.drawTextShapes(graphics2D,instructionType);
+        //Check return
+        assertEquals(BlueCircle.top,game.getScreenHeight()*100/144);
+        assertEquals(BlueCircle.left,game.getScreenWidth()*100/1400);
+        assertEquals(BlueCircle.bottom, game.getScreenHeight());
+        assertEquals(BlueCircle.right,game.getScreenWidth()*100/350);
+    }
+
+    @Test
+    public void testdrawTextShapesRules()
+    {
+        instructionType = "Rules";
+        //Call test
+        riskRulesScreen.drawTextShapes(graphics2D,instructionType);
+        //Check return
+        assertEquals(BlueRoundRectangle.top,game.getScreenHeight()*100/750);
+        assertEquals(BlueRoundRectangle.left,game.getScreenWidth()*100/900);
+        assertEquals(BlueRoundRectangle.bottom, game.getScreenHeight() * 100/220);
+        assertEquals(BlueRoundRectangle.right,game.getScreenWidth()*100/110);
+    }
+
     @Test
     public void testCorrectScreenTransition()
     {
@@ -269,43 +308,5 @@ public class RiskRulesScreenTests {
         assertEquals(0,  0);
     }
 
-
-    @Test
-    public void gameImageLoadedCorrectly()
-    {
-        howToPlayTheRules.isPushTriggered();
-        assertEquals(mockGame.getScreenHeight()*100/300, gameImage.top);
-        assertEquals(mockGame.getScreenWidth()*100/140, gameImage.left);
-        assertEquals(mockGame.getScreenHeight()*100/110, gameImage.bottom);
-        assertEquals(mockGame.getScreenWidth()*100/105, gameImage.right);
-    }
-
-
-    //The 2 tests below are testing the postion of BlueCircle rect & BlueRoundRectangle
-    @Test
-    public void testdrawTextShapesMain()
-    {
-        instructionType = "Main";
-        //Call test
-        riskRulesScreen.drawTextShapes(graphics2D,instructionType);
-        //Check return
-        assertEquals(BlueCircle.top,game.getScreenHeight()*100/144);
-        assertEquals(BlueCircle.left,game.getScreenWidth()*100/1400);
-        assertEquals(BlueCircle.bottom, game.getScreenHeight());
-        assertEquals(BlueCircle.right,game.getScreenWidth()*100/350);
-    }
-
-    @Test
-    public void testdrawTextShapesRules()
-    {
-        instructionType = "Rules";
-        //Call test
-        riskRulesScreen.drawTextShapes(graphics2D,instructionType);
-        //Check return
-        assertEquals(BlueRoundRectangle.top,game.getScreenHeight()*100/750);
-        assertEquals(BlueRoundRectangle.left,game.getScreenWidth()*100/900);
-        assertEquals(BlueRoundRectangle.bottom, game.getScreenHeight() * 100/220);
-        assertEquals(BlueRoundRectangle.right,game.getScreenWidth()*100/110);
-    }
 
 }
