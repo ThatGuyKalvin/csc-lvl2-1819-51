@@ -34,7 +34,6 @@ public class RiskSettingsScreenTests {
     BlackHatHackers game = new BlackHatHackers();
     Context appContext = InstrumentationRegistry.getTargetContext();
     AssetManager assetManager = new AssetManager(appContext);
-    //private Context context;
     RiskSettingsScreen gameScreen;
     ElapsedTime elapsedTime = new ElapsedTime();
     //Context appContext = InstrumentationRegistry.getTargetContext();
@@ -75,7 +74,8 @@ public class RiskSettingsScreenTests {
 
         AssetManager assetManager = new AssetManager(appContext);
         boolean success = assetManager.loadAndAddBitmap(
-                "main_menu_button_pressed", "img/RiskGameImages/main_menu_button_pressed.png");
+                "main_menu_button_pressed",
+                "img/RiskGameImages/main_menu_button_pressed.png");
         assertTrue(success);
 
     }
@@ -85,7 +85,8 @@ public class RiskSettingsScreenTests {
 
         AssetManager assetManager = new AssetManager(appContext);
         boolean success = assetManager.loadAndAddBitmap(
-                "risk_mute_button", "img/RiskGameImages/risk_mute_button.png");
+                "risk_mute_button",
+                "img/RiskGameImages/risk_mute_button.png");
         assertTrue(success);
 
     }
@@ -95,7 +96,8 @@ public class RiskSettingsScreenTests {
 
         AssetManager assetManager = new AssetManager(appContext);
         boolean success = assetManager.loadAndAddBitmap(
-                "risk_mute_button_pressed", "img/RiskGameImages/risk_mute_button_pressed.png");
+                "risk_mute_button_pressed",
+                "img/RiskGameImages/risk_mute_button_pressed.png");
         assertTrue(success);
 
     }
@@ -105,7 +107,8 @@ public class RiskSettingsScreenTests {
 
         AssetManager assetManager = new AssetManager(appContext);
         boolean success = assetManager.loadAndAddBitmap(
-                "risk_unmute_button", "img/RiskGameImages/risk_unmute_button.png");
+                "risk_unmute_button",
+                "img/RiskGameImages/risk_unmute_button.png");
         assertTrue(success);
 
     }
@@ -115,7 +118,8 @@ public class RiskSettingsScreenTests {
 
         AssetManager assetManager = new AssetManager(appContext);
         boolean success = assetManager.loadAndAddBitmap(
-                "risk_unmute_button_pressed", "img/RiskGameImages/risk_unmute_button_pressed.png");
+                "risk_unmute_button_pressed",
+                "img/RiskGameImages/risk_unmute_button_pressed.png");
         assertTrue(success);
 
     }
@@ -125,7 +129,8 @@ public class RiskSettingsScreenTests {
 
         AssetManager assetManager = new AssetManager(appContext);
         boolean success = assetManager.loadAndAddBitmap(
-                "risk_volume_up_button", "img/RiskGameImages/risk_volume_up_button.png");
+                "risk_volume_up_button",
+                "img/RiskGameImages/risk_volume_up_button.png");
         assertTrue(success);
 
     }
@@ -135,7 +140,8 @@ public class RiskSettingsScreenTests {
 
         AssetManager assetManager = new AssetManager(appContext);
         boolean success = assetManager.loadAndAddBitmap(
-                "risk_volume_up_button_pressed", "img/RiskGameImages/risk_volume_up_button_pressed.png");
+                "risk_volume_up_button_pressed",
+                "img/RiskGameImages/risk_volume_up_button_pressed.png");
         assertTrue(success);
 
     }
@@ -145,7 +151,8 @@ public class RiskSettingsScreenTests {
 
         AssetManager assetManager = new AssetManager(appContext);
         boolean success = assetManager.loadAndAddBitmap(
-                "risk_volume_down_button", "img/RiskGameImages/risk_volume_down_button.png");
+                "risk_volume_down_button",
+                "img/RiskGameImages/risk_volume_down_button.png");
         assertTrue(success);
 
     }
@@ -155,7 +162,8 @@ public class RiskSettingsScreenTests {
 
         AssetManager assetManager = new AssetManager(appContext);
         boolean success = assetManager.loadAndAddBitmap(
-                "risk_volume_down_button_pressed", "img/RiskGameImages/risk_volume_down_button_pressed.png");
+                "risk_volume_down_button_pressed",
+                "img/RiskGameImages/risk_volume_down_button_pressed.png");
         assertTrue(success);
 
     }

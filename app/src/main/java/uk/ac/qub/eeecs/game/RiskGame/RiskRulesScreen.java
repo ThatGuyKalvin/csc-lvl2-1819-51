@@ -105,15 +105,18 @@ public class RiskRulesScreen extends GameScreen
 
     public void drawSpeechBubbleBitmap(IGraphics2D graphics2D)
     {
-        graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("speechBubble"),null, BlueRoundRectangle, null);
+        graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("speechBubble"),
+                null, BlueRoundRectangle, null);
     }
 
     public void drawBlueCircleBitmap(IGraphics2D graphics2D)
     {
-        graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Blue_Circle_Around_Rules_Button"),null, BlueCircle, null);
+        graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Blue_Circle_Around_Rules_Button"),
+                null, BlueCircle, null);
     }
 
-    //This method changes the dimensions of the rectangle that the speechBubble is drawn to based off which section/button you press
+    //This method changes the dimensions of the rectangle that the speechBubble is drawn to based
+    // off which section/button you press
     public void drawBlueRoundRectangle(int divideTop, int divideLeft, int divideBottom, int divideRight)
     {
         BlueRoundRectangle.top = mGame.getScreenHeight()*100/divideTop;
@@ -186,7 +189,8 @@ public class RiskRulesScreen extends GameScreen
 
                 changeToScreen(new MenuScreen(mGame));
             }
-            //Increases the number when the button is pressed to change the image being draw to the rectangle
+            //Increases the number when the button is pressed to change the image being
+            // draw to the rectangle
             if(nextPageButton.isPushTriggered()) {
                 prevNextButtonPressed = true;
                 if (rulePageCounter < 7) {
@@ -235,7 +239,8 @@ public class RiskRulesScreen extends GameScreen
         RiskRulesScreenBackground.left = 0;
         RiskRulesScreenBackground.bottom = mGame.getScreenHeight();
         RiskRulesScreenBackground.right =mGame.getScreenWidth();
-        graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Rules_Black_Background"),null, RiskRulesScreenBackground, null);
+        graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Rules_Black_Background"),
+                null, RiskRulesScreenBackground, null);
 
         mainMenuButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         HowToPlayTheRules.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);

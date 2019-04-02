@@ -48,7 +48,8 @@ public class RiskRulesScreenTests {
 
         AssetManager assetManager = new AssetManager(context);
         boolean success = assetManager.loadAndAddBitmap(
-                "Rules_Rules_Black_Background", "img/RiskGameImages/Rules_Rules_Black_Background.png");
+                "Rules_Rules_Black_Background",
+                "img/RiskGameImages/Rules_Rules_Black_Background.png");
         assertTrue(success);
 
     }
@@ -78,7 +79,8 @@ public class RiskRulesScreenTests {
 
         AssetManager assetManager = new AssetManager(context);
         boolean success = assetManager.loadAndAddBitmap(
-                "main_menu_button_pressed", "img/RiskGameImages/main_menu_button_pressed.png");
+                "main_menu_button_pressed",
+                "img/RiskGameImages/main_menu_button_pressed.png");
         assertTrue(success);
 
     }
@@ -88,7 +90,8 @@ public class RiskRulesScreenTests {
 
         AssetManager assetManager = new AssetManager(context);
         boolean success = assetManager.loadAndAddBitmap(
-                "How_To_Play_Rule_Button", "img/RiskGameImages/How_To_Play_Rule_Button.png");
+                "How_To_Play_Rule_Button",
+                "img/RiskGameImages/How_To_Play_Rule_Button.png");
         assertTrue(success);
 
     }
@@ -98,7 +101,8 @@ public class RiskRulesScreenTests {
 
         AssetManager assetManager = new AssetManager(context);
         boolean success = assetManager.loadAndAddBitmap(
-                "risk_rules_next_button", "img/RiskGameImages/risk_rules_next_button.png");
+                "risk_rules_next_button",
+                "img/RiskGameImages/risk_rules_next_button.png");
         assertTrue(success);
 
     }
@@ -108,7 +112,8 @@ public class RiskRulesScreenTests {
 
         AssetManager assetManager = new AssetManager(context);
         boolean success = assetManager.loadAndAddBitmap(
-                "risk_rules_next_button_pressed", "img/RiskGameImages/risk_rules_next_button_pressed.png");
+                "risk_rules_next_button_pressed",
+                "img/RiskGameImages/risk_rules_next_button_pressed.png");
         assertTrue(success);
 
     }
@@ -118,7 +123,8 @@ public class RiskRulesScreenTests {
 
         AssetManager assetManager = new AssetManager(context);
         boolean success = assetManager.loadAndAddBitmap(
-                "risk_rules_prev_button", "img/RiskGameImages/risk_rules_prev_button.png");
+                "risk_rules_prev_button",
+                "img/RiskGameImages/risk_rules_prev_button.png");
         assertTrue(success);
 
     }
@@ -128,7 +134,8 @@ public class RiskRulesScreenTests {
 
         AssetManager assetManager = new AssetManager(context);
         boolean success = assetManager.loadAndAddBitmap(
-                "risk_rules_prev_button_pressed", "img/RiskGameImages/risk_rules_prev_button_pressed.png");
+                "risk_rules_prev_button_pressed",
+                "img/RiskGameImages/risk_rules_prev_button_pressed.png");
         assertTrue(success);
 
     }

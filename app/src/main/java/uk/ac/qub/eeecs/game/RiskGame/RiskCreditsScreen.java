@@ -88,9 +88,12 @@ public class RiskCreditsScreen extends GameScreen {
         assetManager.loadAssets(
                 "txt/assets/OptionsScreenAssets.JSON");
 
-        assetManager.loadAndAddBitmap("OptionScreenBackground", "img/RiskGameImages/RiskMainMenuScreen.png");
+        assetManager.loadAndAddBitmap("OptionScreenBackground",
+                "img/RiskGameImages/RiskMainMenuScreen.png");
         creditsBackground = assetManager.getBitmap("OptionScreenBackground");
-        assetManager.loadAndAddBitmap("risk_credits_screen_names", "img/RiskGameImages/risk_credits_screen_names.png");
+
+        assetManager.loadAndAddBitmap("risk_credits_screen_names",
+                "img/RiskGameImages/risk_credits_screen_names.png");
         creditsNames = assetManager.getBitmap("risk_credits_screen_names");
     }
 
@@ -180,7 +183,8 @@ public class RiskCreditsScreen extends GameScreen {
         } catch( ClassNotFoundException | NoSuchMethodException
                 | InstantiationException | IllegalAccessException | InvocationTargetException e ) {
             throw new RuntimeException(
-                    "RiskCreditsScreen.addScreen: Error creating [" + gameScreenToAdd + " " + e.getMessage() + "]");
+                    "RiskCreditsScreen.addScreen: Error creating [" +
+                            gameScreenToAdd + " " + e.getMessage() + "]");
         }
     }
 
@@ -200,12 +204,17 @@ public class RiskCreditsScreen extends GameScreen {
 
 
 
-        Rect sourceRectBackg = new Rect(0, 0, creditsBackground.getWidth(), creditsBackground.getHeight());
-        Rect destRectBackg = new Rect((int) (width * 0.0f), (int) (height * 0.0f), (int) (width * 1.0f), (int) (height * 1.0f));
+        Rect sourceRectBackg = new Rect(0, 0, creditsBackground.getWidth(),
+                creditsBackground.getHeight());
+
+        Rect destRectBackg = new Rect((int) (width * 0.0f), (int) (height * 0.0f),
+                (int) (width * 1.0f), (int) (height * 1.0f));
         graphics2D.drawBitmap(creditsBackground, sourceRectBackg, destRectBackg, null);
 
-        Rect sourceRectBackg2 = new Rect(0, 0, creditsNames.getWidth(), creditsNames.getHeight());
-        Rect destRectBackg2 = new Rect((int) (width * 0.295f), (int) (height * 0.20f), (int) (width * 0.7f), (int) (height * 0.82f));
+        Rect sourceRectBackg2 = new Rect(0, 0, creditsNames.getWidth(),
+                creditsNames.getHeight());
+        Rect destRectBackg2 = new Rect((int) (width * 0.295f), (int) (height * 0.20f),
+                (int) (width * 0.7f), (int) (height * 0.82f));
         graphics2D.drawBitmap(creditsNames, sourceRectBackg2, destRectBackg2, null);
 
 

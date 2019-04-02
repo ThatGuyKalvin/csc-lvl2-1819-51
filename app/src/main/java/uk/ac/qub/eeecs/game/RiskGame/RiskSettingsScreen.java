@@ -47,7 +47,8 @@ public class RiskSettingsScreen extends GameScreen {
 
         //Loading Bitmaps
         assetManager.loadAssets("txt/assets/OptionsScreenAssets.JSON");
-        assetManager.loadAndAddBitmap("OptionScreenBackground", "img/RiskGameImages/RiskOptionScreen.png");
+        assetManager.loadAndAddBitmap("OptionScreenBackground",
+                "img/RiskGameImages/RiskOptionScreen.png");
         RiskSettingsBackground = assetManager.getBitmap("OptionScreenBackground");
 
         // Background Music
@@ -110,11 +111,14 @@ public class RiskSettingsScreen extends GameScreen {
             if (volumeOffButton.isPushTriggered())
                 mGame.getAssetManager().getMusic("RiskBackgroundSound").setVolume(0);
             else if (volumeOnButton.isPushTriggered())
-                mGame.getAssetManager().getMusic("RiskBackgroundSound").setVolume(mGame.getAudioManager().getMusicVolume());
+                mGame.getAssetManager().getMusic("RiskBackgroundSound").
+                        setVolume(mGame.getAudioManager().getMusicVolume());
             else if (volumeUpButton.isPushTriggered())
-                mGame.getAssetManager().getMusic("RiskBackgroundSound").setVolume(mGame.getAudioManager().getMusicVolume() + 0.1f);
+                mGame.getAssetManager().getMusic("RiskBackgroundSound").
+                        setVolume(mGame.getAudioManager().getMusicVolume() + 0.1f);
             else if (volumeDownButton.isPushTriggered())
-                mGame.getAssetManager().getMusic("RiskBackgroundSound").setVolume(mGame.getAudioManager().getMusicVolume() - 0.5f);
+                mGame.getAssetManager().getMusic("RiskBackgroundSound").
+                        setVolume(mGame.getAudioManager().getMusicVolume() - 0.5f);
            else if (MainMenuButton.isPushTriggered())
                mGame.getScreenManager().addScreen(new MenuScreen(mGame));
         }
@@ -142,8 +146,10 @@ public class RiskSettingsScreen extends GameScreen {
         int height = graphics2D.getSurfaceHeight();
 
 
-        Rect sourceRectBackg = new Rect(0,0, RiskSettingsBackground.getWidth(), RiskSettingsBackground.getHeight());
-        Rect destRectBackg = new Rect((int) (width * 0.0f), (int) (height * 0.0f), (int) (width * 1.0f), (int) (height * 1.0f));
+        Rect sourceRectBackg = new Rect(0,0, RiskSettingsBackground.getWidth(),
+                RiskSettingsBackground.getHeight());
+        Rect destRectBackg = new Rect((int) (width * 0.0f), (int) (height * 0.0f),
+                (int) (width * 1.0f), (int) (height * 1.0f));
         graphics2D.drawBitmap(RiskSettingsBackground, sourceRectBackg, destRectBackg, null);
 
         MainMenuButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);

@@ -47,7 +47,7 @@ public class RiskCreditsScreenTests {
 
     //Test for Constructor
     @Test
-    public void testSettingsScreenConstructor() {
+    public void testCreditsScreenConstructor() {
         gameScreen = new RiskCreditsScreen(game);
         assertEquals("RiskCreditsScreen", gameScreen.getName());
     }
