@@ -187,7 +187,7 @@ public class RiskGameScreen extends GameScreen {
                 mGame.getScreenManager().removeScreen(this);
 
             // If we're in attacking mode get a touched area
-            //if(state != ATTACK_NULL) getAreaClicked();
+            //@Author: Kalvin Johnston (states)
             if(state == ATTACK_PICK) {
                 Field tmpField = getFieldClicked();
                 if(tmpField != null) {
@@ -276,6 +276,8 @@ public class RiskGameScreen extends GameScreen {
         textPaint.setColor(Color.WHITE);
         textPaint.setTextAlign(Paint.Align.LEFT);
 
+
+        //@Author: Kalvin Johnston
         boolean enabled = true;
         if(enabled) {
             // Draw text displaying the name of this screen and some instructions
@@ -319,11 +321,12 @@ public class RiskGameScreen extends GameScreen {
             }
             graphics2D.drawText(attackStr,
                     0.0f, lineHeight + 160.0f, textPaint);
-            graphics2D.drawText("clickedColour:" + Integer.toHexString(clickedColour),
+            // Below is for debugging
+            /*graphics2D.drawText("clickedColour:" + Integer.toHexString(clickedColour),
                     0.0f, lineHeight + 200.0f, textPaint);
             if(state == ATTACK_PICK) {
                 Log.d("Hex", Integer.toHexString(clickedColour));
-            }
+            }*/
 
             drawTeamsToField(textPaint,graphics2D);
         }
@@ -369,10 +372,8 @@ public class RiskGameScreen extends GameScreen {
         */
 
     }
-    ///////////////////////////////////////////////////
-    //other methods;
-    //////////////////////////////////////////////////
 
+    //@Author: Kalvin Johnston
     private void createAreas() {
 
         // Generate the areas and add colour
@@ -979,42 +980,7 @@ public class RiskGameScreen extends GameScreen {
         return playerTotal;
     }
 
-    // Kinda obsolete code since fields got revamped...
-    // Keep it for now? Maybe could be useful for layered images
-    private Area getAreaClicked() {
-        Input input = mGame.getInput();
-        List<TouchEvent> touchEvents = input.getTouchEvents();
-
-        for (TouchEvent touchEvent : touchEvents) {
-            Vector2 layerPosition = new Vector2();
-            ViewportHelper.convertScreenPosIntoLayer(
-                    mDefaultScreenViewport, touchEvent.x, touchEvent.y,
-                    mDefaultLayerViewport, layerPosition);
-
-            BoundingBox bound = mRiskMap.getBound();
-            if (bound.contains(layerPosition.x, layerPosition.y)) {
-
-                float xLoc = (layerPosition.x - bound.getLeft()) / bound.getWidth();
-                float yLoc = (bound.getTop() - layerPosition.y) / bound.getHeight();
-
-                Bitmap bitmap = mRiskMap.getBitmap();
-                int colour = bitmap.getPixel(
-                        (int) (xLoc * bitmap.getWidth()),
-                        (int) (yLoc * bitmap.getHeight()));
-
-                // Detects pixel colour and compares to the list of areas
-                // The RiskRulesScreenBackground image colours match mAreas colours)
-                for (int i = 0; i < mAreas.size(); i++) {
-                    if (colour == mAreas.get(i).getColour()) {
-                        return mAreas.get(i);
-                    }
-                }
-            }
-        }
-        // Be careful, returning null can cause crashes
-        return null;
-    }
-
+    //@Author: Kalvin Johnston
     private Field getFieldClicked() {
         Input input = mGame.getInput();
         List<TouchEvent> touchEvents = input.getTouchEvents();

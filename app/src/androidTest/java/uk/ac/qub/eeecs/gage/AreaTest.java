@@ -1,3 +1,5 @@
+//@Author: Kalvin Johnston
+
 package uk.ac.qub.eeecs.gage;
 
 import android.content.Context;

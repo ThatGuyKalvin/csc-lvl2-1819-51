@@ -5,6 +5,7 @@ import android.graphics.Color;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.Sprite;
 
+//@Author: Kalvin Johnston & Aimee Millar (I think?)
 public class Player {
 
     private String pName;

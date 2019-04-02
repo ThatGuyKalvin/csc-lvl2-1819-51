@@ -8,7 +8,7 @@ import uk.ac.qub.eeecs.gage.world.GameScreen;
 import uk.ac.qub.eeecs.gage.world.Sprite;
 
 //Field class to use for individual fields within an area and manipulate them
-//Author: Peter Gilfedder
+//Author: @Peter Gilfedder & @Kalvin Johnston
 
 public class Field{
 
