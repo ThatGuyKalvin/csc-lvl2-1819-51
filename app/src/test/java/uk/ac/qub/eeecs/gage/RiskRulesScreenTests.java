@@ -111,11 +111,12 @@ public class RiskRulesScreenTests {
         // Create test data
         game.mScreenManager = new ScreenManager(game);
         game.mScreenManager.addScreen(riskRulesScreen);
-        MenuScreen menuScreen = new MenuScreen(game);
+        //MenuScreen menuScreen = new MenuScreen(game);
         // Calling the test
         riskRulesScreen.changeToScreen(menuScreen);
         // Check the return of the test
         assertEquals(game.getScreenManager().getCurrentScreen().getName(),menuScreen.getName());
+
     }
 
     @Test
@@ -135,16 +136,16 @@ public class RiskRulesScreenTests {
 
         // Create a new game object instance
 
-        PushButton mainMenu = new PushButton(spacingX * 0.20f, spacingY * 0.42f,
+        PushButton mainMenuButton = new PushButton(spacingX * 0.20f, spacingY * 0.42f,
                 spacingX / 4, spacingY / 10, "main_menu_button",
                 "main_menu_button_pressed", riskRulesScreen);
 
         // Test that the constructed values are as expected
-        assertTrue(mainMenu.position.x == expectedXPosition);
-        assertTrue(mainMenu.position.y == expectedYPosition);
-        assertTrue(mainMenu.getBound().getWidth() == expectedWidth);
-        assertTrue(mainMenu.getBound().getHeight() == expectedHeight);
-        assertEquals(mainMenu.getBitmap(), assetManager.getBitmap(expectedBitmap));
+        assertTrue(mainMenuButton.position.x == expectedXPosition);
+        assertTrue(mainMenuButton.position.y == expectedYPosition);
+        assertTrue(mainMenuButton.getBound().getWidth() == expectedWidth);
+        assertTrue(mainMenuButton.getBound().getHeight() == expectedHeight);
+        assertEquals(mainMenuButton.getBitmap(), assetManager.getBitmap(expectedBitmap));
     }
 
 
@@ -205,7 +206,7 @@ public class RiskRulesScreenTests {
     }
 
     @Test
-    public void nextButtonPressed6()
+    public void nextButtonCantGoAbove6()
     {
         rulePageCounter = 6;
         nextPageButton.isPushTriggered();
@@ -261,7 +262,7 @@ public class RiskRulesScreenTests {
     }
 
     @Test
-    public void prevButtonPressed0()
+    public void prevButtonCantGoBelowZero()
     {
         rulePageCounter = 0;
         prevPageButton.isPushTriggered();

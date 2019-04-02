@@ -27,7 +27,6 @@ public class RiskRulesScreenTests {
 
 
 
-
     private Context context;
 
     @Before
@@ -129,6 +128,73 @@ public class RiskRulesScreenTests {
         boolean success = assetManager.loadAndAddBitmap(
                 "risk_rules_prev_button_pressed",
                 "img/RiskGameImages/risk_rules_prev_button_pressed.png");
+        assertTrue(success);
+
+    }
+
+    @Test
+    public void loadAndAddBitmap_Attack_Image(){
+
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "Rules_Attack_3_Dice",
+                "img/RiskGameImages/Rules_Attack_3_Dice.png");
+        assertTrue(success);
+
+    }
+
+    @Test
+    public void loadAndAddBitmap_Defend_Image(){
+
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "Rules_Defend_2_Dice",
+                "img/RiskGameImages/Rules_Defend_2_Dice.png");
+        assertTrue(success);
+
+    }
+
+
+    @Test
+    public void loadAndAddBitmap_Deploying_Armies_Image(){
+
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "Rules_Deploy_Armies",
+                "img/RiskGameImages/Rules_Deploy_Armies.png");
+        assertTrue(success);
+
+    }
+
+    @Test
+    public void loadAndAddBitmap_Start_Dice_Roll(){
+
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "Rules_Dice_Roll",
+                "img/RiskGameImages/Rules_Dice_Roll.png");
+        assertTrue(success);
+
+    }
+
+    @Test
+    public void loadAndAddBitmap_Field_Transitions_Image(){
+
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "Rules_Field_Transitions_Image",
+                "img/RiskGameImages/Rules_Field_Transitions_Image.png");
+        assertTrue(success);
+
+    }
+
+    @Test
+    public void loadAndAddBitmap_Map_Areas(){
+
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "Rules_Map_With_Areas",
+                "img/RiskGameImages/Rules_Map_With_Areas.png");
         assertTrue(success);
 
     }
