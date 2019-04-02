@@ -16,6 +16,7 @@ import uk.ac.qub.eeecs.gage.world.GameObject;
 import uk.ac.qub.eeecs.game.DemoGame;
 import uk.ac.qub.eeecs.game.OptionsScreen;
 import uk.ac.qub.eeecs.game.RiskGame.BlackHatHackers;
+import uk.ac.qub.eeecs.game.RiskGame.RiskCreditsScreen;
 import uk.ac.qub.eeecs.game.RiskGame.RiskGameScreen;
 import uk.ac.qub.eeecs.game.RiskGame.RiskSettingsScreen;
 
@@ -29,15 +30,13 @@ import static org.junit.Assert.assertTrue;
      */
 
 @RunWith(AndroidJUnit4.class)
-public class SettingsScreenTests {
+public class RiskCreditsScreenTests {
 
     BlackHatHackers game = new BlackHatHackers();
     Context appContext = InstrumentationRegistry.getTargetContext();
     AssetManager assetManager = new AssetManager(appContext);
-    //private Context context;
-    RiskSettingsScreen gameScreen;
+    RiskCreditsScreen gameScreen;
     ElapsedTime elapsedTime = new ElapsedTime();
-    //Context appContext = InstrumentationRegistry.getTargetContext();
 
 
     @Before
@@ -49,16 +48,9 @@ public class SettingsScreenTests {
     //Test for Constructor
     @Test
     public void testSettingsScreenConstructor() {
-        gameScreen = new RiskSettingsScreen(game);
-        assertEquals(gameScreen.getName(), "RiskSettingsScreen");
+        gameScreen = new RiskCreditsScreen(game);
+        assertEquals("RiskCreditsScreen", gameScreen.getName());
     }
-
-    @Test
-    public void testVolumeOnButtonIsMade() {
-        gameScreen = new RiskSettingsScreen(game);
-        assertNotNull(gameScreen.getVolumeOnButton());
-    }
-
 
     @Test
     public void loadAndAddBitmap_main_menu_button(){
@@ -81,81 +73,41 @@ public class SettingsScreenTests {
     }
 
     @Test
-    public void loadAndAddBitmap_risk_mute_button(){
+    public void loadAndAddBitmap_risk_settings_button(){
 
         AssetManager assetManager = new AssetManager(appContext);
         boolean success = assetManager.loadAndAddBitmap(
-                "risk_mute_button", "img/RiskGameImages/risk_mute_button.png");
+                "risk_settings_button", "img/RiskGameImages/risk_settings_button.png");
         assertTrue(success);
 
     }
 
     @Test
-    public void loadAndAddBitmap_risk_mute_button_pressed(){
+    public void loadAndAddBitmap_risk_settings_button_pressed(){
 
         AssetManager assetManager = new AssetManager(appContext);
         boolean success = assetManager.loadAndAddBitmap(
-                "risk_mute_button_pressed", "img/RiskGameImages/risk_mute_button_pressed.png");
+                "risk_settings_button_pressed", "img/RiskGameImages/risk_settings_button_pressed.png");
         assertTrue(success);
 
     }
 
     @Test
-    public void loadAndAddBitmap_risk_unmute_button(){
+    public void loadAndAddBitmap_risk_credit_names(){
 
         AssetManager assetManager = new AssetManager(appContext);
         boolean success = assetManager.loadAndAddBitmap(
-                "risk_unmute_button", "img/RiskGameImages/risk_unmute_button.png");
+                "risk_credits_screen_names", "img/RiskGameImages/risk_credits_screen_names.png");
         assertTrue(success);
 
     }
 
     @Test
-    public void loadAndAddBitmap_risk_unmute_button_pressed(){
+    public void loadAndAddBitmap_risk_credit_screen_background(){
 
         AssetManager assetManager = new AssetManager(appContext);
         boolean success = assetManager.loadAndAddBitmap(
-                "risk_unmute_button_pressed", "img/RiskGameImages/risk_unmute_button_pressed.png");
-        assertTrue(success);
-
-    }
-
-    @Test
-    public void loadAndAddBitmap_risk_volume_up_button(){
-
-        AssetManager assetManager = new AssetManager(appContext);
-        boolean success = assetManager.loadAndAddBitmap(
-                "risk_volume_up_button", "img/RiskGameImages/risk_volume_up_button.png");
-        assertTrue(success);
-
-    }
-
-    @Test
-    public void loadAndAddBitmap_risk_volume_up_button_pressed(){
-
-        AssetManager assetManager = new AssetManager(appContext);
-        boolean success = assetManager.loadAndAddBitmap(
-                "risk_volume_up_button_pressed", "img/RiskGameImages/risk_volume_up_button_pressed.png");
-        assertTrue(success);
-
-    }
-
-    @Test
-    public void loadAndAddBitmap_risk_volume_down_button(){
-
-        AssetManager assetManager = new AssetManager(appContext);
-        boolean success = assetManager.loadAndAddBitmap(
-                "risk_volume_down_button", "img/RiskGameImages/risk_volume_down_button.png");
-        assertTrue(success);
-
-    }
-
-    @Test
-    public void loadAndAddBitmap_risk_volume_down_button_pressed(){
-
-        AssetManager assetManager = new AssetManager(appContext);
-        boolean success = assetManager.loadAndAddBitmap(
-                "risk_volume_down_button_pressed", "img/RiskGameImages/risk_volume_down_button_pressed.png");
+                "RiskMainMenuScreen", "img/RiskGameImages/RiskMainMenuScreen.png");
         assertTrue(success);
 
     }

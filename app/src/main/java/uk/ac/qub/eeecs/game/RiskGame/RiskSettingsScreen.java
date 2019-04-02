@@ -87,8 +87,6 @@ public class RiskSettingsScreen extends GameScreen {
 
     }
 
-
-
     // /////////////////////////////////////////////////////////////////////////
     // Methods
     // /////////////////////////////////////////////////////////////////////////
@@ -120,10 +118,7 @@ public class RiskSettingsScreen extends GameScreen {
            else if (MainMenuButton.isPushTriggered())
                mGame.getScreenManager().addScreen(new MenuScreen(mGame));
         }
-
         mTimeToChange += elapsedTime.stepTime;
-
-
     }
 
 
@@ -135,7 +130,6 @@ public class RiskSettingsScreen extends GameScreen {
     public PushButton setVolumeUpButton(PushButton button) { return this.volumeUpButton = button; }
     public PushButton getVolumeDownButton() { return volumeDownButton; }
     public PushButton setVolumeDownButton(PushButton button) { return this.volumeDownButton = button; }
-
 
 
 
@@ -157,7 +151,5 @@ public class RiskSettingsScreen extends GameScreen {
         volumeOnButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         volumeUpButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         volumeDownButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
-
-
     }
 }

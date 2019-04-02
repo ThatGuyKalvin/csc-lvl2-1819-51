@@ -164,9 +164,6 @@ public class RiskCreditsScreen extends GameScreen {
                     addScreen(mButtonTriggers.get(button));
                 }
             }
-
-
-
         }
 
         timeToChange += elapsedTime.stepTime;

@@ -23,7 +23,7 @@ Author: Daniel Nelis Entire Class
 
 
 @RunWith(AndroidJUnit4.class)
-public class RulesScreenTests {
+public class RiskRulesScreenTests {
 
 
 

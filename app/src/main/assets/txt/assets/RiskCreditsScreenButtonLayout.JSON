@@ -1,0 +1,22 @@
+{
+  "pushButtons": [
+    {
+      "x": 0.15,
+      "y": 0.5,
+      "width": 0.15,
+      "height": 0.1,
+      "defaultBitmap": "main_menu_button",
+      "pushBitmap": "main_menu_button_pressed",
+      "triggeredGameScreen": "MenuScreen"
+    },
+    {
+      "x": 0.85,
+      "y": 0.5,
+      "width": 0.15,
+      "height": 0.1,
+      "defaultBitmap": "risk_settings_button",
+      "pushBitmap": "risk_settings_button_pressed",
+      "triggeredGameScreen": "RiskSettingsScreen"
+    }
+    ]
+}
