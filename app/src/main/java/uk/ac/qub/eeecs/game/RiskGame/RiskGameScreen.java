@@ -92,7 +92,8 @@ public class RiskGameScreen extends GameScreen {
         assetManager.loadAndAddBitmap("MicrosoftLogo", "img/RiskGameImages/MicrosoftLogo.png");
 
         //assetManager.loadAndAddBitmap("RiskGameScreen2", "img/RiskGamesImages/RiskGameScreen2.png");
-        assetManager.loadAndAddBitmap("RiskAttackButton", "img/RiskGameImages/risk_attack_pressed.png");
+        assetManager.loadAndAddBitmap("RiskAttackButton", "img/RiskGameImages/risk_attack_button.png");
+        assetManager.loadAndAddBitmap("RiskAttackButtonPressed", "img/RiskGameImages/risk_attack_button_pressed.png");
 
         // Author: Daniel Nelis (Designed Risk Map)
         mRiskGameScreenBackground = assetManager.getBitmap("RiskGameScreen2");
@@ -109,7 +110,10 @@ public class RiskGameScreen extends GameScreen {
                 "main_menu_button", "main_menu_button_pressed", this);
         mMainMenuButton.setPlaySounds(true, true);
 
-        mEndTurnButton = new PushButton(spacingX * 4.0f, spacingY * 2.5f, spacingX * 1.0f, spacingY * 4.0f, "end_turn_button", "end_turn_pressed", this);
+        mEndTurnButton = new PushButton(
+                spacingX * 4.0f, spacingY * 2.5f,
+                spacingX * 1.0f, spacingY * 4.0f,
+                "end_turn_button", "end_turn_pressed", this);
 
         mRiskMap = new GameObject(
                 mDefaultLayerViewport.x, mDefaultLayerViewport.y,
@@ -124,10 +128,10 @@ public class RiskGameScreen extends GameScreen {
                 "BackArrow", "BackArrowSelected", this);
         mAttackButton = new PushButton(
                 mDefaultLayerViewport.getWidth() * 0.95f,
-                mDefaultLayerViewport.getHeight() * 0.60f,
+                spacingY * 2.5f,
                 mDefaultLayerViewport.getWidth() * 0.075f,
                 mDefaultLayerViewport.getHeight() * 0.10f,
-                "RiskAttackButton", "RiskAttackButton", this);
+                "RiskAttackButton", "RiskAttackButtonPressed", this);
         mReturnToMenuButton.setPlaySounds(true, true);
 
         float screenWidth = mGame.getScreenWidth();
@@ -171,6 +175,16 @@ public class RiskGameScreen extends GameScreen {
             // Update each button and transition if needed
             mMainMenuButton.update(elapsedTime);
             mEndTurnButton.update(elapsedTime);
+            mReturnToMenuButton.update(elapsedTime);
+
+            if (mMainMenuButton.isPushTriggered())
+                mGame.getScreenManager().removeScreen(this);
+
+            else if (mEndTurnButton.isPushTriggered())
+                endTurn();
+
+            else if (mReturnToMenuButton.isPushTriggered())
+                mGame.getScreenManager().removeScreen(this);
 
             // If we're in attacking mode get a touched area
             //if(state != ATTACK_NULL) getAreaClicked();
@@ -181,11 +195,6 @@ public class RiskGameScreen extends GameScreen {
                     state = ATTACK_PICK_AGAIN;
                 }
             }
-            else if (mMainMenuButton.isPushTriggered())
-                mGame.getScreenManager().removeScreen(this);
-
-            else if (mEndTurnButton.isPushTriggered())
-                endTurn();
 
             else if(state == ATTACK_PICK_AGAIN) {
                 Field tmpField = getFieldClicked();
@@ -220,14 +229,10 @@ public class RiskGameScreen extends GameScreen {
                 }
             }
 
-            if (state == ATTACK_BATTLING){
+            else if (state == ATTACK_BATTLING){
                 beginBattle(mFieldsAttacking[0], mFieldsAttacking[1]);
                 state = ATTACK_NULL;
             }
-
-            mReturnToMenuButton.update(elapsedTime);
-            if (mReturnToMenuButton.isPushTriggered())
-                mGame.getScreenManager().removeScreen(this);
 
             // Changing attack state
             mAttackButton.update(elapsedTime);
