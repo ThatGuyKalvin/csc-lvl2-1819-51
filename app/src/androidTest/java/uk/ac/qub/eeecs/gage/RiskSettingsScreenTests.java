@@ -36,7 +36,6 @@ public class RiskSettingsScreenTests {
     AssetManager assetManager = new AssetManager(appContext);
     RiskSettingsScreen gameScreen;
     ElapsedTime elapsedTime = new ElapsedTime();
-    //Context appContext = InstrumentationRegistry.getTargetContext();
 
 
     @Before

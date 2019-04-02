@@ -37,13 +37,6 @@ public class RiskRulesScreenTests {
 
 
     @Test
-    public void testCorrectScreenChange()
-    {
-        //This is the test data
-    }
-
-
-    @Test
     public void loadAndAddBitmap_Rules_Screen_Background(){
 
         AssetManager assetManager = new AssetManager(context);
