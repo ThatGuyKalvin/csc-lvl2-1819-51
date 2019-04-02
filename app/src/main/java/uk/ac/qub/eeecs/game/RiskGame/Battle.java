@@ -10,8 +10,8 @@ public class Battle {
     public Battle(Field att, Field def){
         attackField = att;
         defendField = def;
-        numOfAttTeams = att.getFNumOfTeams();
-        numOfDefTeams = def.getFNumOfTeams();
+        numOfAttTeams = att.getNumOfTeams();
+        numOfDefTeams = def.getNumOfTeams();
         //automatically setting the highest number of dice that each can roll
         autoSetNumOfDiceAtt();
         setNumOfDiceDef();
@@ -46,17 +46,15 @@ public class Battle {
     //checks if that attacking field wins and returns a boolean value
     //@Philip Murphy
     public boolean attackersWin(){
-        if(numOfDefTeams == 0)
-            return true;
-        return false;
+        if(numOfDefTeams == 0) return true;
+        else return false;
     }
 
     //checks that there are enough teams to have a battle
     //@philip Murphy
     public boolean noTeams(){
-        if(numOfAttTeams == 1 || numOfDefTeams == 0)
-            return true;
-        return false;
+        if(numOfAttTeams == 1 || numOfDefTeams == 0) return true;
+        else return false;
     }
 
     //Creates a new set of values for the arrays
@@ -69,17 +67,15 @@ public class Battle {
     //@Philip Murphy
     //Checks that the number of dice is right.
     public boolean canBattle(){
-        if(numOfDiceAtt < numOfAttTeams && connected())
-            return true;
-
-        return false;
+        if(numOfDiceAtt < numOfAttTeams && connected()) return true;
+        else return false;
     }
 
     //checks that two fields are connected
     //@Philip Murphy
-    public boolean connected(){
-        for(int i =0; i < attackField.getFConnectedFields().size(); i++)
-            if(defendField == attackField.getFConnectedFields().get(i))
+    private boolean connected(){
+        for(int i = 0; i < attackField.getConnectedFields().size(); i++)
+            if(defendField == attackField.getConnectedFields().get(i))
                 return true;
 
         return false;
@@ -94,7 +90,7 @@ public class Battle {
             diceRollDef.getDiceResults()[i] = 0;
     }
     public void autoSetNumOfDiceAtt(){
-        switch  (attackField.getFNumOfTeams()){
+        switch  (attackField.getNumOfTeams()){
             case 2 : this.numOfDiceAtt = 1;
                 break;
             case 3 : this.numOfDiceAtt = 2;
@@ -109,7 +105,7 @@ public class Battle {
     public void setNumOfDiceAtt(int number){ this.numOfDiceAtt = number;}
 
     public void setNumOfDiceDef(){
-        if(defendField.getFNumOfTeams() >= 3){
+        if(defendField.getNumOfTeams() >= 3){
             this.numOfDiceDef = 2;
         }else{
             this.numOfDiceDef = 1;
@@ -125,8 +121,8 @@ public class Battle {
     public int getAttDiceTotal(){return diceRollAtt.getTotal();}
     public int getDefDiceTotal(){return diceRollDef.getTotal();}
 
-    public String getAttPlayerName(){return attackField.getFPlayer().getName();}
-    public String getDefPlayerName(){return defendField.getFPlayer().getName();}
+    public String getAttPlayerName(){return attackField.getPlayer().getName();}
+    public String getDefPlayerName(){return defendField.getPlayer().getName();}
 }
 
 

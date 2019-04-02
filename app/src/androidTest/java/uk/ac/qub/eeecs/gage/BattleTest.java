@@ -1,24 +1,18 @@
 package uk.ac.qub.eeecs.gage;
 
 import android.content.Context;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import uk.ac.qub.eeecs.gage.engine.AssetManager;
 import uk.ac.qub.eeecs.game.RiskGame.Battle;
-import uk.ac.qub.eeecs.game.RiskGame.DiceRoll;
 import uk.ac.qub.eeecs.game.RiskGame.Field;
-import uk.ac.qub.eeecs.game.RiskGame.Player;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-@RunWith(AndroidJUnit4.class)
 public class BattleTest {
 
 
@@ -32,10 +26,6 @@ public class BattleTest {
         field1.setNumOfTeams(attackers);
         field2.setNumOfTeams(defenders);
     }
-
-    @Before
-    public void setUp() { context = InstrumentationRegistry.getTargetContext(); }
-
 
     @Test
     public void can_battle_success() {
@@ -123,7 +113,7 @@ public class BattleTest {
         if(total == battle.getAttDiceTotal()){
             assertTrue(true);
         }else{
-            assertTrue(false);
+            fail();
         }
     }
 
@@ -135,7 +125,7 @@ public class BattleTest {
         battle.newRoll();
 
         battle.fastBattle();
-        if(field1.getFNumOfTeams() == 1 || field2.getFNumOfTeams() == 0){
+        if(field1.getNumOfTeams() == 1 || field2.getNumOfTeams() == 0){
             success = true;
         }
         assertTrue(success);
@@ -149,7 +139,7 @@ public class BattleTest {
         battle = new Battle(field1, field2);
         battle.newRoll();
         battle.fastBattle();
-        if(battle.attackersWin() == true){
+        if(battle.attackersWin()){
             success = true;
         }
         assertTrue(success);
@@ -163,7 +153,7 @@ public class BattleTest {
         battle = new Battle(field1, field2);
         battle.newRoll();
         battle.fastBattle();
-        if(battle.attackersWin() == false){
+        if(battle.attackersWin()){
             success = false;
         }
         assertFalse(success);

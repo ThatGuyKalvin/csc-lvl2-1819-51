@@ -1,35 +1,30 @@
 package uk.ac.qub.eeecs.game.RiskGame;
 
-import android.graphics.Bitmap;
-
 import java.util.ArrayList;
-
-import uk.ac.qub.eeecs.gage.world.GameScreen;
-import uk.ac.qub.eeecs.gage.world.Sprite;
 
 //Field class to use for individual fields within an area and manipulate them
 //Author: @Peter Gilfedder & @Kalvin Johnston
 
 public class Field{
 
-    private int FNum;
-    private String FName;
-    private Player FPlayer;
-    private int FNumOfTeams = 2;
+    private int num;
+    private String name;
+    private Player player;
+    private int numOfTeams = 2;
     private boolean assigned = false;
-    private ArrayList<Field> FConnectedFields;
+    private ArrayList<Field> connectedFields;
     private ArrayList<Integer> colourArray = new ArrayList<>();
-    private int FColour;
+    private int colour;
 
-    public Field(int Num, String Name, int Colour) {
-        FNum = Num;
-        FName = Name;
-        FColour = Colour;
+    public Field(int num, String name, int colour) {
+        this.num = num;
+        this.name = name;
+        this.colour = colour;
     }
 
     public void setPlayer(Player player)
     {
-        FPlayer = player;
+        this.player = player;
         assigned = true;
     }
 
@@ -39,47 +34,49 @@ public class Field{
 
     public void addColourToArray(int colour) { colourArray.add(colour); }
 
-    public boolean checkAssigned(){return assigned;}
+    public boolean checkAssigned() { return assigned; }
 
-    public int getColour() { return FColour; }
+    public int getColour() { return colour; }
 
-    public void setColour(int colour) { FColour = colour; }
+    public void setColour(int colour) { this.colour = colour; }
 
-    public void setNumOfTeams(int teams) {FNumOfTeams = teams;}
+    public void setNumOfTeams(int teams) {
+        numOfTeams = teams;}
 
     public void incrementNumOfTeams(){
-        FNumOfTeams++;
+        numOfTeams++;
     }
 
     public void decreaseNumOfTeams(int decrease){
-        FNumOfTeams -= decrease;
+        numOfTeams -= decrease;
     }
 
     public void decrementNumOfTeams(){
-        FNumOfTeams--;
+        numOfTeams--;
     }
 
-    public Player getFPlayer(){
-        return FPlayer;
+    public Player getPlayer(){
+        return player;
     }
 
-    public int getFNumOfTeams(){
-        return FNumOfTeams;
+    public int getNumOfTeams(){
+        return numOfTeams;
     }
 
-    public ArrayList<Field> getFConnectedFields(){
-        return FConnectedFields;
+    public ArrayList<Field> getConnectedFields(){
+        return connectedFields;
     }
 
-    public void addConnectedFields(ArrayList<Field> Connected){FConnectedFields = Connected;}
+    public void addConnectedFields(ArrayList<Field> Connected){
+        connectedFields = Connected;}
 
-    public String getFName(){return FName;}
+    public String getName(){return name;}
 
-    public int getFNum(){return FNum;}
+    public int getNum(){return num;}
 
     public void hostileTakeOver(Player Team, int numOfTeams)
     {
-        FPlayer = Team;
-        FNumOfTeams = numOfTeams;
+        player = Team;
+        this.numOfTeams = numOfTeams;
     }
 }

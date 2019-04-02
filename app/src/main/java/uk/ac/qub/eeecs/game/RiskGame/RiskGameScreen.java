@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,8 +52,8 @@ public class RiskGameScreen extends GameScreen {
     private Field mFieldTouched;
     private int state = ATTACK_NULL;
     private int clickedColour = 0;
-    public Rect smallLogoImage = new Rect();
-    public Rect bigLogoImage = new Rect();
+    private Rect smallLogoImage = new Rect();
+    private Rect bigLogoImage = new Rect();
 
     // ArrayList for Areas and Players
     private final int MAX_AREAS = 5;
@@ -292,7 +291,7 @@ public class RiskGameScreen extends GameScreen {
             graphics2D.drawText("Player " + (CurrentPlayerNum + 1) + "'s turn (" + mPlayers.get(CurrentPlayerNum).getName() + ")",
                     0.0f, lineHeight + 80.0f, textPaint);
             if(mFieldTouched != null){
-                graphics2D.drawText("Touch[0]: " + mFieldTouched.getFName() + " Number of teams assigned: " + mFieldTouched.getFNumOfTeams() + " Owned by: " + mFieldTouched.getFPlayer().getName(),
+                graphics2D.drawText("Touch[0]: " + mFieldTouched.getName() + " Number of teams assigned: " + mFieldTouched.getNumOfTeams() + " Owned by: " + mFieldTouched.getPlayer().getName(),
                         0.0f, lineHeight + 120.0f, textPaint);
             }
 
@@ -307,7 +306,7 @@ public class RiskGameScreen extends GameScreen {
                     attackStr = "State: Pick area 2.";
                     break;
                 case ATTACK_BATTLING:
-                    attackStr = "State: Battle: " + mFieldsAttacking[0].getFName() + " vs. " + mFieldsAttacking[1].getFName();
+                    attackStr = "State: Battle: " + mFieldsAttacking[0].getName() + " vs. " + mFieldsAttacking[1].getName();
                     break;
                 case ALLOCATE:
                     attackStr = "State: Player " + (CurrentPlayerNum + 1) + " Allocate Team";
@@ -346,17 +345,17 @@ public class RiskGameScreen extends GameScreen {
         graphics2D.drawText("Current Player", 115.0f, lineHeight + 900.0f, textPaint);
         textPaint.setColor(Color.WHITE);
         graphics2D.drawText("Total Teams", 400.0f, lineHeight + 900.0f, textPaint);
-        if(mPlayers.get(CurrentPlayerNum).getName() == "Google") {
+        if(mPlayers.get(CurrentPlayerNum).getName().equals("Google")) {
             String playerTotal = String.valueOf(getTotalNumOfTeams(mPlayers.get(1)));
             graphics2D.drawText(playerTotal, 475.0f, lineHeight + 1000.0f, textPaint);
             graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("GoogleLogo"),null, bigLogoImage,null);
         }
-        else if(mPlayers.get(CurrentPlayerNum).getName() == "Apple") {
+        else if(mPlayers.get(CurrentPlayerNum).getName().equals("Apple")) {
             String playerTotal = String.valueOf(getTotalNumOfTeams(mPlayers.get(2)));
             graphics2D.drawText(playerTotal, 475.0f, lineHeight + 1000.0f, textPaint);
             graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("AppleLogo"),null, smallLogoImage,null);
         }
-        else if(mPlayers.get(CurrentPlayerNum).getName() == "Microsoft"){
+        else if(mPlayers.get(CurrentPlayerNum).getName().equals("Microsoft")){
             String playerTotal = String.valueOf(getTotalNumOfTeams(mPlayers.get(0)));
             graphics2D.drawText(playerTotal, 475.0f, lineHeight + 1000.0f, textPaint);
             graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("MicrosoftLogo"),null, bigLogoImage,null);
@@ -796,111 +795,111 @@ public class RiskGameScreen extends GameScreen {
 
     private void addConnectedFields() //Adds list of fields connected to each field - Written by Michael
     {
-        ArrayList<Field> connectToIntPro = new ArrayList<Field>(1);
+        ArrayList<Field> connectToIntPro = new ArrayList<>(1);
         connectToIntPro.add(mAreas.get(0).getField(1));
 
-        ArrayList<Field> connectToPhoneCarr = new ArrayList<Field>(4);
+        ArrayList<Field> connectToPhoneCarr = new ArrayList<>(4);
         connectToPhoneCarr.add(mAreas.get(0).getField(0));
         connectToPhoneCarr.add(mAreas.get(0).getField(2));
         connectToPhoneCarr.add(mAreas.get(0).getField(3));
         connectToPhoneCarr.add(mAreas.get(0).getField(4));
 
-        ArrayList<Field> connectToVoIP = new ArrayList<Field>(4);
+        ArrayList<Field> connectToVoIP = new ArrayList<>(4);
         connectToVoIP.add(mAreas.get(0).getField(0));
         connectToVoIP.add(mAreas.get(0).getField(3));
         connectToVoIP.add(mAreas.get(0).getField(4));
         connectToVoIP.add(mAreas.get(1).getField(2));
 
-        ArrayList<Field> connectToRadio = new ArrayList<Field>(2);
+        ArrayList<Field> connectToRadio = new ArrayList<>(2);
         connectToRadio.add(mAreas.get(0).getField(2));
         connectToRadio.add(mAreas.get(0).getField(4));
 
-        ArrayList<Field> connectToTeleg = new ArrayList<Field>(4);
+        ArrayList<Field> connectToTeleg = new ArrayList<>(4);
         connectToTeleg.add(mAreas.get(0).getField(1));
         connectToTeleg.add(mAreas.get(0).getField(2));
         connectToTeleg.add(mAreas.get(0).getField(3));
         connectToTeleg.add(mAreas.get(2).getField(0));
 
-        ArrayList<Field> connectToCybSec = new ArrayList<Field>(2);
+        ArrayList<Field> connectToCybSec = new ArrayList<>(2);
         connectToCybSec.add(mAreas.get(1).getField(1));
         connectToCybSec.add(mAreas.get(3).getField(0));
 
-        ArrayList<Field> connectToCCTV = new ArrayList<Field>(5);
+        ArrayList<Field> connectToCCTV = new ArrayList<>(5);
         connectToCCTV.add(mAreas.get(1).getField(0));
         connectToCCTV.add(mAreas.get(1).getField(2));
         connectToCCTV.add(mAreas.get(1).getField(3));
         connectToCCTV.add(mAreas.get(1).getField(5));
         connectToCCTV.add(mAreas.get(3).getField(1));
 
-        ArrayList<Field> connectToAudit = new ArrayList<Field>(4);
+        ArrayList<Field> connectToAudit = new ArrayList<>(4);
         connectToAudit.add(mAreas.get(0).getField(2));
         connectToAudit.add(mAreas.get(1).getField(1));
         connectToAudit.add(mAreas.get(1).getField(3));
         connectToAudit.add(mAreas.get(1).getField(4));
 
-        ArrayList<Field> connectToTFA = new ArrayList<Field>(4);
+        ArrayList<Field> connectToTFA = new ArrayList<>(4);
         connectToTFA.add(mAreas.get(1).getField(1));
         connectToTFA.add(mAreas.get(1).getField(2));
         connectToTFA.add(mAreas.get(1).getField(4));
         connectToTFA.add(mAreas.get(1).getField(5));
 
-        ArrayList<Field> connectToFW = new ArrayList<Field>(3);
+        ArrayList<Field> connectToFW = new ArrayList<>(3);
         connectToFW.add(mAreas.get(1).getField(2));
         connectToFW.add(mAreas.get(1).getField(3));
         connectToFW.add(mAreas.get(1).getField(5));
 
-        ArrayList<Field> connectToAV = new ArrayList<Field>(5);
+        ArrayList<Field> connectToAV = new ArrayList<>(5);
         connectToAV.add(mAreas.get(1).getField(1));
         connectToAV.add(mAreas.get(1).getField(3));
         connectToAV.add(mAreas.get(1).getField(4));
         connectToAV.add(mAreas.get(4).getField(0));
         connectToAV.add(mAreas.get(4).getField(2));
 
-        ArrayList<Field> connectToC = new ArrayList<Field>(3);
+        ArrayList<Field> connectToC = new ArrayList<>(3);
         connectToC.add(mAreas.get(0).getField(4));
         connectToC.add(mAreas.get(2).getField(1));
         connectToC.add(mAreas.get(2).getField(2));
 
-        ArrayList<Field> connectToJava = new ArrayList<Field>(3);
+        ArrayList<Field> connectToJava = new ArrayList<>(3);
         connectToJava.add(mAreas.get(2).getField(0));
         connectToJava.add(mAreas.get(2).getField(2));
         connectToJava.add(mAreas.get(3).getField(0));
 
-        ArrayList<Field> connectToPython = new ArrayList<Field>(3);
+        ArrayList<Field> connectToPython = new ArrayList<>(3);
         connectToPython.add(mAreas.get(2).getField(0));
         connectToPython.add(mAreas.get(2).getField(1));
 
-        ArrayList<Field> connectToGI = new ArrayList<Field>(4);
+        ArrayList<Field> connectToGI = new ArrayList<>(4);
         connectToGI.add(mAreas.get(1).getField(0));
         connectToGI.add(mAreas.get(2).getField(1));
         connectToGI.add(mAreas.get(3).getField(1));
         connectToGI.add(mAreas.get(3).getField(2));
 
-        ArrayList<Field> connectToAICars = new ArrayList<Field>(4);
+        ArrayList<Field> connectToAICars = new ArrayList<>(4);
         connectToAICars.add(mAreas.get(1).getField(1));
         connectToAICars.add(mAreas.get(3).getField(0));
         connectToAICars.add(mAreas.get(3).getField(2));
         connectToAICars.add(mAreas.get(3).getField(3));
 
-        ArrayList<Field> connectToRobot = new ArrayList<Field>(3);
+        ArrayList<Field> connectToRobot = new ArrayList<>(3);
         connectToRobot.add(mAreas.get(3).getField(0));
         connectToRobot.add(mAreas.get(3).getField(1));
         connectToRobot.add(mAreas.get(3).getField(3));
 
-        ArrayList<Field> connectToVR = new ArrayList<Field>(2);
+        ArrayList<Field> connectToVR = new ArrayList<>(2);
         connectToVR.add(mAreas.get(3).getField(1));
         connectToVR.add(mAreas.get(3).getField(2));
 
-        ArrayList<Field> connectToSM = new ArrayList<Field>(2);
+        ArrayList<Field> connectToSM = new ArrayList<>(2);
         connectToSM.add(mAreas.get(4).getField(1));
         connectToSM.add(mAreas.get(4).getField(2));
 
-        ArrayList<Field> connectToRL = new ArrayList<Field>(3);
+        ArrayList<Field> connectToRL = new ArrayList<>(3);
         connectToRL.add(mAreas.get(1).getField(5));
         connectToRL.add(mAreas.get(4).getField(0));
         connectToRL.add(mAreas.get(4).getField(2));
 
-        ArrayList<Field> connectToSurvey = new ArrayList<Field>(3);
+        ArrayList<Field> connectToSurvey = new ArrayList<>(3);
         connectToSurvey.add(mAreas.get(1).getField(5));
         connectToSurvey.add(mAreas.get(4).getField(0));
         connectToSurvey.add(mAreas.get(4).getField(1));
@@ -942,39 +941,39 @@ public class RiskGameScreen extends GameScreen {
         assignFields();
     }
 
-    public int getTotalNumOfTeams(Player player) //Returns total number of teams for a certain player - Written by Michael
+    private int getTotalNumOfTeams(Player player) //Returns total number of teams for a certain player - Written by Michael
     {
         int playerTotal = 0;
         int totalUnassigned = 0;
         int j = 0;
         for(int x=0; x < 5; x++)
         {
-            if(mAreas.get(0).getField(x).getFPlayer() == player)
-                playerTotal = playerTotal + mAreas.get(0).getField(x).getFNumOfTeams();
+            if(mAreas.get(0).getField(x).getPlayer() == player)
+                playerTotal = playerTotal + mAreas.get(0).getField(x).getNumOfTeams();
         }
 
         for(int x=0; x < 6; x++)
         {
-            if(mAreas.get(1).getField(x).getFPlayer() == player)
-                playerTotal = playerTotal + mAreas.get(1).getField(x).getFNumOfTeams();
+            if(mAreas.get(1).getField(x).getPlayer() == player)
+                playerTotal = playerTotal + mAreas.get(1).getField(x).getNumOfTeams();
         }
 
         for(int x=0; x < 3; x++)
         {
-            if(mAreas.get(2).getField(x).getFPlayer() == player)
-                playerTotal = playerTotal + mAreas.get(2).getField(x).getFNumOfTeams();
+            if(mAreas.get(2).getField(x).getPlayer() == player)
+                playerTotal = playerTotal + mAreas.get(2).getField(x).getNumOfTeams();
         }
 
         for(int x=0; x < 4; x++)
         {
-            if(mAreas.get(3).getField(x).getFPlayer() == player)
-                playerTotal = playerTotal + mAreas.get(3).getField(x).getFNumOfTeams();
+            if(mAreas.get(3).getField(x).getPlayer() == player)
+                playerTotal = playerTotal + mAreas.get(3).getField(x).getNumOfTeams();
         }
 
         for(int x=0; x < 3; x++)
         {
-            if(mAreas.get(4).getField(x).getFPlayer() == player)
-                playerTotal = playerTotal + mAreas.get(4).getField(x).getFNumOfTeams();
+            if(mAreas.get(4).getField(x).getPlayer() == player)
+                playerTotal = playerTotal + mAreas.get(4).getField(x).getNumOfTeams();
         }
 
         return playerTotal;
@@ -1032,7 +1031,7 @@ public class RiskGameScreen extends GameScreen {
                     new DiceRollScreen(mGame, battle));
 
         if(battle.attackersWin())
-            def.hostileTakeOver(att.getFPlayer(), att.getFNumOfTeams());
+            def.hostileTakeOver(att.getPlayer(), att.getNumOfTeams());
     }
 
     private void drawTeamsToField(Paint textPaint, IGraphics2D graphics2D) {
@@ -1059,34 +1058,34 @@ public class RiskGameScreen extends GameScreen {
         int z = 0;
 
         for (int i = 0; i < 5; i++) {
-            textPaint.setColor(mAreas.get(0).getField(v).getFPlayer().getColour());
-            graphics2D.drawText(Integer.toString(mAreas.get(0).getField(v).getFNumOfTeams()), screenWidth * xPositions[i], screenHeight * yPositions[i], textPaint);
+            textPaint.setColor(mAreas.get(0).getField(v).getPlayer().getColour());
+            graphics2D.drawText(Integer.toString(mAreas.get(0).getField(v).getNumOfTeams()), screenWidth * xPositions[i], screenHeight * yPositions[i], textPaint);
             v++;
         }
         for (int i = 5; i < 11; i++) {
-            textPaint.setColor(mAreas.get(1).getField(w).getFPlayer().getColour());
-            graphics2D.drawText(Integer.toString(mAreas.get(1).getField(w).getFNumOfTeams()), screenWidth * xPositions[i], screenHeight * yPositions[i], textPaint);
+            textPaint.setColor(mAreas.get(1).getField(w).getPlayer().getColour());
+            graphics2D.drawText(Integer.toString(mAreas.get(1).getField(w).getNumOfTeams()), screenWidth * xPositions[i], screenHeight * yPositions[i], textPaint);
             w++;
         }
         for (int i = 11; i < 14; i++) {
-            textPaint.setColor(mAreas.get(2).getField(x).getFPlayer().getColour());
-            graphics2D.drawText(Integer.toString(mAreas.get(2).getField(x).getFNumOfTeams()), screenWidth * xPositions[i], screenHeight * yPositions[i], textPaint);
+            textPaint.setColor(mAreas.get(2).getField(x).getPlayer().getColour());
+            graphics2D.drawText(Integer.toString(mAreas.get(2).getField(x).getNumOfTeams()), screenWidth * xPositions[i], screenHeight * yPositions[i], textPaint);
             x++;
         }
         for (int i = 14; i < 18; i++) {
-            textPaint.setColor(mAreas.get(3).getField(y).getFPlayer().getColour());
-            graphics2D.drawText(Integer.toString(mAreas.get(3).getField(y).getFNumOfTeams()), screenWidth * xPositions[i], screenHeight * yPositions[i], textPaint);
+            textPaint.setColor(mAreas.get(3).getField(y).getPlayer().getColour());
+            graphics2D.drawText(Integer.toString(mAreas.get(3).getField(y).getNumOfTeams()), screenWidth * xPositions[i], screenHeight * yPositions[i], textPaint);
             y++;
         }
         for (int i = 18; i < 21; i++) {
-            textPaint.setColor(mAreas.get(4).getField(z).getFPlayer().getColour());
-            graphics2D.drawText(Integer.toString(mAreas.get(4).getField(z).getFNumOfTeams()), screenWidth * xPositions[i], screenHeight * yPositions[i], textPaint);
+            textPaint.setColor(mAreas.get(4).getField(z).getPlayer().getColour());
+            graphics2D.drawText(Integer.toString(mAreas.get(4).getField(z).getNumOfTeams()), screenWidth * xPositions[i], screenHeight * yPositions[i], textPaint);
             z++;
         }
     }
     //All Code below Author @Peter Gilfedder
 
-    public void assignFields()
+    private void assignFields()
     {
         ArrayList<Field> allFields = new ArrayList<>();
         for (int i = 0; i <= 4; i++)
@@ -1096,7 +1095,6 @@ public class RiskGameScreen extends GameScreen {
                 allFields.add(mAreas.get(i).getField(j));
             }
         }
-
         Random randomNumber = new Random();
         int random;
         do{
@@ -1107,23 +1105,22 @@ public class RiskGameScreen extends GameScreen {
                 endTurn(false);
             }
         }while(!FieldsAllOwned(allFields));
-
         for(Area area : mAreas)
         {
             for(Field field : allFields)
             {
-                for(Field areaField : area.fields)
+                for(Field areaField : area.aFields)
                 {
-                    if(field.getFNum() == areaField.getFNum())
+                    if(field.getNum() == areaField.getNum())
                     {
-                        areaField.setPlayer(field.getFPlayer());
+                        areaField.setPlayer(field.getPlayer());
                     }
                 }
             }
         }
     }
 
-    public boolean FieldsAllOwned(ArrayList<Field> fields)
+    private boolean FieldsAllOwned(ArrayList<Field> fields)
     {
         for(Field f : fields)
         {
@@ -1186,9 +1183,9 @@ public class RiskGameScreen extends GameScreen {
         int teamsEarned = 0;
         for (int i = 0; i < mAreas.size(); i++)
         {
-            for (int j = 0; j < mAreas.get(i).fields.size(); i++)
+            for (int j = 0; j < mAreas.get(i).aFields.size(); i++)
             {
-                if(mAreas.get(i).fields.get(j).getFPlayer() != mPlayers.get(CurrentPlayerNum))
+                if(mAreas.get(i).aFields.get(j).getPlayer() != mPlayers.get(CurrentPlayerNum))
                 {
                     areaOwned = false;
                 }
@@ -1207,7 +1204,7 @@ public class RiskGameScreen extends GameScreen {
         {
             for(int j = 0; j < mAreas.get(i).getFieldSize(); j++)
             {
-                if(mAreas.get(i).getField(j).getFPlayer() == mPlayers.get(PlayerNum))
+                if(mAreas.get(i).getField(j).getPlayer() == mPlayers.get(PlayerNum))
                 {
                     TempList.add(mAreas.get(i).getField(j));
                 }
