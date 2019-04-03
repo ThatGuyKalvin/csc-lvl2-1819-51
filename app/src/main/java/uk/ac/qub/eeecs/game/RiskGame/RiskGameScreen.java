@@ -202,14 +202,10 @@ public class RiskGameScreen extends GameScreen {
 
             else if(state == INITIAL_ALLOCATE) {
                 Field tmpField = getFieldClicked();
-                if(tmpField != null && findPlayerFields(CurrentPlayerNum).contains(tmpField)){
+                if(tmpField != null && findPlayerFields(CurrentPlayerNum).contains(tmpField)) {
                     findOriginalField(tmpField).incrementNumOfTeams();
                     teamsToAllocate--;
                     endTurn(false);
-                }
-                if(teamsToAllocate <= 0)
-                {
-                    state = ATTACK_NULL;
                 }
             }
 
