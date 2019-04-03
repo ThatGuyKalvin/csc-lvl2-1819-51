@@ -96,7 +96,8 @@ public class RiskRulesScreenMockTestClass {
                 spacingX/4, spacingY/10, "main_menu_button",
                 "main_menu_button_pressed", mockGameScreen);
         howToPlayTheRules = new PushButton(spacingX * 0.15f, spacingY * 0.12f,
-                spacingX/6, spacingY/6, "How_To_Play_Rule_Button", mockGameScreen);
+                spacingX/6, spacingY/6, "How_To_Play_Rule_Button",
+                mockGameScreen);
         nextPageButton = new PushButton(-100, -100,
                 spacingX/7, spacingY/13, "risk_rules_next_button",
                 "risk_rules_next_button_pressed", mockGameScreen);

@@ -76,7 +76,8 @@ public class RiskCreditsScreen extends GameScreen {
         /*
         Constructing the Buttons within RiskCreditsScreen
          */
-        constructButtons("txt/assets/RiskCreditsScreenButtonLayout.JSON", mButtons);
+        constructButtons("txt/assets/RiskCreditsScreenButtonLayout.JSON",
+                mButtons);
 
         //Ensuring the click sounds are played for all the created buttons
         for (PushButton button : mButtons)
@@ -109,7 +110,8 @@ public class RiskCreditsScreen extends GameScreen {
             loadedJSON = mGame.getFileIO().loadJSON(buttonsToConstructJSONFile);
         } catch (IOException e) {
             throw  new RuntimeException(
-                    "CreditsScreen.constructButtons: Cannot load JSON [" + buttonsToConstructJSONFile + "]");
+                    "CreditsScreen.constructButtons: Cannot load JSON [" +
+                            buttonsToConstructJSONFile + "]");
         }
 
 
@@ -129,9 +131,11 @@ public class RiskCreditsScreen extends GameScreen {
                 float width = (float)buttonDetails.getJSONObject(idx).getDouble("width");
                 float height = (float)buttonDetails.getJSONObject(idx).getDouble("height");
 
-                String defaultBitmap = buttonDetails.getJSONObject(idx).getString("defaultBitmap");
+                String defaultBitmap = buttonDetails.getJSONObject(idx).getString(
+                        "defaultBitmap");
                 String pushBitmap = buttonDetails.getJSONObject(idx).getString("pushBitmap");
-                String triggeredGameScreen = buttonDetails.getJSONObject(idx).getString("triggeredGameScreen");
+                String triggeredGameScreen = buttonDetails.getJSONObject(idx).getString(
+                        "triggeredGameScreen");
 
                 PushButton button = new PushButton(x * layerWidth, y * layerHeight,
                         width * layerWidth, height * layerHeight,
