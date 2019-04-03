@@ -62,7 +62,6 @@ public class RiskGameScreen extends GameScreen {
     private int CurrentPlayerNum = 0;
     private int teamsToAllocate = 0;
     private boolean SuccessfulAttack = false;
-    private boolean allocated = false;
     private Paint textPaint = new Paint();
 
     private PushButton mReturnToMenuButton;
@@ -1045,6 +1044,7 @@ public class RiskGameScreen extends GameScreen {
 
     private void AllocateTeams(int numOfTeams, int playerNum){
         teamsToAllocate = numOfTeams;
+        state = ALLOCATE;
     }
 
     private void endTurn(boolean bool)
@@ -1065,7 +1065,7 @@ public class RiskGameScreen extends GameScreen {
     private void beginTurn()
     {
         ArrayList<Field> PlayerFieldsAtTurnStart = findPlayerFields(CurrentPlayerNum);
-        int numOfTeamsAllocated = (PlayerFieldsAtTurnStart.size()/2) + riskCardCalc() + areaControlledCalc();
+        int numOfTeamsAllocated = PlayerFieldsAtTurnStart.size() + riskCardCalc() + areaControlledCalc();
         AllocateTeams(numOfTeamsAllocated, CurrentPlayerNum);
     }
 
