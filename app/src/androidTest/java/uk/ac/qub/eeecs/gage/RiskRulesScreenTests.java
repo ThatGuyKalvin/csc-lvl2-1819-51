@@ -19,6 +19,7 @@ import static org.junit.Assert.assertTrue;
 
 /*
 Author: Daniel Nelis Entire Class
+Reformatted code to fit word document
  */
 
 

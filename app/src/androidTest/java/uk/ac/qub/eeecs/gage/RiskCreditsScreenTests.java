@@ -27,6 +27,7 @@ import static org.junit.Assert.assertTrue;
 
     /*
     Author: Daniel Nelis Entire Class
+    Reformatted code to fit word document
      */
 
 @RunWith(AndroidJUnit4.class)
@@ -57,7 +58,8 @@ public class RiskCreditsScreenTests {
 
         AssetManager assetManager = new AssetManager(appContext);
         boolean success = assetManager.loadAndAddBitmap(
-                "main_menu_button", "img/RiskGameImages/main_menu_button.png");
+                "main_menu_button",
+                "img/RiskGameImages/main_menu_button.png");
         assertTrue(success);
 
     }
@@ -67,7 +69,8 @@ public class RiskCreditsScreenTests {
 
         AssetManager assetManager = new AssetManager(appContext);
         boolean success = assetManager.loadAndAddBitmap(
-                "main_menu_button_pressed", "img/RiskGameImages/main_menu_button_pressed.png");
+                "main_menu_button_pressed",
+                "img/RiskGameImages/main_menu_button_pressed.png");
         assertTrue(success);
 
     }
@@ -77,7 +80,8 @@ public class RiskCreditsScreenTests {
 
         AssetManager assetManager = new AssetManager(appContext);
         boolean success = assetManager.loadAndAddBitmap(
-                "risk_settings_button", "img/RiskGameImages/risk_settings_button.png");
+                "risk_settings_button",
+                "img/RiskGameImages/risk_settings_button.png");
         assertTrue(success);
 
     }
@@ -87,7 +91,8 @@ public class RiskCreditsScreenTests {
 
         AssetManager assetManager = new AssetManager(appContext);
         boolean success = assetManager.loadAndAddBitmap(
-                "risk_settings_button_pressed", "img/RiskGameImages/risk_settings_button_pressed.png");
+                "risk_settings_button_pressed",
+                "img/RiskGameImages/risk_settings_button_pressed.png");
         assertTrue(success);
 
     }
@@ -97,7 +102,8 @@ public class RiskCreditsScreenTests {
 
         AssetManager assetManager = new AssetManager(appContext);
         boolean success = assetManager.loadAndAddBitmap(
-                "risk_credits_screen_names", "img/RiskGameImages/risk_credits_screen_names.png");
+                "risk_credits_screen_names",
+                "img/RiskGameImages/risk_credits_screen_names.png");
         assertTrue(success);
 
     }
@@ -107,7 +113,8 @@ public class RiskCreditsScreenTests {
 
         AssetManager assetManager = new AssetManager(appContext);
         boolean success = assetManager.loadAndAddBitmap(
-                "RiskMainMenuScreen", "img/RiskGameImages/RiskMainMenuScreen.png");
+                "RiskMainMenuScreen",
+                "img/RiskGameImages/RiskMainMenuScreen.png");
         assertTrue(success);
 
     }

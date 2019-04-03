@@ -18,6 +18,7 @@ import uk.ac.qub.eeecs.gage.world.GameScreen;
 
 /*
 Author: Daniel Nelis Entire Class
+Reformatted code to fit word document
  */
 
 public class RiskRulesScreen extends GameScreen

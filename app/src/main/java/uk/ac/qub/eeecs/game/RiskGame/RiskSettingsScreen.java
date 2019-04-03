@@ -17,6 +17,7 @@ import uk.ac.qub.eeecs.gage.world.GameScreen;
 
 /**
  * Author: Daniel Nelis Entire Class
+ * Reformatted code to fit word document
  */
 public class RiskSettingsScreen extends GameScreen {
 
@@ -162,6 +163,9 @@ public class RiskSettingsScreen extends GameScreen {
 
 
 
+        /*
+        Draw method to draw buttons/background etc to screen
+         */
     @Override
     public void draw(ElapsedTime elapsedTime, IGraphics2D graphics2D) {
 
