@@ -49,6 +49,9 @@ public class RiskRulesScreen extends GameScreen
     {
         super(name,game);
 
+        /*
+        Loading in Buttons that will be used for this screen
+         */
 
         if(alreadyLoaded == false) {
             assetManager.loadAssets("txt/assets/RiskRulesScreenAssets.JSON");
@@ -102,21 +105,27 @@ public class RiskRulesScreen extends GameScreen
         mGame.getScreenManager().addScreen(screen);
     }
 
-
+    /*
+    Method that will be called to draw Blue speech bubble to screen
+     */
     public void drawSpeechBubbleBitmap(IGraphics2D graphics2D)
     {
         graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("speechBubble"),
                 null, BlueRoundRectangle, null);
     }
 
+    /*
+    Method that will be called to draw Blue circle to screen
+     */
     public void drawBlueCircleBitmap(IGraphics2D graphics2D)
     {
         graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Blue_Circle_Around_Rules_Button"),
                 null, BlueCircle, null);
     }
 
-    //This method changes the dimensions of the rectangle that the speechBubble is drawn to based
-    // off which section/button you press
+    /*
+    Method that will be called to change the dimensions of the Blue speech bubble
+     */
     public void drawBlueRoundRectangle(int divideTop, int divideLeft, int divideBottom, int divideRight)
     {
         BlueRoundRectangle.top = mGame.getScreenHeight()*100/divideTop;
@@ -133,6 +142,9 @@ public class RiskRulesScreen extends GameScreen
 
     }
 
+    /*
+    Method that will be called to change the dimensions of the Blue speech bubble
+     */
     public void drawBlueCircle(int divideTop, int divideLeft, int divideBottom, int divideRight)
     {
         BlueCircle.top = mGame.getScreenHeight()*100/divideTop;
@@ -149,7 +161,10 @@ public class RiskRulesScreen extends GameScreen
 
     }
 
-    //These Methods are to draw the speech bubble to rectangle dimensions
+    /*
+    This method will call both methods above in order to draw the bitmaps to screen along
+    with the correct dimensions depending on if its the correct case. ("Main" or "Rules")
+     */
     public void drawTextShapes(IGraphics2D graphics2D, String instructionType)
     {
         if(Objects.equals(instructionType, "Main"))
@@ -189,8 +204,12 @@ public class RiskRulesScreen extends GameScreen
 
                 changeToScreen(new MenuScreen(mGame));
             }
-            //Increases the number when the button is pressed to change the image being
-            // draw to the rectangle
+
+            /*
+            As the next/prev buttons are pressed the rulePageCounter will increment
+            by 1 or decrement by 1. Will navigate through each page of the rules
+             */
+
             if(nextPageButton.isPushTriggered()) {
                 prevNextButtonPressed = true;
                 if (rulePageCounter < 7) {
@@ -248,6 +267,10 @@ public class RiskRulesScreen extends GameScreen
         nextPageButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
         prevPageButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
 
+        /*
+        Method that uses if statement to see if the rules button within the game has been
+        clicked or not
+         */
         if(!rulesOfGamePushed)
         {
 
@@ -258,10 +281,14 @@ public class RiskRulesScreen extends GameScreen
 
 
             drawTextShapes(graphics2D,"Main");
-            graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Map_With_Areas"),null, gameImage,null);
-            graphics2D.drawText("Hey! Not sure how to play Black Hat Hackers ? The overall goal of",spacingX * 0.90f,spacingY * 0.55f,paint);
-            graphics2D.drawText("the game is to take overall the entire map with one team remaining!",spacingX * 0.90f,spacingY * 0.75f,paint);
-            graphics2D.drawText("Hit the rules button to learn how to play!",spacingX * 0.90f,spacingY * 0.95f,paint);
+            graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Map_With_Areas"),
+                    null, gameImage,null);
+            graphics2D.drawText("Hey! Not sure how to play Black Hat Hackers ? The overall goal of",
+                    spacingX * 0.90f,spacingY * 0.55f,paint);
+            graphics2D.drawText("the game is to take overall the entire map with one team remaining!",
+                    spacingX * 0.90f,spacingY * 0.75f,paint);
+            graphics2D.drawText("Hit the rules button to learn how to play!",
+                    spacingX * 0.90f,spacingY * 0.95f,paint);
         }
 
 
@@ -274,47 +301,69 @@ public class RiskRulesScreen extends GameScreen
             gameImage.right = mGame.getScreenWidth()*100/105;
 
 
-
+        /*
+        Switch statement used for each different page of the rules
+         */
             switch(rulePageCounter)
             {
                 case 0:
-                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Dice_Roll"),null, gameImage,null);
-                    graphics2D.drawText("All players will roll dice & the player with the highest with",spacingX * 1.0f ,spacingY * 0.65f,paint);
-                    graphics2D.drawText("the highest roll will go first.",spacingX * 1.0f,spacingY * 0.85f,paint);
+                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Dice_Roll"),
+                            null, gameImage,null);
+                    graphics2D.drawText("All players will roll dice & the player with the highest with",
+                            spacingX * 1.0f ,spacingY * 0.65f,paint);
+                    graphics2D.drawText("the highest roll will go first.",
+                            spacingX * 1.0f,spacingY * 0.85f,paint);
                     break;
                 case 1:
-                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Deploy_Armies"),null, gameImage,null);
-                    graphics2D.drawText("Player will choose where to deploy their armies. Second", spacingX * 1.0f, spacingY * 0.65f, paint);
-                    graphics2D.drawText("highest roller will then deploy their armies and so on...", spacingX * 1.0f, spacingY * 0.85f, paint);
+                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Deploy_Armies"),
+                            null, gameImage,null);
+                    graphics2D.drawText("Player will choose where to deploy their armies. Second",
+                            spacingX * 1.0f, spacingY * 0.65f, paint);
+                    graphics2D.drawText("highest roller will then deploy their armies and so on...",
+                            spacingX * 1.0f, spacingY * 0.85f, paint);
 
                     break;
                 case 2:
-                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Attack_3_Dice"),null, gameImage,null);
-                    graphics2D.drawText("Player will then choose to attack another army in a", spacingX * 1.0f, spacingY * 0.65f, paint);
-                    graphics2D.drawText("connected field. Attacking Player will roll 3 dice. ", spacingX * 1.0f, spacingY * 0.85f, paint);
+                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Attack_3_Dice"),
+                            null, gameImage,null);
+                    graphics2D.drawText("Player will then choose to attack another army in a",
+                            spacingX * 1.0f, spacingY * 0.65f, paint);
+                    graphics2D.drawText("connected field. Attacking Player will roll 3 dice. ",
+                            spacingX * 1.0f, spacingY * 0.85f, paint);
                     break;
                 case 3:
-                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Defend_2_Dice"),null, gameImage,null);
-                    graphics2D.drawText("The defending player will then roll 2 dice.", spacingX * 1.0f, spacingY * 0.65f, paint);
+                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Defend_2_Dice"),
+                            null, gameImage,null);
+                    graphics2D.drawText("The defending player will then roll 2 dice.",
+                            spacingX * 1.0f, spacingY * 0.65f, paint);
                     break;
                 case 4:
-                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Field_Transitions_Image"),null, gameImage,null);
-                    graphics2D.drawText("If attacking player dice is greater than defending player", spacingX * 1.0f, spacingY * 0.65f, paint);
-                    graphics2D.drawText("dice then the attacking player will take over the field.", spacingX * 1.0f, spacingY * 0.85f, paint);
+                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Field_Transitions_Image"),
+                            null, gameImage,null);
+                    graphics2D.drawText("If attacking player dice is greater than defending player",
+                            spacingX * 1.0f, spacingY * 0.65f, paint);
+                    graphics2D.drawText("dice then the attacking player will take over the field.",
+                            spacingX * 1.0f, spacingY * 0.85f, paint);
                     graphics2D.drawText("", spacingX * 0.70f, spacingY * 1.7f, paint);
                     graphics2D.drawText("", spacingX * 0.70f, spacingY * 1.9f, paint);
                     break;
                 case 5:
-                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Defending_Team_Wins_Dice_Roll"),null, gameImage,null);
-                    graphics2D.drawText("If defending player dice is greater than attacking player", spacingX * 1.0f, spacingY * 0.65f, paint);
-                    graphics2D.drawText("dice then attacking player will not take over.", spacingX * 1.0f, spacingY * 0.85f, paint);
+                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Rules_Defending_Team_Wins_Dice_Roll"),
+                            null, gameImage,null);
+                    graphics2D.drawText("If defending player dice is greater than attacking player",
+                            spacingX * 1.0f, spacingY * 0.65f, paint);
+                    graphics2D.drawText("dice then attacking player will not take over.",
+                            spacingX * 1.0f, spacingY * 0.85f, paint);
                     break;
                 case 6:
-                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Blue_Leprechaun"),null, gameImage,null);
-                    graphics2D.drawText("      Repeat this process until one player has every field!", spacingX * 1.0f, spacingY * 0.65f, paint);
+                    graphics2D.drawBitmap(mGame.getAssetManager().getBitmap("Blue_Leprechaun"),
+                            null, gameImage,null);
+                    graphics2D.drawText("      Repeat this process until one player has every field!",
+                            spacingX * 1.0f, spacingY * 0.65f, paint);
                     break;
                 default:
-                    graphics2D.drawText("                          END OF RULES                     ",spacingX * 1.0f,spacingY * 0.70f,paintRules);
+                    graphics2D.drawText("                          END OF RULES                     ",
+                            spacingX * 1.0f,spacingY * 0.70f,paintRules);
                     break;
             }
         }

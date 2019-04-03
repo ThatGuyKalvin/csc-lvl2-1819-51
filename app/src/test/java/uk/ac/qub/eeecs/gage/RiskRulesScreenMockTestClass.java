@@ -29,7 +29,7 @@ import static org.mockito.Mockito.when;
  */
 
 @RunWith(MockitoJUnitRunner.class)
-public class RiskRulesScreenTests {
+public class RiskRulesScreenMockTestClass {
 
     @Mock
     public RiskGameScreen mockGameScreen;

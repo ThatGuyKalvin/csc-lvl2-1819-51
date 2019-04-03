@@ -218,7 +218,9 @@ public class RiskCreditsScreen extends GameScreen {
         graphics2D.drawBitmap(creditsNames, sourceRectBackg2, destRectBackg2, null);
 
 
-        // Draw each button
+        /*
+        Drawing each button to the screen
+         */
         for (PushButton button : mButtons)
             button.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
 

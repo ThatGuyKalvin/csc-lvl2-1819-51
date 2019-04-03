@@ -32,7 +32,9 @@ public class RiskSettingsScreen extends GameScreen {
     public RiskSettingsScreen(Game game) {
         super("RiskSettingsScreen", game);
 
-        // Load in the bitmaps used on the main menu screen
+        /*
+        Loading in bitmaps that will be used on this screen
+         */
         AssetManager assetManager = mGame.getAssetManager();
         assetManager.loadAndAddBitmap("main_menu_button", "img/RiskGameImages/main_menu_button.png");
         assetManager.loadAndAddBitmap("main_menu_button_pressed", "img/RiskGameImages/main_menu_button_pressed.png");
@@ -108,6 +110,9 @@ public class RiskSettingsScreen extends GameScreen {
             volumeUpButton.update(elapsedTime);
             volumeDownButton.update(elapsedTime);
 
+        /*
+        Toggling with the background music within the game
+         */
             if (volumeOffButton.isPushTriggered())
                 mGame.getAssetManager().getMusic("RiskBackgroundSound").setVolume(0);
             else if (volumeOnButton.isPushTriggered())
