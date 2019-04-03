@@ -16,6 +16,7 @@ import uk.ac.qub.eeecs.gage.util.Vector2;
 import uk.ac.qub.eeecs.gage.util.ViewportHelper;
 import uk.ac.qub.eeecs.gage.world.GameObject;
 
+//Author Peter Gilfedder Except where stated otherwise
 public class RiskGameScreenMethodsTester {
     public final int ATTACK_NULL = 0;
     public final int INITIAL_ALLOCATE = 5;

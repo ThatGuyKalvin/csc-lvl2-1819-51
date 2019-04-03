@@ -46,6 +46,8 @@ public class RiskGameScreenMethodsTesting {
         assertEquals(Risk.mPlayers.get(0).getColour(), Color.BLACK);
     }
 
+
+    //Author Michael McKeown
     @Test
     public void TestIfFieldsAreConnected()
     {
@@ -81,6 +83,6 @@ public class RiskGameScreenMethodsTesting {
         assertTrue(risk5.mAreas.get(2).getField(2).getFPlayer() != null);
     }
 
-    @Test
-    public void TestIf
+    //@Test
+    //public void TestIf
 }

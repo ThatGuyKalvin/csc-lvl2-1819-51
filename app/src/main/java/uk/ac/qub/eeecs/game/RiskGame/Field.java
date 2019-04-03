@@ -15,7 +15,7 @@ public class Field{
     private int FNum;
     private String FName;
     private Player FPlayer;
-    private int FNumOfTeams = 2;
+    private int FNumOfTeams = 1;
     private boolean assigned = false;
     private ArrayList<Field> FConnectedFields;
     private ArrayList<Integer> colourArray = new ArrayList<>();
