@@ -6,49 +6,50 @@ import java.util.ArrayList;
 
 public class Area {
 
-    ArrayList<Field> fields = new ArrayList<>();
+    // Peter? - Not really sure what this is.
+    ArrayList<Field> aFields = new ArrayList<>();
 
-    private int aColour;
-    private String aName;
-    private ArrayList<Field> aFields = new ArrayList<>();
-    private int aValue = 0;
+    private int colour;
+    private String name;
+    private ArrayList<Field> fields = new ArrayList<>();
+    private int value = 0;
 
     // Package private instead of public
     public Area() {
-        this.aColour = Color.BLACK;
-        this.aName = "DEFAULT";
+        this.colour = Color.BLACK;
+        this.name = "DEFAULT";
     }
 
     // Package private instead of public
     public Area(String name, int colour, int value) {
-        this.aName = name;
-        this.aColour = colour;
-        this.aValue = value;
+        this.name = name;
+        this.colour = colour;
+        this.value = value;
     }
 
-    public void addField(Field f) { aFields.add(f); }
-    public Field getField(int i) { return aFields.get(i); }
+    public void addField(Field f) { fields.add(f); }
+    public Field getField(int i) { return fields.get(i); }
 
-    public int getFieldSize() { return aFields.size(); }
+    public int getFieldSize() { return fields.size(); }
 
     public void setColour(int colour) {
-        this.aColour = colour;
+        this.colour = colour;
     }
     public int getColour() {
-        return this.aColour;
+        return this.colour;
     }
 
     public void setName(String name) {
-        this.aName = name;
+        this.name = name;
     }
     public String getName() {
-        return this.aName;
+        return this.name;
     }
 
     public void setValue(int value) {
-        this.aValue = value;
+        this.value = value;
     }
     public int getValue() {
-        return this.aValue;
+        return this.value;
     }
 }

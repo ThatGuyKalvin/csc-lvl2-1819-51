@@ -1,12 +1,9 @@
 package uk.ac.qub.eeecs.gage;
 
 import android.content.Context;
-import android.support.test.InstrumentationRegistry;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import java.text.MessageFormat;
 
 import uk.ac.qub.eeecs.game.RiskGame.Field;
 import uk.ac.qub.eeecs.game.RiskGame.Player;
@@ -29,22 +26,21 @@ public class FieldClassTests {
 
     @Before
     public void setUp() {
-        context = InstrumentationRegistry.getTargetContext();
         Attacker.setPlayer(Player1);
         Defender.setPlayer(Player2);
     }
 
     @Test
     public void TestIncrement(){
-        int previousNumOfTeams = Incrementer.getFNumOfTeams();
+        int previousNumOfTeams = Incrementer.getNumOfTeams();
         Incrementer.incrementNumOfTeams();
-        assertEquals(previousNumOfTeams + 1, Incrementer.getFNumOfTeams());
+        assertEquals(previousNumOfTeams + 1, Incrementer.getNumOfTeams());
     }
 
     @Test
     public void TestHostileTakeover(){
-        Defender.hostileTakeOver(Attacker.getFPlayer(), Attacker.getFNumOfTeams()-1);
-        assertTrue((Defender.getFPlayer() == Attacker.getFPlayer()) && (Defender.getFNumOfTeams() == Attacker.getFNumOfTeams()-1));
+        Defender.hostileTakeOver(Attacker.getPlayer(), Attacker.getNumOfTeams()-1);
+        assertTrue((Defender.getPlayer() == Attacker.getPlayer()) && (Defender.getNumOfTeams() == Attacker.getNumOfTeams()-1));
     }
 
     @Test

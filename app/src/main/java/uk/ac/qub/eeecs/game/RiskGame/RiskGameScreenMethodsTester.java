@@ -1,37 +1,26 @@
 package uk.ac.qub.eeecs.game.RiskGame;
 
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.Paint;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
-
-import uk.ac.qub.eeecs.gage.engine.input.Input;
-import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
-import uk.ac.qub.eeecs.gage.ui.PushButton;
-import uk.ac.qub.eeecs.gage.util.BoundingBox;
-import uk.ac.qub.eeecs.gage.util.Vector2;
-import uk.ac.qub.eeecs.gage.util.ViewportHelper;
-import uk.ac.qub.eeecs.gage.world.GameObject;
 
 //Author Peter Gilfedder Except where stated otherwise
 public class RiskGameScreenMethodsTester {
-    public final int ATTACK_NULL = 0;
-    public final int INITIAL_ALLOCATE = 5;
-    public int state = ATTACK_NULL;
-    public String attackStr = "State: Not battling.";
+    private final int ATTACK_NULL = 0;
+    private final int INITIAL_ALLOCATE = 5;
+    private int state = ATTACK_NULL;
+    private String attackStr = "State: Not battling.";
 
     // ArrayList for Areas and Players
-    public final int MAX_AREAS = 5;
-    public final int MAX_PLAYERS = 3;
-    public ArrayList<Player> mPlayers = new ArrayList<>(MAX_PLAYERS);
+    private final int MAX_AREAS = 5;
+    private final int MAX_PLAYERS = 3;
+    private ArrayList<Player> mPlayers = new ArrayList<>(MAX_PLAYERS);
     public ArrayList<Area> mAreas = new ArrayList<>(MAX_AREAS);
-    public int CurrentPlayerNum = 0;
-    public int teamsToAllocate = 6;
-    public boolean SuccessfulAttack = false;
-    public boolean allocated = false;
+    private int CurrentPlayerNum = 0;
+    private int teamsToAllocate = 0;
+    private boolean SuccessfulAttack = false;
+    private boolean allocated = false;
 
     public boolean fieldListReturned = false;
     public boolean firstListHasPlayersAssigned = false;
@@ -78,7 +67,7 @@ public class RiskGameScreenMethodsTester {
         }
     }
 
-    public void createAreas() {
+    private void createAreas() {
 
         // Generate the areas and add colour
         mAreas.add(new Area("Telecommunications", 0xFFeb1c23, 6));
@@ -498,114 +487,114 @@ public class RiskGameScreenMethodsTester {
 
     }
 
-    public void addConnectedFields()
+    private void addConnectedFields()
     {
         //Blank method to add list of fields connected to each field
-        ArrayList<Field> connectToIntPro = new ArrayList<Field>(1);
+        ArrayList<Field> connectToIntPro = new ArrayList<>(1);
         connectToIntPro.add(mAreas.get(0).getField(1));
 
-        ArrayList<Field> connectToPhoneCarr = new ArrayList<Field>(4);
+        ArrayList<Field> connectToPhoneCarr = new ArrayList<>(4);
         connectToPhoneCarr.add(mAreas.get(0).getField(0));
         connectToPhoneCarr.add(mAreas.get(0).getField(2));
         connectToPhoneCarr.add(mAreas.get(0).getField(3));
         connectToPhoneCarr.add(mAreas.get(0).getField(4));
 
-        ArrayList<Field> connectToVoIP = new ArrayList<Field>(4);
+        ArrayList<Field> connectToVoIP = new ArrayList<>(4);
         connectToVoIP.add(mAreas.get(0).getField(0));
         connectToVoIP.add(mAreas.get(0).getField(3));
         connectToVoIP.add(mAreas.get(0).getField(4));
         connectToVoIP.add(mAreas.get(1).getField(2));
 
-        ArrayList<Field> connectToRadio = new ArrayList<Field>(2);
+        ArrayList<Field> connectToRadio = new ArrayList<>(2);
         connectToRadio.add(mAreas.get(0).getField(2));
         connectToRadio.add(mAreas.get(0).getField(4));
 
-        ArrayList<Field> connectToTeleg = new ArrayList<Field>(4);
+        ArrayList<Field> connectToTeleg = new ArrayList<>(4);
         connectToTeleg.add(mAreas.get(0).getField(1));
         connectToTeleg.add(mAreas.get(0).getField(2));
         connectToTeleg.add(mAreas.get(0).getField(3));
         connectToTeleg.add(mAreas.get(2).getField(0));
 
-        ArrayList<Field> connectToCybSec = new ArrayList<Field>(2);
+        ArrayList<Field> connectToCybSec = new ArrayList<>(2);
         connectToCybSec.add(mAreas.get(1).getField(1));
         connectToCybSec.add(mAreas.get(3).getField(0));
 
-        ArrayList<Field> connectToCCTV = new ArrayList<Field>(5);
+        ArrayList<Field> connectToCCTV = new ArrayList<>(5);
         connectToCCTV.add(mAreas.get(1).getField(0));
         connectToCCTV.add(mAreas.get(1).getField(2));
         connectToCCTV.add(mAreas.get(1).getField(3));
         connectToCCTV.add(mAreas.get(1).getField(5));
         connectToCCTV.add(mAreas.get(3).getField(1));
 
-        ArrayList<Field> connectToAudit = new ArrayList<Field>(4);
+        ArrayList<Field> connectToAudit = new ArrayList<>(4);
         connectToAudit.add(mAreas.get(0).getField(2));
         connectToAudit.add(mAreas.get(1).getField(1));
         connectToAudit.add(mAreas.get(1).getField(3));
         connectToAudit.add(mAreas.get(1).getField(4));
 
-        ArrayList<Field> connectToTFA = new ArrayList<Field>(4);
+        ArrayList<Field> connectToTFA = new ArrayList<>(4);
         connectToTFA.add(mAreas.get(1).getField(1));
         connectToTFA.add(mAreas.get(1).getField(2));
         connectToTFA.add(mAreas.get(1).getField(4));
         connectToTFA.add(mAreas.get(1).getField(5));
 
-        ArrayList<Field> connectToFW = new ArrayList<Field>(3);
+        ArrayList<Field> connectToFW = new ArrayList<>(3);
         connectToFW.add(mAreas.get(1).getField(2));
         connectToFW.add(mAreas.get(1).getField(3));
         connectToFW.add(mAreas.get(1).getField(5));
 
-        ArrayList<Field> connectToAV = new ArrayList<Field>(5);
+        ArrayList<Field> connectToAV = new ArrayList<>(5);
         connectToAV.add(mAreas.get(1).getField(1));
         connectToAV.add(mAreas.get(1).getField(3));
         connectToAV.add(mAreas.get(1).getField(4));
         connectToAV.add(mAreas.get(4).getField(0));
         connectToAV.add(mAreas.get(4).getField(2));
 
-        ArrayList<Field> connectToC = new ArrayList<Field>(3);
+        ArrayList<Field> connectToC = new ArrayList<>(3);
         connectToC.add(mAreas.get(0).getField(4));
         connectToC.add(mAreas.get(2).getField(1));
         connectToC.add(mAreas.get(2).getField(2));
 
-        ArrayList<Field> connectToJava = new ArrayList<Field>(3);
+        ArrayList<Field> connectToJava = new ArrayList<>(3);
         connectToJava.add(mAreas.get(2).getField(0));
         connectToJava.add(mAreas.get(2).getField(2));
         connectToJava.add(mAreas.get(3).getField(0));
 
-        ArrayList<Field> connectToPython = new ArrayList<Field>(3);
+        ArrayList<Field> connectToPython = new ArrayList<>(3);
         connectToPython.add(mAreas.get(2).getField(0));
         connectToPython.add(mAreas.get(2).getField(1));
 
-        ArrayList<Field> connectToGI = new ArrayList<Field>(4);
+        ArrayList<Field> connectToGI = new ArrayList<>(4);
         connectToGI.add(mAreas.get(1).getField(0));
         connectToGI.add(mAreas.get(2).getField(1));
         connectToGI.add(mAreas.get(3).getField(1));
         connectToGI.add(mAreas.get(3).getField(2));
 
-        ArrayList<Field> connectToAICars = new ArrayList<Field>(4);
+        ArrayList<Field> connectToAICars = new ArrayList<>(4);
         connectToAICars.add(mAreas.get(1).getField(1));
         connectToAICars.add(mAreas.get(3).getField(0));
         connectToAICars.add(mAreas.get(3).getField(2));
         connectToAICars.add(mAreas.get(3).getField(3));
 
-        ArrayList<Field> connectToRobot = new ArrayList<Field>(3);
+        ArrayList<Field> connectToRobot = new ArrayList<>(3);
         connectToRobot.add(mAreas.get(3).getField(0));
         connectToRobot.add(mAreas.get(3).getField(1));
         connectToRobot.add(mAreas.get(3).getField(3));
 
-        ArrayList<Field> connectToVR = new ArrayList<Field>(2);
+        ArrayList<Field> connectToVR = new ArrayList<>(2);
         connectToVR.add(mAreas.get(3).getField(1));
         connectToVR.add(mAreas.get(3).getField(2));
 
-        ArrayList<Field> connectToSM = new ArrayList<Field>(2);
+        ArrayList<Field> connectToSM = new ArrayList<>(2);
         connectToSM.add(mAreas.get(4).getField(1));
         connectToSM.add(mAreas.get(4).getField(2));
 
-        ArrayList<Field> connectToRL = new ArrayList<Field>(3);
+        ArrayList<Field> connectToRL = new ArrayList<>(3);
         connectToRL.add(mAreas.get(1).getField(5));
         connectToRL.add(mAreas.get(4).getField(0));
         connectToRL.add(mAreas.get(4).getField(2));
 
-        ArrayList<Field> connectToSurvey = new ArrayList<Field>(3);
+        ArrayList<Field> connectToSurvey = new ArrayList<>(3);
         connectToSurvey.add(mAreas.get(1).getField(5));
         connectToSurvey.add(mAreas.get(4).getField(0));
         connectToSurvey.add(mAreas.get(4).getField(1));
@@ -640,7 +629,7 @@ public class RiskGameScreenMethodsTester {
 
     }
 
-    public void createPlayers() {
+    private void createPlayers() {
         // Generate the players and add colour
         mPlayers.add(new Player("Microsoft", Color.BLACK));
         mPlayers.add(new Player("Google", Color.GREEN));
@@ -648,8 +637,7 @@ public class RiskGameScreenMethodsTester {
         assignFields();
     }
 
-
-    public void assignFields()
+    private void assignFields()
     {
         ArrayList<Field> allFields = new ArrayList<>();
         for (int i = 0; i <= 4; i++)
@@ -675,18 +663,18 @@ public class RiskGameScreenMethodsTester {
         {
             for(Field field : allFields)
             {
-                for(Field areaField : area.fields)
+                for(Field areaField : area.aFields)
                 {
-                    if(field.getFNum() == areaField.getFNum())
+                    if(field.getNum() == areaField.getNum())
                     {
-                        areaField.setPlayer(field.getFPlayer());
+                        areaField.setPlayer(field.getPlayer());
                     }
                 }
             }
         }
     }
 
-    public boolean FieldsAllOwned(ArrayList<Field> fields)
+    private boolean FieldsAllOwned(ArrayList<Field> fields)
     {
         for(Field f : fields)
         {
@@ -695,28 +683,28 @@ public class RiskGameScreenMethodsTester {
         return true;
     }
 
-    public void firstTurn(){
+    private void firstTurn(){
         Random Rand = new Random();
         CurrentPlayerNum = Rand.nextInt(3);
     }
 
-    public void AllocateTeams(int numOfTeams){
+    private void AllocateTeams(int numOfTeams){
         teamsToAllocate = numOfTeams;
-        testerInitialAllocate();
+        state = INITIAL_ALLOCATE;
     }
 
-    public void AllocateTeams(int numOfTeams, int playerNum){
+    private void AllocateTeams(int numOfTeams, int playerNum){
         teamsToAllocate = numOfTeams;
         testerAllocate();
     }
 
-    public void endTurn(boolean bool)
+    private void endTurn(boolean bool)
     {
         CurrentPlayerNum++;
         if(CurrentPlayerNum > 2) CurrentPlayerNum = 0;
     }
 
-    public void endTurn()
+    private void endTurn()
     {
         if(SuccessfulAttack) {mPlayers.get(CurrentPlayerNum).incrementRiskCards();}
         SuccessfulAttack = false;
@@ -725,7 +713,7 @@ public class RiskGameScreenMethodsTester {
         beginTurn();
     }
 
-    public void beginTurn()
+    private void beginTurn()
     {
         ArrayList<Field> PlayerFieldsAtTurnStart = findPlayerFields(CurrentPlayerNum);
         int numOfTeamsAllocated = PlayerFieldsAtTurnStart.size() + riskCardCalc() + areaControlledCalc();
@@ -733,7 +721,7 @@ public class RiskGameScreenMethodsTester {
     }
 
 
-    public int riskCardCalc()
+    private int riskCardCalc()
     {
         int TeamsForCards = 0;
         int NumOfCards = mPlayers.get(CurrentPlayerNum).getNumOfRiskCards();
@@ -744,15 +732,15 @@ public class RiskGameScreenMethodsTester {
         return TeamsForCards;
     }
 
-    public int areaControlledCalc()
+    private int areaControlledCalc()
     {
         boolean areaOwned = true;
         int teamsEarned = 0;
         for (int i = 0; i < mAreas.size(); i++)
         {
-            for (int j = 0; j < mAreas.get(i).fields.size(); i++)
+            for (int j = 0; j < mAreas.get(i).aFields.size(); i++)
             {
-                if(mAreas.get(i).fields.get(j).getFPlayer() != mPlayers.get(CurrentPlayerNum))
+                if(mAreas.get(i).aFields.get(j).getPlayer() != mPlayers.get(CurrentPlayerNum))
                 {
                     areaOwned = false;
                 }
@@ -764,14 +752,14 @@ public class RiskGameScreenMethodsTester {
     }
 
 
-    public ArrayList<Field> findPlayerFields(int PlayerNum)
+    private ArrayList<Field> findPlayerFields(int PlayerNum)
     {
         ArrayList<Field> TempList = new ArrayList<>();
         for(int i = 0; i < mAreas.size(); i++)
         {
             for(int j = 0; j < mAreas.get(i).getFieldSize(); j++)
             {
-                if(mAreas.get(i).getField(j).getFPlayer() == mPlayers.get(PlayerNum))
+                if(mAreas.get(i).getField(j).getPlayer() == mPlayers.get(PlayerNum))
                 {
                     TempList.add(mAreas.get(i).getField(j));
                 }
@@ -780,7 +768,7 @@ public class RiskGameScreenMethodsTester {
         return TempList;
     }
 
-    public Field findOriginalField(Field tempField)
+    private Field findOriginalField(Field tempField)
     {
         for(Area area : mAreas){
             for(int i = 0; i < area.getFieldSize(); i++){

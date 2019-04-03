@@ -24,7 +24,6 @@ public class MenuScreenTest {
     Author: Daniel Nelis
      */
 
-
     @Test
     public void loadAndAddMusic_BackgroundMusic(){
 

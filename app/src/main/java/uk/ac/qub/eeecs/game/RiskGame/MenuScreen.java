@@ -17,7 +17,6 @@ import uk.ac.qub.eeecs.gage.engine.input.Input;
 import uk.ac.qub.eeecs.gage.engine.input.TouchEvent;
 import uk.ac.qub.eeecs.gage.ui.PushButton;
 import uk.ac.qub.eeecs.gage.world.GameScreen;
-import uk.ac.qub.eeecs.game.GameCreditsScreen;
 import uk.ac.qub.eeecs.game.PerformanceScreen;
 import uk.ac.qub.eeecs.game.miscDemos.DemoMenuScreen;
 
@@ -232,7 +231,7 @@ public class MenuScreen extends GameScreen {
                 } else if (currentCounter == 2) {
                     mGame.getScreenManager().addScreen(new RiskSettingsScreen(mGame));
                 } else if (currentCounter == 3) {
-                    mGame.getScreenManager().addScreen(new GameCreditsScreen(mGame));
+                    mGame.getScreenManager().addScreen(new RiskCreditsScreen(mGame));
                 }
             }
         /*
