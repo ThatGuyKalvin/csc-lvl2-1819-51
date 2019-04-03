@@ -221,6 +221,9 @@ public class RiskGameScreen extends GameScreen {
                     teamsToAllocate--;
                     endTurn(false);
                 }
+                if(teamsToAllocate == 0){
+                     state = ATTACK_NULL;
+                }
             }
 
             else if (state == ATTACK_BATTLING){
