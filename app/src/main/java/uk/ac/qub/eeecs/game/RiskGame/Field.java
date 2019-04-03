@@ -10,7 +10,7 @@ public class Field{
     private int num;
     private String name;
     private Player player;
-    private int numOfTeams = 2;
+    private int numOfTeams = 1;
     private boolean assigned = false;
     private ArrayList<Field> connectedFields;
     private ArrayList<Integer> colourArray = new ArrayList<>();

@@ -1,27 +1,15 @@
 package uk.ac.qub.eeecs.gage;
 
-import android.content.Context;
+import android.graphics.Color;
 
-import org.junit.Before;
 import org.junit.Test;
-import java.util.ArrayList;
-import java.util.Random;
-
-import uk.ac.qub.eeecs.game.RiskGame.Area;
-import uk.ac.qub.eeecs.game.RiskGame.Field;
-import uk.ac.qub.eeecs.game.RiskGame.Player;
-import uk.ac.qub.eeecs.game.RiskGame.RiskGameScreen;
 
 import uk.ac.qub.eeecs.game.RiskGame.RiskGameScreenMethodsTester;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNotNull;
 
-public class AssignFieldsMethodTests {
-
-
-    private Context context;
+public class RiskGameScreenMethodsTesting {
 
     @Test
     public void TestIfCreateAreasCreatesAreas()

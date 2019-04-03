@@ -1166,7 +1166,7 @@ public class RiskGameScreen extends GameScreen {
     {
         int TeamsForCards = 0;
         int NumOfCards = mPlayers.get(CurrentPlayerNum).getNumOfRiskCards();
-        if (NumOfCards > 3) {
+        if (NumOfCards >= 3) {
             TeamsForCards += 6;
             mPlayers.get(CurrentPlayerNum).useRiskCards();
         }

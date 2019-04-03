@@ -15,15 +15,12 @@ public class RiskGameScreenMethodsTester {
     // ArrayList for Areas and Players
     private final int MAX_AREAS = 5;
     private final int MAX_PLAYERS = 3;
-    private ArrayList<Player> mPlayers = new ArrayList<>(MAX_PLAYERS);
+    public ArrayList<Player> mPlayers = new ArrayList<>(MAX_PLAYERS);
     public ArrayList<Area> mAreas = new ArrayList<>(MAX_AREAS);
     private int CurrentPlayerNum = 0;
     private int teamsToAllocate = 0;
     private boolean SuccessfulAttack = false;
-    private boolean allocated = false;
 
-    public boolean fieldListReturned = false;
-    public boolean firstListHasPlayersAssigned = false;
     public RiskGameScreenMethodsTester(int choice)
     {
         switch(choice)
