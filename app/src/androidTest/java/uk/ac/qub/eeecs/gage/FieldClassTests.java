@@ -43,8 +43,4 @@ public class FieldClassTests {
         assertTrue((Defender.getPlayer() == Attacker.getPlayer()) && (Defender.getNumOfTeams() == Attacker.getNumOfTeams()-1));
     }
 
-    @Test
-    public void TestGetColour(){
-
-    }
 }

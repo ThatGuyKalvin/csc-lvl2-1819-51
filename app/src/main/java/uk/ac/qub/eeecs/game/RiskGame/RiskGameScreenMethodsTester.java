@@ -17,9 +17,9 @@ public class RiskGameScreenMethodsTester {
     private final int MAX_PLAYERS = 3;
     public ArrayList<Player> mPlayers = new ArrayList<>(MAX_PLAYERS);
     public ArrayList<Area> mAreas = new ArrayList<>(MAX_AREAS);
-    private int CurrentPlayerNum = 0;
-    private int teamsToAllocate = 0;
-    private boolean SuccessfulAttack = false;
+    public int CurrentPlayerNum = 0;
+    public int numOfTeamsAllocated = 0;
+    public boolean SuccessfulAttack = false;
 
     public RiskGameScreenMethodsTester(int choice)
     {
@@ -48,17 +48,16 @@ public class RiskGameScreenMethodsTester {
                 createPlayers();
                 assignFields();
                 firstTurn();
-                AllocateTeams(60);
+                beginTurn();
                 break;
             case 6:
                 createAreas();
                 createPlayers();
                 assignFields();
                 firstTurn();
-                AllocateTeams(60);
                 beginTurn();
+                endTurn();
                 break;
-            case 7 :
             default : createAreas();
             break;
         }
@@ -685,23 +684,13 @@ public class RiskGameScreenMethodsTester {
         CurrentPlayerNum = Rand.nextInt(3);
     }
 
-    private void AllocateTeams(int numOfTeams){
-        teamsToAllocate = numOfTeams;
-        state = INITIAL_ALLOCATE;
-    }
-
-    private void AllocateTeams(int numOfTeams, int playerNum){
-        teamsToAllocate = numOfTeams;
-        testerAllocate();
-    }
-
     private void endTurn(boolean bool)
     {
         CurrentPlayerNum++;
         if(CurrentPlayerNum > 2) CurrentPlayerNum = 0;
     }
 
-    private void endTurn()
+    public void endTurn()
     {
         if(SuccessfulAttack) {mPlayers.get(CurrentPlayerNum).incrementRiskCards();}
         SuccessfulAttack = false;
@@ -713,8 +702,8 @@ public class RiskGameScreenMethodsTester {
     private void beginTurn()
     {
         ArrayList<Field> PlayerFieldsAtTurnStart = findPlayerFields(CurrentPlayerNum);
-        int numOfTeamsAllocated = PlayerFieldsAtTurnStart.size() + riskCardCalc() + areaControlledCalc();
-        AllocateTeams(numOfTeamsAllocated, CurrentPlayerNum);
+        numOfTeamsAllocated = PlayerFieldsAtTurnStart.size() + riskCardCalc() + areaControlledCalc();
+        //AllocateTeams(numOfTeamsAllocated, CurrentPlayerNum); can't test allocation, requires user input
     }
 
 
@@ -729,7 +718,7 @@ public class RiskGameScreenMethodsTester {
         return TeamsForCards;
     }
 
-    private int areaControlledCalc()
+    public int areaControlledCalc()
     {
         boolean areaOwned = true;
         int teamsEarned = 0;
@@ -776,34 +765,5 @@ public class RiskGameScreenMethodsTester {
         }
         return null;
 
-    }
-
-    //Allocation is done through the update method, so cant be tested in its original location
-    //This method replaces the "state == ALLLOCATE" statement and corresponding actions
-    public void testerInitialAllocate()
-    {
-        Field tmpField = findPlayerFields(CurrentPlayerNum).get(1);
-        if(tmpField != null && findPlayerFields(CurrentPlayerNum).contains(tmpField)){
-            findOriginalField(tmpField).incrementNumOfTeams();
-            teamsToAllocate--;
-            endTurn(false);
-        }
-        if(teamsToAllocate <= 0)
-        {
-            state = ATTACK_NULL;
-        }
-    }
-
-    public void testerAllocate()
-    {
-        Field tmpField = findPlayerFields(CurrentPlayerNum).get(1);
-        if(tmpField != null && findPlayerFields(CurrentPlayerNum).contains(tmpField)){
-            findOriginalField(tmpField).incrementNumOfTeams();
-            teamsToAllocate--;
-        }
-        if(teamsToAllocate <= 0)
-        {
-            state = ATTACK_NULL;
-        }
     }
 }

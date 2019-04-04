@@ -4,6 +4,7 @@ import android.graphics.Color;
 
 import org.junit.Test;
 
+import uk.ac.qub.eeecs.game.RiskGame.RiskGameScreen;
 import uk.ac.qub.eeecs.game.RiskGame.RiskGameScreenMethodsTester;
 
 import static org.junit.Assert.assertEquals;
@@ -64,6 +65,29 @@ public class RiskGameScreenMethodsTesting {
         assertNotNull(risk4.mAreas.get(2).getField(2).getPlayer());
     }
 
-    //@Test
-    //public void TestIf
+    @Test
+    public void TestIfBeginturnMethodGeneratesTheCorrectNumberOfTeams()
+    {
+        RiskGameScreenMethodsTester risk5 = new RiskGameScreenMethodsTester(5);
+        assertEquals(risk5.numOfTeamsAllocated, 7 + risk5.areaControlledCalc());
+    }
+
+    @Test
+    public void TestIfRiskCardsIncrement()
+    {
+        RiskGameScreenMethodsTester risk6 = new RiskGameScreenMethodsTester(5);
+        int PreviousPlayerNum = risk6.CurrentPlayerNum;
+        risk6.SuccessfulAttack = true;
+        risk6.endTurn();
+        assertEquals(risk6.mPlayers.get(PreviousPlayerNum).getNumOfRiskCards(), 1);
+    }
+
+    @Test
+    public void TestIfPlayerNumProperlyIncrements() {
+        RiskGameScreenMethodsTester risk7 = new RiskGameScreenMethodsTester(5);
+        int PreviousPlayer = risk7.CurrentPlayerNum;
+        risk7.endTurn();
+        if(risk7.CurrentPlayerNum > PreviousPlayer) assertEquals(PreviousPlayer + 1, risk7.CurrentPlayerNum);
+        else if(risk7.CurrentPlayerNum < PreviousPlayer) assertEquals(risk7.CurrentPlayerNum, 0);
+    }
 }

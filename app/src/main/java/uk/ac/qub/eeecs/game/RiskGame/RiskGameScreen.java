@@ -1137,15 +1137,22 @@ public class RiskGameScreen extends GameScreen {
        state = INITIAL_ALLOCATE;
     }
 
-    private void AllocateTeams(int numOfTeams, int playerNum){
-        teamsToAllocate = numOfTeams;
-        state = ALLOCATE;
-    }
-
     private void endTurn(boolean bool)
     {
         CurrentPlayerNum++;
         if(CurrentPlayerNum > 2) CurrentPlayerNum = 0;
+    }
+
+    private void beginTurn()
+    {
+        ArrayList<Field> PlayerFieldsAtTurnStart = findPlayerFields(CurrentPlayerNum);
+        int numOfTeamsAllocated = PlayerFieldsAtTurnStart.size() + riskCardCalc() + areaControlledCalc();
+        AllocateTeams(numOfTeamsAllocated, CurrentPlayerNum);
+    }
+
+    private void AllocateTeams(int numOfTeams, int playerNum){
+        teamsToAllocate = numOfTeams;
+        state = ALLOCATE;
     }
 
     private void endTurn()
@@ -1156,14 +1163,6 @@ public class RiskGameScreen extends GameScreen {
         if(CurrentPlayerNum > 2) CurrentPlayerNum = 0;
         beginTurn();
     }
-
-    private void beginTurn()
-    {
-        ArrayList<Field> PlayerFieldsAtTurnStart = findPlayerFields(CurrentPlayerNum);
-        int numOfTeamsAllocated = PlayerFieldsAtTurnStart.size() + riskCardCalc() + areaControlledCalc();
-        AllocateTeams(numOfTeamsAllocated, CurrentPlayerNum);
-    }
-
 
     private int riskCardCalc()
     {

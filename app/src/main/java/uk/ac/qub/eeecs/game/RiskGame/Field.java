@@ -51,10 +51,6 @@ public class Field{
         numOfTeams -= decrease;
     }
 
-    public void decrementNumOfTeams(){
-        numOfTeams--;
-    }
-
     public Player getPlayer(){
         return player;
     }
