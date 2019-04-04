@@ -21,6 +21,7 @@ public class FieldClassTests {
     private Field Defender = new Field(3, "Defender", 3);
     private Player Player1 = new Player("Peter", 1);
     private Player Player2 = new Player("John", 2);
+    private Field field1 = new Field(4, "Tester", 4);
 
 
 
@@ -39,8 +40,27 @@ public class FieldClassTests {
 
     @Test
     public void TestHostileTakeover(){
+        Attacker.incrementNumOfTeams();
         Defender.hostileTakeOver(Attacker.getPlayer(), Attacker.getNumOfTeams()-1);
         assertTrue((Defender.getPlayer() == Attacker.getPlayer()) && (Defender.getNumOfTeams() == Attacker.getNumOfTeams()-1));
+    }
+
+    @Test
+    public void TestGetName()
+    {
+        assertEquals(field1.getName(), "Tester");
+    }
+
+    @Test
+    public void TestGetNum()
+    {
+        assertEquals(field1.getNum(), 4);
+    }
+
+    @Test
+    public void TestGetColour()
+    {
+        assertEquals(field1.getColour(), 4);
     }
 
 }
