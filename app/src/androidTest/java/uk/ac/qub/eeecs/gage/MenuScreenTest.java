@@ -106,5 +106,43 @@ public class MenuScreenTest {
         assertTrue(success);
 
     }
+    //Aimee Millar Tests for icon bitmaps
+    @Test
+    public void loadAndAddBitmap_StartIcon() {
 
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "startIcon", "img/RiskGameImages/risk_settings_button_pressed.png");
+        assertTrue(success);
+
+    }
+
+    @Test
+    public void loadAndAddBitmap_RulesIcon() {
+
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "rulesIcon", "img/RiskGameImages/risk_settings_button_pressed.png");
+        assertTrue(success);
+
+    }
+    @Test
+    public void loadAndAddBitmap_SettingsIcon() {
+
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "settingsIcon", "img/RiskGameImages/risk_settings_icon.png");
+        assertTrue(success);
+
+    }
+
+    @Test
+    public void loadAndAddBitmap_CreditsIcon() {
+
+        AssetManager assetManager = new AssetManager(context);
+        boolean success = assetManager.loadAndAddBitmap(
+                "creditsIcon", "img/RiskGameImages/risk_credit_icon.png");
+        assertTrue(success);
+
+    }
 }

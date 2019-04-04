@@ -90,4 +90,18 @@ public class RiskGameScreenMethodsTesting {
         if(risk7.CurrentPlayerNum > PreviousPlayer) assertEquals(PreviousPlayer + 1, risk7.CurrentPlayerNum);
         else if(risk7.CurrentPlayerNum < PreviousPlayer) assertEquals(risk7.CurrentPlayerNum, 0);
     }
+    //Aimee Millar
+    @Test
+    public void TestGetIntialNumOfTeamsForDrawTeamsToFieldMethod() {
+        RiskGameScreenMethodsTester risk8 = new RiskGameScreenMethodsTester(3);
+        assertEquals(risk8.mAreas.get(1).getField(2).getNumOfTeams(),1);
+    }
+
+    //Aimee Millar
+    @Test
+    public void TestGetNumOfTeamsForDrawTeamsToFieldMethod() {
+        RiskGameScreenMethodsTester risk9 = new RiskGameScreenMethodsTester(6);
+        assertNotNull(risk9.mAreas.get(1).getField(4).getNumOfTeams());
+    }
+
 }

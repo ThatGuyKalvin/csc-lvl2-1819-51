@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.graphics.RectF;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -35,13 +36,6 @@ public class MenuScreen extends GameScreen {
      * Define the buttons for playing the 'games'
      */
 
-    private PushButton mSpaceshipDemoButton;
-    private PushButton mRulesButton;
-    private PushButton mStartGameButton;
-    private PushButton mDemosButton;
-    private PushButton mSettingsButton;
-    private PushButton mCreditsButton;
-    private PushButton mPerformanceScreenButton;
     private Bitmap mMainMenuBackground;
     private float mTimeToChange = 0;
 
@@ -76,12 +70,6 @@ public class MenuScreen extends GameScreen {
 
         // Load in the bitmaps used on the main menu screen
         AssetManager assetManager = mGame.getAssetManager();
-        assetManager.loadAndAddBitmap("SpaceDemoIcon", "img/SpaceDemoIcon.png");
-        assetManager.loadAndAddBitmap("SpaceDemoIconSelected", "img/SpaceDemoIconSelected.png");
-        assetManager.loadAndAddBitmap("PerformanceScreenIcon", "img/PerformanceScreenIcon.png");
-        assetManager.loadAndAddBitmap("PerformanceScreenIconSelected", "img/PerformanceScreenIconSelected.png");
-        assetManager.loadAndAddBitmap("DemosIcon", "img/DemosIcon.png");
-        assetManager.loadAndAddBitmap("DemosIconSelected", "img/DemosIconSelected.png");
         assetManager.loadAndAddBitmap("startIcon", "img/RiskGameImages/risk_start_icon.png");
         assetManager.loadAndAddBitmap("rulesIcon", "img/RiskGameImages/risk_rules_icon.png");
         assetManager.loadAndAddBitmap("settingsIcon", "img/RiskGameImages/risk_settings_icon.png");
@@ -105,30 +93,15 @@ public class MenuScreen extends GameScreen {
         /*
         Author: Daniel Nelis (Format for Main Menu)
          */
-
         // Define the spacing that will be used to position the buttons
         int spacingX = (int)mDefaultLayerViewport.getWidth() / 4;
         int spacingY = (int)mDefaultLayerViewport.getHeight() / 15;
-
-        // Create the trigger buttons
-        mSpaceshipDemoButton = new PushButton(
-                spacingX * 3.5f, spacingY * 5.2f, spacingX, spacingY,
-                "SpaceDemoIcon", "SpaceDemoIconSelected",this);
-        mSpaceshipDemoButton.setPlaySounds(true, true);
-        mDemosButton = new PushButton(
-                spacingX * 3.5f, spacingY * 4.0f, spacingX/2, spacingY/2,
-                "DemosIcon", "DemosIconSelected", this);
-        mDemosButton.setPlaySounds(true, true);
-        mPerformanceScreenButton = new PushButton(
-                spacingX * 3.5f, spacingY * 2.0f, spacingX/2, spacingY/2,
-                "PerformanceScreenIcon", "PerformanceScreenIconSelected", this);
-        mPerformanceScreenButton.setPlaySounds(true, true);
 
         ////////////////////////////////////
         test();
 
         //@Aimee Millar
-        //Setting the bitmaps needed for the icons and buttons
+        //Declaring the bitmaps needed for the icons and buttons
         Bitmap startIcon = assetManager.getBitmap("startIcon");
         Bitmap rulesIcon = assetManager.getBitmap("rulesIcon");
         Bitmap settingsIcon = assetManager.getBitmap("settingsIcon");
@@ -154,8 +127,6 @@ public class MenuScreen extends GameScreen {
         rightCounter = currentCounter+1;
         leftCounter = Icon.size()-1;
     }
-
-
     /**
      * Update the menu screen
      *
@@ -168,21 +139,6 @@ public class MenuScreen extends GameScreen {
         Input input = mGame.getInput();
 
         List<TouchEvent> touchEvents = input.getTouchEvents();
-        if (touchEvents.size() > 0 && mTimeToChange > 0.5f) {
-
-            // Update each button and transition if needed
-            mSpaceshipDemoButton.update(elapsedTime);
-            mDemosButton.update(elapsedTime);
-            mPerformanceScreenButton.update(elapsedTime);
-
-
-            if (mSpaceshipDemoButton.isPushTriggered())
-                mGame.getScreenManager().addScreen(new DiceRollScreen(mGame, battle));
-            else if (mDemosButton.isPushTriggered())
-                mGame.getScreenManager().addScreen(new DemoMenuScreen(mGame));
-            else if (mPerformanceScreenButton.isPushTriggered())
-                mGame.getScreenManager().addScreen(new PerformanceScreen("PerformanceScreen", mGame));
-        }
 
         mTimeToChange += elapsedTime.stepTime;
         if (touchEvents.size() > 0) {
@@ -192,56 +148,80 @@ public class MenuScreen extends GameScreen {
             //rightRect is the rect which holds the right icon. This moves the counters forward one and forwards through the array
             if (rightRect.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
                 currentCounter++;
-                rightCounter++;
-                leftCounter++;
-
                 if (currentCounter > Icon.size() - 1) {
                     currentCounter = 0;
                 }
-                if (leftCounter > Icon.size() - 1) {
-                    leftCounter = 0;
+
+                switch(currentCounter){
+
+                    case 0:
+                        rightCounter = 1;
+                        leftCounter = 3;
+                        break;
+                    case 1:
+                        rightCounter = 2;
+                        leftCounter = 0;
+                        break;
+                    case 2:
+                        rightCounter = 3;
+                        leftCounter = 1;
+                        break;
+                    case 3:
+                        rightCounter = 0;
+                        leftCounter = 2;
+                        break;
                 }
-                if (rightCounter > Icon.size() - 1) {
-                    rightCounter = 0;
-                }
+
             }
             //leftRect is the rect which holds the left icon. This moves the counters back one and backwards through the array
             if (leftRect.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
                 currentCounter--;
-                rightCounter--;
-                leftCounter--;
 
                 if (currentCounter < 0) {
                     currentCounter = Icon.size() - 1;
                 }
-                if (leftCounter < 0) {
-                    leftCounter = Icon.size() - 1;
-                }
-                if (rightCounter < 0) {
-                    rightCounter = Icon.size() - 1;
+
+                switch(currentCounter){
+
+                    case 0:
+                        rightCounter = 1;
+                        leftCounter = 3;
+                        break;
+                    case 1:
+                        rightCounter = 2;
+                        leftCounter = 0;
+                        break;
+                    case 2:
+                        rightCounter = 3;
+                        leftCounter = 1;
+                        break;
+                    case 3:
+                        rightCounter = 0;
+                        leftCounter = 2;
+                        break;
                 }
 
             }
-            //button rect is the rect below the current icon on the screen and is used for moving to other screens with the game
+            //Displays the button correlating to the corresponding icon
             if (buttonRect.contains((int) touchEvent.x, (int) touchEvent.y) && touchEvent.type == 0) {
                 if (currentCounter == 0) {
                     mGame.getScreenManager().addScreen(new RiskGameScreen(mGame));
-                } else if (currentCounter == 1) {
+                } else if (currentCounter == 1){
                     mGame.getScreenManager().addScreen(new RiskRulesScreen("Instructions", mGame));
-                } else if (currentCounter == 2) {
+                } else if(currentCounter == 2) {
                     mGame.getScreenManager().addScreen(new RiskSettingsScreen(mGame));
-                } else if (currentCounter == 3) {
+                } else if(currentCounter == 3) {
                     mGame.getScreenManager().addScreen(new RiskCreditsScreen(mGame));
                 }
             }
+        }
         /*
         Author: Daniel Nelis
          */
-            playBackgroundMusic();
-            getGame().getAssetManager().getMusic("RiskBackgroundSound").setLopping(true);
-        }
-
+        playBackgroundMusic();
+        getGame().getAssetManager().getMusic("RiskBackgroundSound").setLopping(true);
     }
+
 
     // /////////////////////////////////////////////////////////////////////////
     // Methods
@@ -263,14 +243,19 @@ public class MenuScreen extends GameScreen {
     }
 
     //@Aimee Millar
-    //Method to set out the position and draw rects that hold the icons and buttons
-    public Rect setAndDrawRect(int x, int y, Rect rect, Bitmap rectBitmap, IGraphics2D graphics2D){
-        if(rect == null){
-            rect = new Rect(x,y,rectBitmap.getWidth()+x, rectBitmap.getHeight()+y);
+    //Method to draw the rects that hold the icons and buttons
+    public Rect drawingRect(float x, float y, Rect rect, Bitmap rectBitmap, IGraphics2D graphics2D){
+
+        if(rect == null) {
+            RectF rectF = new RectF(graphics2D.getSurfaceWidth() * x, graphics2D.getSurfaceHeight() * y, rectBitmap.getWidth() + graphics2D.getSurfaceWidth() * x,
+                    rectBitmap.getHeight() + graphics2D.getSurfaceHeight() * y);
+            rect = new Rect(Math.round(rectF.left), Math.round(rectF.top), Math.round(rectF.right), Math.round(rectF.bottom));
+
         }
         graphics2D.drawBitmap(rectBitmap,null,rect,null);
         return rect;
     }
+
     /**
      * Draw the menu screen
      *
@@ -285,21 +270,16 @@ public class MenuScreen extends GameScreen {
         int width = graphics2D.getSurfaceWidth();
         int height = graphics2D.getSurfaceHeight();
 
-
+        //Author Dan Nelis
         Rect sourceRectBackg = new Rect(0,0, mMainMenuBackground.getWidth(), mMainMenuBackground.getHeight());
         Rect destRectBackg = new Rect((int) (width * 0.0f), (int) (height * 0.0f), (int) (width * 1.0f), (int) (height * 1.0f));
         graphics2D.drawBitmap(mMainMenuBackground, sourceRectBackg, destRectBackg, null);
 
-
-        mSpaceshipDemoButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
-        mDemosButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
-        mPerformanceScreenButton.draw(elapsedTime, graphics2D, mDefaultLayerViewport, mDefaultScreenViewport);
-
-
-        leftRect = setAndDrawRect(660, 450, leftRect, Icon.get(leftCounter), graphics2D);
-        rightRect = setAndDrawRect(1360, 450, rightRect, Icon.get(rightCounter), graphics2D);
-        currentRect = setAndDrawRect(1020, 500, currentRect, Icon.get(currentCounter), graphics2D);
-        buttonRect = setAndDrawRect(1110, 1000, buttonRect, Button.get(currentCounter), graphics2D);
+        //Author Aimee Millar
+        leftRect = drawingRect(0.305f, 0.31f, leftRect, Icon.get(leftCounter), graphics2D);
+        rightRect = drawingRect(0.49f, 0.31f, rightRect, Icon.get(rightCounter), graphics2D);
+        currentRect = drawingRect(0.40f, 0.35f, currentRect, Icon.get(currentCounter), graphics2D);
+        buttonRect = drawingRect(0.435f, 0.71f, buttonRect, Button.get(currentCounter), graphics2D);
 
     }
 
@@ -320,4 +300,3 @@ public class MenuScreen extends GameScreen {
         battle = new Battle(field1, field2);
     }
 }
-

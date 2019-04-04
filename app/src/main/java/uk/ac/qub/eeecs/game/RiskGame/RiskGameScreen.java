@@ -1032,9 +1032,10 @@ public class RiskGameScreen extends GameScreen {
             def.hostileTakeOver(att.getPlayer(), att.getNumOfTeams());
     }
 
+    //Aimee Millar
+    //Method drawing out the number of teams on each field in the colour correlating to what player owns them
     private void drawTeamsToField(Paint textPaint, IGraphics2D graphics2D) {
 
-        //Drawing out the number of teams on each field in the colour correlating to what player owns them
         int screenWidth = graphics2D.getSurfaceWidth();
         int screenHeight = graphics2D.getSurfaceHeight();
 
@@ -1082,7 +1083,6 @@ public class RiskGameScreen extends GameScreen {
         }
     }
     //All Code below Author @Peter Gilfedder
-
     private void assignFields()
     {
         ArrayList<Field> allFields = new ArrayList<>();
